@@ -1,0 +1,1591 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Potluck</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --ink: #192238;
+      --muted: #60708b;
+      --line: #dfe6f1;
+      --accent: #5457e8;
+      --accent-dark: #4144ca;
+      --accent-soft: #eff0ff;
+      --success: #167a52;
+      --success-bg: #e9f8f1;
+      --warn: #a55a00;
+      --warn-bg: #fff4de;
+      --danger: #bb2a45;
+      --danger-bg: #fdecef;
+      --shadow: 0 12px 30px rgba(25, 38, 69, .08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    button:disabled { cursor: not-allowed; opacity: .46; transform: none !important; }
+
+    .app-shell { max-width: 1440px; margin: 0 auto; padding: 0 24px 48px; }
+    .topbar {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: 11px; font-size: 22px; font-weight: 850; letter-spacing: -.035em; }
+    .brand-mark {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      color: #fff;
+      font-size: 19px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, #5457e8, #8a6df0);
+      box-shadow: 0 6px 16px rgba(84, 87, 232, .25);
+    }
+    .button {
+      border: 0;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: var(--ink);
+      background: #eef1f7;
+      font-weight: 780;
+      transition: .18s ease;
+    }
+    .button:hover { transform: translateY(-1px); }
+    .button.primary { color: #fff; background: var(--accent); box-shadow: 0 6px 12px rgba(84, 87, 232, .18); }
+    .button.primary:hover { background: var(--accent-dark); }
+    .button.ghost { color: var(--accent); background: #fff; border: 1px solid #d5d7ff; }
+    .button.danger { color: var(--danger); background: var(--danger-bg); }
+    .button.small { padding: 7px 10px; font-size: 12px; border-radius: 8px; }
+    .button.icon-only { display: inline-grid; width: 36px; height: 36px; place-items: center; padding: 0; border-radius: 10px; }
+
+    .hero { display: flex; align-items: end; justify-content: space-between; gap: 22px; padding: 28px 0 19px; }
+    h1 { margin: 0; font-size: clamp(28px, 4vw, 39px); letter-spacing: -.052em; }
+    .subtitle { margin: 8px 0 0; color: var(--muted); line-height: 1.5; max-width: 760px; }
+    .hero-note { max-width: 340px; padding: 10px 13px; color: #4a5b76; line-height: 1.4; font-size: 12px; border-radius: 12px; background: #ecf0f9; }
+
+    .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 13px; }
+    .metric { padding: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+    .metric-label { color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+    .metric-value { margin-top: 6px; font-size: 25px; font-weight: 850; letter-spacing: -.045em; }
+    .metric-copy { margin-top: 4px; color: var(--muted); font-size: 12px; }
+
+    .workspace { display: grid; grid-template-columns: minmax(265px, .82fr) minmax(520px, 1.95fr); gap: 18px; margin-top: 18px; }
+    .panel { overflow: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .panel-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 18px 18px 14px; }
+    .panel-title { font-weight: 850; letter-spacing: -.025em; }
+    .panel-subtitle { margin-top: 3px; color: var(--muted); font-size: 12px; }
+
+    .card-list { padding: 0 10px 10px; }
+    .card-list-item { padding: 14px; margin-bottom: 8px; border: 1px solid transparent; border-radius: 14px; cursor: pointer; transition: .18s ease; }
+    .card-list-item:hover { background: #f8f9fd; }
+    .card-list-item.selected { background: var(--accent-soft); border-color: #cfd1ff; }
+    .list-top, .list-bottom { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+    .list-name { font-weight: 850; }
+    .list-meta { margin-top: 3px; color: var(--muted); font-size: 12px; }
+    .list-bottom { align-items: end; margin-top: 13px; }
+    .amount { font-weight: 850; letter-spacing: -.025em; }
+    .small-meta { color: var(--muted); font-size: 12px; line-height: 1.4; }
+    .type-chip, .status-pill { display: inline-flex; align-items: center; gap: 5px; padding: 5px 8px; font-size: 11px; font-weight: 850; white-space: nowrap; border-radius: 999px; }
+    .type-chip { color: #5457bb; background: #eff0ff; }
+    .status-pill.success { color: var(--success); background: var(--success-bg); }
+    .status-pill.warn { color: var(--warn); background: var(--warn-bg); }
+    .status-pill.danger { color: var(--danger); background: var(--danger-bg); }
+    .status-pill.neutral { color: #53617a; background: #eef1f7; }
+    .empty { padding: 38px 20px; color: var(--muted); text-align: center; line-height: 1.5; font-size: 13px; }
+
+    .detail-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 21px 21px 18px; border-bottom: 1px solid var(--line); }
+    .eyebrow { color: var(--accent); font-size: 11px; font-weight: 850; letter-spacing: .07em; text-transform: uppercase; }
+    .detail-name { margin: 4px 0 0; font-size: 27px; font-weight: 850; letter-spacing: -.048em; }
+    .detail-meta { margin-top: 5px; color: var(--muted); font-size: 13px; }
+    .details-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+
+    .virtual-card {
+      position: relative;
+      min-height: 202px;
+      margin: 20px 21px 14px;
+      padding: 20px;
+      overflow: hidden;
+      color: #fff;
+      border-radius: 21px;
+      background: linear-gradient(135deg, #282d63 0%, #4e51dc 53%, #8b6eef 100%);
+    }
+    .virtual-card::after { content: ""; position: absolute; top: -85px; right: -45px; width: 260px; height: 260px; border-radius: 50%; background: rgba(255,255,255,.1); }
+    .virtual-card > * { position: relative; z-index: 1; }
+    .card-topline { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .card-badge { display: inline-flex; padding: 7px 10px; color: rgba(255,255,255,.95); font-size: 11px; font-weight: 850; letter-spacing: .045em; border: 1px solid rgba(255,255,255,.22); border-radius: 999px; background: rgba(255,255,255,.12); }
+    .card-eye { display: inline-grid; width: 34px; height: 34px; place-items: center; padding: 0; color: #fff; border: 1px solid rgba(255,255,255,.24); border-radius: 9px; background: rgba(255,255,255,.12); }
+    .card-eye:hover { background: rgba(255,255,255,.2); }
+    .card-eye svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .card-eye[aria-pressed="true"] { background: rgba(255,255,255,.25); }
+    .card-number { margin-top: 45px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: clamp(19px, 3.2vw, 28px); letter-spacing: .135em; white-space: nowrap; }
+    .card-foot { display: flex; align-items: end; justify-content: space-between; gap: 14px; margin-top: 25px; font-size: 11px; font-weight: 780; letter-spacing: .025em; }
+    .card-foot-right { text-align: right; }
+
+    .card-summary { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 0 21px 16px; color: var(--muted); }
+    .card-summary strong { color: var(--ink); }
+    .card-summary-note { text-align: right; font-size: 12px; }
+
+    .tabbar { display: flex; gap: 4px; padding: 0 21px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow-x: auto; }
+    .tab { position: relative; padding: 14px 13px 13px; color: var(--muted); white-space: nowrap; border: 0; background: transparent; font-size: 13px; font-weight: 800; }
+    .tab.active { color: var(--accent); }
+    .tab.active::after { content: ""; position: absolute; right: 10px; bottom: 0; left: 10px; height: 3px; border-radius: 99px 99px 0 0; background: var(--accent); }
+    .tab-count { display: inline-grid; min-width: 18px; height: 18px; place-items: center; margin-left: 4px; padding: 0 5px; color: #fff; font-size: 10px; border-radius: 999px; background: var(--accent); }
+
+    .tab-content { padding: 20px 21px 23px; }
+    .overview-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 14px; }
+    .section-box { padding: 15px; border: 1px solid var(--line); border-radius: 15px; }
+    .section-box.wide { grid-column: 1 / -1; }
+    .box-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+    .box-title { font-size: 14px; font-weight: 850; letter-spacing: -.015em; }
+    .box-note { margin-top: -5px; margin-bottom: 13px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .stat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .stat { padding: 11px; border-radius: 12px; background: #f5f6ff; }
+    .stat-label { color: var(--muted); font-size: 10px; font-weight: 820; letter-spacing: .05em; text-transform: uppercase; }
+    .stat-value { margin-top: 5px; font-size: 18px; font-weight: 850; letter-spacing: -.035em; }
+    .agreement-panel { padding: 13px; border-radius: 13px; background: #f5f6ff; }
+    .agreement-title { font-size: 14px; font-weight: 850; }
+    .agreement-copy { margin-top: 3px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .agreement-figures { display: flex; align-items: end; justify-content: space-between; gap: 10px; margin-top: 12px; }
+    .agreement-figures strong { font-size: 20px; letter-spacing: -.04em; }
+    .progress { height: 8px; margin-top: 13px; overflow: hidden; border-radius: 999px; background: #e7eaf3; }
+    .progress > span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), #8b6eef); }
+    .approval-card { padding: 13px; border-radius: 13px; background: #fbfbfe; border: 1px solid #ebeef6; }
+    .approval-title { font-size: 14px; font-weight: 850; }
+    .approval-copy { margin-top: 4px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .charge-action { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
+
+    .members-intro { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 14px; margin-bottom: 14px; border-radius: 14px; background: #f5f6ff; }
+    .members-intro p { margin: 3px 0 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .member-list { border: 1px solid var(--line); border-radius: 15px; overflow: hidden; }
+    .member-item { display: grid; grid-template-columns: minmax(180px, 1fr) minmax(120px, .65fr) auto 18px; align-items: center; gap: 12px; padding: 13px 14px; border-top: 1px solid #edf0f5; cursor: pointer; transition: .16s ease; }
+    .member-item:first-child { border-top: 0; }
+    .member-item:hover { background: #f8f9fd; }
+    .person { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .avatar { position: relative; display: grid; width: 34px; height: 34px; flex: 0 0 34px; place-items: center; overflow: hidden; color: #4a4dc0; font-size: 12px; font-weight: 850; border-radius: 50%; background: #e7e8ff; }
+    .person-info { min-width: 0; }
+    .person-name { overflow: hidden; font-size: 13px; font-weight: 850; text-overflow: ellipsis; white-space: nowrap; }
+    .person-email { margin-top: 2px; overflow: hidden; color: var(--muted); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+    .contribution { text-align: right; }
+    .contribution-label { color: var(--muted); font-size: 10px; font-weight: 820; letter-spacing: .05em; text-transform: uppercase; }
+    .contribution strong { display: block; margin-top: 2px; font-size: 14px; }
+    .chevron { color: #96a0b4; font-size: 21px; line-height: 1; }
+    .add-member-row { display: flex; width: 100%; align-items: center; justify-content: center; gap: 7px; margin-top: 11px; padding: 13px; color: var(--accent); font-weight: 850; border: 1px dashed #c7cbff; border-radius: 14px; background: #fafaff; }
+    .add-member-row:hover { background: #f2f3ff; }
+
+    .funding-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: 14px; }
+    .balance-card { padding: 16px; border-radius: 14px; background: #f5f6ff; }
+    .balance-title { color: var(--muted); font-size: 11px; font-weight: 820; letter-spacing: .05em; text-transform: uppercase; }
+    .balance-number { margin-top: 5px; font-size: 29px; font-weight: 850; letter-spacing: -.05em; }
+    .contribution-input-wrap { display: flex; align-items: center; gap: 4px; margin-top: 5px; color: var(--ink); font-size: 29px; font-weight: 850; letter-spacing: -.05em; }
+    .contribution-input { min-width: 0; padding: 0; font: inherit; letter-spacing: inherit; border: 0; border-radius: 0; background: transparent; }
+    .contribution-input:focus { border-color: transparent; box-shadow: none; }
+    .contribution-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .funding-table-wrap { overflow-x: auto; }
+    table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 12px; }
+    th { padding: 0 8px 9px; color: var(--muted); font-size: 10px; font-weight: 830; letter-spacing: .05em; text-align: left; text-transform: uppercase; }
+    th:last-child, td:last-child { text-align: right; }
+    td { padding: 11px 8px; border-top: 1px solid #edf0f5; vertical-align: middle; }
+    .activity-list { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+    .activity-row { display: flex; align-items: center; justify-content: space-between; gap: 13px; padding: 11px 13px; border-top: 1px solid #edf0f5; }
+    .activity-row:first-child { border-top: 0; }
+    .activity-main { min-width: 0; }
+    .activity-text { overflow: hidden; font-size: 12px; font-weight: 720; text-overflow: ellipsis; white-space: nowrap; }
+    .activity-time { margin-top: 2px; color: var(--muted); font-size: 11px; }
+    .activity-amount { flex: 0 0 auto; font-weight: 850; font-size: 13px; }
+    .activity-amount.in { color: var(--success); }
+    .activity-amount.out { color: var(--danger); }
+
+    .modal-backdrop { position: fixed; z-index: 20; inset: 0; display: none; align-items: center; justify-content: center; padding: 18px; background: rgba(20, 30, 50, .38); }
+    .modal-backdrop.open { display: flex; }
+    .modal { width: min(590px, 100%); max-height: calc(100vh - 36px); overflow: auto; background: #fff; border-radius: 18px; box-shadow: 0 18px 50px rgba(20, 30, 50, .25); }
+    .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 18px 20px 14px; border-bottom: 1px solid var(--line); }
+    .modal-title { font-size: 17px; font-weight: 850; letter-spacing: -.025em; }
+    .icon-button { display: inline-grid; width: 30px; height: 30px; place-items: center; padding: 0; color: var(--muted); font-size: 23px; line-height: 1; border: 0; border-radius: 8px; background: #f0f2f7; }
+    .modal-body { padding: 20px; }
+    .modal-foot { display: flex; align-items: center; justify-content: flex-end; gap: 9px; padding: 15px 20px; border-top: 1px solid var(--line); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field.full { grid-column: 1 / -1; }
+    label { color: #43516b; font-size: 12px; font-weight: 800; }
+    input, select { width: 100%; padding: 10px 11px; color: var(--ink); outline: none; border: 1px solid #dce3ef; border-radius: 10px; background: #fff; }
+    input:focus, select:focus { border-color: #a5a7ff; box-shadow: 0 0 0 3px rgba(84, 87, 232, .11); }
+    .field-help { color: var(--muted); font-size: 11px; line-height: 1.35; }
+    .choice { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .choice-card { padding: 12px; color: var(--ink); font: inherit; text-align: left; border: 1px solid #dce3ef; border-radius: 12px; background: #fff; }
+    .choice-card strong { display: block; font-size: 13px; }
+    .choice-card span { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; line-height: 1.4; }
+    .choice-card.selected { border-color: #a7a9ff; background: #f6f6ff; }
+    .member-status-panel { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px; margin-bottom: 14px; border-radius: 12px; background: #f5f6ff; }
+    .member-status-panel p { margin: 3px 0 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
+    .approval-panel { padding: 13px; margin-top: 15px; border: 1px solid #e8eaf5; border-radius: 13px; background: #fbfbfe; }
+    .approval-panel-title { font-size: 13px; font-weight: 850; }
+    .approval-panel-copy { margin-top: 4px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .approval-panel-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 11px; }
+    .hidden { display: none !important; }
+    .toast { position: fixed; right: 22px; bottom: 22px; z-index: 30; max-width: min(390px, calc(100vw - 44px)); padding: 12px 14px; color: #fff; font-size: 13px; font-weight: 750; border-radius: 12px; background: #28344e; box-shadow: 0 10px 28px rgba(23, 32, 51, .22); opacity: 0; transform: translateY(12px); pointer-events: none; transition: .2s ease; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 980px) {
+      .workspace { grid-template-columns: 1fr; }
+      .overview-grid, .funding-grid { grid-template-columns: 1fr; }
+      .detail-panel { min-width: 0; }
+    }
+    @media (max-width: 700px) {
+      .app-shell { padding: 0 14px 36px; }
+      .hero { display: block; }
+      .hero-note { margin-top: 12px; max-width: none; }
+      .metrics { grid-template-columns: 1fr 1fr; }
+      .detail-top { display: block; }
+      .details-actions { justify-content: flex-start; margin-top: 14px; }
+      .member-item { grid-template-columns: minmax(0, 1fr) auto 16px; }
+      .contribution { display: none; }
+      .form-grid, .choice { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .stat-grid { grid-template-columns: 1fr; }
+      .virtual-card { min-height: 188px; margin-right: 14px; margin-left: 14px; }
+      .tab-content, .detail-top { padding-right: 14px; padding-left: 14px; }
+      .tabbar { padding: 0 14px; }
+      .card-summary { padding-right: 14px; padding-left: 14px; }
+    }
+
+
+    /* Card directory flow */
+    .app-shell { max-width: 1480px; padding-top: 0; }
+    .topbar { min-height: 72px; border-bottom: 0; }
+    .directory-workspace { grid-template-columns: minmax(330px, .82fr) minmax(560px, 1.65fr); margin-top: 12px; align-items: start; }
+    .directory-panel { min-height: 630px; box-shadow: var(--shadow); }
+    .directory-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 27px 24px 17px; }
+    .directory-title { margin: 0; font-size: 27px; font-weight: 850; letter-spacing: -.047em; }
+    .directory-subtitle { margin: 5px 0 0; color: var(--muted); font-size: 14px; line-height: 1.35; }
+    .directory-create { padding: 9px 17px; font-size: 14px; border-radius: 11px; }
+    .card-directory { padding: 0 14px 22px; }
+    .card-section + .card-section { margin-top: 21px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .card-section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 12px; padding: 0 10px 10px; }
+    .card-section-title { font-size: 13px; font-weight: 850; letter-spacing: -.015em; }
+    .card-section-note { color: var(--muted); font-size: 11px; text-align: right; }
+    .directory-card { position: relative; display: block; width: 100%; padding: 17px 16px; margin: 0 0 10px; color: inherit; text-align: left; border: 1px solid transparent; border-radius: 19px; background: transparent; cursor: pointer; transition: .18s ease; }
+    .directory-card:hover { background: #f8f9fd; }
+    .directory-card.selected { border-color: #c7caff; background: #eff0ff; }
+    .directory-card.shared { background: #fbfbfe; border-color: #e7eaf3; }
+    .directory-card.shared.selected { border-color: #c7caff; background: #eff0ff; }
+    .directory-card-top, .directory-card-bottom { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .directory-card-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; }
+    .directory-card-top > div { display: contents; }
+    .directory-card-top > div, .directory-card-bottom > div { min-width: 0; }
+    .directory-card-name { grid-column: 1; grid-row: 1; max-width: 100%; overflow-wrap: anywhere; font-size: 20px; font-weight: 850; line-height: 1.12; letter-spacing: -.043em; }
+    .directory-card-meta { grid-column: 1 / -1; grid-row: 2; color: var(--muted); font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; }
+    .directory-card-top > .status-pill, .directory-card-top > .directory-add-members { grid-column: 2; grid-row: 1; }
+    .directory-card-bottom { flex-wrap: wrap; align-items: end; margin-top: 21px; }
+    .directory-card-price { color: var(--ink); font-size: 24px; font-weight: 850; line-height: 1.08; letter-spacing: -.047em; overflow-wrap: anywhere; }
+    .directory-card-price span { color: var(--muted); font-size: 14px; font-weight: 800; letter-spacing: -.02em; }
+    .directory-card-members { margin-top: 3px; color: var(--muted); font-size: 13px; }
+    .directory-card-type { display: inline-flex; max-width: 100%; padding: 6px 10px; color: #5457bb; font-size: 12px; font-weight: 850; line-height: 1.25; overflow-wrap: anywhere; border-radius: 999px; background: #eff0ff; }
+    .directory-card.shared .directory-card-type { color: #62708a; background: #eef1f7; }
+    .directory-add-members { flex: 0 0 auto; padding: 7px 10px; color: #4b5170; font-size: 12px; font-weight: 850; border: 0; border-radius: 10px; background: #e9ebf2; }
+    .directory-add-members:hover { background: #dfe2ec; }
+    .directory-empty { padding: 16px 13px; color: var(--muted); font-size: 12px; line-height: 1.45; border: 1px dashed #d7ddea; border-radius: 14px; background: #fafbfe; }
+    .shared-host-label { color: var(--muted); font-size: 12px; }
+    .shared-card-lock { color: rgba(255,255,255,.9); font-size: 11px; font-weight: 780; letter-spacing: .03em; }
+    .shared-card-message { margin-top: 39px; }
+    .shared-card-title { font-size: clamp(21px, 3vw, 28px); font-weight: 850; letter-spacing: -.035em; }
+    .shared-card-copy { max-width: 480px; margin-top: 7px; color: rgba(255,255,255,.78); font-size: 12px; line-height: 1.45; }
+    .shared-detail-note { padding: 11px 13px; margin-bottom: 13px; color: #53617a; font-size: 12px; line-height: 1.45; border-radius: 12px; background: #f5f6ff; }
+    .prototype-banner { margin: 14px 0 0; padding: 11px 14px; color: #59657b; font-size: 12px; line-height: 1.45; border: 1px solid #dce3ef; border-radius: 12px; background: #f8f9fc; }
+    .topbar-actions { display: flex; align-items: center; gap: 10px; }
+    .signed-in-user { color: var(--muted); font-size: 12px; text-align: right; }
+    .signed-in-user strong { display: block; color: var(--ink); font-size: 13px; }
+    .signed-in-profile { display: flex; align-items: center; gap: 9px; }
+    .auth-screen { position: fixed; z-index: 100; inset: 0; display: flex; min-height: 100vh; background: #f5f7fb; }
+    .auth-screen.hidden { display: none; }
+    .auth-shell { display: flex; width: 100%; min-height: 100vh; flex-direction: column; overflow: hidden; background: #fff; }
+    .auth-intro { display: flex; min-height: 210px; flex: 0 0 25vh; flex-direction: column; align-items: center; justify-content: center; padding: 20px 28px; text-align: center; }
+    .auth-logo { display: inline-grid; width: 44px; height: 44px; place-items: center; margin-bottom: 18px; color: #fff; font-size: 22px; font-weight: 900; border-radius: 14px; background: var(--accent); }
+    .auth-title { margin: 0; font-size: clamp(31px, 5vw, 44px); letter-spacing: -.055em; }
+    .auth-copy { margin: 9px 0 25px; line-height: 1.5; opacity: .78; }
+    .role-choice { display: flex; min-height: 75vh; flex: 1; }
+    .role-button { display: flex; min-width: 0; flex: 1 1 50%; flex-direction: column; align-items: flex-start; justify-content: center; padding: clamp(34px, 6vw, 88px); text-align: left; border: 0; transition: flex-grow .42s cubic-bezier(.2,.8,.2,1), transform .42s ease, box-shadow .42s ease; }
+    .role-button:hover, .role-button:focus-visible { flex-grow: 1.7; transform: scale(1.015); z-index: 1; box-shadow: 0 0 40px rgba(25,38,69,.18); }
+    .role-button strong { font-size: clamp(34px, 5vw, 58px); letter-spacing: -.05em; transition: transform .42s ease; }
+    .role-button:hover strong, .role-button:focus-visible strong { transform: translateX(10px); }
+    .role-button span { max-width: 430px; margin-top: 10px; font-size: 14px; line-height: 1.55; opacity: .78; }
+    .role-button.host { color: #fff; background: linear-gradient(145deg, #4c4fd6, #7660ed); }
+    .role-button.contributor { color: var(--accent); background: #fff; border-left: 1px solid var(--line); }
+    .auth-login { width: min(500px, calc(100% - 40px)); margin: auto; padding: 44px 34px; }
+    .auth-login.hidden, .role-choice.hidden, .auth-intro.hidden { display: none; }
+    .auth-back { margin-bottom: 18px; padding: 0; color: var(--muted); border: 0; background: transparent; font-weight: 800; }
+    .login-role { color: var(--accent); font-size: 12px; font-weight: 850; letter-spacing: .07em; text-transform: uppercase; }
+    .auth-form { display: grid; gap: 12px; }
+    .auth-submit { width: 100%; margin-top: 3px; color: #fff; background: var(--accent); }
+    .quick-login { width: 100%; margin-top: 10px; padding: 11px 14px; border-radius: 10px; font-weight: 820; }
+    .quick-login { color: var(--accent); border: 1px solid #cfd1ff; background: #f6f6ff; }
+    .demo-label { margin-top: 11px; font-size: 11px; text-align: center; opacity: .7; }
+    .invitation-box { padding: 22px; margin: 20px; border: 1px solid #d6d9ff; border-radius: 16px; background: #f6f6ff; }
+    .invitation-actions { display: flex; gap: 8px; margin-top: 15px; }
+    .username-search-wrap { position: relative; }
+    .username-results { position: absolute; z-index: 5; top: calc(100% + 5px); right: 0; left: 0; max-height: 220px; overflow-y: auto; border: 1px solid var(--line); border-radius: 12px; background: #fff; box-shadow: 0 14px 30px rgba(25,38,69,.16); }
+    .username-result { display: flex; width: 100%; align-items: center; gap: 10px; padding: 10px 12px; text-align: left; border: 0; border-top: 1px solid #edf0f5; background: #fff; }
+    .username-result:first-child { border-top: 0; }
+    .username-result:hover { background: #f5f6ff; }
+    .username-result .avatar { width: 30px; height: 30px; }
+    .username-handle { color: var(--accent); font-size: 11px; font-weight: 800; }
+    .avatar img, .profile-preview img, .signed-in-avatar { display: block; width: 100%; max-width: 100%; height: 100%; max-height: 100%; object-fit: cover; object-position: 50% 52%; border-radius: inherit; }
+    .avatar:has(img) { background: transparent; }
+    .avatar img { position: absolute; top: 50%; left: 50%; width: 112%; max-width: none; height: 112%; max-height: none; transform: translate(-50%, -50%); }
+    .profile-preview img { object-position: center; }
+    .signed-in-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+    .profile-picker { display: flex; align-items: center; gap: 12px; padding: 11px; border: 1px solid var(--line); border-radius: 12px; background: #fafbfe; }
+    .profile-preview { display: grid; width: 52px; height: 52px; flex: 0 0 auto; place-items: center; overflow: hidden; color: var(--accent); font-weight: 850; border-radius: 50%; background: #e7e8ff; }
+    .profile-picker input { padding: 6px 0; border: 0; background: transparent; font-size: 11px; }
+
+    @media (max-width: 980px) {
+      .directory-workspace { grid-template-columns: 1fr; }
+      .directory-panel { min-height: 0; }
+    }
+    @media (max-width: 700px) {
+      .auth-screen { position: absolute; }
+      .auth-intro { min-height: 200px; flex-basis: 30vh; padding: 18px; }
+      .role-choice { min-height: 70vh; flex-direction: column; }
+      .role-button { min-height: 0; padding: 30px; }
+      .role-button:hover, .role-button:focus-visible { flex-grow: 1.35; transform: none; }
+      .role-button.contributor { border-top: 1px solid var(--line); border-left: 0; }
+      .directory-header { padding: 22px 16px 15px; }
+      .directory-title { font-size: 25px; }
+      .card-directory { padding: 0 10px 16px; }
+      .directory-card { padding: 16px 14px; }
+      .directory-card-name { max-width: 180px; font-size: 19px; }
+      .directory-card-price { font-size: 23px; }
+    }
+
+  </style>
+</head>
+<body>
+  <section class="auth-screen" id="auth-screen" aria-label="Sign in to Potluck">
+    <div class="auth-shell">
+      <div class="auth-intro" id="auth-intro"><div class="auth-logo">P</div><h1 class="auth-title">How will you use Potluck?</h1><p class="auth-copy">Choose a role to continue to sign in.</p></div>
+      <div class="role-choice" id="role-choice"><button class="role-button host" data-action="choose-role" data-role="host"><strong>Host</strong><span>Create card concepts, invite contributors, and manage renewals.</span></button><button class="role-button contributor" data-action="choose-role" data-role="contributor"><strong>Contributor</strong><span>Respond to invitations, choose your share, and approve renewals.</span></button></div>
+      <div class="auth-login hidden" id="auth-login"><button class="auth-back" data-action="back-to-roles">← Choose a different role</button><div class="login-role" id="login-role"></div><h2 class="auth-title" id="login-title">Sign in</h2><p class="auth-copy" id="login-copy"></p>
+        <form class="auth-form" id="login-form" data-auth-role="host"><div class="field"><label for="login-username">Username</label><input required id="login-username" name="username" maxlength="24" pattern="[A-Za-z0-9._]+" placeholder="Username" /><span class="field-help">Letters, numbers, periods, and underscores.</span></div><div class="field"><label>Profile picture</label><div class="profile-picker"><div class="profile-preview" id="profile-preview"></div><div><input id="login-avatar" name="avatar" type="file" accept="image/png,image/jpeg,image/webp" /><span class="field-help">Optional. Images are resized for this browser-only demo.</span></div></div></div><div class="field"><label for="login-email">Email</label><input required id="login-email" name="email" type="email" placeholder="you@example.com" /></div><div class="field"><label for="login-phone">Phone number</label><input required id="login-phone" name="phone" type="tel" placeholder="(555) 555-0100" /></div><button class="button auth-submit" id="login-submit" type="submit">Sign in</button></form>
+        <button class="quick-login" id="quick-login-button" data-action="quick-login" data-role="host">Quick login</button><div class="demo-label">Demo only — shared state remains in this browser</div>
+      </div>
+    </div>
+  </section>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">P</span><span>Potluck</span></div>
+      <div class="topbar-actions"><div class="signed-in-user" id="signed-in-user"></div><button class="button primary" id="new-card-button" data-action="open-create-card">+ New card</button><button class="button" data-action="logout">Log out</button></div>
+    </header>
+    <div class="prototype-banner"><strong>Prototype only.</strong> No real card is issued and no money moves through Potluck. The host owns and funds any future card; members only coordinate contributions, readiness, renewal approval, and reimbursement outside the product.</div>
+
+    <main class="workspace directory-workspace">
+      <aside class="panel directory-panel">
+        <div class="directory-header">
+          <div><h1 class="directory-title">Your cards</h1><p class="directory-subtitle">Subscription and flexible funds cards</p></div>
+          <button class="button ghost directory-create" data-action="open-create-card">Create</button>
+        </div>
+        <div class="card-directory" id="card-list"></div>
+      </aside>
+
+      <section class="panel detail-panel" id="detail-panel"></section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="card-modal" role="dialog" aria-modal="true" aria-labelledby="card-modal-title">
+    <form class="modal" id="card-form">
+      <div class="modal-head"><div class="modal-title" id="card-modal-title">Create a card</div><button type="button" class="icon-button" data-action="close-card-modal" aria-label="Close">×</button></div>
+      <div class="modal-body">
+        <div class="field full" style="margin-bottom:14px">
+          <label>Card type</label>
+          <div class="choice" id="card-type-choice">
+            <button type="button" class="choice-card selected" data-action="set-card-type" data-card-type="subscription"><strong>Subscription card concept</strong><span>Configure an intended merchant and recurring amount; controls remain mocked.</span></button>
+            <button type="button" class="choice-card" data-action="set-card-type" data-card-type="flexible"><strong>Flexible funds concept</strong><span>Prototype a host-funded card without issuing or funding a real card.</span></button>
+          </div>
+          <input type="hidden" id="card-type" name="type" value="subscription" />
+        </div>
+        <div class="form-grid">
+          <div class="field full"><label for="card-name">Card name</label><input required id="card-name" name="name" maxlength="48" placeholder="Netflix household" /><span class="field-help">Use a name that makes this card easy to recognize.</span></div>
+          <div class="field subscription-field"><label for="card-merchant">Merchant</label><input id="card-merchant" name="merchant" maxlength="48" placeholder="Netflix" /></div>
+          <div class="field subscription-field"><label for="card-price">Monthly price</label><input id="card-price" name="price" type="number" min="0.01" step="0.01" placeholder="22.99" /></div>
+          <div class="field subscription-field"><label for="card-renewal">Next renewal</label><input id="card-renewal" name="renewal" type="date" /></div>
+          <div class="field flexible-field hidden"><label for="card-opening-balance">Opening funds</label><input id="card-opening-balance" name="openingBalance" type="number" min="0" step="0.01" value="0" /><span class="field-help">Optional amount to add immediately.</span></div>
+        </div>
+      </div>
+      <div class="modal-foot"><button type="button" class="button" data-action="close-card-modal">Cancel</button><button class="button primary" type="submit">Create card</button></div>
+    </form>
+  </div>
+
+  <div class="modal-backdrop" id="member-modal" role="dialog" aria-modal="true" aria-labelledby="member-modal-title">
+    <form class="modal" id="member-form">
+      <div class="modal-head"><div class="modal-title" id="member-modal-title">Member</div><button type="button" class="icon-button" data-action="close-member-modal" aria-label="Close">×</button></div>
+      <div class="modal-body">
+        <input type="hidden" id="member-id" name="memberId" />
+        <input type="hidden" id="member-user-id" name="userId" />
+        <div class="member-status-panel" id="member-status-panel"></div>
+        <div class="form-grid">
+          <div class="field full username-search-field"><label for="member-username-search">Search by username</label><div class="username-search-wrap"><input id="member-username-search" autocomplete="off" placeholder="Start typing a username" /><div class="username-results hidden" id="username-results"></div></div><span class="field-help">Select the closest match, or invite directly by email below.</span></div>
+          <div class="field"><label for="member-name">Name</label><input required id="member-name" name="name" maxlength="48" placeholder="Jordan Lee" /></div>
+          <div class="field"><label for="member-email">Email</label><input required id="member-email" name="email" type="email" maxlength="72" placeholder="jordan@example.com" /></div>
+          <div class="field full contribution-field"><label for="member-contribution">Monthly contribution</label><input id="member-contribution" name="contribution" type="number" min="0" step="0.01" /><span class="field-help" id="member-contribution-help">This member may keep the current split or choose a different amount. Other members who have not chosen an amount update automatically.</span></div>
+          <div class="field full"><label for="member-date">Deposit date</label><input required id="member-date" name="dueDate" type="date" /><span class="field-help">The app schedules this member's contribution plus the 3% service fee once the amount is locked in.</span></div>
+        </div>
+        <div class="approval-panel" id="member-approval-panel"></div>
+      </div>
+      <div class="modal-foot"><button type="button" class="button" data-action="close-member-modal">Close</button><button type="button" class="button secondary" id="save-member-button" data-action="save-member">Save proposal</button><button type="button" class="button primary" id="lock-member-button" data-action="lock-member">Ready up</button></div>
+    </form>
+  </div>
+
+  <div class="modal-backdrop" id="topup-modal" role="dialog" aria-modal="true" aria-labelledby="topup-modal-title">
+    <form class="modal" id="topup-form">
+      <div class="modal-head"><div class="modal-title" id="topup-modal-title">Add funds</div><button type="button" class="icon-button" data-action="close-topup-modal" aria-label="Close">×</button></div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="field"><label for="topup-amount">Amount</label><input required id="topup-amount" name="amount" type="number" min="0.01" step="0.01" placeholder="25.00" /></div>
+          <div class="field"><label for="topup-date">Date</label><input required id="topup-date" name="date" type="date" /></div>
+          <div class="field full"><label for="topup-note">Note</label><input id="topup-note" name="note" maxlength="64" placeholder="Optional balance buffer" /><span class="field-help">Mock only. A real version would use an approved host funding method and provider ledger.</span></div>
+        </div>
+      </div>
+      <div class="modal-foot"><button type="button" class="button" data-action="close-topup-modal">Cancel</button><button class="button primary" type="submit">Add funds</button></div>
+    </form>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="provider-adapter.js"></script>
+  <script>
+  (() => {
+    const FEE_RATE = 0.03;
+    const storageKey = 'potluck-card-workspace-v9';
+    const sessionKey = 'potluck-demo-session';
+    const legacyStorageKeys = [
+      'potluck-card-workspace-v8',
+      'potluck-card-workspace-v7',
+      'splitnest-card-workspace-v9',
+      'splitnest-card-workspace-v8',
+      'splitnest-card-workspace-v7'
+    ];
+    const providers = window.PotluckProviders;
+    const clone = value => JSON.parse(JSON.stringify(value));
+    const uid = () => `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+    const round = value => Math.round((Number(value) + Number.EPSILON) * 100) / 100;
+    const amount = value => Math.max(0, round(Number(value) || 0));
+    const money = value => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount(value));
+    const today = () => new Date().toISOString().slice(0, 10);
+    const plusDays = days => { const date = new Date(); date.setDate(date.getDate() + days); return date.toISOString().slice(0, 10); };
+    const plusMonth = iso => { const date = new Date(`${iso}T12:00:00`); date.setMonth(date.getMonth() + 1); return date.toISOString().slice(0, 10); };
+    const dateLabel = iso => {
+      if (!iso) return '—';
+      const date = new Date(`${iso}T12:00:00`);
+      return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
+    };
+    const initials = name => String(name || '?').trim().split(/\s+/).slice(0, 2).map(part => part[0] || '').join('').toUpperCase();
+    const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]));
+    const defaults = {
+      selectedCardId: 'netflix-01',
+      activeTab: 'overview',
+      users: {
+        host: { id: 'demo-host', role: 'host', username: 'joseph.host', name: 'Joseph Hostelford', email: 'joseph.hostelford@example.com', phone: '(555) 010-1001', avatarUrl: 'assets/profile-host.png' },
+        contributor: { id: 'demo-contributor', role: 'contributor', username: 'joseph.contrib', name: 'Joseph Contrelford', email: 'joseph.contrelford@example.com', phone: '(555) 010-2002', avatarUrl: 'assets/profile-contributor.png' },
+        jordan: { id: 'demo-jordan', role: 'contributor', username: 'jordanlee', name: 'Jordan Lee', email: 'jordan@example.com', phone: '(555) 010-3003' },
+        joey: { id: 'demo-joey', role: 'contributor', username: 'joey.contributes', name: 'Joey Carter', email: 'joey@example.com', phone: '(555) 010-4004' },
+        josie: { id: 'demo-josie', role: 'contributor', username: 'josie.splits', name: 'Josie Rivera', email: 'josie@example.com', phone: '(555) 010-5005' }
+      },
+      host: { highnoteAccountHolderId: null, highnoteApplicationId: null, onboardingStatus: 'mock_approved' },
+      cards: [
+        {
+          id: 'netflix-01',
+          ownerUserId: 'demo-host',
+          role: 'owner',
+          type: 'subscription',
+          name: 'Netflix household',
+          merchant: 'Netflix',
+          basePrice: 22.99,
+          nextRenewal: '2026-07-11',
+          cardLast4: '1284',
+          provider: 'mock',
+          highnoteCardProductId: null,
+          highnoteFinancialAccountId: null,
+          highnotePaymentCardId: null,
+          cardStatus: 'active',
+          spendControlConfig: { merchantRule: { mode: 'intended_merchant', value: 'Netflix', confirmationRequired: true }, transactionLimit: 22.99, velocityLimit: { successfulTransactions: 1, interval: 'calendar_month' } },
+          balanceSource: 'mock',
+          mockBalance: 15.79,
+          members: [
+            { id: 'alex', userId: 'demo-contributor', invitationStatus: 'accepted', name: 'Joseph Contrelford', email: 'joseph.contrelford@example.com', proposedAmount: 0, proposalState: 'auto', dueDate: '2026-07-10', locked: false },
+            { id: 'jordan', name: 'Jordan Lee', email: 'jordan@example.com', proposedAmount: 7.66, proposalState: 'custom', dueDate: '2026-07-10', locked: true },
+            { id: 'taylor', name: 'Taylor Reed', email: 'taylor@example.com', proposedAmount: 7.66, proposalState: 'custom', dueDate: '2026-07-10', locked: true }
+          ],
+          deposits: [
+            { id: 'starter-1', kind: 'member', memberId: 'jordan', amount: 7.89, scheduledFor: '2026-07-10', status: 'funded', note: '' },
+            { id: 'starter-2', kind: 'member', memberId: 'taylor', amount: 7.90, scheduledFor: '2026-07-10', status: 'funded', note: '' }
+          ],
+          charges: [],
+          activity: [
+            { id: 'a1', text: 'Taylor Reed funded a contribution', amount: 7.90, direction: 'in', time: 'Today' },
+            { id: 'a2', text: 'Jordan Lee funded a contribution', amount: 7.89, direction: 'in', time: 'Today' },
+            { id: 'a3', text: 'Netflix household card created', amount: null, direction: 'neutral', time: 'Jul 1' }
+          ]
+        },
+        {
+          id: 'spotify-shared-01',
+          ownerUserId: 'maya-external',
+          role: 'member',
+          ownerName: 'Maya Brooks',
+          viewerMemberId: 'you',
+          type: 'subscription',
+          name: 'Spotify Family',
+          merchant: 'Spotify',
+          basePrice: 19.99,
+          nextRenewal: '2026-07-15',
+          cardLast4: '2496',
+          provider: 'mock',
+          highnoteCardProductId: null,
+          highnoteFinancialAccountId: null,
+          highnotePaymentCardId: null,
+          cardStatus: 'active',
+          spendControlConfig: { merchantRule: { mode: 'intended_merchant', value: 'Spotify', confirmationRequired: true }, transactionLimit: 19.99, velocityLimit: { successfulTransactions: 1, interval: 'calendar_month' } },
+          balanceSource: 'mock',
+          mockBalance: 21.50,
+          members: [
+            { id: 'you', userId: 'demo-contributor', invitationStatus: 'accepted', name: 'Joseph Contrelford', email: 'joseph.contrelford@example.com', proposedAmount: 4.99, proposalState: 'custom', dueDate: '2026-07-14', locked: true },
+            { id: 'maya', name: 'Maya Brooks', email: 'maya@example.com', proposedAmount: 5.00, proposalState: 'custom', dueDate: '2026-07-14', locked: true },
+            { id: 'drew', name: 'Drew Carter', email: 'drew@example.com', proposedAmount: 5.00, proposalState: 'custom', dueDate: '2026-07-14', locked: true },
+            { id: 'avery', name: 'Avery Singh', email: 'avery@example.com', proposedAmount: 5.00, proposalState: 'custom', dueDate: '2026-07-14', locked: false }
+          ],
+          deposits: [],
+          charges: [],
+          activity: [
+            { id: 'shared-1', text: 'Maya Brooks added you to Spotify Family', amount: null, direction: 'neutral', time: 'Today' }
+          ]
+        }
+      ]
+    };
+
+    function isAutomaticMember(member) {
+      return !member.locked && member.proposalState !== 'custom';
+    }
+
+    function participatingMembers(card) { return (card?.members || []).filter(member => member.invitationStatus === 'accepted'); }
+
+    function allocationPlan(card) {
+      const members = participatingMembers(card);
+      const amounts = {};
+      if (!card || card.type !== 'subscription' || !members.length) return { amounts, autoCount: 0, fixedTotal: 0, remainder: amount(card?.basePrice) };
+      const totalCents = Math.round(amount(card.basePrice) * 100);
+      const autoMembers = members.filter(isAutomaticMember);
+      const fixedMembers = members.filter(member => !isAutomaticMember(member));
+      const fixedCents = fixedMembers.reduce((sum, member) => sum + Math.round(amount(member.proposedAmount) * 100), 0);
+      fixedMembers.forEach(member => { amounts[member.id] = amount(member.proposedAmount); });
+      const remainingCents = totalCents - fixedCents;
+      if (autoMembers.length) {
+        const distributable = Math.max(0, remainingCents);
+        const baseCents = Math.floor(distributable / autoMembers.length);
+        const extraCents = distributable % autoMembers.length;
+        autoMembers.forEach((member, index) => { amounts[member.id] = (baseCents + (index < extraCents ? 1 : 0)) / 100; });
+      }
+      return {
+        amounts,
+        autoCount: autoMembers.length,
+        fixedTotal: round(fixedCents / 100),
+        remainder: round(remainingCents / 100)
+      };
+    }
+
+    function currentContribution(card, member) {
+      const plan = allocationPlan(card);
+      return amount(plan.amounts[member?.id]);
+    }
+
+    function refreshAutomaticProposals(card) {
+      if (!card || card.type !== 'subscription') return;
+      const plan = allocationPlan(card);
+      card.members.forEach(member => {
+        if (isAutomaticMember(member)) member.proposedAmount = amount(plan.amounts[member.id]);
+      });
+    }
+
+    function normalizeCard(card) {
+      // Purge sensitive legacy prototype fields before state is persisted again.
+      delete card.cardNumber;
+      delete card.cvv;
+      delete card.expiry;
+      delete card.revealed;
+      card.provider = card.provider === 'highnote' ? 'highnote' : 'mock';
+      card.highnoteCardProductId ||= null;
+      card.highnoteFinancialAccountId ||= null;
+      card.highnotePaymentCardId ||= null;
+      card.cardStatus ||= 'active';
+      card.balanceSource = card.provider === 'highnote' ? 'provider_ledger' : 'mock';
+      if (card.mockBalance === undefined) card.mockBalance = amount(card.balance);
+      delete card.balance;
+      card.spendControlConfig ||= card.type === 'subscription' ? {
+        merchantRule: { mode: 'intended_merchant', value: card.merchant || '', confirmationRequired: true },
+        transactionLimit: amount(card.basePrice),
+        velocityLimit: { successfulTransactions: 1, interval: 'calendar_month' }
+      } : {};
+      card.ownerUserId ||= card.role === 'member' ? 'maya-external' : 'demo-host';
+      card.role = card.role === 'member' ? 'member' : 'owner';
+      card.ownerName = card.role === 'member' ? (card.ownerName || 'Card host') : '';
+      card.members = Array.isArray(card.members) ? card.members : [];
+      card.deposits = Array.isArray(card.deposits) ? card.deposits : [];
+      card.charges = Array.isArray(card.charges) ? card.charges : [];
+      card.activity = Array.isArray(card.activity) ? card.activity : [];
+      card.activity.forEach(item => {
+        item.providerEventId ||= null;
+        item.eventType ||= 'application_event';
+        item.authorizationStatus ||= null;
+        item.settlementStatus ||= null;
+        item.merchantData ||= null;
+        item.createdAt ||= null;
+      });
+      if (card.role === 'member' && !card.viewerMemberId && card.members.length) card.viewerMemberId = card.members[0].id;
+      if (card.type === 'subscription') {
+        card.members.forEach(member => {
+          if ((member.id === 'alex' && card.id === 'netflix-01') || (member.id === 'you' && card.id === 'spotify-shared-01')) {
+            member.userId = 'demo-contributor';
+            member.name = 'Joseph Contrelford';
+            member.email = 'joseph.contrelford@example.com';
+          }
+          member.invitationStatus ||= 'accepted';
+          member.proposedAmount = amount(member.proposedAmount);
+          member.proposalState = member.proposalState === 'custom' || member.locked ? 'custom' : 'auto';
+          if (!member.dueDate) member.dueDate = card.nextRenewal || plusDays(7);
+        });
+        refreshAutomaticProposals(card);
+      }
+      return card;
+    }
+
+    function loadState() {
+      try {
+        const stored = localStorage.getItem(storageKey) || legacyStorageKeys.map(key => localStorage.getItem(key)).find(Boolean);
+        const parsed = JSON.parse(stored);
+        if (parsed && Array.isArray(parsed.cards)) {
+          parsed.users = { ...clone(defaults.users), ...(parsed.users || {}) };
+          Object.entries(defaults.users).forEach(([key, user]) => { parsed.users[key] = { ...user, ...(parsed.users[key] || {}) }; });
+          parsed.host ||= clone(defaults.host);
+          parsed.cards.forEach(normalizeCard);
+          return parsed;
+        }
+      } catch (_) { /* Use defaults. */ }
+      const fallback = clone(defaults);
+      fallback.cards.forEach(normalizeCard);
+      return fallback;
+    }
+
+    let state = loadState();
+    let session = (() => { try { return JSON.parse(sessionStorage.getItem(sessionKey) || 'null'); } catch (_) { return null; } })();
+    let pendingAvatarData = null;
+    const revealedCardIds = new Set();
+
+    function save() {
+      localStorage.setItem(storageKey, JSON.stringify(state));
+      legacyStorageKeys.forEach(key => localStorage.removeItem(key));
+    }
+    function currentUser() { return session?.userId ? Object.values(state.users).find(user => user.id === session.userId) || null : null; }
+    function userById(id) { return Object.values(state.users).find(user => user.id === id) || null; }
+    function avatarMarkup(person, imageClass = '') {
+      const user = person?.userId ? userById(person.userId) : person;
+      return user?.avatarUrl ? `<img class="${imageClass}" src="${escapeHtml(user.avatarUrl)}" alt="" />` : initials(person?.name || user?.name);
+    }
+    function viewerMember(card) { return card?.members?.find(member => member.userId === currentUser()?.id) || null; }
+    function isOwner(card) { return !!card && card.ownerUserId === currentUser()?.id; }
+    function visibleCards() {
+      const user = currentUser();
+      if (!user) return [];
+      return state.cards.filter(card => card.ownerUserId === user.id || card.members?.some(member => member.userId === user.id && member.invitationStatus !== 'declined'));
+    }
+    function currentCard() { const cards = visibleCards(); return cards.find(card => card.id === state.selectedCardId) || cards[0] || null; }
+    function cardById(id) { return state.cards.find(card => card.id === id); }
+    function feeFor(base) { return round(amount(base) * FEE_RATE); }
+    function totalFor(base) { return round(amount(base) + feeFor(base)); }
+    function cardBalance(card) { return providers.forCard(card).getCardBalance(card); }
+    function statusPill(kind, text) { return `<span class="status-pill ${kind}">${text}</span>`; }
+    function addActivity(card, text, amountValue = null, direction = 'neutral', event = {}) {
+      card.activity.unshift({
+        id: uid(), text, amount: amountValue, direction, time: 'Just now',
+        providerEventId: event.providerEventId || null,
+        eventType: event.eventType || 'application_event',
+        authorizationStatus: event.authorizationStatus || null,
+        settlementStatus: event.settlementStatus || null,
+        merchantData: event.merchantData || null,
+        createdAt: new Date().toISOString()
+      });
+    }
+    function activeCharge(card) { return card.charges.find(charge => charge.status === 'awaiting') || null; }
+    function memberById(card, memberId) { return card.members.find(member => member.id === memberId); }
+    function cardOwnerName(card) { return card?.ownerUserId === 'demo-host' ? state.users.host.name : (card?.ownerName || 'Card host'); }
+
+    function agreementState(card) {
+      if (!card || card.type !== 'subscription') return { members: [], locked: [], lockedCount: 0, total: 0, reached: false, difference: 0, autoCount: 0 };
+      const members = participatingMembers(card);
+      const locked = members.filter(member => member.locked);
+      const plan = allocationPlan(card);
+      const total = round(members.reduce((sum, member) => sum + amount(plan.amounts[member.id]), 0));
+      const difference = round(card.basePrice - total);
+      const reached = members.length > 0 && locked.length === members.length && Math.abs(difference) < 0.01;
+      return { members, locked, lockedCount: locked.length, total, reached, difference, autoCount: plan.autoCount };
+    }
+
+    function approvalCount(card, charge) {
+      if (!charge) return { approved: 0, declined: 0, pending: 0, total: 0 };
+      const total = participatingMembers(card).length;
+      const values = Object.values(charge.approvals || {});
+      return {
+        approved: values.filter(value => value === 'approved').length,
+        declined: values.filter(value => value === 'declined').length,
+        pending: Math.max(0, total - values.filter(value => value === 'approved' || value === 'declined').length),
+        total
+      };
+    }
+
+    function allApproved(card, charge) {
+      const members = participatingMembers(card);
+      return !!charge && members.length > 0 && members.every(member => charge.approvals?.[member.id] === 'approved');
+    }
+
+    function getApplicationAuthorizationDecision(card) {
+      const charge = activeCharge(card);
+      const agreement = agreementState(card);
+      const allow = !!charge && agreement.reached && allApproved(card, charge);
+      return {
+        decision: allow ? 'allow' : 'deny',
+        reason: allow ? 'potluck_agreement_approved' : 'potluck_agreement_incomplete',
+        renewalId: charge?.id || null
+      };
+    }
+
+    function fundingTotal(card) {
+      if (!card || card.type !== 'subscription') return 0;
+      return round(participatingMembers(card).reduce((sum, member) => sum + totalFor(currentContribution(card, member)), 0));
+    }
+
+    function memberFunding(card, member) {
+      const entries = card.deposits.filter(deposit => deposit.kind === 'member' && deposit.memberId === member.id);
+      const funded = round(entries.filter(entry => entry.status === 'funded').reduce((sum, entry) => sum + amount(entry.amount), 0));
+      const scheduled = round(entries.filter(entry => entry.status === 'scheduled').reduce((sum, entry) => sum + amount(entry.amount), 0));
+      const required = member.locked ? totalFor(currentContribution(card, member)) : 0;
+      return { funded, scheduled, required };
+    }
+
+    function voidActiveCharge(card, reason) {
+      const charge = activeCharge(card);
+      if (!charge) return false;
+      charge.status = 'voided';
+      addActivity(card, reason || 'A subscription approval was closed because the agreement changed');
+      return true;
+    }
+
+    function syncMemberDeposit(card, member) {
+      const existing = card.deposits.filter(deposit => deposit.kind === 'member' && deposit.memberId === member.id);
+      const funded = round(existing.filter(entry => entry.status === 'funded').reduce((sum, entry) => sum + amount(entry.amount), 0));
+      card.deposits = card.deposits.filter(deposit => !(deposit.kind === 'member' && deposit.memberId === member.id && deposit.status === 'scheduled'));
+      if (!member.locked) return;
+      const required = totalFor(currentContribution(card, member));
+      const remaining = round(Math.max(0, required - funded));
+      if (remaining > 0) {
+        card.deposits.push({ id: uid(), kind: 'member', memberId: member.id, amount: remaining, scheduledFor: member.dueDate, status: 'scheduled', note: '' });
+      }
+    }
+
+    function reconcileAgreement(card) {
+      if (!card || card.type !== 'subscription') return;
+      const agreement = agreementState(card);
+      const charge = activeCharge(card);
+      if (!agreement.reached) {
+        if (charge) voidActiveCharge(card, 'A subscription approval was closed because the group agreement changed');
+        return;
+      }
+      if (!charge) {
+        card.charges.unshift({
+          id: uid(),
+          title: `${card.merchant} monthly renewal`,
+          baseAmount: card.basePrice,
+          totalAmount: fundingTotal(card),
+          renewalDate: card.nextRenewal,
+          status: 'awaiting',
+          approvals: Object.fromEntries(participatingMembers(card).map(member => [member.id, 'pending']))
+        });
+        addActivity(card, 'The group agreement is locked. Purchase approvals are now open.');
+      }
+    }
+
+    function cardStatus(card) {
+      if (!isOwner(card)) {
+        const viewer = viewerMember(card);
+        if (!viewer) return statusPill('neutral', 'Shared');
+        return viewer.locked ? statusPill('success', "You\'re ready") : statusPill('warn', 'Action needed');
+      }
+      if (card.type === 'flexible') return statusPill('success', 'Ready');
+      const charge = activeCharge(card);
+      const agreement = agreementState(card);
+      if (charge) {
+        const counts = approvalCount(card, charge);
+        if (counts.declined) return statusPill('danger', 'Approval declined');
+        return counts.pending ? statusPill('warn', `${counts.pending} approval${counts.pending === 1 ? '' : 's'} pending`) : statusPill('success', 'Approved');
+      }
+      if (agreement.reached) return statusPill('success', 'Agreement reached');
+      if (!card.members.length) return statusPill('neutral', 'Add members');
+      return statusPill('warn', `${agreement.lockedCount}/${card.members.length} ready`);
+    }
+
+    function cardTypeLabel(card) { return card.type === 'subscription' ? 'Subscription card' : 'Flexible funds card'; }
+
+    function metricMarkup() {
+      const cards = visibleCards();
+      const balance = round(cards.filter(isOwner).reduce((sum, card) => sum + cardBalance(card), 0));
+      const subscriptions = cards.filter(card => card.type === 'subscription').length;
+      const pending = cards.reduce((sum, card) => {
+        const charge = activeCharge(card);
+        return sum + (charge ? approvalCount(card, charge).pending : 0);
+      }, 0);
+      const locked = cards.filter(card => card.type === 'subscription').reduce((sum, card) => sum + agreementState(card).lockedCount, 0);
+      return `
+        <div class="metric"><div class="metric-label">Available balance</div><div class="metric-value">${money(balance)}</div><div class="metric-copy">Across ${cards.length} card${cards.length === 1 ? '' : 's'}</div></div>
+        <div class="metric"><div class="metric-label">Subscription cards</div><div class="metric-value">${subscriptions}</div><div class="metric-copy">Recurring merchant locks</div></div>
+        <div class="metric"><div class="metric-label">Open approvals</div><div class="metric-value">${pending}</div><div class="metric-copy">Awaiting member action</div></div>
+        <div class="metric"><div class="metric-label">Ready members</div><div class="metric-value">${locked}</div><div class="metric-copy">Locked monthly contributions</div></div>`;
+    }
+
+    function directoryCardMarkup(card) {
+      const owned = isOwner(card);
+      const selected = card.id === state.selectedCardId;
+      const isSubscription = card.type === 'subscription';
+      const meta = isSubscription
+        ? owned
+          ? escapeHtml(card.merchant)
+          : `${escapeHtml(card.merchant)} · hosted by ${escapeHtml(cardOwnerName(card))}`
+        : 'Direct funding enabled';
+      const amountLabel = isSubscription
+        ? `${money(card.basePrice)} <span>/ month</span>`
+        : `${money(cardBalance(card))} <span>mock balance</span>`;
+      const memberLabel = isSubscription
+        ? `${card.members.length} member${card.members.length === 1 ? '' : 's'}`
+        : 'Flexible funds';
+      const topRight = owned && isSubscription && card.members.length === 0
+        ? `<button class="directory-add-members" data-action="add-members-from-list" data-card-id="${card.id}">Add members</button>`
+        : cardStatus(card);
+      const type = owned ? (isSubscription ? 'Subscription' : 'Flexible funds') : 'Shared subscription';
+      return `<article class="directory-card ${selected ? 'selected' : ''} ${owned ? '' : 'shared'}" data-action="select-card" data-card-id="${card.id}" tabindex="0" role="button" aria-label="Open ${escapeHtml(card.name)}">
+        <div class="directory-card-top"><div><div class="directory-card-name">${escapeHtml(card.name)}</div><div class="directory-card-meta">${meta}</div></div>${topRight}</div>
+        <div class="directory-card-bottom"><div><div class="directory-card-price">${amountLabel}</div><div class="directory-card-members">${memberLabel}</div></div><span class="directory-card-type">${type}</span></div>
+      </article>`;
+    }
+
+    function cardListMarkup() {
+      const cards = visibleCards();
+      const ownedCards = cards.filter(isOwner);
+      const sharedCards = cards.filter(card => !isOwner(card));
+      const owned = ownedCards.length ? ownedCards.map(directoryCardMarkup).join('') : '<div class="directory-empty">Create a subscription card or a flexible funds card to get started.</div>';
+      const shared = sharedCards.length ? sharedCards.map(directoryCardMarkup).join('') : '<div class="directory-empty">Cards that another host adds you to will appear here.</div>';
+      return `<section class="card-section"><div class="card-section-head"><div class="card-section-title">Your cards</div><div class="card-section-note">Cards you manage</div></div>${owned}</section>
+        <section class="card-section"><div class="card-section-head"><div class="card-section-title">Shared with you</div><div class="card-section-note">Cards other hosts added you to</div></div>${shared}</section>`;
+    }
+
+    function cardFace(card) {
+      const owned = isOwner(card);
+      if (!owned) {
+        const member = viewerMember(card);
+        const contribution = member ? currentContribution(card, member) : 0;
+        return `<div class="virtual-card">
+          <div class="card-topline"><span class="card-badge">SHARED SUBSCRIPTION</span><span class="shared-card-lock">MANAGED BY ${escapeHtml(cardOwnerName(card)).toUpperCase()}</span></div>
+          <div class="shared-card-message"><div class="shared-card-title">You’re sharing ${escapeHtml(card.merchant)}</div><div class="shared-card-copy">Coordinate your contribution and approve upcoming renewals. The host owns, funds, and manages the payment card.</div></div>
+          <div class="card-foot"><span>YOUR PROPOSED SHARE</span><span class="card-foot-right">${money(contribution)} / MONTH</span></div>
+        </div>`;
+      }
+      const revealed = revealedCardIds.has(card.id);
+      const displayedNumber = revealed ? `0000 0000 0000 ${card.cardLast4}` : `•••• •••• •••• ${card.cardLast4}`;
+      const eyeIcon = revealed
+        ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 10.7a2 2 0 0 0 2.7 2.7"/><path d="M9.9 4.2A10.8 10.8 0 0 1 12 4c5.5 0 9 8 9 8a17.8 17.8 0 0 1-2.1 3.3M6.6 6.6C4.2 8.3 3 12 3 12s3.5 8 9 8a9.7 9.7 0 0 0 4-.9"/></svg>'
+        : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z"/><circle cx="12" cy="12" r="2.5"/></svg>';
+      const rightFoot = revealed ? 'MOCK · EXP 12/34 · CVV 000' : 'SECURE VIEWER REQUIRED';
+      return `<div class="virtual-card">
+        <div class="card-topline"><button class="card-eye" data-action="toggle-card-details" aria-label="${revealed ? 'Hide' : 'Reveal'} mock card details" aria-pressed="${revealed}">${eyeIcon}</button><span class="shared-card-lock">HOST-OWNED</span></div>
+        <div class="card-number">${displayedNumber}</div>
+        <div class="card-foot"><span>${escapeHtml(card.name).toUpperCase()}</span><span class="card-foot-right">${rightFoot}</span></div>
+      </div>`;
+    }
+
+    function overviewMarkup(card) {
+      if (!isOwner(card) && card.type === 'subscription') {
+        const member = viewerMember(card);
+        const agreement = agreementState(card);
+        const contribution = member ? currentContribution(card, member) : 0;
+        const charge = activeCharge(card);
+        const approval = charge?.approvals?.[member?.id] || 'not open';
+        const approvalLabel = approval === 'approved' ? statusPill('success', 'Approved') : approval === 'declined' ? statusPill('danger', 'Declined') : approval === 'pending' ? statusPill('warn', 'Approval needed') : statusPill('neutral', 'Not open');
+        return `<div class="overview-grid"><section class="section-box"><div class="box-head"><div class="box-title">Your place in this subscription</div>${member?.locked ? statusPill('success', 'Ready') : statusPill('warn', 'Not ready')}</div><div class="stat-grid"><div class="stat"><div class="stat-label">Your proposal</div><div class="stat-value">${money(contribution)}</div></div><div class="stat"><div class="stat-label">Service fee</div><div class="stat-value">${money(feeFor(contribution))}</div></div><div class="stat"><div class="stat-label">Deposit date</div><div class="stat-value">${dateLabel(member?.dueDate)}</div></div></div><div class="box-note" style="margin:13px 0 0">Open your member details to choose a contribution or ready up. The host handles the virtual card and funding.</div></section><section class="section-box"><div class="box-head"><div class="box-title">Group agreement</div>${agreement.reached ? statusPill('success', 'Locked') : statusPill('warn', 'In progress')}</div><div class="agreement-panel"><div class="agreement-title">${agreement.lockedCount}/${card.members.length} members ready</div><div class="agreement-copy">The group must lock contributions that total ${money(card.basePrice)} before a purchase approval opens.</div><div class="agreement-figures"><div><div class="small-meta">Current monthly total</div><strong>${money(agreement.total)} / ${money(card.basePrice)}</strong></div><div class="small-meta">Hosted by ${escapeHtml(cardOwnerName(card))}</div></div><div class="progress"><span style="width:${card.members.length ? Math.round((agreement.lockedCount / card.members.length) * 100) : 0}%"></span></div></div></section><section class="section-box wide"><div class="box-head"><div class="box-title">Your purchase approval</div>${approvalLabel}</div><div class="approval-card"><div class="approval-title">${charge ? escapeHtml(charge.title) : 'Next subscription renewal'}</div><div class="approval-copy">${charge ? `Your current contribution is ${money(contribution)} plus the ${money(feeFor(contribution))} service fee.` : 'Your approval will be available after the group agreement is locked.'}</div></div></section></div>`;
+      }
+      if (card.type === 'flexible') {
+        return `<div class="overview-grid">
+          <section class="section-box"><div class="box-head"><div class="box-title">Flexible funds concept</div>${statusPill('neutral', 'Mock only')}</div><div class="box-note">The host would fund this card through an approved funding method. This prototype does not accept deposits or move money.</div><div class="balance-card"><div class="balance-title">Mock balance</div><div class="balance-number">${money(cardBalance(card))}</div></div></section>
+          <section class="section-box"><div class="box-head"><div class="box-title">Card details</div></div><div class="stat-grid"><div class="stat"><div class="stat-label">Card type</div><div class="stat-value">Flexible</div></div><div class="stat"><div class="stat-label">Card ending</div><div class="stat-value">${escapeHtml(card.cardLast4)}</div></div><div class="stat"><div class="stat-label">Funds</div><div class="stat-value">Direct</div></div></div></section>
+        </div>`;
+      }
+
+      const agreement = agreementState(card);
+      const charge = activeCharge(card);
+      const counts = approvalCount(card, charge);
+      const percent = card.members.length ? Math.round((agreement.lockedCount / card.members.length) * 100) : 0;
+      const funding = fundingTotal(card);
+      const fundingGap = Math.max(0, round(funding - cardBalance(card)));
+      const approvalCopy = charge
+        ? counts.declined
+          ? 'One or more members declined this purchase. Update the agreement before processing the subscription.'
+          : `${counts.approved}/${counts.total} members approved this subscription purchase.`
+        : 'Purchase approvals open automatically once every member has readied up and the contributions equal the monthly price.';
+      const approvalPill = charge
+        ? counts.declined ? statusPill('danger', 'Approval declined') : counts.pending ? statusPill('warn', `${counts.pending} pending`) : statusPill('success', 'All approved')
+        : statusPill('neutral', 'Not open');
+      const appDecision = getApplicationAuthorizationDecision(card);
+      const canCharge = appDecision.decision === 'allow' && cardBalance(card) + .009 >= charge.totalAmount;
+      return `<div class="overview-grid">
+        <section class="section-box"><div class="box-head"><div class="box-title">Subscription details</div><span class="type-chip">${escapeHtml(card.merchant)} lock</span></div><div class="stat-grid"><div class="stat"><div class="stat-label">Monthly price</div><div class="stat-value">${money(card.basePrice)}</div></div><div class="stat"><div class="stat-label">Next renewal</div><div class="stat-value">${dateLabel(card.nextRenewal)}</div></div><div class="stat"><div class="stat-label">Required funding</div><div class="stat-value">${money(funding)}</div></div></div><div class="box-note" style="margin:13px 0 0">Required funding includes the 3% service fee applied to each member contribution.</div></section>
+        <section class="section-box"><div class="box-head"><div class="box-title">Group agreement</div>${agreement.reached ? statusPill('success', 'Locked') : statusPill('warn', 'In progress')}</div><div class="agreement-panel"><div class="agreement-title">${agreement.lockedCount}/${card.members.length} members ready</div><div class="agreement-copy">Everyone starts with an equal current split. When a member chooses an amount, the unready members update automatically so the group continues to total ${money(card.basePrice)}.</div><div class="agreement-figures"><div><div class="small-meta">Current monthly total</div><strong>${money(agreement.total)} / ${money(card.basePrice)}</strong></div><div class="small-meta">${agreement.difference === 0 ? 'Matched' : `${money(Math.abs(agreement.difference))} ${agreement.difference > 0 ? 'remaining' : 'over'}`}</div></div><div class="progress"><span style="width:${percent}%"></span></div></div></section>
+        <section class="section-box wide"><div class="box-head"><div class="box-title">Application approval</div>${approvalPill}</div><div class="approval-card"><div class="approval-title">${charge ? escapeHtml(charge.title) : 'Next subscription renewal'}</div><div class="approval-copy">${approvalCopy} This is an internal Potluck decision, not a payment guarantee.</div><div class="charge-action"><div class="small-meta">${charge ? `${money(charge.totalAmount)} mock funding target · ${fundingGap > 0 ? `${money(fundingGap)} more needed` : 'Mock target met'}` : 'Open the Members tab to review current splits and ready contributions.'}</div><button class="button primary small" data-action="complete-charge" ${canCharge ? '' : 'disabled'}>Record mock renewal</button></div></div></section>
+      </div>`;
+    }
+
+    function memberListMarkup(card) {
+      if (card.type !== 'subscription') return `<div class="empty">Flexible funds cards do not have a member agreement.</div>`;
+      const agreement = agreementState(card);
+      const owned = isOwner(card);
+      const viewer = viewerMember(card);
+      const items = card.members.map(member => {
+        const proposal = currentContribution(card, member);
+        const automatic = isAutomaticMember(member);
+        const label = automatic ? 'Current split' : 'Monthly proposal';
+        const status = member.invitationStatus === 'pending' ? statusPill('neutral', 'Invited') : member.invitationStatus === 'declined' ? statusPill('danger', 'Declined') : member.locked ? statusPill('success', 'Ready') : statusPill('warn', 'Not ready');
+        const editable = owned || member.id === viewer?.id;
+        const interaction = editable ? `data-action="open-member" data-member-id="${member.id}" tabindex="0" role="button" aria-label="Open ${escapeHtml(member.name)}"` : '';
+        return `<article class="member-item ${editable ? '' : 'view-only'}" ${interaction}>
+          <div class="person"><div class="avatar">${avatarMarkup(member)}</div><div class="person-info"><div class="person-name">${escapeHtml(member.name)}${!owned && member.id === viewer?.id ? ' <span class="small-meta">(you)</span>' : ''}</div><div class="person-email">${escapeHtml(member.email)}</div></div></div>
+          <div class="contribution"><div class="contribution-label">${label}</div><strong>${money(proposal)}</strong></div>
+          ${status}
+          <span class="chevron">${editable ? '›' : ''}</span>
+        </article>`;
+      }).join('');
+      const intro = owned
+        ? (card.members.length ? 'Each member starts with an equal current split. When someone chooses a different amount, every unready automatic split recalculates to keep the total on target.' : 'Add a member to start with an equal split.')
+        : `You were added by ${escapeHtml(cardOwnerName(card))}. You can view the group and update only your own proposal and approval.`;
+      const action = owned ? '<button class="add-member-row" data-action="open-add-member">＋ Add member</button>' : '';
+      return `<div class="members-intro"><div><div class="box-title">${agreement.lockedCount}/${card.members.length} members ready</div><p>${intro}</p></div>${agreement.reached ? statusPill('success', 'Agreement locked') : statusPill('warn', 'Agreement in progress')}</div><div class="member-list">${items || '<div class="empty">Add a member to begin the agreement.</div>'}</div>${action}`;
+    }
+
+    function fundingRows(card) {
+      if (!card.members.length) return '<tr><td colspan="6" class="empty">Add members to build a funding plan.</td></tr>';
+      return card.members.map(member => {
+        const funding = memberFunding(card, member);
+        let stateLabel = statusPill('neutral', 'Not locked');
+        let action = '';
+        if (member.locked) {
+          if (funding.funded + .009 >= funding.required) stateLabel = statusPill('success', 'Funded');
+          else if (funding.scheduled > 0) { stateLabel = statusPill('warn', 'Scheduled'); action = `<button class="button primary small" data-action="fund-member" data-member-id="${member.id}">Fund</button>`; }
+          else stateLabel = statusPill('warn', 'Needs funds');
+        }
+        const contribution = currentContribution(card, member);
+        return `<tr><td><strong>${escapeHtml(member.name)}</strong><br><span class="small-meta">${dateLabel(member.dueDate)}</span></td><td>${member.locked ? money(contribution) : '—'}</td><td>${member.locked ? money(feeFor(contribution)) : '—'}</td><td><strong>${member.locked ? money(funding.required) : '—'}</strong></td><td>${stateLabel}</td><td>${action}</td></tr>`;
+      }).join('');
+    }
+
+    function activityMarkup(card) {
+      if (!card.activity.length) return '<div class="empty">Activity will appear here.</div>';
+      return card.activity.slice(0, 8).map(item => `<div class="activity-row"><div class="activity-main"><div class="activity-text">${escapeHtml(item.text)}</div><div class="activity-time">${escapeHtml(item.time)}</div></div>${item.amount === null || item.amount === undefined ? '' : `<div class="activity-amount ${item.direction === 'in' ? 'in' : item.direction === 'out' ? 'out' : ''}">${item.direction === 'out' ? '−' : item.direction === 'in' ? '+' : ''}${money(item.amount)}</div>`}</div>`).join('');
+    }
+
+    function fundingMarkup(card) {
+      if (!isOwner(card) && card.type === 'subscription') {
+        const member = viewerMember(card);
+        const contribution = member ? currentContribution(card, member) : 0;
+        const approval = activeCharge(card)?.approvals?.[member?.id] || 'not open';
+        const approvalText = approval === 'approved' ? 'Approved' : approval === 'declined' ? 'Declined' : approval === 'pending' ? 'Awaiting your approval' : 'Not open yet';
+        const contributionControl = member?.locked
+          ? `<div class="balance-number">${money(contribution)}</div>`
+          : `<label class="contribution-input-wrap"><span aria-hidden="true">$</span><input class="contribution-input" data-contribution-input type="number" min="0" step="0.01" value="${contribution.toFixed(2)}" aria-label="Monthly contribution" /></label>`;
+        const contributionActions = member?.locked
+          ? '<button class="button danger small" data-action="unready-contribution">Unready</button>'
+          : '<button class="button ghost small" data-action="save-inline-contribution">Save contribution</button><button class="button primary small" data-action="ready-inline-contribution">Ready up</button>';
+        return `<div class="funding-grid"><section class="section-box"><div class="box-head"><div class="box-title">Your contribution</div>${member?.locked ? statusPill('success', 'Ready') : statusPill('warn', 'Not ready')}</div><div class="balance-card"><div class="balance-title">Monthly contribution</div>${contributionControl}</div><div class="small-meta" style="margin-top:12px">${money(feeFor(contribution))} service fee · due ${dateLabel(member?.dueDate)}</div><div class="contribution-actions">${contributionActions}</div></section><section class="section-box"><div class="box-head"><div class="box-title">Purchase approval</div></div><div class="shared-detail-note">${escapeHtml(cardOwnerName(card))} funds and manages the card. Your card details and the host’s balance stay private.</div><div class="stat-grid"><div class="stat"><div class="stat-label">Your status</div><div class="stat-value">${member?.locked ? 'Ready' : 'Open'}</div></div><div class="stat"><div class="stat-label">Approval</div><div class="stat-value">${approvalText}</div></div><div class="stat"><div class="stat-label">Renewal</div><div class="stat-value">${dateLabel(card.nextRenewal)}</div></div></div></section></div>`;
+      }
+      const sub = card.type === 'subscription';
+      const agreement = agreementState(card);
+      const funding = fundingTotal(card);
+      const gap = Math.max(0, round(funding - cardBalance(card)));
+      return `<div class="funding-grid">
+        <section class="section-box"><div class="box-head"><div class="box-title">Host funding</div><button class="button ghost small" data-action="open-topup-modal">+ Mock add funds</button></div><div class="box-note">Mock action only. The host—not members—would fund the provider account with an approved funding method.</div><div class="balance-card"><div class="balance-title">Mock provider balance</div><div class="balance-number">${money(cardBalance(card))}</div></div><div class="small-meta" style="margin-top:12px">${sub ? agreement.reached ? `${gap ? `${money(gap)} below the mock renewal target.` : 'Mock target met for this renewal.'}` : 'Ready every member to calculate the renewal target.' : 'A real balance would come from the provider ledger.'}</div></section>
+        <section class="section-box"><div class="box-head"><div class="box-title">${sub ? 'Member funding plan' : 'Recent activity'}</div></div>${sub ? `<div class="funding-table-wrap"><table><thead><tr><th>Member</th><th>Monthly</th><th>3% fee</th><th>Deposit total</th><th>Status</th><th></th></tr></thead><tbody>${fundingRows(card)}</tbody></table></div>` : `<div class="activity-list">${activityMarkup(card)}</div>`}</section>
+        ${sub ? `<section class="section-box wide"><div class="box-head"><div class="box-title">Activity</div></div><div class="activity-list">${activityMarkup(card)}</div></section>` : ''}
+      </div>`;
+    }
+
+    function detailMarkup(card) {
+      if (!card) return `<div class="empty">${currentUser()?.role === 'host' ? 'Choose a card or create a new one.<br><br><button class="button primary" data-action="open-create-card">Create a card</button>' : 'You do not have any active subscription invitations yet.'}</div>`;
+      const invitation = viewerMember(card);
+      if (!isOwner(card) && invitation?.invitationStatus === 'pending') {
+        return `<div class="detail-top"><div><div class="eyebrow">Invitation</div><div class="detail-name">${escapeHtml(card.name)}</div><div class="detail-meta">${escapeHtml(cardOwnerName(card))} invited you to share ${escapeHtml(card.merchant)}</div></div></div><div class="invitation-box"><div class="box-title">Join this subscription?</div><p class="subtitle">Accept to choose your contribution, get Ready, and approve upcoming renewals. You will not become a cardholder or owner of the host’s funds.</p><div class="invitation-actions"><button class="button primary" data-action="respond-invitation" data-response="accepted">Accept invitation</button><button class="button danger" data-action="respond-invitation" data-response="declined">Decline</button></div></div>`;
+      }
+      const tab = state.activeTab;
+      const owned = isOwner(card);
+      const meta = card.type === 'subscription'
+        ? owned
+          ? `${escapeHtml(card.merchant)} · renewal ${dateLabel(card.nextRenewal)} · card ending ${escapeHtml(card.cardLast4)}`
+          : `${escapeHtml(card.merchant)} · hosted by ${escapeHtml(cardOwnerName(card))} · renewal ${dateLabel(card.nextRenewal)}`
+        : `Direct funding · card ending ${escapeHtml(card.cardLast4)}`;
+      const content = tab === 'members' ? memberListMarkup(card) : tab === 'funding' ? fundingMarkup(card) : overviewMarkup(card);
+      const actions = owned ? `<div class="details-actions"><button class="button secondary" data-action="open-topup-modal">Add funds</button><button class="button danger" data-action="delete-card">Delete card</button></div>` : '';
+      const summaryNote = card.type === 'subscription'
+        ? owned
+          ? (agreementState(card).reached ? 'Agreement locked; review funding and approvals.' : 'Ready member contributions to calculate funding.')
+          : `Hosted by ${escapeHtml(cardOwnerName(card))}. Only your contribution controls are available.`
+        : 'Direct funds may be added at any time.';
+      return `<div class="detail-top"><div><div class="eyebrow">${owned ? cardTypeLabel(card) : 'Shared subscription'}</div><div class="detail-name">${escapeHtml(card.name)}</div><div class="detail-meta">${meta}</div></div>${actions}</div>
+        ${cardFace(card)}
+        <div class="card-summary"><div><strong>${owned ? money(cardBalance(card)) : money(currentContribution(card, viewerMember(card)))}</strong> ${owned ? 'mock provider balance' : 'your proposed monthly contribution'}</div><div class="card-summary-note">${summaryNote}</div></div>
+        <nav class="tabbar" aria-label="Card sections"><button class="tab ${tab === 'overview' ? 'active' : ''}" data-action="set-tab" data-tab="overview">Overview</button>${card.type === 'subscription' ? `<button class="tab ${tab === 'members' ? 'active' : ''}" data-action="set-tab" data-tab="members">Members <span class="tab-count">${card.members.length}</span></button>` : ''}<button class="tab ${tab === 'funding' ? 'active' : ''}" data-action="set-tab" data-tab="funding">${owned ? 'Funding &amp; activity' : 'My contribution'}</button></nav>
+        <div class="tab-content">${content}</div>`;
+    }
+
+    function render() {
+      state.cards.forEach(card => { normalizeCard(card); refreshAutomaticProposals(card); });
+      const cards = visibleCards();
+      if (!cards.some(card => card.id === state.selectedCardId)) state.selectedCardId = cards[0]?.id || null;
+      const current = currentCard();
+      if (current?.type === 'flexible' && state.activeTab === 'members') state.activeTab = 'overview';
+      document.getElementById('card-list').innerHTML = cardListMarkup();
+      document.getElementById('detail-panel').innerHTML = detailMarkup(currentCard());
+      const user = currentUser();
+      document.getElementById('auth-screen').classList.toggle('hidden', !!user);
+      document.getElementById('signed-in-user').innerHTML = user ? `<div class="signed-in-profile">${user.avatarUrl ? `<img class="signed-in-avatar" src="${escapeHtml(user.avatarUrl)}" alt="" />` : ''}<span><strong>${escapeHtml(user.name)}</strong>@${escapeHtml(user.username || '')} · ${user.role === 'host' ? 'Host' : 'Contributor'}</span></div>` : '';
+      document.getElementById('new-card-button').classList.toggle('hidden', user?.role !== 'host');
+      document.querySelector('.directory-create').classList.toggle('hidden', user?.role !== 'host');
+      save();
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('open'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+    let toastTimer;
+    function toast(message) {
+      const element = document.getElementById('toast');
+      element.textContent = message;
+      element.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => element.classList.remove('show'), 3200);
+    }
+
+    function signIn(role, email, phone, username, avatarUrl) {
+      const user = state.users[role];
+      user.email = email || user.email;
+      user.phone = phone || user.phone;
+      user.username = username || user.username;
+      user.avatarUrl = avatarUrl || user.avatarUrl;
+      pendingAvatarData = null;
+      session = { userId: user.id };
+      sessionStorage.setItem(sessionKey, JSON.stringify(session));
+      state.selectedCardId = visibleCards()[0]?.id || null;
+      state.activeTab = 'overview';
+      render();
+      toast(`Signed in as ${user.name}.`);
+    }
+
+    function showRoleChoice() {
+      document.getElementById('auth-intro').classList.remove('hidden');
+      document.getElementById('role-choice').classList.remove('hidden');
+      document.getElementById('auth-login').classList.add('hidden');
+      document.getElementById('login-form').reset();
+      pendingAvatarData = null;
+    }
+
+    function showRoleLogin(role) {
+      const host = role === 'host';
+      const user = state.users[host ? 'host' : 'contributor'];
+      document.getElementById('auth-intro').classList.add('hidden');
+      document.getElementById('role-choice').classList.add('hidden');
+      document.getElementById('auth-login').classList.remove('hidden');
+      document.getElementById('login-form').dataset.authRole = user.role;
+      document.getElementById('login-role').textContent = user.role;
+      document.getElementById('login-title').textContent = `Sign in as ${user.role}`;
+      document.getElementById('login-copy').textContent = host ? 'Manage your cards, invitations, and renewal workflow.' : 'View invitations, contributions, and renewal approvals.';
+      document.getElementById('login-submit').textContent = `Sign in as ${user.role}`;
+      document.getElementById('login-username').value = '';
+      pendingAvatarData = null;
+      document.getElementById('profile-preview').innerHTML = '<img src="assets/default-profile.png" alt="Default profile" />';
+      document.getElementById('login-avatar').value = '';
+      const quick = document.getElementById('quick-login-button');
+      quick.dataset.role = user.role;
+      quick.textContent = `Quick login · ${user.name}`;
+    }
+
+    function prepareProfileImage(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        const image = new Image();
+        image.onload = () => {
+          const size = 320;
+          const scale = Math.max(size / image.width, size / image.height);
+          const width = image.width * scale;
+          const height = image.height * scale;
+          const canvas = document.createElement('canvas');
+          canvas.width = size; canvas.height = size;
+          const context = canvas.getContext('2d');
+          context.drawImage(image, (size - width) / 2, (size - height) / 2, width, height);
+          pendingAvatarData = canvas.toDataURL('image/jpeg', .82);
+          document.getElementById('profile-preview').innerHTML = `<img src="${pendingAvatarData}" alt="Profile preview" />`;
+        };
+        image.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function usernameDistance(left, right) {
+      const a = String(left || '').toLowerCase();
+      const b = String(right || '').toLowerCase();
+      const row = Array.from({ length: b.length + 1 }, (_, index) => index);
+      for (let i = 1; i <= a.length; i += 1) {
+        let previous = row[0]; row[0] = i;
+        for (let j = 1; j <= b.length; j += 1) {
+          const held = row[j];
+          row[j] = Math.min(row[j] + 1, row[j - 1] + 1, previous + (a[i - 1] === b[j - 1] ? 0 : 1));
+          previous = held;
+        }
+      }
+      return row[b.length];
+    }
+
+    function usernameMatches(query) {
+      const search = String(query || '').trim().toLowerCase().replace(/^@/, '');
+      if (!search) return [];
+      const bestWindowDistance = candidate => {
+        if (candidate.length <= search.length) return usernameDistance(search, candidate);
+        let best = usernameDistance(search, candidate.slice(0, search.length));
+        for (let index = 1; index <= candidate.length - search.length; index += 1) {
+          best = Math.min(best, usernameDistance(search, candidate.slice(index, index + search.length)));
+        }
+        return best;
+      };
+      return Object.values(state.users).filter(user => user.role === 'contributor' && user.id !== currentUser()?.id).map(user => {
+        const handle = String(user.username || '').toLowerCase();
+        const name = String(user.name || '').toLowerCase();
+        const candidates = [handle, name.replace(/[^a-z0-9]/g, ''), ...name.split(/\s+/)].filter(Boolean);
+        if (handle === search) return { user, score: 0 };
+        if (handle.startsWith(search)) return { user, score: .2 };
+        if (candidates.some(candidate => candidate.startsWith(search))) return { user, score: .4 };
+        if (candidates.some(candidate => candidate.includes(search))) return { user, score: .8 };
+        if (search.length < 3) return null;
+        const distance = Math.min(...candidates.map(bestWindowDistance));
+        const allowedDistance = Math.max(1, Math.floor(search.length * .34));
+        return distance <= allowedDistance ? { user, score: 1 + (distance / search.length) } : null;
+      }).filter(Boolean).sort((a, b) => a.score - b.score || a.user.username.localeCompare(b.user.username)).slice(0, 5).map(item => item.user);
+    }
+
+    function renderUsernameResults(query) {
+      const results = document.getElementById('username-results');
+      const matches = usernameMatches(query);
+      results.innerHTML = matches.map(user => `<button type="button" class="username-result" data-action="select-username" data-user-id="${escapeHtml(user.id)}"><span class="avatar">${avatarMarkup(user)}</span><span><strong>${escapeHtml(user.name)}</strong><span class="username-handle">@${escapeHtml(user.username)}</span></span></button>`).join('') || '<div class="empty" style="padding:14px">No close username matches</div>';
+      results.classList.toggle('hidden', !String(query || '').trim());
+    }
+
+    function setCardType(type) {
+      const subscription = type === 'subscription';
+      document.getElementById('card-type').value = subscription ? 'subscription' : 'flexible';
+      document.querySelectorAll('[data-action="set-card-type"]').forEach(button => button.classList.toggle('selected', button.dataset.cardType === type));
+      document.querySelectorAll('.subscription-field').forEach(field => field.classList.toggle('hidden', !subscription));
+      document.querySelectorAll('.flexible-field').forEach(field => field.classList.toggle('hidden', subscription));
+      document.getElementById('card-merchant').required = subscription;
+      document.getElementById('card-price').required = subscription;
+      document.getElementById('card-renewal').required = subscription;
+    }
+
+    function openMemberModal(member = null) {
+      const card = currentCard();
+      if (!card || card.type !== 'subscription') return;
+      if (!isOwner(card) && (!member || member.id !== viewerMember(card)?.id)) { toast('Only the host can manage other members.'); return; }
+      const form = document.getElementById('member-form');
+      const isNew = !member;
+      const contributionField = document.querySelector('.contribution-field');
+      const contributionInput = document.getElementById('member-contribution');
+      const contributionHelp = document.getElementById('member-contribution-help');
+      const saveButton = document.getElementById('save-member-button');
+      const lockButton = document.getElementById('lock-member-button');
+      form.reset();
+      document.getElementById('member-id').value = member?.id || '';
+      document.getElementById('member-user-id').value = member?.userId || '';
+      document.querySelector('.username-search-field').classList.toggle('hidden', !isNew);
+      document.getElementById('username-results').classList.add('hidden');
+      document.getElementById('member-modal-title').textContent = isNew ? 'Add a member' : member.name;
+      document.getElementById('member-name').value = member?.name || '';
+      document.getElementById('member-email').value = member?.email || '';
+      document.getElementById('member-date').value = member?.dueDate || card.nextRenewal || plusDays(7);
+      const readonlyProfile = !isOwner(card) && !isNew;
+      document.getElementById('member-name').readOnly = readonlyProfile;
+      document.getElementById('member-email').readOnly = readonlyProfile;
+      document.getElementById('member-date').readOnly = readonlyProfile;
+      contributionField.classList.toggle('hidden', isNew);
+      contributionInput.required = !isNew;
+      lockButton.classList.toggle('hidden', isNew);
+      saveButton.textContent = isNew ? 'Add member' : 'Save proposal';
+
+      if (isNew) {
+        document.getElementById('member-status-panel').innerHTML = `<div><div class="box-title">Send an invitation</div><p>The contributor can accept or decline, then choose an amount and get Ready.</p><button type="button" class="button ghost small" style="margin-top:8px" data-action="fill-demo-contributor">Use Joseph Contrelford</button></div>${statusPill('neutral', 'New invitation')}`;
+        contributionHelp.textContent = 'The member chooses this amount after joining.';
+      } else {
+        const contribution = currentContribution(card, member);
+        const automatic = isAutomaticMember(member);
+        contributionInput.value = contribution.toFixed(2);
+        contributionHelp.textContent = automatic
+          ? `Current split: ${money(contribution)}. Choosing another amount updates every other unready automatic split.`
+          : member.locked
+            ? `Ready with ${money(contribution)}. Changing this amount reopens the agreement.`
+            : `This member selected ${money(contribution)}. Other unready automatic splits adjust around it.`;
+        const title = automatic ? 'Automatic current split' : 'Monthly proposal';
+        const copy = automatic
+          ? 'No amount has been chosen yet. The equal split changes automatically when members join or another member chooses an amount.'
+          : member.locked
+            ? 'This member is ready. Updating the contribution requires the group to agree again.'
+            : 'This member has chosen a monthly amount and can ready up when it is final.';
+        const status = member.locked ? statusPill('success', 'Ready') : statusPill('warn', 'Not ready');
+        document.getElementById('member-status-panel').innerHTML = `<div><div class="box-title">${title} · ${money(contribution)}</div><p>${copy}</p></div>${status}`;
+        lockButton.textContent = member.locked ? 'Update & ready up' : 'Ready up';
+      }
+
+      const charge = activeCharge(card);
+      const approvalPanel = document.getElementById('member-approval-panel');
+      if (!isNew && charge) {
+        const approval = charge.approvals?.[member.id] || 'pending';
+        const contribution = currentContribution(card, member);
+        const label = approval === 'approved' ? statusPill('success', 'Approved') : approval === 'declined' ? statusPill('danger', 'Declined') : statusPill('warn', 'Awaiting approval');
+        approvalPanel.innerHTML = `<div class="approval-panel-title">Purchase approval</div><div class="approval-panel-copy">${escapeHtml(charge.title)} · ${money(contribution)} contribution + ${money(feeFor(contribution))} service fee.</div><div class="approval-panel-actions">${label}${approval !== 'approved' ? `<button type="button" class="button primary small" data-action="approve-member" data-member-id="${member.id}">Approve purchase</button>` : ''}${approval !== 'declined' ? `<button type="button" class="button danger small" data-action="decline-member" data-member-id="${member.id}">Decline</button>` : ''}</div>`;
+      } else {
+        approvalPanel.innerHTML = `<div class="approval-panel-title">Purchase approval</div><div class="approval-panel-copy">Purchase approval opens automatically after every member is ready and the group total matches the subscription price.</div>`;
+      }
+      openModal('member-modal');
+    }
+
+    function readMemberForm() {
+      const form = document.getElementById('member-form');
+      const data = new FormData(form);
+      const rawContribution = String(data.get('contribution') || '').trim();
+      return {
+        id: data.get('memberId') || '',
+        userId: String(data.get('userId') || ''),
+        name: String(data.get('name') || '').trim(),
+        email: String(data.get('email') || '').trim(),
+        proposedAmount: rawContribution === '' ? null : amount(rawContribution),
+        dueDate: String(data.get('dueDate') || '')
+      };
+    }
+
+    function validateMember(values, isNew) {
+      if (!values.name || !values.email || !values.dueDate) return 'Add a name, email, and deposit date.';
+      if (!isNew && (!Number.isFinite(values.proposedAmount) || values.proposedAmount === null)) return 'Enter a valid monthly contribution.';
+      return '';
+    }
+
+    function saveMember(lockContribution) {
+      const form = document.getElementById('member-form');
+      if (!form.reportValidity()) return;
+      const card = currentCard();
+      const values = readMemberForm();
+      const isNew = !values.id;
+      if (!isOwner(card) && (isNew || values.id !== viewerMember(card)?.id)) { toast('Only the host can manage other members.'); return; }
+      const error = validateMember(values, isNew);
+      if (error) { toast(error); return; }
+      let member = memberById(card, values.id);
+      const chargeWasOpen = !!activeCharge(card);
+
+      if (!member) {
+        const directoryUser = Object.values(state.users).find(user => user.id === values.userId || user.email.toLowerCase() === values.email.toLowerCase());
+        const linkedContributor = directoryUser?.role === 'contributor';
+        member = { id: uid(), userId: linkedContributor ? directoryUser.id : null, invitationStatus: linkedContributor ? 'pending' : 'accepted', name: values.name, email: values.email, proposedAmount: 0, proposalState: 'auto', dueDate: values.dueDate, locked: false };
+        card.members.push(member);
+        if (chargeWasOpen) voidActiveCharge(card, 'A subscription approval was closed because a new member joined');
+        refreshAutomaticProposals(card);
+        addActivity(card, linkedContributor ? `Invitation sent to ${member.name}` : `${member.name} was added to the card`);
+      } else {
+        const currentAmount = currentContribution(card, member);
+        const amountChanged = Math.abs(currentAmount - values.proposedAmount) >= .01;
+        const dateChanged = member.dueDate !== values.dueDate;
+        const wasLocked = member.locked;
+        member.name = values.name;
+        member.email = values.email;
+        member.dueDate = values.dueDate;
+        member.proposedAmount = values.proposedAmount;
+        member.proposalState = 'custom';
+        member.locked = lockContribution ? true : (wasLocked && !amountChanged);
+        if ((amountChanged || dateChanged || (wasLocked && !member.locked)) && chargeWasOpen) {
+          voidActiveCharge(card, 'A subscription approval was closed because a contribution changed');
+        }
+        addActivity(card, lockContribution ? `${member.name} readied up with a monthly contribution` : `${member.name} set a monthly contribution`);
+        refreshAutomaticProposals(card);
+      }
+
+      card.members.forEach(item => syncMemberDeposit(card, item));
+      reconcileAgreement(card);
+      closeModal('member-modal');
+      toast(isNew ? (member.invitationStatus === 'pending' ? `Invitation sent to ${member.name}.` : `${member.name} was added. Current splits were updated.`) : lockContribution ? `${member.name} is ready.` : `${member.name}'s proposal was saved.`);
+      render();
+    }
+
+    document.addEventListener('click', event => {
+      const target = event.target.closest('[data-action]');
+      if (!target) return;
+      const action = target.dataset.action;
+      const card = currentCard();
+
+      if (action === 'choose-role') { showRoleLogin(target.dataset.role); return; }
+      if (action === 'back-to-roles') { showRoleChoice(); return; }
+      if (action === 'quick-login') { signIn(target.dataset.role); return; }
+      if (action === 'select-username') {
+        const user = Object.values(state.users).find(item => item.id === target.dataset.userId);
+        if (!user) return;
+        document.getElementById('member-user-id').value = user.id;
+        document.getElementById('member-username-search').value = `@${user.username}`;
+        document.getElementById('member-name').value = user.name;
+        document.getElementById('member-email').value = user.email;
+        document.getElementById('username-results').classList.add('hidden');
+        return;
+      }
+      if (action === 'fill-demo-contributor') {
+        const contributor = state.users.contributor;
+        document.getElementById('member-user-id').value = contributor.id;
+        document.getElementById('member-username-search').value = `@${contributor.username}`;
+        document.getElementById('member-name').value = contributor.name;
+        document.getElementById('member-email').value = contributor.email;
+        return;
+      }
+      if (action === 'logout') {
+        session = null;
+        revealedCardIds.clear();
+        sessionStorage.removeItem(sessionKey);
+        document.querySelectorAll('.modal-backdrop.open').forEach(modal => modal.classList.remove('open'));
+        showRoleChoice();
+        render();
+        return;
+      }
+      if (action === 'respond-invitation') {
+        const member = viewerMember(card);
+        if (!member || !['accepted', 'declined'].includes(target.dataset.response)) return;
+        member.invitationStatus = target.dataset.response;
+        addActivity(card, `${member.name} ${member.invitationStatus} the invitation`);
+        state.selectedCardId = visibleCards()[0]?.id || null;
+        toast(member.invitationStatus === 'accepted' ? `You joined ${card.name}.` : `Invitation declined.`);
+        render();
+        return;
+      }
+
+      if (action === 'open-create-card') {
+        document.getElementById('card-form').reset();
+        document.getElementById('card-renewal').value = plusDays(7);
+        document.getElementById('card-opening-balance').value = '0';
+        setCardType('subscription');
+        openModal('card-modal');
+        return;
+      }
+      if (action === 'close-card-modal') { closeModal('card-modal'); return; }
+      if (action === 'set-card-type') { setCardType(target.dataset.cardType); return; }
+      if (action === 'select-card') { revealedCardIds.clear(); state.selectedCardId = target.dataset.cardId; state.activeTab = 'overview'; render(); return; }
+      if (action === 'add-members-from-list') { const selected = cardById(target.dataset.cardId); if (selected && isOwner(selected)) { state.selectedCardId = selected.id; state.activeTab = 'members'; render(); openMemberModal(); } return; }
+      if (action === 'set-tab') { state.activeTab = target.dataset.tab; render(); return; }
+      if (action === 'toggle-card-details') {
+        if (!card || !isOwner(card)) return;
+        if (revealedCardIds.has(card.id)) revealedCardIds.delete(card.id);
+        else revealedCardIds.add(card.id);
+        render();
+        return;
+      }
+      if (action === 'open-add-member') { if (isOwner(card)) openMemberModal(); else toast('Only the host can add members.'); return; }
+      if (action === 'open-member') { const member = memberById(card, target.dataset.memberId); if (member) openMemberModal(member); return; }
+      if (action === 'close-member-modal') { closeModal('member-modal'); return; }
+      if (action === 'save-member') { saveMember(false); return; }
+      if (action === 'lock-member') { saveMember(true); return; }
+      if (action === 'unready-contribution') {
+        const member = viewerMember(card);
+        if (!member || !member.locked || isOwner(card)) return;
+        voidActiveCharge(card, 'A subscription approval was closed because a member became unready');
+        member.locked = false;
+        card.members.forEach(item => syncMemberDeposit(card, item));
+        reconcileAgreement(card);
+        addActivity(card, `${member.name} became unready`);
+        toast('You are no longer ready. You can now change your contribution.');
+        render();
+        return;
+      }
+      if (action === 'save-inline-contribution' || action === 'ready-inline-contribution') {
+        const member = viewerMember(card);
+        const input = document.querySelector('[data-contribution-input]');
+        const rawValue = String(input?.value || '').trim();
+        const numericValue = Number(rawValue);
+        if (!member || member.locked || isOwner(card) || rawValue === '' || !Number.isFinite(numericValue) || numericValue < 0) {
+          toast('Enter a valid monthly contribution.');
+          return;
+        }
+        const previous = currentContribution(card, member);
+        const next = amount(numericValue);
+        if (Math.abs(previous - next) >= .01) voidActiveCharge(card, 'A subscription approval was closed because a contribution changed');
+        member.proposedAmount = next;
+        member.proposalState = 'custom';
+        member.locked = action === 'ready-inline-contribution';
+        refreshAutomaticProposals(card);
+        card.members.forEach(item => syncMemberDeposit(card, item));
+        reconcileAgreement(card);
+        addActivity(card, member.locked ? `${member.name} readied up with a monthly contribution` : `${member.name} set a monthly contribution`);
+        toast(member.locked ? `You are ready with ${money(next)} per month.` : `Your contribution was updated to ${money(next)}.`);
+        render();
+        return;
+      }
+      if (action === 'open-topup-modal') {
+        if (!card || !isOwner(card)) { toast('Only the host can add funds to this card.'); return; }
+        document.getElementById('topup-form').reset();
+        document.getElementById('topup-date').value = today();
+        document.getElementById('topup-modal-title').textContent = `Add funds to ${card.name}`;
+        openModal('topup-modal');
+        return;
+      }
+      if (action === 'close-topup-modal') { closeModal('topup-modal'); return; }
+      if (action === 'fund-member') {
+        if (!card || !isOwner(card)) { toast('Only the host can manage card funding.'); return; }
+        const member = memberById(card, target.dataset.memberId);
+        const scheduled = card.deposits.filter(deposit => deposit.kind === 'member' && deposit.memberId === member?.id && deposit.status === 'scheduled');
+        const toFund = round(scheduled.reduce((sum, deposit) => sum + amount(deposit.amount), 0));
+        if (!member || toFund <= 0) { toast('There is no scheduled contribution to fund.'); return; }
+        scheduled.forEach(deposit => { deposit.status = 'reimbursement_recorded'; });
+        addActivity(card, `${member.name}'s external reimbursement was recorded`, toFund, 'neutral', { eventType: 'reimbursement_recorded' });
+        toast(`Recorded ${money(toFund)} as an external reimbursement. The card balance did not change.`);
+        render();
+        return;
+      }
+      if (action === 'approve-member' || action === 'decline-member') {
+        const member = memberById(card, target.dataset.memberId);
+        const charge = activeCharge(card);
+        if (!member || !charge || (!isOwner(card) && member.id !== viewerMember(card)?.id)) return;
+        const status = action === 'approve-member' ? 'approved' : 'declined';
+        charge.approvals[member.id] = status;
+        addActivity(card, `${member.name} ${status === 'approved' ? 'approved' : 'declined'} the subscription purchase`);
+        toast(`${member.name}'s approval was recorded.`);
+        closeModal('member-modal');
+        render();
+        return;
+      }
+      if (action === 'complete-charge') {
+        if (!isOwner(card)) { toast('Only the host can process the subscription charge.'); return; }
+        const charge = activeCharge(card);
+        if (!card || !charge || !allApproved(card, charge) || cardBalance(card) + .009 < charge.totalAmount) {
+          toast('The mock renewal needs every approval and enough mock host funding.');
+          return;
+        }
+        card.mockBalance = round(cardBalance(card) - charge.totalAmount);
+        charge.status = 'completed';
+        addActivity(card, `${card.merchant} renewal was simulated`, charge.totalAmount, 'out', { eventType: 'mock_transaction', authorizationStatus: 'mock_approved', settlementStatus: 'mock_settled', merchantData: { name: card.merchant } });
+        card.nextRenewal = plusMonth(card.nextRenewal);
+        card.members.forEach(member => { member.locked = false; syncMemberDeposit(card, member); });
+        toast(`Mock renewal recorded. No real payment was attempted.`);
+        render();
+        return;
+      }
+      if (action === 'delete-card') {
+        if (!card || !isOwner(card)) { toast('Only the host can delete this card.'); return; }
+        const message = card.type === 'subscription'
+          ? `Delete ${card.name}? This cancels this card's future subscription workflow.`
+          : `Delete ${card.name}?`;
+        if (!window.confirm(message)) return;
+        providers.forCard(card).closeCard(card);
+        state.cards = state.cards.filter(item => item.id !== card.id);
+        state.selectedCardId = state.cards[0]?.id || null;
+        state.activeTab = 'overview';
+        toast(`${card.name} was deleted.`);
+        render();
+      }
+    });
+
+    document.getElementById('card-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const form = new FormData(event.currentTarget);
+      const type = form.get('type');
+      const name = String(form.get('name') || '').trim();
+      if (!name) { toast('Give the card a name.'); return; }
+      const openingBalance = type === 'flexible' ? amount(form.get('openingBalance')) : 0;
+      const spendControlConfig = type === 'subscription' ? {
+        merchantRule: { mode: 'intended_merchant', value: String(form.get('merchant') || '').trim(), confirmationRequired: true },
+        transactionLimit: amount(form.get('price')),
+        velocityLimit: { successfulTransactions: 1, interval: 'calendar_month' }
+      } : {};
+      const providerCard = providers.providers.mock.createSubscriptionCard({ openingBalance, spendControlConfig });
+      const card = {
+        id: uid(),
+        ownerUserId: currentUser()?.id,
+        role: 'owner',
+        type,
+        name,
+        merchant: type === 'subscription' ? String(form.get('merchant') || '').trim() : '',
+        basePrice: type === 'subscription' ? amount(form.get('price')) : 0,
+        nextRenewal: type === 'subscription' ? String(form.get('renewal') || '') : '',
+        ...providerCard,
+        members: [],
+        deposits: [],
+        charges: [],
+        activity: []
+      };
+      if (type === 'subscription' && (!card.merchant || card.basePrice <= 0 || !card.nextRenewal)) { toast('Add a merchant, monthly price, and renewal date.'); return; }
+      if (cardBalance(card) > 0) addActivity(card, 'Mock opening funds added by the host', cardBalance(card), 'in', { eventType: 'mock_funding' });
+      addActivity(card, `${card.name} card concept created`, null, 'neutral', { eventType: 'card_created' });
+      state.cards.unshift(card);
+      state.selectedCardId = card.id;
+      state.activeTab = 'overview';
+      closeModal('card-modal');
+      toast(`${card.name} was created.`);
+      render();
+    });
+
+    document.getElementById('topup-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const card = currentCard();
+      if (!card || !isOwner(card)) { toast('Only the host can add funds to this card.'); return; }
+      const data = new FormData(event.currentTarget);
+      const topup = amount(data.get('amount'));
+      const note = String(data.get('note') || '').trim();
+      if (topup <= 0) { toast('Enter an amount greater than $0.00.'); return; }
+      const result = providers.forCard(card).addHostFunds(card, { amount: topup, date: data.get('date'), note });
+      card.deposits.push({ id: uid(), kind: 'host_mock_funding', memberId: null, amount: topup, scheduledFor: data.get('date'), status: 'mocked', note });
+      addActivity(card, note ? `Mock host funds: ${note}` : 'Mock host funds added', topup, 'in', { providerEventId: result.providerEventId, eventType: 'mock_funding' });
+      closeModal('topup-modal');
+      toast(`Mocked ${money(topup)} in host funding. No money moved.`);
+      render();
+    });
+
+    document.querySelectorAll('[data-auth-role]').forEach(form => form.addEventListener('submit', event => {
+      event.preventDefault();
+      if (!event.currentTarget.reportValidity()) return;
+      const data = new FormData(event.currentTarget);
+      signIn(event.currentTarget.dataset.authRole, String(data.get('email') || '').trim(), String(data.get('phone') || '').trim(), String(data.get('username') || '').trim().replace(/^@/, ''), pendingAvatarData || 'assets/default-profile.png');
+    }));
+
+    document.getElementById('login-avatar').addEventListener('change', event => prepareProfileImage(event.target.files?.[0]));
+
+    document.getElementById('member-username-search').addEventListener('input', event => {
+      document.getElementById('member-user-id').value = '';
+      renderUsernameResults(event.target.value);
+    });
+
+    document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.addEventListener('click', event => {
+      if (event.target === backdrop) backdrop.classList.remove('open');
+    }));
+
+    render();
+  })();
+  </script>
+</body>
+</html>
