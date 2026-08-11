@@ -114,7 +114,9 @@ This is not a finance dashboard. People, group identity, shared purpose, readine
 
 - Circle lists use one reusable `390 × 108` summary-card component.
 - The Circle identity bubble is `48 × 48`, leaving a separate lower-left slot for member profiles.
-- Circle name and concise membership/asset summary use stable positions beside the identity bubble.
+- The Circle name uses a `20 px` title treatment beside the identity bubble and sits slightly lower than the original compact-card layout.
+- The member stack occupies a fixed four-bubble slot on the lower left. The `14 px` people/shared-item summary begins immediately to the right of that reserved slot, even when fewer than four bubbles are visible.
+- Long Circle names or summaries truncate rather than changing the component height or colliding with the health face.
 - The health face stays in the upper-right position on every Circle card.
 - The member stack follows the profile-picture rules above and remains in the same lower-left position regardless of member count.
 - The entire card is the navigation target; do not add redundant labels such as `Open`.
