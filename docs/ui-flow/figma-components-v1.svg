@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1100" viewBox="0 0 1440 1100">
+  <rect width="1440" height="1100" rx="32" fill="#FFF9F2"/>
+  <text x="72" y="88" fill="#273232" font-family="Epilogue, sans-serif" font-size="42" font-weight="700">Potluck Components</text>
+  <text x="72" y="126" fill="#6D7774" font-family="Manrope, sans-serif" font-size="18">Core social shell and attention language</text>
+
+  <text x="72" y="202" fill="#273232" font-family="Epilogue, sans-serif" font-size="24" font-weight="700">Health Face</text>
+  <g id="HealthFace-AllGood" transform="translate(72 230)"><circle cx="32" cy="32" r="32" fill="#DDF4E8"/><circle cx="22" cy="26" r="3" fill="#168A67"/><circle cx="42" cy="26" r="3" fill="#168A67"/><path d="M18 38 Q32 52 46 38" fill="none" stroke="#168A67" stroke-width="5" stroke-linecap="round"/></g>
+  <g id="HealthFace-Attention" transform="translate(166 230)"><circle cx="32" cy="32" r="32" fill="#FFF0C8"/><circle cx="22" cy="26" r="3" fill="#D99B17"/><circle cx="42" cy="26" r="3" fill="#D99B17"/><path d="M19 45 L45 35" fill="none" stroke="#D99B17" stroke-width="5" stroke-linecap="round"/></g>
+  <g id="HealthFace-Critical" transform="translate(260 230)"><circle cx="32" cy="32" r="32" fill="#FBE1E1"/><circle cx="22" cy="26" r="3" fill="#D64545"/><circle cx="42" cy="26" r="3" fill="#D64545"/><path d="M18 48 Q32 36 46 48" fill="none" stroke="#D64545" stroke-width="5" stroke-linecap="round"/></g>
+  <text x="72" y="324" fill="#6D7774" font-family="Manrope, sans-serif" font-size="14">All good</text><text x="166" y="324" fill="#6D7774" font-family="Manrope, sans-serif" font-size="14">Needs attention</text><text x="280" y="324" fill="#6D7774" font-family="Manrope, sans-serif" font-size="14">Act now</text>
+
+  <text x="460" y="202" fill="#273232" font-family="Epilogue, sans-serif" font-size="24" font-weight="700">You bubble</text>
+  <g id="YouBubble-Default" transform="translate(460 230)"><circle cx="32" cy="32" r="30" fill="#FFFFFF" stroke="#074F4F" stroke-width="2"/><text x="32" y="38" text-anchor="middle" fill="#074F4F" font-family="Manrope, sans-serif" font-size="14" font-weight="700">You</text></g>
+  <g id="YouBubble-Attention" transform="translate(560 230)"><circle cx="32" cy="32" r="30" fill="#FFFFFF" stroke="#074F4F" stroke-width="2"/><text x="32" y="38" text-anchor="middle" fill="#074F4F" font-family="Manrope, sans-serif" font-size="14" font-weight="700">You</text><circle cx="54" cy="10" r="11" fill="#D64545" stroke="#FFF9F2" stroke-width="3"/><text x="54" y="15" text-anchor="middle" fill="#FFFFFF" font-family="Manrope, sans-serif" font-size="14" font-weight="800">!</text></g>
+
+  <text x="760" y="202" fill="#273232" font-family="Epilogue, sans-serif" font-size="24" font-weight="700">Create action</text>
+  <g id="CreateAction-Default" transform="translate(760 230)"><circle cx="32" cy="32" r="32" fill="#F36F55"/><path d="M32 19 V45 M19 32 H45" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/></g>
+
+  <text x="72" y="410" fill="#273232" font-family="Epilogue, sans-serif" font-size="24" font-weight="700">Bottom navigation</text>
+  <g id="BottomNav-ActiveCircles" transform="translate(72 438)">
+    <rect width="390" height="92" rx="28" fill="#FFFFFF" stroke="#E8DED4"/>
+    <g transform="translate(38 20)" fill="none" stroke="#6D7774" stroke-width="2.5"><rect x="0" y="4" width="30" height="22" rx="5"/><path d="M5 10 H25"/></g><text x="53" y="72" text-anchor="middle" fill="#6D7774" font-family="Manrope, sans-serif" font-size="12" font-weight="700">Cards</text>
+    <rect x="139" y="10" width="112" height="72" rx="26" fill="#074F4F"/>
+    <g transform="translate(175 22)" fill="none" stroke="#FFFFFF" stroke-width="2.5"><circle cx="13" cy="9" r="7"/><circle cx="27" cy="12" r="6"/><path d="M2 30 Q13 19 24 30 M18 31 Q27 22 36 31"/></g><text x="195" y="70" text-anchor="middle" fill="#FFFFFF" font-family="Manrope, sans-serif" font-size="12" font-weight="800">Circles</text>
+    <g transform="translate(315 19)" fill="none" stroke="#6D7774" stroke-width="2.5"><path d="M4 2 H30 V31 L25 27 L20 31 L15 27 L10 31 L4 27 Z"/><path d="M10 10 H24 M10 16 H24"/></g><text x="333" y="72" text-anchor="middle" fill="#6D7774" font-family="Manrope, sans-serif" font-size="12" font-weight="700">Bills</text>
+  </g>
+
+  <text x="540" y="410" fill="#273232" font-family="Epilogue, sans-serif" font-size="24" font-weight="700">Circle card</text>
+  <g id="CircleCard-Default" transform="translate(540 438)">
+    <rect width="390" height="108" rx="26" fill="#FFFFFF" stroke="#E8DED4"/>
+    <circle cx="44" cy="36" r="24" fill="#E9DDF1"/><text x="44" y="42" text-anchor="middle" fill="#074F4F" font-family="Epilogue, sans-serif" font-size="18" font-weight="700">A</text>
+    <text x="80" y="31" fill="#273232" font-family="Epilogue, sans-serif" font-size="18" font-weight="700">Apartment crew</text>
+    <text x="80" y="53" fill="#6D7774" font-family="Manrope, sans-serif" font-size="13">4 people · 2 shared bills</text>
+    <g transform="translate(324 14)"><circle cx="22" cy="22" r="22" fill="#DDF4E8"/><circle cx="15" cy="18" r="2.3" fill="#168A67"/><circle cx="29" cy="18" r="2.3" fill="#168A67"/><path d="M12 27 Q22 37 32 27" fill="none" stroke="#168A67" stroke-width="4" stroke-linecap="round"/></g>
+    <circle cx="44" cy="83" r="13" fill="#FFD989" stroke="#FFFFFF" stroke-width="2"/><text x="44" y="87" text-anchor="middle" fill="#273232" font-family="Manrope, sans-serif" font-size="9" font-weight="700">J</text>
+    <circle cx="66" cy="83" r="13" fill="#FBE3DD" stroke="#FFFFFF" stroke-width="2"/><text x="66" y="87" text-anchor="middle" fill="#273232" font-family="Manrope, sans-serif" font-size="9" font-weight="700">M</text>
+    <circle cx="88" cy="83" r="13" fill="#E9DDF1" stroke="#FFFFFF" stroke-width="2"/><text x="88" y="87" text-anchor="middle" fill="#273232" font-family="Manrope, sans-serif" font-size="9" font-weight="700">T</text>
+    <circle cx="110" cy="83" r="13" fill="#DDF4E8" stroke="#FFFFFF" stroke-width="2"/><text x="110" y="87" text-anchor="middle" fill="#273232" font-family="Manrope, sans-serif" font-size="9" font-weight="700">S</text>
+  </g>
+
+  <text x="972" y="410" fill="#273232" font-family="Epilogue, sans-serif" font-size="24" font-weight="700">Attention item</text>
+  <g id="AttentionItem-Default" transform="translate(972 438)">
+    <rect width="396" height="132" rx="24" fill="#FFF0C8"/>
+    <circle cx="48" cy="48" r="24" fill="#FFFFFF"/><path d="M37 52 L59 44" fill="none" stroke="#D99B17" stroke-width="5" stroke-linecap="round"/><circle cx="41" cy="38" r="2.5" fill="#D99B17"/><circle cx="55" cy="38" r="2.5" fill="#D99B17"/>
+    <text x="88" y="39" fill="#273232" font-family="Epilogue, sans-serif" font-size="18" font-weight="700">Internet bill needs Maya</text>
+    <text x="88" y="66" fill="#6D7774" font-family="Manrope, sans-serif" font-size="14">Her updated agreement is waiting.</text>
+    <rect x="88" y="84" width="112" height="34" rx="13" fill="#074F4F"/><text x="144" y="106" text-anchor="middle" fill="#FFFFFF" font-family="Manrope, sans-serif" font-size="13" font-weight="800">Review</text>
+  </g>
+
+  <g id="UsageNotes" transform="translate(72 690)">
+    <rect width="1296" height="300" rx="28" fill="#074F4F"/>
+    <text x="36" y="58" fill="#FFFFFF" font-family="Epilogue, sans-serif" font-size="28" font-weight="700">Component rules</text>
+    <text x="36" y="108" fill="#CFE5DF" font-family="Manrope, sans-serif" font-size="17">• Green selection in the source PNG is demonstrative only—not an application treatment.</text>
+    <text x="36" y="150" fill="#CFE5DF" font-family="Manrope, sans-serif" font-size="17">• Health uses face, color, and plain-language status together.</text>
+    <text x="36" y="192" fill="#CFE5DF" font-family="Manrope, sans-serif" font-size="17">• Circles stays visually centered and strongest in the three-destination shell.</text>
+    <text x="36" y="234" fill="#CFE5DF" font-family="Manrope, sans-serif" font-size="17">• The You badge is reserved for private account and security attention.</text>
+  </g>
+</svg>
