@@ -1,0 +1,11 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="19" height="13.95" viewBox="0 0 19 13.95" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Card glyph" clip-path="url(#clip0_0_115)">
+<path id="Vector" d="M15.8333 0.0250004H3.1667C1.4178 0.0250004 0 1.43943 0 3.18418V10.766C0 12.5107 1.4178 13.9252 3.1667 13.9252H15.8333C17.5822 13.9252 19 12.5107 19 10.766V3.18418C19 1.43943 17.5822 0.0250004 15.8333 0.0250004Z" stroke="#D94A72" stroke-width="2"/>
+<path id="Vector_2" d="M3.1667 3.81572H15.8333" stroke="#D94A72" stroke-width="2"/>
+</g>
+<defs>
+<clipPath id="clip0_0_115">
+<rect width="19" height="13.95" fill="white"/>
+</clipPath>
+</defs>
+</svg>

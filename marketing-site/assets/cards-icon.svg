@@ -1,0 +1,11 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Core Icon / Cards" clip-path="url(#clip0_0_95)">
+<path id="Vector" d="M23.8636 1.15H5.68182C3.17144 1.15 1.13636 3.20949 1.13636 5.75V16.79C1.13636 19.3305 3.17144 21.39 5.68182 21.39H23.8636C26.374 21.39 28.4091 19.3305 28.4091 16.79V5.75C28.4091 3.20949 26.374 1.15 23.8636 1.15Z" stroke="#074F4F" stroke-width="2.5"/>
+<path id="Vector_2" d="M5.68182 6.67H23.8636" stroke="#074F4F" stroke-width="2.5"/>
+</g>
+<defs>
+<clipPath id="clip0_0_95">
+<rect width="30" height="23" fill="white"/>
+</clipPath>
+</defs>
+</svg>
