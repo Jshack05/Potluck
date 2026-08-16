@@ -8,6 +8,7 @@ const testDirectory = dirname(fileURLToPath(import.meta.url));
 const siteDirectory = resolve(testDirectory, '..');
 const htmlPath = resolve(siteDirectory, 'index.html');
 const cssPath = resolve(siteDirectory, 'styles.css');
+const workerConfigPath = resolve(siteDirectory, '..', 'wrangler.jsonc');
 
 function readRequired(path) {
   assert.ok(existsSync(path), `required file is missing: ${path}`);
@@ -81,4 +82,13 @@ test('provides basic document metadata and image alternatives', () => {
   for (const image of images) {
     assert.match(image, /\balt=["'][^"']*["']/i, `image is missing alt text: ${image}`);
   }
+});
+
+test('configures the existing Cloudflare Worker to publish the static site', () => {
+  const config = JSON.parse(readRequired(workerConfigPath));
+
+  assert.equal(config.name, 'potluck');
+  assert.match(config.compatibility_date, /^\d{4}-\d{2}-\d{2}$/);
+  assert.equal(config.assets?.directory, './marketing-site');
+  assert.equal(config.main, undefined, 'the static site should not require Worker code');
 });
