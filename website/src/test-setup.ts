@@ -3,17 +3,18 @@ import { cleanup } from "@testing-library/react";
 import { afterEach, vi } from "vitest";
 
 afterEach(cleanup);
-Object.defineProperty(window, "matchMedia", {
-  writable: true,
-  value: vi.fn().mockImplementation((query: string) => ({
-    matches: query.includes("prefers-reduced-motion"),
-    media: query,
-    addListener: vi.fn(),
-    removeListener: vi.fn(),
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-  })),
-});
+if (typeof window !== "undefined")
+  Object.defineProperty(window, "matchMedia", {
+    writable: true,
+    value: vi.fn().mockImplementation((query: string) => ({
+      matches: query.includes("prefers-reduced-motion"),
+      media: query,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    })),
+  });
 globalThis.IntersectionObserver = class {
   observe() {}
   unobserve() {}

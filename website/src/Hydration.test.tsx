@@ -1,36 +1,60 @@
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { act } from "react";
 import { hydrateRoot, type Root } from "react-dom/client";
 import { expect, test, vi } from "vitest";
 import App from "./App";
+import { pages, normalizePath } from "./pages";
 
-test("prerender is fully readable without JavaScript and hydrates cleanly with reduced motion", async () => {
-  const html = readFileSync("dist/index.html", "utf8");
-  const parsed = new DOMParser().parseFromString(html, "text/html");
-  const rendered = parsed.getElementById("root");
-  expect(rendered).not.toBeNull();
-  const initialPanel =
-    rendered!.querySelector<HTMLElement>(".tour-stage > div")!;
-  expect(initialPanel.style.opacity).toBe("1");
-  expect(initialPanel.style.transform).toBe("none");
-  const container = document.createElement("div");
-  container.innerHTML = rendered!.innerHTML;
-  document.body.append(container);
-  const errors = vi.spyOn(console, "error").mockImplementation(() => {});
-  let root: Root | undefined;
-  try {
-    await act(async () => {
-      root = hydrateRoot(container, <App />);
-    });
-    expect(errors.mock.calls.map((args) => args.join(" "))).toEqual([]);
+test.each(Object.keys(pages))(
+  "%s is prerendered, accessible without JS, and hydrates with reduced motion",
+  async (pathname) => {
+    const file =
+      pathname === "/404/" ? "dist/404.html" : `dist${pathname}index.html`;
+    const parsed = new DOMParser().parseFromString(
+      readFileSync(file, "utf8"),
+      "text/html",
+    );
+    const rendered = parsed.getElementById("root")!;
+    expect(rendered.querySelectorAll("h1")).toHaveLength(1);
+    expect(parsed.title).toBe(pages[normalizePath(pathname)].title);
     expect(
-      container.querySelector<HTMLElement>(".scroll-surface")!.style.transform,
-    ).toBe("");
-  } finally {
-    await act(async () => {
-      root?.unmount();
-    });
-    container.remove();
-    errors.mockRestore();
-  }
+      parsed.querySelector('link[rel="canonical"]')?.getAttribute("href"),
+    ).toBe(`https://getpotluck.app${pathname}`);
+    expect(
+      parsed.querySelector('meta[name="description"]')?.getAttribute("content"),
+    ).toBe(pages[normalizePath(pathname)].description);
+    for (const img of rendered.querySelectorAll("img"))
+      expect(existsSync(`public${img.getAttribute("src")}`)).toBe(true);
+    for (const link of rendered.querySelectorAll<HTMLAnchorElement>("a")) {
+      const href = link.getAttribute("href")!;
+      if (href.startsWith("/") && !href.startsWith("//"))
+        expect(Object.keys(pages)).toContain(href.split("#")[0] || "/");
+    }
+    expect(rendered.querySelector('[style*="opacity:0"]')).toBeNull();
+    const container = document.createElement("div");
+    container.innerHTML = rendered.innerHTML;
+    document.body.append(container);
+    const errors = vi.spyOn(console, "error").mockImplementation(() => {});
+    let root: Root | undefined;
+    try {
+      await act(async () => {
+        root = hydrateRoot(container, <App pathname={pathname} />);
+      });
+      expect(errors.mock.calls.map((args) => args.join(" "))).toEqual([]);
+      for (const surface of container.querySelectorAll<HTMLElement>(
+        ".scroll-surface",
+      ))
+        expect(surface.style.transform).toBe("");
+    } finally {
+      await act(async () => root?.unmount());
+      container.remove();
+      errors.mockRestore();
+    }
+  },
+);
+
+test("trailing-slash and unknown paths resolve predictably", () => {
+  expect(normalizePath("/splitfinder")).toBe("/splitfinder/");
+  expect(normalizePath("/")).toBe("/");
+  expect(normalizePath("/missing/")).toBe("/404/");
 });

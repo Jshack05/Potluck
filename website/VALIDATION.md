@@ -1,11 +1,14 @@
-# Validation — October 1, 2026
+# Validation — visual product pages, October 1, 2026
 
-- `pnpm validate`: passed formatting, ESLint, TypeScript, production build and four tests in two files. Dependency audit: no known vulnerabilities.
-- Interaction coverage: keyboard arrows/Home/End and roving tab focus; search normalization, filter, empty state and clear/focus restoration; read-only financial views and contact destination; actual prerendered HTML readability and clean hydration with reduced motion.
-- Browser: production preview at 1440×1000, 390×844 and 320×844. Search/filter/clear, keyboard tour switching and native FAQ expansion verified. No failed images or console errors. The final 320px document and client widths both measured 305px (15px browser scrollbar), confirming no horizontal page overflow.
-- Review: independent read-only review found an SSR/reduced-motion initial-style mismatch and ambiguous sample prices. Fixed initial rendering with a shared hydration snapshot; the regression failed on the old static opacity and passes on the rebuilt HTML. Prices now explicitly say monthly per person.
-- Accessibility/motion: CSS immediately disables transforms and transitions for reduced motion; JS respects that preference after a deterministic hydration render. Initial marketing content and FAQs remain readable without JS. This is focused QA, not a full accessibility certification or an on-device Safari test.
-- Sources: live Figma design context and original local assets, official Aceternity and Skiper registry code. Generated prototype and mascot excluded.
-- Deployment: local preview only, not published to getpotluck.app. Hosting configuration and any financial-provider approval remain separate. No credentials, transfers, account creation, data collection or analytics were introduced.
+- `pnpm validate`: passed formatting, ESLint, TypeScript, production build and 22 tests across three files. Dependency audit: no known vulnerabilities.
+- Four homepage feature links are visible together. Dedicated Splitfinder, Cards, Bills, Circles and Credits pages have their own prerendered HTML, descriptions, canonical URLs and titles.
+- Interaction coverage: normalized sample search, empty results, clear/focus restoration, read-only financial boundaries, contact/credits destinations and unknown-route recovery. The removed tab interaction test was replaced with the approved all-visible grid/navigation behavior; search and financial assertions were preserved.
+- All seven built HTML artifacts (including 404) hydrate cleanly with reduced motion, expose their main content without JavaScript, reference existing image files and link only to defined local pages.
+- Real HTTP preview tests cover all five dedicated pages with and without trailing slashes, plus an actual 404 for unknown paths. Regression observed: SPA fallback returned homepage HTML for slashless/unknown paths. MPA serving plus known-route redirects resolves it.
+- Browser: inspected 1440×1000, 390×844 and 320×844 layouts. Product grid is two columns on desktop and a single column on phones. All feature routes at 320px measured document/client widths of 305/305px (15px scrollbar). Homepage also measures 305/305px after its grid min-width fix. No failed images.
+- Browser actions: homepage feature link, all header feature links, direct reload, search/filter/empty/clear, Credits and browser back navigation. Phone checks identified and fixed the Splitfinder flex minimum width and narrow card content clipping. Subscription art now composes both original SVG layers.
+- Reduced motion is covered in hydration tests and CSS; on-device Safari and a full accessibility audit remain outside this focused browser QA.
+- Original Aceternity and Skiper adaptations retained. Fuller credits have their own page; required Skiper attribution remains visible in the footer.
+- Local preview only; not deployed to getpotluck.app. Static hosting needs directory indexes, trailing-slash redirects and a proper 404 mapping. No financial-provider calls, money movement, data collection, accounts, migrations or new dependencies.
 
-Preview command: `pnpm preview --port 4173`.
+Preview: `pnpm preview --port 4173`.
