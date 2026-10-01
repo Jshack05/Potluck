@@ -38,7 +38,9 @@ export const pages = {
 };
 export type PagePath = keyof typeof pages;
 export function normalizePath(pathname: string): PagePath {
-  const path = `/${pathname.split("/").filter(Boolean).join("/")}${pathname.split("/").filter(Boolean).length ? "/" : ""}`;
+  const segments = pathname.split("/").filter(Boolean);
+  if (segments.at(-1) === "index.html") segments.pop();
+  const path = `/${segments.join("/")}${segments.length ? "/" : ""}`;
   return Object.hasOwn(pages, path) ? (path as PagePath) : "/404/";
 }
 export const financialNotice =

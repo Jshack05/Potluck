@@ -5,21 +5,25 @@ import { expect, test, vi } from "vitest";
 import App from "./App";
 import { pages, normalizePath } from "./pages";
 
-test.each(Object.keys(pages))(
+test.each([...Object.keys(pages), "/index.html", "/cards/index.html"])(
   "%s is prerendered, accessible without JS, and hydrates with reduced motion",
   async (pathname) => {
+    const canonical = pathname.endsWith("index.html")
+      ? pathname.slice(0, -10)
+      : pathname;
     const file =
-      pathname === "/404/" ? "dist/404.html" : `dist${pathname}index.html`;
+      canonical === "/404/" ? "dist/404.html" : `dist${canonical}index.html`;
     const parsed = new DOMParser().parseFromString(
       readFileSync(file, "utf8"),
       "text/html",
     );
     const rendered = parsed.getElementById("root")!;
     expect(rendered.querySelectorAll("h1")).toHaveLength(1);
+    expect(normalizePath(pathname)).toBe(canonical);
     expect(parsed.title).toBe(pages[normalizePath(pathname)].title);
     expect(
       parsed.querySelector('link[rel="canonical"]')?.getAttribute("href"),
-    ).toBe(`https://getpotluck.app${pathname}`);
+    ).toBe(`https://getpotluck.app${canonical}`);
     expect(
       parsed.querySelector('meta[name="description"]')?.getAttribute("content"),
     ).toBe(pages[normalizePath(pathname)].description);
