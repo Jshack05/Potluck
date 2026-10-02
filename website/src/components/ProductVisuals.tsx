@@ -1,5 +1,7 @@
 import { AppIcon, People } from "./AppPreviews";
 import { FloatingCard } from "./FloatingCard";
+import { BillStack } from "./BillStack";
+export { BillStack } from "./BillStack";
 import type { Feature } from "../pages";
 
 export function ListingStack() {
@@ -53,50 +55,6 @@ export function ListingStack() {
               {item.price}
               <small> / person / month</small>
             </b>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-export function BillStack() {
-  return (
-    <div className="bill-stack">
-      <div className="mini-circle">
-        <AppIcon name="circles" />
-        <span>Apartment crew</span>
-        <span>2 bills</span>
-      </div>
-      {[
-        {
-          icon: "internet",
-          name: "Internet bill",
-          amount: "$84",
-          status: "Awaiting agreement",
-        },
-        {
-          icon: "electric",
-          name: "Electric",
-          amount: "$46",
-          status: "On track",
-        },
-      ].map((item) => (
-        <div className="showcase-bill" key={item.icon}>
-          <div className="bill-identity">
-            <span className="bill-icon">
-              <AppIcon name={item.icon} />
-            </span>
-            <strong>{item.name}</strong>
-            <b>{item.amount}</b>
-          </div>
-          <div className="bill-bottom">
-            <span>Monthly total</span>
-            <span
-              className={`pill ${item.icon === "internet" ? "pending" : ""}`}
-            >
-              {item.status}
-            </span>
           </div>
         </div>
       ))}

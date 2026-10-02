@@ -7,6 +7,18 @@
   },
   "assets": [
     {
+      "name": "bill-person-jordan.png",
+      "nodeId": "1540:19118",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1540-19118"
+    },
+    {
+      "name": "phone.svg",
+      "nodeId": "604:2287",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=604-2287"
+    },
+    {
       "name": "alpine-card.png",
       "nodeId": "1583:19341",
       "retrievedAt": "2026-10-02",

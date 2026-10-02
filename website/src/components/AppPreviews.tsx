@@ -110,7 +110,7 @@ function AppNav() {
   );
 }
 
-export function CirclePreview() {
+export function CirclePreview({ embedded = false }: { embedded?: boolean }) {
   return (
     <div className="circle-preview app-preview" data-figma-node="218:314">
       <div className="circle-title">
@@ -142,7 +142,7 @@ export function CirclePreview() {
         </h4>
         <PreviewCard />
       </div>
-      <AppNav />
+      {!embedded && <AppNav />}
     </div>
   );
 }

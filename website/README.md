@@ -19,9 +19,15 @@ pnpm preview --port 4173
 
 The homepage uses a 2×2 feature grid, stacked on phones. Native links open `/splitfinder/`, `/cards/`, `/bills/`, `/circles/` and `/credits/`. Each has independent HTML, metadata and canonical URLs, with browser back/forward and no-JavaScript access. Splitfinder includes the retained interactive sample search, a horizontal category rail and read-only availability/joining illustrations. More detailed explanations use native disclosures.
 
+The homepage phone cycles the existing Circles, Cards, Bills and Splitfinder previews every five seconds. Its fixed bottom navigation selects a screen immediately and holds it for 30 seconds, restarting that hold on each selection. A pause control, keyboard entry, Splitfinder search interaction, reduced-motion preferences, offscreen placement and hidden tabs suspend cycling. Search interaction stays paused until the visitor resumes. The phone is an interactive marketing preview; its financial screens remain illustrative.
+
 Splitfinder showcase listings stay level and centered. The Cards showcase cycles through deep-teal, mountain and ivory virtual-card concepts with layered edges and a floating shadow. Each 650 ms circular transition is followed by about 3.8 seconds of quiet floating; the caption stays level and the other two cards remain visible in the background. Selection dots and a pause button support manual viewing, and keyboard focus or manual selection pauses playback until explicitly resumed. Cycling and floating stop offscreen or in a hidden tab. Reduced-motion visitors get static, manually selectable designs. The app-screen card uses a static deep-teal finish. These illustrations do not imply physical-card availability.
 
 `src/pages.ts` is the route/metadata source of truth. `scripts/prerender.mjs` emits each directory's `index.html`, `404.html` and `sitemap.xml`. Vite development serves the shared entry for known routes; production preview serves each built page and redirects known paths without trailing slashes. Unknown preview paths return HTTP 404. No router dependency is needed.
+
+The shared-bill showcase cycles Netflix, Sam’s Club and Phone bill examples through two visible rows, with contributor avatars and people counts on each. Rows advance every 4.4 seconds with a 600 ms vertical transition. Pause/next controls support manual viewing; reduced motion, keyboard focus, hidden tabs and offscreen placement suspend automatic cycling. Amounts are illustrative bill totals, not current service prices; the membership example is yearly. The showcase does not imply service affiliation, unrestricted sharing eligibility, accepted contributions or working payments.
+
+This presentation serves prospective hosts, contributors and partners: see the people behind a shared bill at a glance. It supports core-product discovery through the existing feature links and partner contact, with no paid placement, upgrade flow or new financial behavior. The recurring-bill story distinguishes the product from a private bill tracker; feature-page engagement is the intended measurement, with no analytics added by this change.
 
 ## Sources and copy
 

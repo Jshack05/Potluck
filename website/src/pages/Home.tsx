@@ -1,5 +1,6 @@
-import { AppIcon, CirclePreview } from "../components/AppPreviews";
+import { AppIcon } from "../components/AppPreviews";
 import { AceternityScroll } from "../components/AceternityScroll";
+import { HeroPhone } from "../components/HeroPhone";
 import { ProductVisual } from "../components/ProductVisuals";
 import { Arrow, SkiperLink } from "../components/SkiperLink";
 import { financialNotice, type Feature } from "../pages";
@@ -55,7 +56,7 @@ export function Home() {
         <figure className="hero-figure">
           <div className="hero-halo" aria-hidden="true" />
           <AceternityScroll>
-            <CirclePreview />
+            <HeroPhone />
           </AceternityScroll>
           <figcaption>App preview · Financial features planned</figcaption>
         </figure>
