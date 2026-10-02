@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { BillsHomePreview } from "./BillsHomePreview";
 
 export function AppIcon({
   name,
@@ -239,35 +240,8 @@ export function DiscoveryPreview() {
   );
 }
 
-export function BillsPreview() {
-  return (
-    <div className="bills-preview app-preview">
-      <div className="preview-heading">
-        <span className="bill-icon">
-          <AppIcon name="bills" />
-        </span>
-        <span>Apartment crew</span>
-      </div>
-      <h3>Make the plan clear.</h3>
-      <People />
-      <div className="pending-agreement" data-figma-node="1555:19224">
-        <div className="pending-body">
-          <h4>
-            Internet bill <AppIcon name="clock" />
-          </h4>
-          <p>Waiting for Maya to accept her updated share.</p>
-          <p>Current terms stay in place.</p>
-        </div>
-        <div className="proposal-footer">
-          Awaiting agreement <span aria-hidden="true">↗</span>
-        </div>
-      </div>
-      <BillRow />
-      <p className="preview-note">
-        A proposed change is not an accepted contribution.
-      </p>
-    </div>
-  );
+export function BillsPreview({ onInteract }: { onInteract?: () => void }) {
+  return <BillsHomePreview onInteract={onInteract} />;
 }
 
 export function CardsPreview() {

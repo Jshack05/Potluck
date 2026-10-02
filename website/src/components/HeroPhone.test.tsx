@@ -227,3 +227,32 @@ test("keyboard navigation pauses before selection and unmount cancels pending wo
   expect(vi.getTimerCount()).toBe(0);
   expect(mediaListeners.size).toBe(0);
 });
+
+test("opening bill importing keeps the selected screen steady until cycling is resumed", () => {
+  render(<HeroPhone />);
+  inView(true);
+  select("Bills");
+  fireEvent.click(screen.getByRole("button", { name: "Import bills" }));
+  advance(60000);
+  selected("Bills");
+  expect(
+    screen.getByRole("heading", { name: "Recurring charges" }),
+  ).toBeVisible();
+  fireEvent.click(
+    screen.getByRole("button", { name: "Resume screen cycling" }),
+  );
+  advance(5000);
+  selected("Splitfinder");
+});
+
+test("keyboard focus on Bills controls pauses automatic screen replacement", () => {
+  render(<HeroPhone />);
+  inView(true);
+  advance(5000);
+  advance(5000);
+  selected("Bills");
+  fireEvent.focus(screen.getByRole("button", { name: "Import bills" }));
+  advance(60000);
+  selected("Bills");
+  expect(screen.getByRole("button", { name: "Import bills" })).toBeVisible();
+});

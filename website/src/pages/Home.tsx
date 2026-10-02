@@ -85,6 +85,11 @@ export function Home() {
                   <br />
                   <span>{product.accent}</span>
                 </p>
+                {product.id === "bills" && (
+                  <p className="tile-import-line">
+                    Bring your current bills with you.
+                  </p>
+                )}
                 <SkiperLink href={`/${product.id}/`}>
                   Explore {product.name}
                 </SkiperLink>

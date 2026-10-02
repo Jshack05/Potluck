@@ -348,6 +348,12 @@ summary {
 .tile-promise span {
   color: var(--green);
 }
+.tile-import-line {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 12px 0 4px;
+}
 .splitfinder .tile-promise span {
   color: var(--blue);
 }

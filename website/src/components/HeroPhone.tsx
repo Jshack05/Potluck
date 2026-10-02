@@ -99,6 +99,7 @@ export function HeroPhone() {
         const target = event.target as HTMLElement;
         if (
           target.matches("input") ||
+          target.closest(".bills-home-preview") ||
           (!pointerFocus.current &&
             !event.currentTarget.contains(event.relatedTarget) &&
             target.closest(".hero-screen-nav"))
@@ -120,7 +121,9 @@ export function HeroPhone() {
           >
             {active === "Circles" && <CirclePreview embedded />}
             {active === "Cards" && <CardsPreview />}
-            {active === "Bills" && <BillsPreview />}
+            {active === "Bills" && (
+              <BillsPreview onInteract={() => setPaused(true)} />
+            )}
             {active === "Splitfinder" && <DiscoveryPreview />}
           </div>
         </div>

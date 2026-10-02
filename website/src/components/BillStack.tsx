@@ -35,8 +35,8 @@ const examples = [
   },
 ];
 const people = [
-  { name: "Jordan", image: "bill-person-jordan.png", initial: "" },
-  { name: "Maya", image: "avatar-mint.svg", initial: "M" },
+  { name: "Jordan", image: "avatar-mint.svg", initial: "J" },
+  { name: "Maya", image: "avatar-lilac.svg", initial: "M" },
   { name: "Taylor", image: "avatar-peach.svg", initial: "T" },
   { name: "Sam", image: "avatar-lilac.svg", initial: "S" },
 ];
@@ -113,7 +113,6 @@ export function BillStack() {
       <div className="bill-stack-heading">
         <AppIcon name="circles" />
         <span>Shared bills</span>
-        <span>3 examples</span>
       </div>
       <div className="bill-stack-window" aria-live="off">
         {[-1, 0, 1, 2].map((position) => {
@@ -153,12 +152,10 @@ export function BillStack() {
                       <img
                         src={`/figma/${person.image}`}
                         alt=""
-                        width="34"
-                        height="34"
+                        width="38"
+                        height="38"
                       />
-                      {person.initial && (
-                        <b aria-hidden="true">{person.initial}</b>
-                      )}
+                      <b aria-hidden="true">{person.initial}</b>
                     </span>
                   ))}
                 </div>

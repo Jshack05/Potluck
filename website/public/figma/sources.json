@@ -2,10 +2,37 @@
   "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
   "retrievedAt": "2026-10-01",
   "screens": {
+    "1052:5014": "Import bills / Review recurring charges",
+    "1052:5015": "Import bills / Confirm bills",
+    "1122:4981": "Bills library / Shared",
     "218:314": "Circle Detail / Overview",
     "1763:24097": "Splitfinder / Subscriptions"
   },
   "assets": [
+    {
+      "name": "import.svg",
+      "nodeId": "1147:5958",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/api/mcp/asset/7bdfa532-d298-438d-8b2c-ebf971aa204f/4fecc.svg"
+    },
+    {
+      "name": "import-internet.svg",
+      "nodeId": "I1053:4971;1052:4962;253:420",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/api/mcp/asset/498c4b91-9f5b-459d-b567-8066c3955955/7e402.svg"
+    },
+    {
+      "name": "import-electric.svg",
+      "nodeId": "I1053:5012;1052:4962;253:408",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/api/mcp/asset/498c4b91-9f5b-459d-b567-8066c3955955/2cfa9.svg"
+    },
+    {
+      "name": "import-streaming.svg",
+      "nodeId": "I1053:5046;1052:4962;253:456",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/api/mcp/asset/498c4b91-9f5b-459d-b567-8066c3955955/11c6a.svg"
+    },
     {
       "name": "bill-person-jordan.png",
       "nodeId": "1540:19118",

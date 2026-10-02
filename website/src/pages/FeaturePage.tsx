@@ -5,6 +5,7 @@ import {
   DiscoveryPreview,
 } from "../components/AppPreviews";
 import { AceternityScroll } from "../components/AceternityScroll";
+import { BillImportStory } from "../components/BillImportDemo";
 import {
   AgreementVisual,
   BillStack,
@@ -111,6 +112,7 @@ export function FeaturePage({ feature }: { feature: Feature }) {
             : "App preview with illustrative data. No accounts, cards or payments are created here."}
         </p>
       </section>
+      {feature === "bills" && <BillImportStory />}
       {feature === "splitfinder" ? (
         <SplitfinderStory />
       ) : (
@@ -254,6 +256,7 @@ function SharedStory({
     <>
       <section
         className="story-grid section-wrap"
+        id={isBills ? "sharing" : undefined}
         aria-label={`${copy[feature].name} at a glance`}
       >
         <article className="story-card white">
