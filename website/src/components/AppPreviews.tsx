@@ -71,19 +71,9 @@ function BillRow({ electric = false }: { electric?: boolean }) {
   );
 }
 
-export function AuroraCard({ full = false }: { full?: boolean }) {
+export function PreviewCard({ full = false }: { full?: boolean }) {
   return (
-    <div
-      className={`aurora-card ${full ? "large" : ""}`}
-      data-figma-node="1592:19292"
-    >
-      <img
-        src="/figma/aurora-card.png"
-        className="aurora-art"
-        alt=""
-        width="660"
-        height="352"
-      />
+    <div className={`aurora-card ${full ? "large" : ""}`}>
       <div className="aurora-content">
         <div className="card-heading">
           <strong>Apartment card</strong>
@@ -150,7 +140,7 @@ export function CirclePreview() {
         <h4>
           Cards <span aria-hidden="true">+</span>
         </h4>
-        <AuroraCard />
+        <PreviewCard />
       </div>
       <AppNav />
     </div>
@@ -290,7 +280,7 @@ export function CardsPreview() {
         <span>Apartment crew</span>
       </div>
       <h3>Make spending purposeful.</h3>
-      <AuroraCard full />
+      <PreviewCard full />
       <div className="card-principles">
         <div>
           <AppIcon name="circles" />
