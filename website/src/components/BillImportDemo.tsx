@@ -500,22 +500,12 @@ export function BillImportDemo({
 }
 
 export function BillImportStory() {
-  const headingId = useId();
   return (
     <section
       id="import"
       className="bill-import-story section-wrap"
-      aria-labelledby={headingId}
+      aria-label="Import your bills"
     >
-      <div className="import-story-heading">
-        <p className="eyebrow">A familiar place to start</p>
-        <h2 id={headingId}>
-          Bring your bills
-          <br />
-          <span>with you.</span>
-        </h2>
-        <p>Review your recurring charges. Choose what to add.</p>
-      </div>
       <BillImportDemo autoPlay />
     </section>
   );

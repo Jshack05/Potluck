@@ -1,11 +1,14 @@
 .bill-import-story {
-  padding-block: 100px 110px;
+  padding-block: 100px 0;
 }
 .feature-bills .feature-hero {
   padding-bottom: 0;
 }
 .feature-bills .bill-import-story {
   padding-top: 44px;
+}
+.bills-import-availability {
+  margin-bottom: 90px;
 }
 .bills-app-example {
   text-align: center;
@@ -145,35 +148,6 @@
     opacity: 1;
     transform: translateY(var(--landing)) scale(1);
   }
-}
-
-.import-story-heading {
-  text-align: center;
-  margin: 0 auto 56px;
-}
-
-.import-story-heading .eyebrow {
-  justify-content: center;
-  color: var(--green);
-  margin-bottom: 20px;
-}
-
-.import-story-heading h2 {
-  font-size: clamp(38px, 5.3vw, 68px);
-  font-weight: 530;
-  line-height: 1.07;
-  letter-spacing: -0.065em;
-}
-
-.import-story-heading h2 span {
-  color: var(--green);
-}
-
-.import-story-heading > p:last-child {
-  color: var(--muted);
-  font-size: 16px;
-  margin-top: 24px;
-  line-height: 1.6;
 }
 
 .bill-import-demo {
@@ -661,15 +635,10 @@
 
 @media (max-width: 600px) {
   .bill-import-story {
-    padding-block: 70px;
+    padding-block: 44px 0;
   }
-  .import-story-heading {
-    margin-bottom: 34px;
-  }
-  .import-story-heading > p:last-child {
-    font-size: 14px;
-    max-width: 280px;
-    margin-inline: auto;
+  .bills-import-availability {
+    margin-bottom: 60px;
   }
   .bill-import-demo:not(.is-compact) {
     padding: 26px 13px 20px;

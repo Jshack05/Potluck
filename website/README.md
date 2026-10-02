@@ -17,6 +17,8 @@ pnpm preview --port 4173
 
 ## Pages
 
+The Bills page has one introduction: “Less chasing. More clarity.” followed by “Bring your bills into one place. Share the ones you pay together.” The Import → Choose → Review walkthrough follows immediately, with the planned-availability notice below it. The homepage Bills tile uses a pale mint surface, white compact bill cards and smaller contributor avatars while retaining the existing two-row carousel and manual controls.
+
 The homepage uses a 2×2 feature grid, stacked on phones. Native links open `/splitfinder/`, `/cards/`, `/bills/`, `/circles/` and `/credits/`. Each has independent HTML, metadata and canonical URLs, with browser back/forward and no-JavaScript access. Splitfinder includes the retained interactive sample search, a horizontal category rail and read-only availability/joining illustrations. More detailed explanations use native disclosures.
 
 The homepage phone cycles the existing Circles, Cards, Bills and Splitfinder previews every five seconds. Its fixed bottom navigation selects a screen immediately and holds it for 30 seconds, restarting that hold on each selection. A pause control, keyboard entry, Splitfinder search interaction, reduced-motion preferences, offscreen placement and hidden tabs suspend cycling. Search and Bills interactions stay paused until the visitor resumes. The phone is an interactive marketing preview; its financial screens remain illustrative.

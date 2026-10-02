@@ -4,6 +4,15 @@ import App from "./App";
 
 test("Bills explains Import, Choose and Review before showing the app sample", () => {
   render(<App pathname="/bills/" />);
+  expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
+  expect(
+    screen.getByText(
+      "Bring your bills into one place. Share the ones you pay together.",
+    ),
+  ).toBeVisible();
+  expect(
+    screen.queryByRole("heading", { name: "Bring your bills with you." }),
+  ).not.toBeInTheDocument();
   const steps = screen.getByRole("list", { name: "Import steps" });
   expect(
     within(steps)

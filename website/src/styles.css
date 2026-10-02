@@ -309,7 +309,7 @@ summary {
   color: #fff;
 }
 .product-tile.bills {
-  background: #fff;
+  background: #edf5f0;
 }
 .product-tile.circles {
   background: #e7eee5;
@@ -381,6 +381,10 @@ summary {
 }
 .product-tile:not(.cards):not(.bills):hover .tile-art {
   transform: translateY(-5px);
+}
+.product-tile.bills .tile-art {
+  align-content: start;
+  padding-top: 12px;
 }
 .tile-status {
   font-size: 10px;

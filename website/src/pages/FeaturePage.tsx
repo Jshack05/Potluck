@@ -40,7 +40,7 @@ const copy = {
     name: "Bills",
     first: "Less chasing.",
     last: "More clarity.",
-    sub: "The bill. The people. The agreement. All in one place.",
+    sub: "Bring your bills into one place. Share the ones you pay together.",
   },
   circles: {
     name: "Circles",
@@ -98,11 +98,13 @@ export function FeaturePage({ feature }: { feature: Feature }) {
           <span>{content.last}</span>
         </h1>
         <p className="feature-subtitle">{content.sub}</p>
-        <p className="feature-status">
-          {feature === "splitfinder"
-            ? "In development · Interactive sample below"
-            : financialNotice}
-        </p>
+        {feature !== "bills" && (
+          <p className="feature-status">
+            {feature === "splitfinder"
+              ? "In development · Interactive sample below"
+              : financialNotice}
+          </p>
+        )}
         {feature !== "bills" && (
           <>
             <div className="feature-stage">
@@ -119,6 +121,9 @@ export function FeaturePage({ feature }: { feature: Feature }) {
       {feature === "bills" && (
         <>
           <BillImportStory />
+          <p className="bills-import-availability availability-note section-wrap">
+            {financialNotice}
+          </p>
           <section
             className="bills-app-example section-wrap"
             aria-labelledby="bills-sample-heading"

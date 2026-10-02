@@ -110,10 +110,6 @@ export function BillStack() {
         pointerFocus.current = false;
       }}
     >
-      <div className="bill-stack-heading">
-        <AppIcon name="circles" />
-        <span>Shared bills</span>
-      </div>
       <div className="bill-stack-window" aria-live="off">
         {[-1, 0, 1, 2].map((position) => {
           const index = head + position;
@@ -152,8 +148,8 @@ export function BillStack() {
                       <img
                         src={`/figma/${person.image}`}
                         alt=""
-                        width="38"
-                        height="38"
+                        width="32"
+                        height="32"
                       />
                       <b aria-hidden="true">{person.initial}</b>
                     </span>
