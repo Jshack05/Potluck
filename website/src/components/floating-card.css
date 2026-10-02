@@ -32,21 +32,10 @@
   inset: 0;
   transform-style: preserve-3d;
   transform: rotateY(var(--slot-angle)) translateZ(var(--orbit-depth));
-  visibility: hidden;
 }
 
-.card-orbit-slot[data-active="true"] {
-  visibility: visible;
-}
 .card-carousel[data-motion="true"] .card-orbit {
   transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-/* Keep the departing face visible until its orbit completes. */
-.card-carousel[data-motion="true"] .card-orbit-slot {
-  transition: visibility 0s 650ms;
-}
-.card-carousel[data-motion="true"] .card-orbit-slot[data-active="true"] {
-  transition-delay: 0s;
 }
 
 .floating-card {
@@ -67,14 +56,12 @@
     radial-gradient(ellipse at 94% 110%, #8cd1b129, transparent 65%),
     linear-gradient(130deg, #44776c 0%, #234f48 38%, #133d38 72%, #1e5147);
 }
-.card-design-mint {
-  --card-ink: #173f36;
-  --card-muted: #31584e;
-  --card-edge: #d3efe0;
-  --card-core: #87ac99;
-  --card-finish:
-    radial-gradient(ellipse at 85% 130%, #75b7a26b, transparent 64%),
-    linear-gradient(130deg, #d7efe2, #add7c0 72%, #bfdecb);
+.card-design-mountains {
+  --card-ink: #ffffff;
+  --card-muted: #e0e9f5;
+  --card-edge: #a2bdd4;
+  --card-core: #253b60;
+  --card-finish: url("/figma/aurora-card.png") center / cover;
 }
 .card-design-ivory {
   --card-ink: #25473c;
@@ -180,7 +167,8 @@
   height: auto;
   opacity: 0.85;
 }
-.card-design-teal .floating-card-mark {
+.card-design-teal .floating-card-mark,
+.card-design-mountains .floating-card-mark {
   filter: brightness(0) invert(1);
 }
 
@@ -233,8 +221,8 @@
   background: #426f60;
   box-shadow: 0 0 0 1px #d6ead260;
 }
-.choice-mint > span {
-  background: #bde2cb;
+.choice-mountains > span {
+  background: linear-gradient(135deg, #558fba, #9a65c4);
 }
 .choice-ivory > span {
   background: #ece8d8;

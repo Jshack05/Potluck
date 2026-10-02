@@ -86,7 +86,7 @@ test("cycles through each design and wraps, with a readable dwell between change
   act(() => vi.advanceTimersByTime(3000));
   selected("Deep teal");
   act(() => vi.advanceTimersByTime(1500));
-  selected("Mint");
+  selected("Mountains");
   advance();
   selected("Ivory");
   advance();
@@ -126,17 +126,17 @@ test("leaving the viewport and hiding the document suspend cycling without catch
   render(<FloatingCard />);
   inView(true);
   advance();
-  selected("Mint");
+  selected("Mountains");
   inView(false);
   advance();
-  selected("Mint");
+  selected("Mountains");
   inView(true);
   act(() => {
     visibility = "hidden";
     document.dispatchEvent(new Event("visibilitychange"));
   });
   advance();
-  selected("Mint");
+  selected("Mountains");
   act(() => {
     visibility = "visible";
     document.dispatchEvent(new Event("visibilitychange"));
@@ -152,10 +152,10 @@ test("reduced motion remains static, allows selection, and reacts to preference 
   advance();
   selected("Deep teal");
   expect(screen.queryByRole("button", { name: /card animation/ })).toBeNull();
-  fireEvent.click(screen.getByRole("button", { name: "Show Mint card" }));
-  selected("Mint");
+  fireEvent.click(screen.getByRole("button", { name: "Show Mountains card" }));
+  selected("Mountains");
   advance();
-  selected("Mint");
+  selected("Mountains");
   act(() => {
     reduced = false;
     mediaListeners.forEach((listener) => listener());
@@ -174,7 +174,7 @@ test("reduced motion remains static, allows selection, and reacts to preference 
 test("keyboard focus pauses playback and unmount cancels pending rotations", () => {
   const { unmount } = render(<FloatingCard />);
   inView(true);
-  fireEvent.focus(screen.getByRole("button", { name: "Show Mint card" }));
+  fireEvent.focus(screen.getByRole("button", { name: "Show Mountains card" }));
   advance();
   selected("Deep teal");
   fireEvent.click(screen.getByRole("button", { name: "Play card animation" }));

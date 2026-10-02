@@ -19,13 +19,13 @@ pnpm preview --port 4173
 
 The homepage uses a 2×2 feature grid, stacked on phones. Native links open `/splitfinder/`, `/cards/`, `/bills/`, `/circles/` and `/credits/`. Each has independent HTML, metadata and canonical URLs, with browser back/forward and no-JavaScript access. Splitfinder includes the retained interactive sample search, a horizontal category rail and read-only availability/joining illustrations. More detailed explanations use native disclosures.
 
-Splitfinder showcase listings stay level and centered. The Cards showcase cycles through deep-teal, mint and ivory virtual-card concepts with layered edges and a floating shadow. Each 650 ms circular transition is followed by about 3.8 seconds of quiet floating; the caption stays level. Selection dots and a pause button support manual viewing, and keyboard focus or manual selection pauses playback until explicitly resumed. Cycling and floating stop offscreen or in a hidden tab. Reduced-motion visitors get static, manually selectable designs. The app-screen card uses a static deep-teal finish. These illustrations do not imply physical-card availability.
+Splitfinder showcase listings stay level and centered. The Cards showcase cycles through deep-teal, mountain and ivory virtual-card concepts with layered edges and a floating shadow. Each 650 ms circular transition is followed by about 3.8 seconds of quiet floating; the caption stays level and the other two cards remain visible in the background. Selection dots and a pause button support manual viewing, and keyboard focus or manual selection pauses playback until explicitly resumed. Cycling and floating stop offscreen or in a hidden tab. Reduced-motion visitors get static, manually selectable designs. The app-screen card uses a static deep-teal finish. These illustrations do not imply physical-card availability.
 
 `src/pages.ts` is the route/metadata source of truth. `scripts/prerender.mjs` emits each directory's `index.html`, `404.html` and `sitemap.xml`. Vite development serves the shared entry for known routes; production preview serves each built page and redirects known paths without trailing slashes. Unknown preview paths return HTTP 404. No router dependency is needed.
 
 ## Sources and copy
 
-- Circle detail: Figma `218:314`; members `224:360`; bill rows `224:387`; pending agreement `1555:19224`. Website card finishes replace the earlier Aurora artwork with the approved simple teal/mint/ivory direction; the underlying app excerpt layout remains based on Figma `1592:19292`.
+- Circle detail: Figma `218:314`; members `224:360`; bill rows `224:387`; pending agreement `1555:19224`. The floating showcase pairs simple teal and ivory finishes with the original Aurora mountain artwork (`public/figma/aurora-card.png`). The static app excerpt keeps its simple teal finish and layout based on Figma `1592:19292`.
 - Splitfinder: Figma `1763:24097`.
 - Brand lines: the existing getpotluck.app headline and approved `Your bills. Your people. All together.` positioning.
 - Contact: `joseph@getpotluck.app` from the repository website copy draft.

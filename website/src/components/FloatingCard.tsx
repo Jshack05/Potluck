@@ -11,7 +11,7 @@ import "./floating-card.css";
 
 const designs = [
   { id: "teal", name: "Deep teal" },
-  { id: "mint", name: "Mint" },
+  { id: "mountains", name: "Mountains" },
   { id: "ivory", name: "Ivory" },
 ] as const;
 const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
