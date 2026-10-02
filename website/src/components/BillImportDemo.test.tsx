@@ -70,6 +70,8 @@ function advance(milliseconds: number) {
 }
 
 function choose(name: string) {
+  const start = screen.queryByRole("button", { name: "Choose bills" });
+  if (start) fireEvent.click(start);
   fireEvent.click(screen.getByRole("checkbox", { name: new RegExp(name) }));
 }
 
@@ -79,6 +81,10 @@ function review() {
 
 test("starts with no selection and prevents reviewing an empty selection", () => {
   render(<BillImportDemo />);
+  expect(
+    screen.getByRole("img", { name: /arriving from bank activity/ }),
+  ).toBeVisible();
+  fireEvent.click(screen.getByRole("button", { name: "Choose bills" }));
   expect(screen.getAllByRole("checkbox")).toHaveLength(3);
   screen
     .getAllByRole("checkbox")
@@ -161,6 +167,12 @@ test("the animated story selects, reviews and saves illustrative bills without c
   const onDone = vi.fn();
   render(<BillImportDemo autoPlay onDone={onDone} />);
   inView(true);
+  expect(
+    screen.getByRole("heading", { name: "Start with your bank." }),
+  ).toBeVisible();
+  advance(4399);
+  expect(screen.queryByRole("checkbox")).toBeNull();
+  advance(1);
   advance(900);
   expect(screen.getByRole("checkbox", { name: /Internet bill/ })).toBeChecked();
   advance(700);
@@ -175,8 +187,8 @@ test("the animated story selects, reviews and saves illustrative bills without c
   expect(onDone).not.toHaveBeenCalled();
   advance(3600);
   expect(
-    screen.getByRole("checkbox", { name: /Internet bill/ }),
-  ).not.toBeChecked();
+    screen.getByRole("heading", { name: "Start with your bank." }),
+  ).toBeVisible();
 });
 
 test("manual interaction stops the story until replay and a full demo never calls onDone", () => {
@@ -195,6 +207,7 @@ test("manual interaction stops the story until replay and a full demo never call
   fireEvent.click(
     screen.getByRole("button", { name: "Replay import preview" }),
   );
+  advance(4400);
   advance(900);
   expect(screen.getByRole("checkbox", { name: /Internet bill/ })).toBeChecked();
 });
@@ -209,11 +222,12 @@ test("the pause button stays paused through the browser pointer and focus sequen
   fireEvent.click(pause);
   advance(30_000);
   expect(
-    screen.getByRole("checkbox", { name: /Internet bill/ }),
-  ).not.toBeChecked();
+    screen.getByRole("heading", { name: "Start with your bank." }),
+  ).toBeVisible();
   fireEvent.click(
     screen.getByRole("button", { name: "Replay import preview" }),
   );
+  advance(4400);
   advance(900);
   expect(screen.getByRole("checkbox", { name: /Internet bill/ })).toBeChecked();
 });
@@ -223,9 +237,10 @@ test("pauses offscreen and in a hidden document without catching up", () => {
   inView(false);
   advance(30_000);
   expect(
-    screen.getByRole("checkbox", { name: /Internet bill/ }),
-  ).not.toBeChecked();
+    screen.getByRole("heading", { name: "Start with your bank." }),
+  ).toBeVisible();
   inView(true);
+  advance(4400);
   advance(900);
   inView(false);
   advance(30_000);
@@ -251,8 +266,11 @@ test("reduced motion disables autoplay but preserves manual review and saving", 
   inView(true);
   advance(30_000);
   expect(
-    screen.getByRole("checkbox", { name: /Internet bill/ }),
-  ).not.toBeChecked();
+    screen.getByRole("heading", { name: "Start with your bank." }),
+  ).toBeVisible();
+  expect(
+    screen.getByRole("group", { name: "Bill import preview" }),
+  ).toHaveAttribute("data-drop-motion", "false");
   choose("Streaming");
   review();
   fireEvent.click(screen.getByRole("button", { name: "Save to All bills" }));
@@ -265,11 +283,11 @@ test("reduced motion disables autoplay but preserves manual review and saving", 
 test("keyboard focus stops autoplay and unmount cleans up timers and subscriptions", () => {
   const { unmount } = render(<BillImportDemo autoPlay />);
   inView(true);
-  fireEvent.focus(screen.getByRole("checkbox", { name: /Internet bill/ }));
+  fireEvent.focus(screen.getByRole("button", { name: "Choose bills" }));
   advance(30_000);
   expect(
-    screen.getByRole("checkbox", { name: /Internet bill/ }),
-  ).not.toBeChecked();
+    screen.getByRole("heading", { name: "Start with your bank." }),
+  ).toBeVisible();
   unmount();
   expect(vi.getTimerCount()).toBe(0);
   expect(mediaListeners.size).toBe(0);

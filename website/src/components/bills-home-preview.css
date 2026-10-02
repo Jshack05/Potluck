@@ -97,6 +97,16 @@
   font-size: 14px;
   flex: 1;
 }
+.bills-home-row-name {
+  flex: 1;
+  min-width: 0;
+}
+.bills-home-row-name small {
+  display: block;
+  font-size: 9px;
+  margin-top: 5px;
+  color: var(--muted);
+}
 .bills-home-row-title > b {
   font-size: 18px;
   color: var(--green);

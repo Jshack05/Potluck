@@ -23,7 +23,7 @@ type Props = {
   onClose?: () => void;
   autoPlay?: boolean;
 };
-type ImportStep = "choose" | "review" | "saved";
+type ImportStep = "import" | "choose" | "review" | "saved";
 type ImportState = { step: ImportStep; selected: string[] };
 
 // Figma's illustrative suggestions. These are never fetched bank records.
@@ -51,11 +51,11 @@ const bills: ImportBill[] = [
   },
 ];
 const steps = [
+  { id: "import", title: "Import", caption: "Start with your bank activity." },
   { id: "choose", title: "Choose", caption: "The bills you want to bring." },
   { id: "review", title: "Review", caption: "A moment to make sure." },
-  { id: "saved", title: "All together", caption: "Saved. Ready when you are." },
 ];
-const initialState: ImportState = { step: "choose", selected: [] };
+const initialState: ImportState = { step: "import", selected: [] };
 const motionQuery = "(prefers-reduced-motion: reduce)";
 function subscribeMotion(callback: () => void) {
   const media = window.matchMedia(motionQuery);
@@ -132,8 +132,11 @@ export function BillImportDemo({
     visibleSnapshot,
     hiddenSnapshot,
   );
-  const [state, setState] = useState<ImportState>(initialState);
+  const [state, setState] = useState<ImportState>(() =>
+    compact ? { step: "choose", selected: [] } : initialState,
+  );
   const [paused, setPaused] = useState(false);
+  const [replay, setReplay] = useState(0);
   const motionEnabled = hydrated && !reduced;
   const canAutoPlay = autoPlay && !compact && motionEnabled;
   const playing = canAutoPlay && !paused && inView && visible;
@@ -148,17 +151,20 @@ export function BillImportDemo({
   useEffect(() => {
     if (!playing) return;
     const delay =
-      state.step === "saved"
-        ? 3600
-        : state.step === "review"
-          ? 3000
-          : state.selected.length === 0
-            ? 900
-            : state.selected.length === 1
-              ? 700
-              : 2200;
+      state.step === "import"
+        ? 4400
+        : state.step === "saved"
+          ? 3600
+          : state.step === "review"
+            ? 3000
+            : state.selected.length === 0
+              ? 900
+              : state.selected.length === 1
+                ? 700
+                : 2200;
     const timer = window.setTimeout(() => {
       setState((current) => {
+        if (current.step === "import") return { ...current, step: "choose" };
         if (current.step === "saved") return initialState;
         if (current.step === "review") return { ...current, step: "saved" };
         if (current.selected.length === 0)
@@ -178,7 +184,8 @@ export function BillImportDemo({
   }, [state.step]);
 
   function moveTo(step: ImportStep) {
-    if (step !== "choose" && state.selected.length === 0) return;
+    if ((step === "review" || step === "saved") && state.selected.length === 0)
+      return;
     setPaused(true);
     focusNextStep.current = true;
     setState((current) => ({ ...current, step }));
@@ -192,17 +199,20 @@ export function BillImportDemo({
   }
 
   function reset(replay: boolean) {
-    focusNextStep.current = !replay && state.step !== "choose";
-    setState(initialState);
+    setReplay((value) => value + 1);
+    focusNextStep.current = !replay;
+    setState(compact ? { step: "choose", selected: [] } : initialState);
     setPaused(!replay);
   }
 
   const title =
-    state.step === "choose"
-      ? "Recurring charges"
-      : state.step === "review"
-        ? "Confirm bills"
-        : "All bills";
+    state.step === "import"
+      ? "Start with your bank."
+      : state.step === "choose"
+        ? "Recurring charges"
+        : state.step === "review"
+          ? "Confirm bills"
+          : "All bills";
   return (
     <div
       className={`bill-import-demo${compact ? " is-compact" : ""}`}
@@ -210,6 +220,7 @@ export function BillImportDemo({
       role="group"
       aria-label="Bill import preview"
       data-motion={motionEnabled}
+      data-drop-motion={canAutoPlay}
       data-playing={playing}
       data-step={state.step}
       onPointerDownCapture={(event) => {
@@ -232,7 +243,11 @@ export function BillImportDemo({
           {steps.map((step, index) => (
             <li
               key={step.id}
-              aria-current={state.step === step.id ? "step" : undefined}
+              aria-current={
+                (state.step === "saved" ? "review" : state.step) === step.id
+                  ? "step"
+                  : undefined
+              }
             >
               <span className="import-step-number" aria-hidden="true">
                 {String(index + 1).padStart(2, "0")}
@@ -309,7 +324,7 @@ export function BillImportDemo({
                 : undefined
           }
         >
-          <div className="import-stage" key={state.step}>
+          <div className="import-stage" key={`${state.step}-${replay}`}>
             <div className="import-stage-heading">
               {state.step === "saved" && (
                 <span className="import-success-icon">
@@ -320,14 +335,53 @@ export function BillImportDemo({
                 {title}
               </h3>
               <p>
-                {state.step === "choose"
-                  ? "Choose the bills you’d like to add."
-                  : state.step === "review"
-                    ? "Save these bills now. Share them when you’re ready."
-                    : `${selectedBills.length} ${selectedBills.length === 1 ? "bill" : "bills"} saved in this preview.`}
+                {state.step === "import"
+                  ? "Bring your recurring bills into view."
+                  : state.step === "choose"
+                    ? "Choose the bills you’d like to add."
+                    : state.step === "review"
+                      ? "Save these bills now. Share them when you’re ready."
+                      : `${selectedBills.length} ${selectedBills.length === 1 ? "bill" : "bills"} saved in this preview.`}
               </p>
             </div>
-            {state.step === "choose" ? (
+            {state.step === "import" ? (
+              <div
+                className="import-bank-scene"
+                role="img"
+                aria-label="Illustration of Internet, Electric and Streaming bills arriving from bank activity"
+              >
+                <div className="import-bank-source">
+                  <img src="/figma/bank.svg" alt="" width="32" height="32" />
+                  <div>
+                    <strong>Your bank account</strong>
+                    <small>Recurring activity</small>
+                  </div>
+                </div>
+                <div className="import-drop-track" aria-hidden="true">
+                  <span className="import-drop-guide" />
+                  {bills.map((bill, index) => (
+                    <div
+                      key={bill.id}
+                      className={`import-dropping-bill drop-${index}`}
+                    >
+                      <span className="import-bill-icon">
+                        <img
+                          src={`/figma/${bill.icon}.svg`}
+                          alt=""
+                          width="28"
+                          height="28"
+                        />
+                      </span>
+                      <strong>{bill.name}</strong>
+                      <span className="import-drop-receipt" />
+                    </div>
+                  ))}
+                </div>
+                <p className="import-bank-caption">
+                  Bill information, ready to choose.
+                </p>
+              </div>
+            ) : state.step === "choose" ? (
               <fieldset className="import-bill-list">
                 <legend className="import-visually-hidden">
                   Choose recurring charges
@@ -378,6 +432,15 @@ export function BillImportDemo({
               </ul>
             )}
             <div className="import-stage-footer">
+              {state.step === "import" && (
+                <button
+                  className="import-primary-button"
+                  type="button"
+                  onClick={() => moveTo("choose")}
+                >
+                  Choose bills <span aria-hidden="true">→</span>
+                </button>
+              )}
               {state.step === "choose" && (
                 <>
                   <span className="import-selection-count">

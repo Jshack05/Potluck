@@ -14,19 +14,19 @@ const initialBills: SavedBill[] = [
     shared: true,
   },
   {
-    id: "electric",
-    name: "Electric",
-    icon: "import-electric",
-    amount: "$46",
+    id: "phone",
+    name: "Phone bill",
+    icon: "phone",
+    amount: "$120",
     cadence: "Monthly total",
-    shared: true,
+    shared: false,
   },
 ];
 
 export function BillsHomePreview({ onInteract }: { onInteract?: () => void }) {
   const [view, setView] = useState<"home" | "import">("home");
   const [collection, setCollection] = useState<"All bills" | "Shared">(
-    "Shared",
+    "All bills",
   );
   const [bills, setBills] = useState(initialBills);
   const [saved, setSaved] = useState(false);
@@ -121,7 +121,10 @@ export function BillsHomePreview({ onInteract }: { onInteract?: () => void }) {
                     <span className="bills-home-row-icon">
                       <img src={`/figma/${bill.icon}.svg`} alt="" />
                     </span>
-                    <strong>{bill.name}</strong>
+                    <div className="bills-home-row-name">
+                      <strong>{bill.name}</strong>
+                      {!bill.shared && <small>Imported · Not shared</small>}
+                    </div>
                     <b>{bill.amount}</b>
                   </div>
                   <div className="bills-home-row-detail">

@@ -2,6 +2,22 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
 
+test("Bills explains Import, Choose and Review before showing the app sample", () => {
+  render(<App pathname="/bills/" />);
+  const steps = screen.getByRole("list", { name: "Import steps" });
+  expect(
+    within(steps)
+      .getAllByRole("listitem")
+      .map((item) => item.querySelector("strong")?.textContent),
+  ).toEqual(["Import", "Choose", "Review"]);
+  const sample = screen.getByRole("region", {
+    name: "Your bills, in Potluck.",
+  });
+  expect(
+    steps.compareDocumentPosition(sample) & Node.DOCUMENT_POSITION_FOLLOWING,
+  ).toBeTruthy();
+});
+
 test("all four products are visible and link to dedicated pages without switching tabs", () => {
   render(<App />);
   const products = screen.getByRole("region", {

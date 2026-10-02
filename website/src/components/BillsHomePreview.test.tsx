@@ -10,7 +10,7 @@ test("shows the saved collection and a clear entry into bill importing", () => {
       .getAllByRole("button")
       .map((b) => b.textContent),
   ).toEqual(["All bills", "Shared"]);
-  expect(screen.getByRole("button", { name: "Shared" })).toHaveAttribute(
+  expect(screen.getByRole("button", { name: "All bills" })).toHaveAttribute(
     "aria-pressed",
     "true",
   );
@@ -40,14 +40,27 @@ test("confirmed imports open All bills without duplicates or automatically shari
   expect(within(list).getByText("Streaming")).toBeVisible();
   expect(
     within(list).getAllByRole("link", { name: /Share bill/ }),
-  ).toHaveLength(1);
+  ).toHaveLength(2);
   expect(screen.getByRole("button", { name: "Import bills" })).toHaveFocus();
   importStreaming();
   list = screen.getByRole("list", { name: "All bills preview" });
   expect(within(list).getAllByRole("listitem")).toHaveLength(3);
   fireEvent.click(screen.getByRole("button", { name: "Shared" }));
   list = screen.getByRole("list", { name: "Shared preview" });
-  expect(within(list).getAllByRole("listitem")).toHaveLength(2);
+  expect(within(list).getAllByRole("listitem")).toHaveLength(1);
   expect(within(list).queryByText("Streaming")).toBeNull();
   expect(within(list).getByText("$84")).toBeVisible();
+});
+
+test("All bills includes a personal import while Shared filters it out", () => {
+  render(<BillsPreview />);
+  const all = screen.getByRole("list", { name: "All bills preview" });
+  const phone = within(all).getByText("Phone bill").closest("li")!;
+  expect(within(phone).getByText("Imported · Not shared")).toBeVisible();
+  expect(phone.querySelector(".bills-home-people")).toBeNull();
+  expect(within(all).getByText("Internet bill")).toBeVisible();
+  fireEvent.click(screen.getByRole("button", { name: "Shared" }));
+  const shared = screen.getByRole("list", { name: "Shared preview" });
+  expect(within(shared).queryByText("Phone bill")).toBeNull();
+  expect(within(shared).getByText("Internet bill")).toBeVisible();
 });

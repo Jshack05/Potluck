@@ -103,16 +103,39 @@ export function FeaturePage({ feature }: { feature: Feature }) {
             ? "In development · Interactive sample below"
             : financialNotice}
         </p>
-        <div className="feature-stage">
-          <FeatureHeroVisual feature={feature} />
-        </div>
-        <p className="availability-note">
-          {feature === "splitfinder"
-            ? sampleNotice
-            : "App preview with illustrative data. No accounts, cards or payments are created here."}
-        </p>
+        {feature !== "bills" && (
+          <>
+            <div className="feature-stage">
+              <FeatureHeroVisual feature={feature} />
+            </div>
+            <p className="availability-note">
+              {feature === "splitfinder"
+                ? sampleNotice
+                : "App preview with illustrative data. No accounts, cards or payments are created here."}
+            </p>
+          </>
+        )}
       </section>
-      {feature === "bills" && <BillImportStory />}
+      {feature === "bills" && (
+        <>
+          <BillImportStory />
+          <section
+            className="bills-app-example section-wrap"
+            aria-labelledby="bills-sample-heading"
+          >
+            <h2 id="bills-sample-heading">
+              Your bills, <span>in Potluck.</span>
+            </h2>
+            <p>Keep every bill in view. Share the ones you pay together.</p>
+            <div className="feature-stage">
+              <FeatureHeroVisual feature="bills" />
+            </div>
+            <p className="availability-note">
+              Interactive app preview · Illustrative bills
+            </p>
+          </section>
+        </>
+      )}
       {feature === "splitfinder" ? (
         <SplitfinderStory />
       ) : (

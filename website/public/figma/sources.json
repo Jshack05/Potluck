@@ -10,6 +10,12 @@
   },
   "assets": [
     {
+      "name": "bank.svg",
+      "nodeId": "1107:5658",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/api/mcp/asset/661af5b1-5129-4926-a103-09314830d7ff/c51c4.svg"
+    },
+    {
       "name": "import.svg",
       "nodeId": "1147:5958",
       "retrievedAt": "2026-10-02",

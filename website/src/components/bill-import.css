@@ -1,6 +1,151 @@
 .bill-import-story {
   padding-block: 100px 110px;
 }
+.feature-bills .feature-hero {
+  padding-bottom: 0;
+}
+.feature-bills .bill-import-story {
+  padding-top: 44px;
+}
+.bills-app-example {
+  text-align: center;
+  padding-bottom: 70px;
+}
+.bills-app-example h2 {
+  font-size: clamp(32px, 4vw, 52px);
+  letter-spacing: -0.055em;
+  font-weight: 550;
+}
+.bills-app-example h2 span {
+  color: var(--green);
+}
+.bills-app-example > p {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.import-bank-scene {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 292px;
+}
+.import-bank-source {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 24px;
+  background: #e3f6f0;
+  border: 1px solid #cfe7dd;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px -25px #006d6760;
+}
+.import-bank-source strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+.import-bank-source small {
+  display: block;
+  font-size: 11px;
+  margin-top: 4px;
+  color: var(--muted);
+}
+.import-drop-track {
+  width: 100%;
+  max-width: 320px;
+  height: 216px;
+  position: relative;
+}
+.import-drop-guide {
+  position: absolute;
+  top: 0;
+  bottom: 28px;
+  left: 50%;
+  border-left: 1px dashed #bdd5c8;
+}
+.import-dropping-bill {
+  --landing: 16px;
+  position: absolute;
+  top: 0;
+  left: 6%;
+  width: 88%;
+  height: 56px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid #e0e7e0;
+  border-radius: 15px;
+  box-shadow: 0 10px 22px -16px #174f3d55;
+  transform: translateY(var(--landing));
+}
+.import-dropping-bill.drop-1 {
+  --landing: 82px;
+}
+.import-dropping-bill.drop-2 {
+  --landing: 148px;
+}
+.import-dropping-bill .import-bill-icon {
+  flex-basis: 34px;
+  height: 34px;
+  border-radius: 10px;
+}
+.import-dropping-bill .import-bill-icon img {
+  width: 24px;
+  height: auto;
+}
+.import-dropping-bill strong {
+  font-size: 12px;
+  font-weight: 550;
+}
+.import-drop-receipt {
+  width: 20px;
+  height: 10px;
+  border-block: 2px solid #d7e4dc;
+  margin-left: auto;
+}
+.import-bank-caption {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  text-align: center;
+}
+.bill-import-demo[data-drop-motion="true"] .import-dropping-bill {
+  animation: bill-drop-in 950ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
+  animation-delay: 250ms;
+}
+.bill-import-demo[data-drop-motion="true"] .drop-1 {
+  animation-delay: 850ms;
+}
+.bill-import-demo[data-drop-motion="true"] .drop-2 {
+  animation-delay: 1450ms;
+}
+.bill-import-demo[data-playing="false"] .import-dropping-bill {
+  animation-play-state: paused;
+}
+@keyframes bill-drop-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-64px) scale(0.76);
+  }
+  18% {
+    opacity: 1;
+  }
+  74% {
+    opacity: 1;
+    transform: translateY(calc(var(--landing) + 7px)) scale(1.015);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(var(--landing)) scale(1);
+  }
+}
 
 .import-story-heading {
   text-align: center;
