@@ -1,4 +1,5 @@
-import { AppIcon, AuroraCard, People } from "./AppPreviews";
+import { AppIcon, People } from "./AppPreviews";
+import { FloatingCard } from "./FloatingCard";
 import type { Feature } from "../pages";
 
 export function ListingStack() {
@@ -136,7 +137,7 @@ export function ProductVisual({ feature }: { feature: Feature }) {
   if (feature === "circles") return <CircleCluster />;
   return (
     <div className="card-showcase">
-      <AuroraCard full />
+      <FloatingCard />
       <div className="card-connection">
         <AppIcon name="bills" />
         <span>Connected to your shared bills</span>

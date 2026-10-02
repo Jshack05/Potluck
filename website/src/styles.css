@@ -395,6 +395,7 @@ summary {
 }
 .listing-stack {
   width: min(370px, 100%);
+  margin-inline: auto;
   display: flex;
   flex-direction: column;
   gap: 13px;
@@ -405,12 +406,6 @@ summary {
   border-radius: 20px;
   padding: 19px 21px;
   box-shadow: 0 12px 26px -20px #17465b44;
-}
-.listing-stack .showcase-listing:first-child {
-  transform: translateX(-13px) rotate(-3deg);
-}
-.listing-stack .showcase-listing:last-child {
-  transform: translateX(13px) rotate(3deg);
 }
 .listing-identity {
   display: flex;
@@ -467,15 +462,6 @@ summary {
   width: min(430px, 100%);
   margin: auto;
 }
-.card-showcase > .aurora-card {
-  transform: rotate(-7deg);
-  box-shadow: 0 30px 60px -15px #061c2360;
-  border: 1px solid #ffffff60;
-  transition: transform 0.65s var(--ease);
-}
-.product-tile:hover .card-showcase > .aurora-card {
-  transform: rotate(-4deg);
-}
 .card-connection {
   position: relative;
   display: flex;
@@ -490,8 +476,7 @@ summary {
   max-width: 310px;
   font-size: 11px;
   box-shadow: 0 10px 30px #102e3015;
-  margin: 17px 0 0 auto;
-  transform: rotate(3deg);
+  margin: 17px auto 0;
 }
 .bill-stack {
   width: min(365px, 100%);
@@ -786,29 +771,11 @@ details[open] summary > span {
 .feature-cards .feature-stage {
   background: radial-gradient(ellipse at center, #38665a, #123f39);
 }
-.feature-cards .feature-stage > .aceternity-scroll {
-  width: min(570px, 100%);
-}
 .feature-cards .card-showcase {
   width: min(500px, 100%);
 }
 .feature-cards .card-connection {
   margin-top: 35px;
-}
-.feature-cards .aurora-card.large {
-  aspect-ratio: 1.82;
-}
-.feature-cards .large .card-heading strong {
-  font-size: 24px;
-}
-.feature-cards .large .card-balance {
-  font-size: 40px;
-}
-.feature-cards .large .aurora-content {
-  padding: 28px;
-}
-.feature-cards .large .card-reserve {
-  margin-top: 18px;
 }
 .feature-splitfinder .feature-stage {
   background: radial-gradient(ellipse at center, #d7eaf9, #eef4f9);
@@ -843,12 +810,10 @@ details[open] summary > span {
 .category-left {
   left: -20px;
   top: 22%;
-  transform: rotate(-9deg);
 }
 .category-right {
   right: -35px;
   bottom: 17%;
-  transform: rotate(9deg);
 }
 .category-section {
   padding: 25px 0 65px;
@@ -1399,22 +1364,6 @@ details[open] summary > span {
   .listing-availability small {
     font-size: 7px;
   }
-  .card-showcase .large .aurora-content {
-    padding: 18px;
-  }
-  .card-showcase .large .card-heading strong {
-    font-size: 17px;
-  }
-  .card-showcase .large .card-heading {
-    margin-bottom: 15px;
-  }
-  .card-showcase .large .card-reserve {
-    margin-top: 8px;
-    gap: 5px;
-  }
-  .card-showcase .card-reserve > b {
-    font-size: 8px;
-  }
   .group-card .people-surface {
     padding-inline: 0;
     gap: 5px;
@@ -1587,18 +1536,9 @@ details[open] summary > span {
   .listing-availability small {
     font-size: 8px;
   }
-  .card-showcase .large .card-heading strong {
-    font-size: 18px;
-  }
-  .card-showcase .large .card-balance {
-    font-size: 31px;
-  }
   .card-connection {
     font-size: 10px;
     padding: 12px 13px;
-  }
-  .card-showcase .large .card-reserve {
-    margin-top: 10px;
   }
   .group-card .person-avatar,
   .group-card .add-avatar {
@@ -1695,18 +1635,6 @@ details[open] summary > span {
   }
   .feature-cards .feature-stage {
     padding: 50px 23px;
-  }
-  .feature-cards .large .aurora-content {
-    padding: 20px 17px;
-  }
-  .feature-cards .large .card-heading strong {
-    font-size: 18px;
-  }
-  .feature-cards .large .card-balance {
-    font-size: 31px;
-  }
-  .feature-cards .large .card-reserve {
-    margin-top: 10px;
   }
   .feature-cards .card-connection {
     margin-top: 25px;
@@ -1870,21 +1798,9 @@ details[open] summary > span {
     width: 9px;
     height: 9px;
   }
-  .card-showcase .large .card-heading strong {
-    font-size: 16px;
-  }
-  .card-showcase .large .card-balance {
-    font-size: 28px;
-  }
-  .card-showcase .large .aurora-content {
-    padding: 15px;
-  }
   .card-reserve > span {
     width: 20px;
     height: 20px;
-  }
-  .card-showcase .card-reserve > b {
-    font-size: 7px;
   }
   .group-card .person-avatar,
   .group-card .add-avatar {
@@ -1937,15 +1853,6 @@ details[open] summary > span {
   .feature-cards .feature-stage {
     padding: 45px 20px;
   }
-  .feature-cards .large .card-heading strong {
-    font-size: 16px;
-  }
-  .feature-cards .large .aurora-content {
-    padding: 16px;
-  }
-  .feature-cards .large .card-balance {
-    font-size: 29px;
-  }
   .story-card {
     padding-inline: 20px;
   }
@@ -1985,8 +1892,5 @@ details[open] summary > span {
   }
   .product-tile:hover .tile-art {
     transform: none;
-  }
-  .product-tile:hover .card-showcase > .aurora-card {
-    transform: rotate(-7deg);
   }
 }

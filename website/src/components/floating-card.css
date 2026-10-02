@@ -1,0 +1,161 @@
+.floating-card-scene {
+  position: relative;
+  width: 100%;
+  padding: 36px 0 64px;
+  perspective: 1100px;
+  container-type: inline-size;
+}
+
+.floating-card {
+  position: relative;
+  width: 88%;
+  aspect-ratio: 1.586;
+  margin-inline: auto;
+  transform-style: preserve-3d;
+  transform: translateY(-4px) rotateX(22deg) rotateY(-24deg) rotateZ(-6deg);
+  animation: card-float 8s ease-in-out infinite;
+}
+
+.floating-card-front,
+.floating-card-back,
+.floating-card-edge {
+  position: absolute;
+  inset: 0;
+  border-radius: 5.5% / 8.7%;
+}
+
+.floating-card-edge {
+  background: #31566b;
+  border: 1px solid #98bdbd;
+}
+
+.floating-card-edge:nth-child(even) {
+  border-color: #35576b;
+}
+
+.floating-card-back {
+  transform: translateZ(-5px) rotateY(180deg);
+  backface-visibility: hidden;
+  background: #163e4a;
+  border: 1px solid #9cb5bd;
+}
+
+.floating-card-front {
+  overflow: hidden;
+  transform: translateZ(0.5px);
+  backface-visibility: hidden;
+  color: #fff;
+  text-align: left;
+  background: #0c3048;
+  box-shadow:
+    inset 0 0 0 1px #dcecf6b0,
+    inset 0 0 0 2px #ffffff18;
+}
+
+.floating-card-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.floating-card-front::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    115deg,
+    #ffffff26,
+    transparent 28%,
+    transparent 52%,
+    #ffffff25 68%,
+    transparent 82%
+  );
+  box-shadow: inset 1px 1px 0 #ffffff70;
+  pointer-events: none;
+}
+
+.floating-card-wordmark {
+  position: absolute;
+  top: 12%;
+  left: 9%;
+  font-size: clamp(22px, 8cqi, 40px);
+  font-weight: 750;
+  letter-spacing: -0.065em;
+}
+
+.floating-card-name {
+  position: absolute;
+  left: 9%;
+  bottom: 14%;
+  display: grid;
+  gap: 6px;
+  text-shadow: 0 1px 8px #00213560;
+}
+
+.floating-card-name > :first-child {
+  font-size: clamp(12px, 3.5cqi, 18px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.floating-card-name > :last-child {
+  font-size: clamp(8px, 2.2cqi, 11px);
+  color: #daebe9;
+}
+
+.floating-card-mark {
+  position: absolute;
+  right: 9%;
+  bottom: 15%;
+  width: 8%;
+  height: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+}
+
+.floating-card-shadow {
+  position: absolute;
+  left: 19%;
+  right: 19%;
+  height: 28px;
+  bottom: 14px;
+  border-radius: 50%;
+  background: #031c1dd9;
+  filter: blur(16px);
+  opacity: 0.55;
+  transform: scaleX(0.9);
+  animation: card-shadow 8s ease-in-out infinite;
+}
+
+@keyframes card-float {
+  0%,
+  100% {
+    transform: translateY(-4px) rotateX(22deg) rotateY(-24deg) rotateZ(-6deg);
+  }
+  50% {
+    transform: translateY(-17px) rotateX(29deg) rotateY(-16deg) rotateZ(-4deg);
+  }
+}
+
+@keyframes card-shadow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scaleX(0.9);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scaleX(0.78);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-card,
+  .floating-card-shadow {
+    animation: none;
+  }
+}

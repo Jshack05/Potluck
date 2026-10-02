@@ -76,11 +76,7 @@ function FeatureHeroVisual({ feature }: { feature: Feature }) {
         <BillsPreview />
       </AceternityScroll>
     );
-  return (
-    <AceternityScroll>
-      <ProductVisual feature="cards" />
-    </AceternityScroll>
-  );
+  return <ProductVisual feature="cards" />;
 }
 
 export function FeaturePage({ feature }: { feature: Feature }) {

@@ -19,6 +19,8 @@ pnpm preview --port 4173
 
 The homepage uses a 2×2 feature grid, stacked on phones. Native links open `/splitfinder/`, `/cards/`, `/bills/`, `/circles/` and `/credits/`. Each has independent HTML, metadata and canonical URLs, with browser back/forward and no-JavaScript access. Splitfinder includes the retained interactive sample search, a horizontal category rail and read-only availability/joining illustrations. More detailed explanations use native disclosures.
 
+Splitfinder showcase listings stay level and centered. The Cards showcase uses a decorative CSS 3D virtual-card concept with the original Aurora artwork, layered edges and a floating shadow; its caption stays level. This illustration does not imply physical-card availability. Reduced-motion settings stop the floating animation.
+
 `src/pages.ts` is the route/metadata source of truth. `scripts/prerender.mjs` emits each directory's `index.html`, `404.html` and `sitemap.xml`. Vite development serves the shared entry for known routes; production preview serves each built page and redirects known paths without trailing slashes. Unknown preview paths return HTTP 404. No router dependency is needed.
 
 ## Sources and copy
