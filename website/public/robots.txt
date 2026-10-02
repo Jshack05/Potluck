@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://getpotluck.app/sitemap.xml

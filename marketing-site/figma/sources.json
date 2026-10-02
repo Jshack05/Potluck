@@ -1,0 +1,162 @@
+{
+  "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+  "retrievedAt": "2026-10-01",
+  "screens": {
+    "1052:5014": "Import bills / Review recurring charges",
+    "1052:5015": "Import bills / Confirm bills",
+    "1122:4981": "Bills library / Shared",
+    "218:314": "Circle Detail / Overview",
+    "1763:24097": "Splitfinder / Subscriptions"
+  },
+  "assets": [
+    {
+      "name": "bank.svg",
+      "nodeId": "1107:5658",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/api/mcp/asset/661af5b1-5129-4926-a103-09314830d7ff/c51c4.svg"
+    },
+    {
+      "name": "import.svg",
+      "nodeId": "1147:5958",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/api/mcp/asset/7bdfa532-d298-438d-8b2c-ebf971aa204f/4fecc.svg"
+    },
+    {
+      "name": "import-internet.svg",
+      "nodeId": "I1053:4971;1052:4962;253:420",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/api/mcp/asset/498c4b91-9f5b-459d-b567-8066c3955955/7e402.svg"
+    },
+    {
+      "name": "import-electric.svg",
+      "nodeId": "I1053:5012;1052:4962;253:408",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/api/mcp/asset/498c4b91-9f5b-459d-b567-8066c3955955/2cfa9.svg"
+    },
+    {
+      "name": "import-streaming.svg",
+      "nodeId": "I1053:5046;1052:4962;253:456",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/api/mcp/asset/498c4b91-9f5b-459d-b567-8066c3955955/11c6a.svg"
+    },
+    {
+      "name": "bill-person-jordan.png",
+      "nodeId": "1540:19118",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1540-19118"
+    },
+    {
+      "name": "phone.svg",
+      "nodeId": "604:2287",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=604-2287"
+    },
+    {
+      "name": "alpine-card.png",
+      "nodeId": "1583:19341",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1583-19341"
+    },
+    {
+      "name": "aurora-card.png",
+      "source": "https://www.figma.com/api/mcp/asset/52625a54-0695-4e92-a256-aec2da347527/adfb9.png"
+    },
+    {
+      "name": "circles.svg",
+      "source": "https://www.figma.com/api/mcp/asset/52625a54-0695-4e92-a256-aec2da347527/94f02.svg"
+    },
+    {
+      "name": "cards.svg",
+      "source": "https://www.figma.com/api/mcp/asset/52625a54-0695-4e92-a256-aec2da347527/aba77.svg"
+    },
+    {
+      "name": "bills.svg",
+      "source": "https://www.figma.com/api/mcp/asset/52625a54-0695-4e92-a256-aec2da347527/76388.svg"
+    },
+    {
+      "name": "splitfinder.svg",
+      "source": "https://www.figma.com/api/mcp/asset/52625a54-0695-4e92-a256-aec2da347527/02a27.svg"
+    },
+    {
+      "name": "avatar-mint.svg",
+      "source": "https://www.figma.com/api/mcp/asset/52625a54-0695-4e92-a256-aec2da347527/fe6ca.svg"
+    },
+    {
+      "name": "avatar-peach.svg",
+      "source": "https://www.figma.com/api/mcp/asset/52625a54-0695-4e92-a256-aec2da347527/8e68e.svg"
+    },
+    {
+      "name": "avatar-lilac.svg",
+      "source": "https://www.figma.com/api/mcp/asset/52625a54-0695-4e92-a256-aec2da347527/20600.svg"
+    },
+    {
+      "name": "internet.svg",
+      "source": "https://www.figma.com/api/mcp/asset/52625a54-0695-4e92-a256-aec2da347527/770b4.svg"
+    },
+    {
+      "name": "electric.svg",
+      "source": "https://www.figma.com/api/mcp/asset/52625a54-0695-4e92-a256-aec2da347527/1608b.svg"
+    },
+    {
+      "name": "clock.svg",
+      "source": "https://www.figma.com/api/mcp/asset/52625a54-0695-4e92-a256-aec2da347527/305b5.svg"
+    },
+    {
+      "name": "health.svg",
+      "source": "https://www.figma.com/api/mcp/asset/52625a54-0695-4e92-a256-aec2da347527/d2d3d.svg"
+    },
+    {
+      "name": "netflix.svg",
+      "source": "https://www.figma.com/api/mcp/asset/5195c23a-561e-43a0-bf37-4da4e6a0702a/4d090.svg"
+    },
+    {
+      "name": "spotify.svg",
+      "source": "https://www.figma.com/api/mcp/asset/5195c23a-561e-43a0-bf37-4da4e6a0702a/2f4e7.svg"
+    },
+    {
+      "name": "dropbox.svg",
+      "source": "https://www.figma.com/api/mcp/asset/5195c23a-561e-43a0-bf37-4da4e6a0702a/c6bb8.svg"
+    },
+    {
+      "name": "search.svg",
+      "source": "https://www.figma.com/api/mcp/asset/5195c23a-561e-43a0-bf37-4da4e6a0702a/7e577.svg"
+    }
+  ],
+  "reusedMobileAssets": [
+    {
+      "name": "check.svg",
+      "url": "https://www.figma.com/api/mcp/asset/4833f933-2fa3-44c8-9784-86b57f5f84e4/c0753.svg",
+      "node": "1209:6717"
+    },
+    {
+      "name": "onboarding-phone.svg",
+      "node": "1815:25499",
+      "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+      "source": "Figma high-fidelity design context, September 25, 2026"
+    },
+    {
+      "name": "onboarding-house.svg",
+      "node": "1815:25666",
+      "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+      "source": "Figma high-fidelity design context, September 25, 2026"
+    },
+    {
+      "name": "membership-gym.svg",
+      "node": "1815:25547",
+      "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+      "source": "Figma high-fidelity design context, September 25, 2026"
+    },
+    {
+      "name": "subscription-play.svg",
+      "node": "1815:25624",
+      "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+      "source": "Figma high-fidelity design context, September 25, 2026"
+    },
+    {
+      "name": "subscription-triangle.svg",
+      "node": "1815:25626",
+      "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+      "source": "Figma high-fidelity design context, September 25, 2026"
+    }
+  ]
+}

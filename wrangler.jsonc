@@ -2,6 +2,8 @@
   "name": "potluck",
   "compatibility_date": "2026-08-16",
   "assets": {
-    "directory": "./marketing-site"
+    "directory": "./marketing-site",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
   }
 }

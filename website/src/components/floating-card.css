@@ -1,0 +1,269 @@
+.card-carousel {
+  width: 100%;
+  container-type: inline-size;
+}
+
+.floating-card-scene {
+  --orbit-depth: clamp(90px, 32cqi, 155px);
+  position: relative;
+  width: 100%;
+  padding: 36px 0 52px;
+  perspective: 1100px;
+}
+
+.card-orbit-stage {
+  width: 88%;
+  aspect-ratio: 1.586;
+  margin-inline: auto;
+  transform-style: preserve-3d;
+}
+
+.card-orbit {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(-1 * var(--orbit-depth)))
+    rotateY(var(--orbit-angle));
+}
+
+.card-orbit-slot {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateY(var(--slot-angle)) translateZ(var(--orbit-depth));
+}
+
+.card-carousel[data-motion="true"] .card-orbit {
+  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.floating-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: translateY(-4px) rotateX(22deg) rotateY(-24deg) rotateZ(-6deg);
+  animation: card-float 8s ease-in-out infinite paused;
+}
+
+.card-design-teal {
+  --card-ink: #effcf5;
+  --card-muted: #c9e2d9;
+  --card-edge: #709d90;
+  --card-core: #234c44;
+  --card-finish:
+    radial-gradient(ellipse at 94% 110%, #8cd1b129, transparent 65%),
+    linear-gradient(130deg, #44776c 0%, #234f48 38%, #133d38 72%, #1e5147);
+}
+.card-design-mountains {
+  --card-ink: #ffffff;
+  --card-muted: #e0e9f5;
+  --card-edge: #a2bdd4;
+  --card-core: #253b60;
+  --card-finish: url("/figma/alpine-card.png") center / cover;
+}
+.card-design-ivory {
+  --card-ink: #25473c;
+  --card-muted: #546658;
+  --card-edge: #f8f3e5;
+  --card-core: #adae9a;
+  --card-finish:
+    repeating-radial-gradient(
+      circle at 100% 105%,
+      transparent 0 23px,
+      #71866b12 24px 25px,
+      transparent 26px 49px
+    ),
+    linear-gradient(125deg, #f9f5e9, #e8e5d5);
+}
+
+.floating-card-front,
+.floating-card-back,
+.floating-card-edge {
+  position: absolute;
+  inset: 0;
+  border-radius: 5.5% / 8.7%;
+}
+
+.floating-card-edge {
+  background: var(--card-core);
+  border: 1px solid var(--card-edge);
+}
+
+.floating-card-edge:nth-child(even) {
+  border-color: var(--card-core);
+}
+
+.floating-card-back {
+  transform: translateZ(-5px) rotateY(180deg);
+  backface-visibility: hidden;
+  background: var(--card-finish);
+  border: 1px solid var(--card-edge);
+}
+
+.floating-card-front {
+  overflow: hidden;
+  transform: translateZ(0.5px);
+  backface-visibility: hidden;
+  color: var(--card-ink);
+  text-align: left;
+  background: var(--card-finish);
+  box-shadow:
+    inset 0 0 0 1px #dcecf6b0,
+    inset 0 0 0 2px #ffffff18;
+}
+
+.floating-card-front::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    115deg,
+    #ffffff26,
+    transparent 28%,
+    transparent 52%,
+    #ffffff25 68%,
+    transparent 82%
+  );
+  box-shadow: inset 1px 1px 0 #ffffff70;
+  pointer-events: none;
+}
+
+.floating-card-wordmark {
+  position: absolute;
+  top: 12%;
+  left: 9%;
+  font-size: clamp(22px, 8cqi, 40px);
+  font-weight: 750;
+  letter-spacing: -0.065em;
+}
+
+.floating-card-name {
+  position: absolute;
+  left: 9%;
+  bottom: 14%;
+  display: grid;
+  gap: 6px;
+}
+
+.floating-card-name > :first-child {
+  font-size: clamp(12px, 3.5cqi, 18px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.floating-card-name > :last-child {
+  font-size: clamp(8px, 2.2cqi, 11px);
+  color: var(--card-muted);
+}
+
+.floating-card-mark {
+  position: absolute;
+  right: 9%;
+  bottom: 15%;
+  width: 8%;
+  height: auto;
+  opacity: 0.85;
+}
+.card-design-teal .floating-card-mark,
+.card-design-mountains .floating-card-mark {
+  filter: brightness(0) invert(1);
+}
+
+.floating-card-shadow {
+  position: absolute;
+  left: 19%;
+  right: 19%;
+  height: 28px;
+  bottom: 10px;
+  border-radius: 50%;
+  background: #031c1dd9;
+  filter: blur(16px);
+  opacity: 0.55;
+  transform: scaleX(0.9);
+  animation: card-shadow 8s ease-in-out infinite paused;
+}
+
+.card-carousel[data-playing="true"]
+  .card-orbit-slot[data-active="true"]
+  .floating-card,
+.card-carousel[data-playing="true"] .floating-card-shadow {
+  animation-play-state: running;
+}
+.card-design-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+  gap: 2px;
+}
+.card-design-controls button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #e8f3eb;
+  cursor: pointer;
+}
+.card-design-controls button:focus-visible {
+  outline: 2px solid #ddf0df;
+  outline-offset: 1px;
+}
+.card-design-choice > span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #426f60;
+  box-shadow: 0 0 0 1px #d6ead260;
+}
+.choice-mountains > span {
+  background: linear-gradient(135deg, #82b9d0, #164e60);
+}
+.choice-ivory > span {
+  background: #ece8d8;
+}
+.card-design-choice[aria-pressed="true"] > span {
+  outline: 1px solid #e5f0e8;
+  outline-offset: 4px;
+}
+.card-design-controls button:hover {
+  background: #ffffff0d;
+}
+
+@keyframes card-float {
+  0%,
+  100% {
+    transform: translateY(-4px) rotateX(22deg) rotateY(-24deg) rotateZ(-6deg);
+  }
+  50% {
+    transform: translateY(-17px) rotateX(29deg) rotateY(-16deg) rotateZ(-4deg);
+  }
+}
+
+@keyframes card-shadow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scaleX(0.9);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scaleX(0.78);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-card,
+  .floating-card-shadow {
+    animation: none;
+  }
+  .card-carousel .card-orbit,
+  .card-carousel .card-orbit-slot {
+    transition: none;
+  }
+}
