@@ -7,6 +7,12 @@
   },
   "assets": [
     {
+      "name": "alpine-card.png",
+      "nodeId": "1583:19341",
+      "retrievedAt": "2026-10-02",
+      "source": "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1583-19341"
+    },
+    {
       "name": "aurora-card.png",
       "source": "https://www.figma.com/api/mcp/asset/52625a54-0695-4e92-a256-aec2da347527/adfb9.png"
     },

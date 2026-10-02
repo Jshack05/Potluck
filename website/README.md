@@ -25,7 +25,7 @@ Splitfinder showcase listings stay level and centered. The Cards showcase cycles
 
 ## Sources and copy
 
-- Circle detail: Figma `218:314`; members `224:360`; bill rows `224:387`; pending agreement `1555:19224`. The floating showcase pairs simple teal and ivory finishes with the original Aurora mountain artwork (`public/figma/aurora-card.png`). The static app excerpt keeps its simple teal finish and layout based on Figma `1592:19292`.
+- Circle detail: Figma `218:314`; members `224:360`; bill rows `224:387`; pending agreement `1555:19224`. The floating showcase pairs simple teal and ivory finishes with the original Alpine mountain artwork (`public/figma/alpine-card.png`, Figma `1583:19341`). The static app excerpt keeps its simple teal finish and layout based on Figma `1592:19292`.
 - Splitfinder: Figma `1763:24097`.
 - Brand lines: the existing getpotluck.app headline and approved `Your bills. Your people. All together.` positioning.
 - Contact: `joseph@getpotluck.app` from the repository website copy draft.

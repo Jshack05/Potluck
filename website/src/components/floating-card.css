@@ -61,7 +61,7 @@
   --card-muted: #e0e9f5;
   --card-edge: #a2bdd4;
   --card-core: #253b60;
-  --card-finish: url("/figma/aurora-card.png") center / cover;
+  --card-finish: url("/figma/alpine-card.png") center / cover;
 }
 .card-design-ivory {
   --card-ink: #25473c;
@@ -222,7 +222,7 @@
   box-shadow: 0 0 0 1px #d6ead260;
 }
 .choice-mountains > span {
-  background: linear-gradient(135deg, #558fba, #9a65c4);
+  background: linear-gradient(135deg, #82b9d0, #164e60);
 }
 .choice-ivory > span {
   background: #ece8d8;
