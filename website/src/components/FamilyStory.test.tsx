@@ -32,7 +32,7 @@ const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms));
 const meter = () =>
   screen.getByRole("progressbar", { name: "Set aside for the phone bill" });
 
-test("the homepage story collects distinct shares exactly once and holds a funded, not paid, bill", () => {
+test("the homepage story collects shares, holds the funded bill and automatically starts another cycle", () => {
   render(<Home />);
   expect(meter()).toHaveAttribute("aria-valuenow", "0");
   advance(2950);
@@ -44,11 +44,29 @@ test("the homepage story collects distinct shares exactly once and holds a funde
   advance(1500);
   expect(meter()).toHaveAttribute("aria-valuenow", "120");
   expect(screen.getByText("Ready for the phone bill")).toBeVisible();
-  advance(30000);
+  advance(3950);
+  expect(meter()).toHaveAttribute("aria-valuenow", "120");
+  advance(50);
+  expect(meter()).toHaveAttribute("aria-valuenow", "0");
+  advance(3000);
+  expect(meter()).toHaveAttribute("aria-valuenow", "60");
+  expect(screen.queryByRole("button", { name: /Replay family/ })).toBeNull();
+});
+
+test("pause holds the finished bill and resume preserves its remaining hold before looping", () => {
+  render(<Home />);
+  advance(9000);
+  fireEvent.click(
+    screen.getByRole("button", { name: "Pause family contribution story" }),
+  );
+  advance(20000);
   expect(meter()).toHaveAttribute("aria-valuenow", "120");
   fireEvent.click(
-    screen.getByRole("button", { name: "Replay family contribution story" }),
+    screen.getByRole("button", { name: "Resume family contribution story" }),
   );
+  advance(950);
+  expect(meter()).toHaveAttribute("aria-valuenow", "120");
+  advance(50);
   expect(meter()).toHaveAttribute("aria-valuenow", "0");
 });
 

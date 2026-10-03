@@ -17,7 +17,7 @@ const people = [
   { name: "Sam", amount: 2000, color: "lilac", x: "80%", arrival: 6000 },
 ] as const;
 const goal = 12000;
-const duration = 8000;
+const duration = 10000;
 const query = "(prefers-reduced-motion: reduce)";
 function subscribeMotion(cb: () => void) {
   const media = window.matchMedia(query);
@@ -32,6 +32,42 @@ const motionSnapshot = () => window.matchMedia(query).matches;
 const staticSnapshot = () => true;
 const visibilitySnapshot = () => document.visibilityState === "visible";
 const hiddenSnapshot = () => false;
+
+// Derived from the approved Lucky face (Figma 1340:11945), without confetti.
+function FamilyLucky({ person }: { person: string }) {
+  return (
+    <svg viewBox="0 0 160 140" aria-hidden="true" focusable="false">
+      <path
+        d="M80 129C110.376 129 135 104.376 135 74C135 43.6243 110.376 19 80 19C49.6243 19 25 43.6243 25 74C25 104.376 49.6243 129 80 129Z"
+        fill="var(--lucky-fill)"
+      />
+      <g
+        fill="none"
+        stroke="#203737"
+        strokeWidth="4.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M52 71C53 62 62 62 65 70M94 70C96 62 104 62 107 71M67 84C73 97 88 98 95 84" />
+        {person === "Jordan" && (
+          <g strokeWidth="3.4">
+            <circle cx="58" cy="69" r="16" />
+            <circle cx="101" cy="69" r="16" />
+            <path d="M74 68Q79 64 85 68M42 65L29 60M117 65L130 60" />
+          </g>
+        )}
+        {person === "Maya" && (
+          <path
+            d="M68 26C59 5 81 5 83 23C89 1 107 11 91 29"
+            fill="#82B6A1"
+            stroke="#397466"
+            strokeWidth="3.5"
+          />
+        )}
+      </g>
+    </svg>
+  );
+}
 
 export function FamilyStory() {
   const scene = useRef<HTMLDivElement>(null);
@@ -51,8 +87,7 @@ export function FamilyStory() {
   const [paused, setPaused] = useState(false);
   const animate = hydrated && !reduced;
   const time = animate ? elapsed : duration;
-  const complete = elapsed >= duration;
-  const playing = animate && inView && visible && !paused && !complete;
+  const playing = animate && inView && visible && !paused;
   const total = people.reduce(
     (sum, person) => sum + (time >= person.arrival ? person.amount : 0),
     0,
@@ -64,7 +99,7 @@ export function FamilyStory() {
     // One clock drives tokens, character gestures and totals together. Pauses
     // preserve elapsed time; background/offscreen time cannot advance the story.
     const timer = window.setInterval(
-      () => setElapsed((value) => Math.min(duration, value + 50)),
+      () => setElapsed((value) => (value + 50) % duration),
       50,
     );
     return () => window.clearInterval(timer);
@@ -118,49 +153,11 @@ export function FamilyStory() {
                     transform: `translateY(${lean * 7}px) rotate(${lean * -4}deg)`,
                   }}
                 >
-                  <img
-                    src="/figma/lucky-celebration.svg"
-                    alt=""
-                    width="160"
-                    height="128"
-                  />
-                  <span className="family-person-accent" />
+                  <FamilyLucky person={person.name} />
                 </div>
               </div>
             );
           })}
-        </div>
-        <div className="family-table" aria-hidden="true" />
-        <div className="family-arrangement">
-          <div
-            className="family-payment-card"
-            role="group"
-            aria-label="Family card, managed by Jordan"
-          >
-            <span className="family-wordmark">potluck</span>
-            <AppIcon name="circles" />
-            <div>
-              <strong>Family card</strong>
-              <span>Managed by Jordan</span>
-            </div>
-          </div>
-          <div className="family-payment-link">
-            <span>Pays this bill</span>
-            <i aria-hidden="true" />
-          </div>
-          <div className="family-phone-bill">
-            <div className="family-bill-heading">
-              <AppIcon name="phone" />
-              <strong>Phone bill</strong>
-            </div>
-            <p>
-              <strong>$120</strong>
-              <span>/ month</span>
-            </p>
-            <span className="family-bill-state">
-              {ready ? "Ready to pay" : "Bringing shares together"}
-            </span>
-          </div>
         </div>
         {animate && (
           <div className="family-token-layer" aria-hidden="true">
@@ -187,45 +184,72 @@ export function FamilyStory() {
             })}
           </div>
         )}
-        <div className="family-funding">
-          <div className="family-funding-copy">
-            <span>Set aside for this bill</span>
-            <strong>
-              ${total / 100} <span>of $120</span>
-            </strong>
+        <div className="family-phone-bill">
+          <div className="family-bill-top">
+            <div className="family-bill-heading">
+              <span className="family-phone-icon">
+                <AppIcon name="phone" />
+              </span>
+              <div>
+                <strong>Phone bill</strong>
+                <span>Shared by your Family Circle</span>
+              </div>
+            </div>
+            <p className="family-bill-amount">
+              <strong>$120</strong>
+              <span>/ month</span>
+            </p>
+          </div>
+          <div className="family-funding">
+            <div className="family-funding-copy">
+              <span>Set aside for this bill</span>
+              <strong>
+                ${total / 100} <span>of $120</span>
+              </strong>
+            </div>
+            <div
+              className="family-meter"
+              role="progressbar"
+              aria-label="Set aside for the phone bill"
+              aria-valuemin={0}
+              aria-valuemax={120}
+              aria-valuenow={total / 100}
+              aria-valuetext={`$${total / 100} of $120 set aside for the phone bill`}
+            >
+              {people.map((person) => (
+                <span
+                  key={person.name}
+                  className={`family-${person.color}`}
+                  style={{ width: `${(person.amount / goal) * 100}%` }}
+                  data-funded={time >= person.arrival}
+                />
+              ))}
+            </div>
+            <p className="family-result">
+              {ready ? (
+                <>
+                  <AppIcon name="check" /> Ready for the phone bill
+                </>
+              ) : (
+                "Three agreed shares. One shared bill."
+              )}
+            </p>
           </div>
           <div
-            className="family-meter"
-            role="progressbar"
-            aria-label="Set aside for the phone bill"
-            aria-valuemin={0}
-            aria-valuemax={120}
-            aria-valuenow={total / 100}
-            aria-valuetext={`$${total / 100} of $120 set aside for the phone bill`}
+            className="family-payment-card"
+            role="group"
+            aria-label="Family card, managed by Jordan"
           >
-            {people.map((person) => (
-              <span
-                key={person.name}
-                className={`family-${person.color}`}
-                style={{ width: `${(person.amount / goal) * 100}%` }}
-                data-funded={time >= person.arrival}
-              />
-            ))}
+            <div className="family-mini-card" aria-hidden="true">
+              <span>potluck</span>
+              <AppIcon name="circles" />
+            </div>
+            <div className="family-card-copy">
+              <span>Payment card</span>
+              <strong>Family card</strong>
+              <span>Managed by Jordan</span>
+            </div>
           </div>
-          <p
-            className="family-result"
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            {ready ? (
-              <>
-                <AppIcon name="check" /> Ready for the phone bill
-              </>
-            ) : (
-              "Three agreed shares. One shared bill."
-            )}
-          </p>
         </div>
       </div>
       <footer className="family-story-footer">
@@ -234,25 +258,13 @@ export function FamilyStory() {
         </a>
         {animate && (
           <div className="family-playback">
-            {!complete && (
-              <button
-                type="button"
-                aria-label={`${paused ? "Resume" : "Pause"} family contribution story`}
-                onClick={() => setPaused((value) => !value)}
-              >
-                <span aria-hidden="true">{paused ? "▶" : "Ⅱ"}</span>{" "}
-                {paused ? "Resume" : "Pause"}
-              </button>
-            )}
             <button
               type="button"
-              aria-label="Replay family contribution story"
-              onClick={() => {
-                setElapsed(0);
-                setPaused(false);
-              }}
+              aria-label={`${paused ? "Resume" : "Pause"} family contribution story`}
+              onClick={() => setPaused((value) => !value)}
             >
-              <span aria-hidden="true">↻</span> Replay
+              <span aria-hidden="true">{paused ? "▶" : "Ⅱ"}</span>{" "}
+              {paused ? "Resume" : "Pause"}
             </button>
           </div>
         )}

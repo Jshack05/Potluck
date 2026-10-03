@@ -1,8 +1,8 @@
 .family-story {
-  background: #eaf0e8;
-  border: 1px solid #dfe8dd;
+  background: #eef3eb;
+  border: 1px solid #e1e9dd;
   border-radius: 30px;
-  padding: 38px 32px 22px;
+  padding: 40px 32px 22px;
   margin-bottom: 42px;
   overflow: hidden;
 }
@@ -32,17 +32,20 @@
 .family-scene {
   position: relative;
   max-width: 850px;
-  height: 450px;
-  margin: 22px auto 0;
-  --to-x: 30%;
+  min-height: 555px;
+  padding-top: 270px;
+  margin: 26px auto 0;
+  --to-x: 50%;
 }
 .family-circle-label {
   position: absolute;
+  top: 0;
+  left: 0;
   right: 0;
-  top: 4px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  gap: 7px;
   color: #3d665c;
   font-size: 14px;
 }
@@ -52,7 +55,7 @@
 }
 .family-people {
   position: absolute;
-  inset: 30px 5% auto;
+  inset: 43px 5% auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   z-index: 2;
@@ -68,7 +71,7 @@
   gap: 2px;
 }
 .family-share > span {
-  font-size: 16px;
+  font-size: 15px;
   color: #52625c;
 }
 .family-share > strong {
@@ -77,242 +80,125 @@
   font-weight: 600;
 }
 .family-lucky {
-  position: relative;
   width: 130px;
-  height: 104px;
+  height: 114px;
   transform-origin: bottom center;
 }
-.family-lucky img {
+.family-lucky svg {
   width: 100%;
   height: 100%;
 }
-.family-person-accent {
-  position: absolute;
-  bottom: -2px;
-  left: 50%;
-  translate: -50% 0;
-  width: 26px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--share-fill);
-  box-shadow: 0 0 0 2px #eaf0e8;
-}
 .family-mint {
-  --share-fill: #6aa68d;
+  --share-fill: #2f7061;
   --share-pale: #d8f3e9;
+  --lucky-fill: #bce8d8;
 }
 .family-peach {
-  --share-fill: #d78d70;
-  --share-pale: #f9e1d4;
+  --share-fill: #639484;
+  --share-pale: #e0efe4;
+  --lucky-fill: #d2e8bd;
 }
 .family-lilac {
-  --share-fill: #a18ab9;
-  --share-pale: #e9def4;
-}
-.family-table {
-  position: absolute;
-  inset: 166px 0 48px;
-  border-radius: 48% 48% 36% 36% / 24% 24% 22% 22%;
-  background: linear-gradient(175deg, #fffdf8, #f3f0e7);
-  border: 1px solid #e1e1d4;
-  box-shadow:
-    0 9px 0 #d9dfd2,
-    0 24px 28px -22px #284f3b33;
-}
-.family-arrangement {
-  position: absolute;
-  top: 203px;
-  left: 50%;
-  translate: -50% 0;
-  width: 76%;
-  display: grid;
-  grid-template-columns: 1.12fr 0.48fr 1fr;
-  align-items: center;
-  gap: 10px;
-  z-index: 3;
-}
-.family-payment-card {
-  aspect-ratio: 1.75;
-  min-width: 0;
-  padding: 18px 20px;
-  border-radius: 15px;
-  background: linear-gradient(140deg, #28584b, #153f38);
-  color: #fff;
-  border: 1px solid #65897b;
-  box-shadow: 0 10px 16px -9px #153f3855;
-  transform: perspective(900px) rotateX(6deg);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-}
-.family-wordmark {
-  font-size: 25px;
-  font-weight: 760;
-  letter-spacing: -0.07em;
-}
-.family-payment-card > .app-icon {
-  position: absolute;
-  right: 18px;
-  top: 20px;
-  width: 22px;
-  height: 22px;
-  filter: brightness(0) invert(1);
-  opacity: 0.75;
-}
-.family-payment-card > div {
-  display: grid;
-  gap: 4px;
-}
-.family-payment-card strong {
-  font-size: 18px;
-  font-weight: 550;
-}
-.family-payment-card > div > span {
-  font-size: 13px;
-  color: #d0e7dc;
-}
-.family-payment-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 9px;
-  color: #52625c;
-  text-align: center;
-}
-.family-payment-link span {
-  font-size: 12px;
-  white-space: nowrap;
-}
-.family-payment-link i {
-  height: 2px;
-  width: 100%;
-  background: #9daea1;
-  position: relative;
-}
-.family-payment-link i::after {
-  content: "";
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  right: 0;
-  top: -2.5px;
-  border-right: 2px solid #6c8375;
-  border-top: 2px solid #6c8375;
-  rotate: 45deg;
-}
-.family-scene[data-ready="true"] .family-payment-link i {
-  background: #28725f;
-  box-shadow: 0 0 8px #88bda26b;
+  --share-fill: #9bbfb0;
+  --share-pale: #e7f2ec;
+  --lucky-fill: #a7d6c5;
 }
 .family-phone-bill {
-  padding: 17px 18px;
-  border: 1px solid #e1e8df;
-  border-radius: 16px;
+  position: relative;
+  margin-inline: auto;
+  width: 480px;
+  max-width: 100%;
   background: #fff;
-  box-shadow: 0 8px 18px -12px #28503e33;
+  border: 1px solid #d9e5dc;
+  border-radius: 24px;
+  z-index: 3;
+  overflow: hidden;
+  box-shadow: 0 8px 26px -14px #2e574127;
+}
+.family-bill-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 26px 20px;
+  gap: 12px;
 }
 .family-bill-heading {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 12px;
 }
-.family-bill-heading .app-icon {
-  width: 22px;
-  height: 22px;
+.family-phone-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 48px;
+  background: #e8f3ed;
+  border-radius: 14px;
+  flex-shrink: 0;
+}
+.family-phone-icon .app-icon {
+  width: 25px;
+  height: 25px;
+}
+.family-bill-heading > div {
+  display: grid;
+  gap: 5px;
 }
 .family-bill-heading strong {
-  font-weight: 550;
-  font-size: 17px;
-}
-.family-phone-bill > p {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  margin-top: 10px;
-}
-.family-phone-bill > p > strong {
-  font-size: 30px;
-  font-weight: 550;
-  letter-spacing: -0.055em;
-}
-.family-phone-bill > p > span {
-  font-size: 13px;
-  color: #657069;
-}
-.family-bill-state {
-  display: block;
-  font-size: 12px;
-  color: #52625c;
-  margin-top: 7px;
-  white-space: nowrap;
-}
-.family-scene[data-ready="true"] .family-bill-state {
-  color: #226751;
-}
-.family-token-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 4;
-}
-.family-token {
-  position: absolute;
-  left: calc(var(--from-x) + (var(--to-x) - var(--from-x)) * var(--travel));
-  top: calc(155px + 75px * var(--travel));
-  translate: -50% 0;
-  background: var(--share-pale);
-  border: 1px solid var(--share-fill);
-  border-radius: 25px;
-  min-width: 60px;
-  padding: 9px 12px;
   font-size: 20px;
   font-weight: 600;
-  text-align: center;
-  box-shadow: 0 4px 8px #304b3320;
+  letter-spacing: -0.025em;
 }
-.family-scene[data-playing="true"] .family-token {
-  transition:
-    left 50ms linear,
-    top 50ms linear;
+.family-bill-heading > div > span {
+  font-size: 12px;
+  color: #66766f;
 }
-.family-scene[data-playing="true"] .family-lucky {
-  transition: transform 50ms linear;
+.family-bill-amount {
+  display: grid;
+  text-align: right;
+  gap: 3px;
+  flex-shrink: 0;
+}
+.family-bill-amount strong {
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+}
+.family-bill-amount > span {
+  font-size: 12px;
+  color: #66766f;
 }
 .family-funding {
-  position: absolute;
-  top: 370px;
-  left: 50%;
-  translate: -50% 0;
-  width: 64%;
-  z-index: 3;
+  padding: 4px 26px 18px;
 }
 .family-funding-copy {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 8px;
-  font-size: 15px;
+  font-size: 13px;
+  color: #52655c;
 }
 .family-funding-copy > strong {
   font-size: 20px;
   font-weight: 600;
+  color: #254e42;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
 .family-funding-copy > strong > span {
-  font-size: 15px;
-  color: #596562;
+  font-size: 14px;
+  color: #596962;
   font-weight: 450;
 }
 .family-meter {
   display: flex;
   gap: 3px;
-  height: 11px;
+  height: 12px;
   margin-top: 10px;
   border-radius: 10px;
   overflow: hidden;
-  background: #d7dfd2;
+  background: #e9eeea;
 }
 .family-meter > span {
   background: var(--share-fill);
@@ -326,7 +212,7 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-size: 14px;
+  font-size: 13px;
   color: #396455;
   margin-top: 12px;
   min-height: 20px;
@@ -334,6 +220,92 @@
 .family-result .app-icon {
   width: 18px;
   height: 18px;
+}
+.family-payment-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 16px 26px;
+  background: #f4f7f2;
+  border-top: 1px dashed #d5e0d5;
+}
+.family-mini-card {
+  position: relative;
+  flex-shrink: 0;
+  width: 98px;
+  height: 62px;
+  border-radius: 9px;
+  background: #204c41;
+  color: #f4f7e9;
+  padding: 9px 11px;
+  overflow: hidden;
+}
+.family-mini-card::after {
+  content: "";
+  position: absolute;
+  width: 85px;
+  height: 85px;
+  border: 1px solid #668778;
+  border-radius: 50%;
+  right: -35px;
+  bottom: -50px;
+}
+.family-mini-card > span {
+  font-weight: 750;
+  letter-spacing: -0.06em;
+  font-size: 17px;
+}
+.family-mini-card .app-icon {
+  position: absolute;
+  right: 10px;
+  bottom: 9px;
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+}
+.family-card-copy {
+  display: grid;
+  gap: 3px;
+}
+.family-card-copy > strong {
+  font-size: 17px;
+  font-weight: 600;
+}
+.family-card-copy > span {
+  font-size: 12px;
+  color: #63766a;
+}
+.family-card-copy > span:first-child {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.family-token-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+.family-token {
+  position: absolute;
+  left: calc(var(--from-x) + (var(--to-x) - var(--from-x)) * var(--travel));
+  top: calc(208px + 46px * var(--travel));
+  translate: -50% 0;
+  background: var(--share-pale);
+  border: 1px solid var(--share-fill);
+  border-radius: 25px;
+  min-width: 58px;
+  padding: 8px 12px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+.family-scene[data-playing="true"] .family-token {
+  transition:
+    left 50ms linear,
+    top 50ms linear;
+}
+.family-scene[data-playing="true"] .family-lucky {
+  transition: transform 50ms linear;
 }
 .family-story-footer {
   max-width: 850px;
@@ -362,7 +334,6 @@
 }
 .family-playback {
   display: flex;
-  gap: 6px;
   min-height: 44px;
 }
 .family-playback button {
@@ -370,18 +341,18 @@
   align-items: center;
   gap: 6px;
   min-height: 44px;
-  padding: 8px 12px;
+  padding: 8px 16px;
   border-radius: 22px;
   font-size: 14px;
   color: #2c5c4e;
-  background: #ffffff80;
+  background: #fff;
 }
 .family-playback button:hover {
-  background: #fff;
+  background: #dbece1;
 }
 @media (max-width: 760px) {
   .family-story {
-    padding: 28px 18px 20px;
+    padding: 28px 16px 20px;
   }
   .family-story-heading h2 {
     max-width: 320px;
@@ -393,115 +364,82 @@
     line-height: 1.5;
   }
   .family-scene {
-    height: 600px;
-    margin-top: 20px;
-    --to-x: 50%;
-  }
-  .family-circle-label {
-    position: relative;
-    justify-content: center;
-    top: 0;
-    font-size: 16px;
+    min-height: 515px;
+    padding-top: 227px;
+    margin-top: 24px;
   }
   .family-people {
-    inset: 38px 0 auto;
-  }
-  .family-share > strong {
-    font-size: 28px;
+    inset: 42px 5% auto;
   }
   .family-lucky {
     width: min(100%, 104px);
     height: auto;
-    aspect-ratio: 1.25;
+    aspect-ratio: 160/140;
   }
-  .family-table {
-    inset: 170px -7px 74px;
-    border-radius: 45% 45% 18% 18% / 10% 10% 8% 8%;
+  .family-share > strong {
+    font-size: 27px;
   }
-  .family-arrangement {
-    top: 207px;
-    width: 84%;
-    max-width: 320px;
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-  .family-payment-card {
-    aspect-ratio: auto;
-    height: 140px;
-    padding: 16px 18px;
-  }
-  .family-payment-card strong {
-    font-size: 18px;
-  }
-  .family-payment-card > div > span {
+  .family-share > span {
     font-size: 14px;
-  }
-  .family-payment-link {
-    flex-direction: row;
-    justify-content: center;
-    gap: 10px;
-    height: 29px;
-  }
-  .family-payment-link span {
-    font-size: 14px;
-  }
-  .family-payment-link i {
-    width: 2px;
-    height: 22px;
-  }
-  .family-payment-link i::after {
-    top: auto;
-    bottom: 0;
-    right: -2.5px;
-    rotate: 135deg;
   }
   .family-phone-bill {
-    display: grid;
-    grid-template-columns: 1fr auto;
+    border-radius: 20px;
+  }
+  .family-bill-top {
+    padding: 20px 16px 18px;
     gap: 6px;
-    padding: 14px;
   }
   .family-bill-heading {
-    gap: 4px;
+    gap: 8px;
   }
   .family-bill-heading strong {
-    font-size: 16px;
+    font-size: 18px;
   }
-  .family-phone-bill > p {
-    margin: 0;
-    gap: 2px;
-    flex-direction: column;
+  .family-bill-heading > div > span {
+    font-size: 11px;
+    max-width: 110px;
+    line-height: 1.4;
   }
-  .family-phone-bill > p > strong {
-    font-size: 26px;
+  .family-phone-icon {
+    width: 32px;
+    height: 40px;
+    border-radius: 10px;
   }
-  .family-phone-bill > p > span {
-    font-size: 13px;
-  }
-  .family-bill-state {
-    grid-column: 1 / -1;
-    margin: 0;
-    font-size: 14px;
+  .family-bill-amount strong {
+    font-size: 28px;
   }
   .family-funding {
-    top: 510px;
-    width: 92%;
+    padding: 4px 16px 16px;
   }
   .family-funding-copy {
-    font-size: 14px;
+    font-size: 12px;
   }
   .family-funding-copy > strong {
-    font-size: 20px;
+    font-size: 19px;
+  }
+  .family-funding-copy > strong > span {
+    font-size: 12px;
   }
   .family-result {
-    font-size: 14px;
+    font-size: 12px;
+  }
+  .family-payment-card {
+    padding: 16px;
+    gap: 12px;
+  }
+  .family-mini-card {
+    width: 84px;
+    height: 54px;
+  }
+  .family-token {
+    top: calc(180px + 30px * var(--travel));
+    min-width: 50px;
+    font-size: 16px;
+    padding: 6px 10px;
   }
   .family-story-footer {
     justify-content: center;
-    margin-top: 0;
-  }
-  .family-story-footer > p {
-    font-size: 12px;
+    margin-top: 16px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
