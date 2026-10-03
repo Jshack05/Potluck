@@ -10,6 +10,13 @@
   },
   "assets": [
     {
+      "name": "lucky-celebration.svg",
+      "nodeId": "1340:11945",
+      "retrievedAt": "2026-09-15",
+      "source": "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1340-11945",
+      "note": "Reused unchanged from the existing approved brand export; family accents are separate CSS elements."
+    },
+    {
       "name": "bank.svg",
       "nodeId": "1107:5658",
       "retrievedAt": "2026-10-02",

@@ -47,6 +47,12 @@ The screen excerpts intentionally omit some mobile controls to present the app a
 
 ## Deployment
 
+### Family contribution story
+
+The homepage `#together` panel connects a Family Circle, three agreed illustrative contributions ($60/$40/$20), a host-managed Family card, and a $120 phone bill. It reuses the approved Lucky celebration SVG (Figma `1340:11945`). One eight-second clock drives the tokens, gestures and contribution totals; funds are counted only when each token arrives. The final state is **Ready for the phone bill**, never a settled merchant payment. The meter describes this bill's reserved amount, not a total card balance.
+
+The scene plays once when visible, suspends offscreen or in a hidden tab, supports pause/resume/replay, and renders its complete state for reduced motion or without JavaScript. Tests cover exact totals, preserved pause timing, hidden-tab behavior and motion-preference changes. The mobile composition stacks card and bill without scaling down the whole illustration. No provider calls, credentials, real funds, new dependencies or entitlements are involved. Removing `FamilyStory` from `Home.tsx` rolls back the section without a data migration.
+
 Deploy only `website/dist/` to the existing domain's static hosting after reviewing the result and confirming that host's project configuration. This task does not change DNS or publish the site. Canonical links and sitemap target `https://getpotluck.app/`. `public/_headers` is ready for hosts that support that convention; other hosts need equivalent response-header settings. There are no required secrets or environment variables.
 
 The production host must serve directory indexes, redirect known slashless page URLs to their slash versions, and use `404.html` with HTTP 404 for missing routes. Do not configure a catch-all SPA rewrite to the homepage: it would serve incorrect prerendered content and metadata. Provider-specific hosting configuration remains a deployment step.
