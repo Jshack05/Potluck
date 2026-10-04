@@ -87,14 +87,11 @@ test.each(["cards", "bills", "circles"])(
     ).not.toBeInTheDocument();
   },
 );
-test("contact uses the public email and credits preserve source attribution", () => {
+test("contact opens the inquiry page and credits preserve source attribution", () => {
   render(<App />);
   expect(
     screen.getByRole("link", { name: "Start a conversation" }),
-  ).toHaveAttribute(
-    "href",
-    "mailto:joseph@getpotluck.app?subject=Potluck%20partnership",
-  );
+  ).toHaveAttribute("href", "/contact/");
   expect(screen.getByText(/Stripe is our preferred/i)).toBeInTheDocument();
   expect(screen.getByRole("link", { name: "Credits" })).toHaveAttribute(
     "href",

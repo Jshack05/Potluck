@@ -4,6 +4,7 @@ import { features, normalizePath, type Feature } from "./pages";
 import { Home } from "./pages/Home";
 import { FeaturePage } from "./pages/FeaturePage";
 import { Credits } from "./pages/Credits";
+import { Contact } from "./pages/Contact";
 
 export default function App({ pathname = "/" }: { pathname?: string }) {
   const path = normalizePath(pathname);
@@ -41,6 +42,8 @@ export default function App({ pathname = "/" }: { pathname?: string }) {
           <FeaturePage feature={feature} />
         ) : path === "/credits/" ? (
           <Credits />
+        ) : path === "/contact/" ? (
+          <Contact />
         ) : (
           <section className="not-found section-wrap">
             <p className="eyebrow">404 · Page not found</p>

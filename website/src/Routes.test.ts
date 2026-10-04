@@ -20,7 +20,14 @@ afterAll(async () => {
 });
 
 test("direct feature requests with and without a trailing slash return their own HTML", async () => {
-  for (const path of ["splitfinder", "cards", "bills", "circles", "credits"]) {
+  for (const path of [
+    "splitfinder",
+    "cards",
+    "bills",
+    "circles",
+    "credits",
+    "contact",
+  ]) {
     for (const suffix of ["", "/"]) {
       const response = await fetch(`${base}/${path}${suffix}`);
       expect(response.status).toBe(200);

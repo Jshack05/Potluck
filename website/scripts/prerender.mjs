@@ -67,7 +67,7 @@ try {
       .join("")}</urlset>\n`,
   );
   console.log(
-    "Prerendered six public pages and the not-found page with unique metadata.",
+    `Prerendered ${Object.keys(pages).length - 1} public pages and the not-found page with unique metadata.`,
   );
 } finally {
   await server.close();

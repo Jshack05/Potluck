@@ -132,10 +132,7 @@ export function Home() {
         <p className="partner-intro">
           Let’s bring people, bills and purposeful spending together.
         </p>
-        <a
-          className="primary-button light-button"
-          href="mailto:joseph@getpotluck.app?subject=Potluck%20partnership"
-        >
+        <a className="primary-button light-button" href="/contact/">
           Start a conversation <Arrow diagonal />
         </a>
         <details className="partner-details">

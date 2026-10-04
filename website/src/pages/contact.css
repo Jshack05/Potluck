@@ -1,0 +1,216 @@
+.contact-page {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(40px, 7vw, 100px);
+  align-items: start;
+  padding-block: 76px 100px;
+}
+.contact-intro h1 {
+  max-width: 540px;
+  margin-top: 24px;
+  font-size: clamp(44px, 4.5vw, 66px);
+  font-weight: 550;
+  line-height: 1.06;
+  letter-spacing: -0.055em;
+}
+.contact-intro h1 span {
+  color: var(--green);
+}
+.contact-lede {
+  max-width: 400px;
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.65;
+}
+.contact-art {
+  padding: 32px;
+  margin-top: 40px;
+  max-width: 400px;
+  border-radius: 24px;
+  background: #1f4039;
+  color: #fff;
+}
+.contact-art-icons {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.contact-art-icons span {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  background: #e6f3e9;
+}
+.contact-art-icons img {
+  width: 26px;
+  height: 26px;
+}
+.contact-art-icons i {
+  height: 1px;
+  width: 26px;
+  background: #719487;
+}
+.contact-art p {
+  font-size: 27px;
+  letter-spacing: -0.045em;
+  line-height: 1.2;
+}
+.contact-art strong {
+  color: #bfdcc8;
+  font-weight: 550;
+}
+.contact-art-caption {
+  display: block;
+  margin-top: 24px;
+  font-size: 12px;
+  color: #bfdcc8;
+}
+.contact-direct {
+  margin-top: 30px;
+  font-size: 14px;
+}
+.contact-direct p {
+  color: var(--muted);
+}
+.contact-direct a {
+  color: var(--green);
+  overflow-wrap: anywhere;
+}
+.contact-panel {
+  min-width: 0;
+  background: #fff;
+  border: 1px solid #e5e9e2;
+  border-radius: 28px;
+  padding: clamp(24px, 3vw, 40px);
+  box-shadow: 0 10px 40px #203e3605;
+}
+.contact-panel h2 {
+  font-size: 25px;
+  font-weight: 550;
+  letter-spacing: -0.045em;
+}
+.contact-panel-heading p {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.contact-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 16px;
+  margin-top: 30px;
+}
+.contact-fields label {
+  min-width: 0;
+  display: block;
+  font-size: 13px;
+  font-weight: 550;
+}
+.contact-fields label > span {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.contact-field-wide {
+  grid-column: 1 / -1;
+}
+.contact-fields input,
+.contact-fields textarea,
+.contact-fields select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 50px;
+  margin-top: 9px;
+  border: 1px solid #dce3dd;
+  border-radius: 10px;
+  background: #fafbf8;
+  color: var(--ink);
+  padding: 13px 14px;
+  font: inherit;
+  font-weight: 400;
+  font-size: 16px;
+  outline-offset: 3px;
+  transition:
+    border-color 150ms,
+    background 150ms;
+}
+.contact-fields input::placeholder,
+.contact-fields textarea::placeholder {
+  color: #78827d;
+}
+.contact-fields textarea {
+  resize: vertical;
+  line-height: 1.5;
+  min-height: 120px;
+}
+.contact-fields input:focus,
+.contact-fields textarea:focus,
+.contact-fields select:focus {
+  background: #fff;
+  border-color: var(--green);
+}
+.contact-form-note,
+.contact-delivery-note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 18px;
+}
+.contact-submit {
+  width: 100%;
+  margin-top: 22px;
+  font-size: 14px;
+}
+.contact-submit:disabled {
+  opacity: 0.65;
+  cursor: default;
+  transform: none;
+}
+@media (max-width: 900px) {
+  .contact-page {
+    gap: 32px;
+  }
+  .contact-fields {
+    grid-template-columns: 1fr;
+  }
+  .contact-panel {
+    padding: 26px;
+  }
+}
+@media (max-width: 700px) {
+  .contact-page {
+    grid-template-columns: 1fr;
+    padding-block: 38px 60px;
+    gap: 30px;
+  }
+  .contact-intro h1 {
+    font-size: clamp(40px, 9vw, 58px);
+    max-width: 520px;
+  }
+  .contact-lede {
+    margin-top: 18px;
+    font-size: 16px;
+  }
+  .contact-art {
+    display: none;
+  }
+  .contact-direct {
+    margin-top: 18px;
+  }
+  .contact-panel {
+    padding: 24px;
+    border-radius: 22px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-fields input,
+  .contact-fields textarea,
+  .contact-fields select {
+    transition: none;
+  }
+}

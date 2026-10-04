@@ -17,6 +17,16 @@ pnpm preview --port 4173
 
 ## Pages
 
+### Partnership contact screen (local draft)
+
+The homepage's “Start a conversation” link opens `/contact/`. The responsive screen asks for full name, business email, company and message, with optional role, company website and partnership topic. Browser autocomplete, persistent labels, appropriate input types and length limits support accessible completion. A direct link to `joseph@getpotluck.app` remains available.
+
+Delivery is deliberately not connected yet: the submit control is disabled and the page states this. No entered data is sent, stored, logged or represented as received. The remaining decision is direct inbox delivery versus a prefilled email draft. Direct delivery needs an approved email service and a server-side handler with input validation, abuse protection and honest success/failure feedback before enabling submission. Do not publish this draft as a working submission form.
+
+Audience and purpose: prospective card, banking, payment and business partners can introduce themselves with relevant context. The promise is a clear route to a partnership conversation; the acquisition route is the existing homepage call to action. This is public partner outreach, not a Free/Plus/Premium feature or financial flow. Follow-up conversations are the intended recurring use; qualified inquiries are the primary business metric, with no tracking added. A structured inquiry adds context missing from the former blank email link. It does not alter product scope, user consent, provider approval or money movement.
+
+Validation: `pnpm validate` passed formatting, lint, TypeScript, prerendering, 69 tests and the dependency audit. Contact routing, required/optional fields, homepage linking and hydration are covered. Desktop and a 385px browser viewport were visually checked with no horizontal overflow. Email delivery has not been implemented or tested.
+
 The Bills page has one introduction: “Less chasing. More clarity.” followed by “Bring your bills into one place. Share the ones you pay together.” The Import → Choose → Review walkthrough follows immediately, with the planned-availability notice below it. The homepage Bills tile uses a pale mint surface, white compact bill cards and smaller contributor avatars while retaining the existing two-row carousel and manual controls.
 
 The homepage uses a 2×2 feature grid, stacked on phones. Native links open `/splitfinder/`, `/cards/`, `/bills/`, `/circles/` and `/credits/`. Each has independent HTML, metadata and canonical URLs, with browser back/forward and no-JavaScript access. Splitfinder includes the retained interactive sample search, a horizontal category rail and read-only availability/joining illustrations. More detailed explanations use native disclosures.

@@ -31,6 +31,11 @@ export const pages = {
     title: "Credits | Potluck",
     description: "The design, artwork and motion behind the Potluck website.",
   },
+  "/contact/": {
+    title: "Start a conversation | Potluck",
+    description:
+      "Connect with Potluck about cards, banking, payments and business partnerships. Good things start with a conversation.",
+  },
   "/404/": {
     title: "Page not found | Potluck",
     description: "Find your way back to Potluck.",
