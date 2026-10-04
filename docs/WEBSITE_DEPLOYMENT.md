@@ -44,3 +44,13 @@ Cloudflare uploads the committed static output; it does not need a new dashboard
 ## Rollback
 
 The prior production deployment is commit `ed5d910c0cf233925e872bd8503b3523d40abc3c`. Revert the website deployment commit and push the resulting forward commit, or use the corresponding previously successful Cloudflare deployment. Do not force-reset shared branch history. No data migration or backfill is involved.
+
+## October 4, 2026 interactive showcase release
+
+Commit `33c575c8f5861c84391bfe4933fe863d1bdb19f5` adds pointer/touch momentum to the existing card orbit, preserves vertical scrolling, settles to the nearest design and resumes after a three-second hold. The bill showcase starts after one visible second and subsequently advances every 2.5 seconds; hovering pauses it. Existing pause controls, reduced-motion alternatives, visible background cards and illustrative disclosures remain.
+
+`pnpm validate` passed formatting, lint, TypeScript, production build, 95 tests across 11 files, and dependency audit. Browser checks confirmed a live drag enters coasting, phone-width layout retains vertical pan/pinch zoom, and Bills cycles while visible. Physical iPhone Safari was not available for an on-device gesture check.
+
+Cloudflare version `12f84387-de30-4ba8-8607-4f01c8f28019`, built from `marketing-site`, was promoted to 100% traffic. Public homepage, Cards, Bills and Contact returned 200 with `index-DHXq9_WR.js`; JS/CSS returned 200 and an unknown route returned 404. The deployed card was also dragged successfully in the public website. No contact delivery configuration or financial behavior changed.
+
+Rollback: promote previous version `b6d3879d-3077-4d0a-b949-2098071fa99d`, or revert the showcase commit on GitHub and publish the forward revert. No migration or backfill is involved. Later documentation-only commits create previews but do not need production promotion.
