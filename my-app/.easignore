@@ -1,0 +1,17 @@
+node_modules/
+.expo/
+dist/
+web-build/
+.git/
+.env
+.env.*
+credentials.json
+*.p8
+*.p12
+*.pem
+*.key
+*.jks
+*.keystore
+*.mobileprovision
+*.log
+*.tsbuildinfo

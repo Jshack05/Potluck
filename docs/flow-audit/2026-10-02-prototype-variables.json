@@ -1,0 +1,1356 @@
+[
+  {
+    "id": "VariableID:1:28",
+    "name": "spacing/4",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 4,
+      "1241:0": 4
+    }
+  },
+  {
+    "id": "VariableID:1:29",
+    "name": "spacing/8",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 8,
+      "1241:0": 8
+    }
+  },
+  {
+    "id": "VariableID:1:30",
+    "name": "spacing/12",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 12,
+      "1241:0": 12
+    }
+  },
+  {
+    "id": "VariableID:1:31",
+    "name": "spacing/16",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 16,
+      "1241:0": 16
+    }
+  },
+  {
+    "id": "VariableID:1:32",
+    "name": "spacing/20",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 20,
+      "1241:0": 20
+    }
+  },
+  {
+    "id": "VariableID:1:33",
+    "name": "spacing/24",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 24,
+      "1241:0": 24
+    }
+  },
+  {
+    "id": "VariableID:1:34",
+    "name": "spacing/32",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 32,
+      "1241:0": 32
+    }
+  },
+  {
+    "id": "VariableID:1:35",
+    "name": "radius/12",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 12,
+      "1241:0": 12
+    }
+  },
+  {
+    "id": "VariableID:1:36",
+    "name": "radius/16",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 16,
+      "1241:0": 16
+    }
+  },
+  {
+    "id": "VariableID:1:37",
+    "name": "radius/20",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 20,
+      "1241:0": 20
+    }
+  },
+  {
+    "id": "VariableID:1:38",
+    "name": "radius/28",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 28,
+      "1241:0": 28
+    }
+  },
+  {
+    "id": "VariableID:1:39",
+    "name": "radius/full",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 999,
+      "1241:0": 999
+    }
+  },
+  {
+    "id": "VariableID:1:40",
+    "name": "size/touch-min",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 44,
+      "1241:0": 44
+    }
+  },
+  {
+    "id": "VariableID:304:430",
+    "name": "circleDetail/circle/name",
+    "type": "STRING",
+    "values": {
+      "304:0": "Apartment crew"
+    }
+  },
+  {
+    "id": "VariableID:304:431",
+    "name": "circleDetail/circle/summary",
+    "type": "STRING",
+    "values": {
+      "304:0": "4 people · 1 card · 2 bills"
+    }
+  },
+  {
+    "id": "VariableID:304:432",
+    "name": "circleDetail/circle/initial",
+    "type": "STRING",
+    "values": {
+      "304:0": "A"
+    }
+  },
+  {
+    "id": "VariableID:304:433",
+    "name": "circleDetail/circle/status",
+    "type": "STRING",
+    "values": {
+      "304:0": "Everything is on track."
+    }
+  },
+  {
+    "id": "VariableID:304:434",
+    "name": "circleDetail/circle/connectedPeopleLabel",
+    "type": "STRING",
+    "values": {
+      "304:0": "4 people connected"
+    }
+  },
+  {
+    "id": "VariableID:304:435",
+    "name": "circleDetail/heroMembers/1/initial",
+    "type": "STRING",
+    "values": {
+      "304:0": "J"
+    }
+  },
+  {
+    "id": "VariableID:304:436",
+    "name": "circleDetail/heroMembers/2/initial",
+    "type": "STRING",
+    "values": {
+      "304:0": "M"
+    }
+  },
+  {
+    "id": "VariableID:304:437",
+    "name": "circleDetail/heroMembers/3/initial",
+    "type": "STRING",
+    "values": {
+      "304:0": "T"
+    }
+  },
+  {
+    "id": "VariableID:304:438",
+    "name": "circleDetail/heroMembers/4/initial",
+    "type": "STRING",
+    "values": {
+      "304:0": "S"
+    }
+  },
+  {
+    "id": "VariableID:304:439",
+    "name": "circleDetail/people/1/initial",
+    "type": "STRING",
+    "values": {
+      "304:0": "J"
+    }
+  },
+  {
+    "id": "VariableID:304:440",
+    "name": "circleDetail/people/1/name",
+    "type": "STRING",
+    "values": {
+      "304:0": "Jordan"
+    }
+  },
+  {
+    "id": "VariableID:304:441",
+    "name": "circleDetail/people/2/initial",
+    "type": "STRING",
+    "values": {
+      "304:0": "M"
+    }
+  },
+  {
+    "id": "VariableID:304:442",
+    "name": "circleDetail/people/2/name",
+    "type": "STRING",
+    "values": {
+      "304:0": "Maya"
+    }
+  },
+  {
+    "id": "VariableID:304:443",
+    "name": "circleDetail/people/3/initial",
+    "type": "STRING",
+    "values": {
+      "304:0": "T"
+    }
+  },
+  {
+    "id": "VariableID:304:444",
+    "name": "circleDetail/people/3/name",
+    "type": "STRING",
+    "values": {
+      "304:0": "Taylor"
+    }
+  },
+  {
+    "id": "VariableID:304:445",
+    "name": "circleDetail/people/4/initial",
+    "type": "STRING",
+    "values": {
+      "304:0": "S"
+    }
+  },
+  {
+    "id": "VariableID:304:446",
+    "name": "circleDetail/people/4/name",
+    "type": "STRING",
+    "values": {
+      "304:0": "Sam"
+    }
+  },
+  {
+    "id": "VariableID:304:447",
+    "name": "circleDetail/cards/1/name",
+    "type": "STRING",
+    "values": {
+      "304:0": "Apartment card"
+    }
+  },
+  {
+    "id": "VariableID:304:448",
+    "name": "circleDetail/bills/1/name",
+    "type": "STRING",
+    "values": {
+      "304:0": "Internet bill"
+    }
+  },
+  {
+    "id": "VariableID:304:449",
+    "name": "circleDetail/bills/1/status",
+    "type": "STRING",
+    "values": {
+      "304:0": "Review pending agreement"
+    }
+  },
+  {
+    "id": "VariableID:304:450",
+    "name": "circleDetail/bills/1/amount",
+    "type": "STRING",
+    "values": {
+      "304:0": "$84"
+    }
+  },
+  {
+    "id": "VariableID:304:451",
+    "name": "circleDetail/bills/2/name",
+    "type": "STRING",
+    "values": {
+      "304:0": "Electric"
+    }
+  },
+  {
+    "id": "VariableID:304:452",
+    "name": "circleDetail/bills/2/status",
+    "type": "STRING",
+    "values": {
+      "304:0": "On track for next cycle"
+    }
+  },
+  {
+    "id": "VariableID:304:453",
+    "name": "circleDetail/bills/2/amount",
+    "type": "STRING",
+    "values": {
+      "304:0": "$46"
+    }
+  },
+  {
+    "id": "VariableID:1053:4967",
+    "name": "bill-import/selected/internet",
+    "type": "BOOLEAN",
+    "values": {
+      "304:0": false
+    }
+  },
+  {
+    "id": "VariableID:1053:4968",
+    "name": "bill-import/selected/electric",
+    "type": "BOOLEAN",
+    "values": {
+      "304:0": false
+    }
+  },
+  {
+    "id": "VariableID:1053:4969",
+    "name": "bill-import/selected/streaming",
+    "type": "BOOLEAN",
+    "values": {
+      "304:0": false
+    }
+  },
+  {
+    "id": "VariableID:1056:5534",
+    "name": "bill-setup/name",
+    "type": "STRING",
+    "values": {
+      "304:0": "Internet bill"
+    }
+  },
+  {
+    "id": "VariableID:1056:5535",
+    "name": "bill-setup/amount",
+    "type": "STRING",
+    "values": {
+      "304:0": "$84.00"
+    }
+  },
+  {
+    "id": "VariableID:1056:5536",
+    "name": "bill-setup/observation",
+    "type": "STRING",
+    "values": {
+      "304:0": "Observed · Usually $84.00 · Around Sep 15"
+    }
+  },
+  {
+    "id": "VariableID:1056:5537",
+    "name": "bill-setup/maximum",
+    "type": "STRING",
+    "values": {
+      "304:0": "Choose a maximum"
+    }
+  },
+  {
+    "id": "VariableID:1056:5538",
+    "name": "bill-setup/maximum-confirmed",
+    "type": "BOOLEAN",
+    "values": {
+      "304:0": false
+    }
+  },
+  {
+    "id": "VariableID:1071:5391",
+    "name": "typography/size/11",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 11,
+      "1241:0": 11
+    }
+  },
+  {
+    "id": "VariableID:1071:5392",
+    "name": "typography/size/42",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 42,
+      "1241:0": 42
+    }
+  },
+  {
+    "id": "VariableID:1071:5393",
+    "name": "typography/size/18",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 18,
+      "1241:0": 18
+    }
+  },
+  {
+    "id": "VariableID:1071:5394",
+    "name": "typography/size/14",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 14,
+      "1241:0": 14
+    }
+  },
+  {
+    "id": "VariableID:1071:5395",
+    "name": "typography/size/13",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 13,
+      "1241:0": 13
+    }
+  },
+  {
+    "id": "VariableID:1071:5396",
+    "name": "typography/size/17",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 17,
+      "1241:0": 17
+    }
+  },
+  {
+    "id": "VariableID:1071:5397",
+    "name": "typography/size/9",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 9,
+      "1241:0": 9
+    }
+  },
+  {
+    "id": "VariableID:1071:5398",
+    "name": "typography/size/10",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 10,
+      "1241:0": 10
+    }
+  },
+  {
+    "id": "VariableID:1071:5399",
+    "name": "typography/size/19",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 19,
+      "1241:0": 19
+    }
+  },
+  {
+    "id": "VariableID:1071:5400",
+    "name": "typography/size/15",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 15,
+      "1241:0": 15
+    }
+  },
+  {
+    "id": "VariableID:1071:5401",
+    "name": "typography/size/21",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 21,
+      "1241:0": 21
+    }
+  },
+  {
+    "id": "VariableID:1071:5402",
+    "name": "typography/size/26",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 26,
+      "1241:0": 26
+    }
+  },
+  {
+    "id": "VariableID:1071:5403",
+    "name": "typography/size/30",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 30,
+      "1241:0": 30
+    }
+  },
+  {
+    "id": "VariableID:1071:5404",
+    "name": "typography/size/22",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 22,
+      "1241:0": 22
+    }
+  },
+  {
+    "id": "VariableID:1071:5405",
+    "name": "radius/2",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 2,
+      "1241:0": 2
+    }
+  },
+  {
+    "id": "VariableID:1071:5406",
+    "name": "radius/3",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 3,
+      "1241:0": 3
+    }
+  },
+  {
+    "id": "VariableID:1071:5407",
+    "name": "radius/1",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 1,
+      "1241:0": 1
+    }
+  },
+  {
+    "id": "VariableID:1071:5408",
+    "name": "radius/36",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 36,
+      "1241:0": 36
+    }
+  },
+  {
+    "id": "VariableID:1071:5409",
+    "name": "radius/5",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 5,
+      "1241:0": 5
+    }
+  },
+  {
+    "id": "VariableID:1071:5434",
+    "name": "typography/size/24",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 24,
+      "1241:0": 24
+    }
+  },
+  {
+    "id": "VariableID:1071:5435",
+    "name": "typography/size/12",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 12,
+      "1241:0": 12
+    }
+  },
+  {
+    "id": "VariableID:1071:5436",
+    "name": "typography/size/28",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 28,
+      "1241:0": 28
+    }
+  },
+  {
+    "id": "VariableID:1071:5437",
+    "name": "typography/size/20",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 20,
+      "1241:0": 20
+    }
+  },
+  {
+    "id": "VariableID:1071:5438",
+    "name": "typography/size/16",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 16,
+      "1241:0": 16
+    }
+  },
+  {
+    "id": "VariableID:1071:5439",
+    "name": "radius/26",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 26,
+      "1241:0": 26
+    }
+  },
+  {
+    "id": "VariableID:1071:5440",
+    "name": "radius/24",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 24,
+      "1241:0": 24
+    }
+  },
+  {
+    "id": "VariableID:1071:5441",
+    "name": "radius/22",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 22,
+      "1241:0": 22
+    }
+  },
+  {
+    "id": "VariableID:1071:5442",
+    "name": "radius/44",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 44,
+      "1241:0": 44
+    }
+  },
+  {
+    "id": "VariableID:1071:5443",
+    "name": "radius/15",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 15,
+      "1241:0": 15
+    }
+  },
+  {
+    "id": "VariableID:1071:5444",
+    "name": "radius/32",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 32,
+      "1241:0": 32
+    }
+  },
+  {
+    "id": "VariableID:1071:5445",
+    "name": "radius/9",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 9,
+      "1241:0": 9
+    }
+  },
+  {
+    "id": "VariableID:1071:5446",
+    "name": "radius/18",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 18,
+      "1241:0": 18
+    }
+  },
+  {
+    "id": "VariableID:1071:5447",
+    "name": "radius/19",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 19,
+      "1241:0": 19
+    }
+  },
+  {
+    "id": "VariableID:1071:5448",
+    "name": "radius/4",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 4,
+      "1241:0": 4
+    }
+  },
+  {
+    "id": "VariableID:1071:5449",
+    "name": "radius/11",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 11,
+      "1241:0": 11
+    }
+  },
+  {
+    "id": "VariableID:1071:5464",
+    "name": "typography/size/32",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 32,
+      "1241:0": 32
+    }
+  },
+  {
+    "id": "VariableID:1071:5465",
+    "name": "typography/size/34",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 34,
+      "1241:0": 34
+    }
+  },
+  {
+    "id": "VariableID:1071:5466",
+    "name": "radius/14",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 14,
+      "1241:0": 14
+    }
+  },
+  {
+    "id": "VariableID:1071:5480",
+    "name": "typography/size/25",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 25,
+      "1241:0": 25
+    }
+  },
+  {
+    "id": "VariableID:1071:5481",
+    "name": "radius/23",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 23,
+      "1241:0": 23
+    }
+  },
+  {
+    "id": "VariableID:1071:5482",
+    "name": "radius/21",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 21,
+      "1241:0": 21
+    }
+  },
+  {
+    "id": "VariableID:1071:5483",
+    "name": "radius/10",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 10,
+      "1241:0": 10
+    }
+  },
+  {
+    "id": "VariableID:1071:5489",
+    "name": "spacing/10",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 10,
+      "1241:0": 10
+    }
+  },
+  {
+    "id": "VariableID:1071:5490",
+    "name": "spacing/38",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 38,
+      "1241:0": 38
+    }
+  },
+  {
+    "id": "VariableID:1071:5491",
+    "name": "spacing/6",
+    "type": "FLOAT",
+    "values": {
+      "1:0": 6,
+      "1241:0": 6
+    }
+  },
+  {
+    "id": "VariableID:2089:44424",
+    "name": "Continuation / Context / customSpots",
+    "type": "STRING",
+    "values": {
+      "2025:2": "3"
+    }
+  },
+  {
+    "id": "VariableID:2089:44425",
+    "name": "Continuation / Context / phoneProvider",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Verizon"
+    }
+  },
+  {
+    "id": "VariableID:2089:44426",
+    "name": "Continuation / Context / phoneTitle",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Verizon phone plan"
+    }
+  },
+  {
+    "id": "VariableID:2089:44427",
+    "name": "Continuation / Context / phonePrice",
+    "type": "STRING",
+    "values": {
+      "2025:2": "$35 / month"
+    }
+  },
+  {
+    "id": "VariableID:2089:44428",
+    "name": "Continuation / Context / phoneSpots",
+    "type": "STRING",
+    "values": {
+      "2025:2": "1"
+    }
+  },
+  {
+    "id": "VariableID:2089:44429",
+    "name": "Continuation / Context / phoneCreateFrom",
+    "type": "STRING",
+    "values": {
+      "2025:2": "phoneProviderPicker"
+    }
+  },
+  {
+    "id": "VariableID:2089:44430",
+    "name": "Continuation / Context / subBrand",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Netflix"
+    }
+  },
+  {
+    "id": "VariableID:2089:44431",
+    "name": "Continuation / Context / subPlan",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Netflix Premium"
+    }
+  },
+  {
+    "id": "VariableID:2089:44432",
+    "name": "Continuation / Context / subCategory",
+    "type": "STRING",
+    "values": {
+      "2025:2": "TV & movies"
+    }
+  },
+  {
+    "id": "VariableID:2089:44433",
+    "name": "Continuation / Context / subPrice",
+    "type": "STRING",
+    "values": {
+      "2025:2": "$10 / month"
+    }
+  },
+  {
+    "id": "VariableID:2089:44434",
+    "name": "Continuation / Context / draftKind",
+    "type": "STRING",
+    "values": {
+      "2025:2": "subscription"
+    }
+  },
+  {
+    "id": "VariableID:2089:44435",
+    "name": "Continuation / Context / draftBack",
+    "type": "STRING",
+    "values": {
+      "2025:2": "preview"
+    }
+  },
+  {
+    "id": "VariableID:2089:44436",
+    "name": "Continuation / Context / creationFrom",
+    "type": "STRING",
+    "values": {
+      "2025:2": "myListings"
+    }
+  },
+  {
+    "id": "VariableID:2089:44437",
+    "name": "Continuation / Context / categoryFilter",
+    "type": "STRING",
+    "values": {
+      "2025:2": "All"
+    }
+  },
+  {
+    "id": "VariableID:2089:44438",
+    "name": "Continuation / Context / showNetflix",
+    "type": "BOOLEAN",
+    "values": {
+      "2025:2": true
+    }
+  },
+  {
+    "id": "VariableID:2089:44439",
+    "name": "Continuation / Context / showSpotify",
+    "type": "BOOLEAN",
+    "values": {
+      "2025:2": false
+    }
+  },
+  {
+    "id": "VariableID:2089:44440",
+    "name": "Continuation / Context / showDropbox",
+    "type": "BOOLEAN",
+    "values": {
+      "2025:2": false
+    }
+  },
+  {
+    "id": "VariableID:2095:44668",
+    "name": "Continuation / Context / customCategoryFrom",
+    "type": "STRING",
+    "values": {
+      "2025:2": "chooseService"
+    }
+  },
+  {
+    "id": "VariableID:2097:45896",
+    "name": "Continuation / Context / subPriceNumber",
+    "type": "STRING",
+    "values": {
+      "2025:2": "10"
+    }
+  },
+  {
+    "id": "VariableID:2097:45897",
+    "name": "Continuation / Context / subCircleName",
+    "type": "STRING",
+    "values": {
+      "2025:2": "My movie circle"
+    }
+  },
+  {
+    "id": "VariableID:2097:45898",
+    "name": "Continuation / Context / subFormFrom",
+    "type": "STRING",
+    "values": {
+      "2025:2": "subscriptionBrandPicker"
+    }
+  },
+  {
+    "id": "VariableID:2097:45899",
+    "name": "Continuation / Context / subEditSection",
+    "type": "STRING",
+    "values": {
+      "2025:2": ""
+    }
+  },
+  {
+    "id": "VariableID:2097:45900",
+    "name": "Continuation / Context / customSummary",
+    "type": "STRING",
+    "values": {
+      "2025:2": "3 spots open"
+    }
+  },
+  {
+    "id": "VariableID:2097:45901",
+    "name": "Continuation / Context / phoneSummary",
+    "type": "STRING",
+    "values": {
+      "2025:2": "1 line available"
+    }
+  },
+  {
+    "id": "VariableID:2097:45902",
+    "name": "Continuation / Context / liveSubBrand",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Netflix"
+    }
+  },
+  {
+    "id": "VariableID:2097:45903",
+    "name": "Continuation / Context / liveSubPlan",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Netflix Premium"
+    }
+  },
+  {
+    "id": "VariableID:2097:45904",
+    "name": "Continuation / Context / liveSubPrice",
+    "type": "STRING",
+    "values": {
+      "2025:2": "$10 / month"
+    }
+  },
+  {
+    "id": "VariableID:2097:45905",
+    "name": "Continuation / Context / liveSubCircleName",
+    "type": "STRING",
+    "values": {
+      "2025:2": "My movie circle"
+    }
+  },
+  {
+    "id": "VariableID:2097:45906",
+    "name": "Continuation / Context / liveNetflix",
+    "type": "BOOLEAN",
+    "values": {
+      "2025:2": true
+    }
+  },
+  {
+    "id": "VariableID:2097:45907",
+    "name": "Continuation / Context / liveSpotify",
+    "type": "BOOLEAN",
+    "values": {
+      "2025:2": false
+    }
+  },
+  {
+    "id": "VariableID:2097:45908",
+    "name": "Continuation / Context / liveDropbox",
+    "type": "BOOLEAN",
+    "values": {
+      "2025:2": false
+    }
+  },
+  {
+    "id": "VariableID:2097:45909",
+    "name": "Continuation / Context / livePhoneProvider",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Verizon"
+    }
+  },
+  {
+    "id": "VariableID:2097:45910",
+    "name": "Continuation / Context / livePhoneTitle",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Verizon phone plan"
+    }
+  },
+  {
+    "id": "VariableID:2097:45911",
+    "name": "Continuation / Context / livePhonePrice",
+    "type": "STRING",
+    "values": {
+      "2025:2": "$35 / month"
+    }
+  },
+  {
+    "id": "VariableID:2097:45912",
+    "name": "Continuation / Context / livePhoneSpots",
+    "type": "STRING",
+    "values": {
+      "2025:2": "1"
+    }
+  },
+  {
+    "id": "VariableID:2097:45913",
+    "name": "Continuation / Context / livePhoneSummary",
+    "type": "STRING",
+    "values": {
+      "2025:2": "1 line available"
+    }
+  },
+  {
+    "id": "VariableID:2097:45914",
+    "name": "Continuation / Context / liveCustomCategory",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Membership"
+    }
+  },
+  {
+    "id": "VariableID:2097:45915",
+    "name": "Continuation / Context / liveCustomName",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Campus climbing club"
+    }
+  },
+  {
+    "id": "VariableID:2097:45916",
+    "name": "Continuation / Context / liveCustomDescription",
+    "type": "STRING",
+    "values": {
+      "2025:2": "A monthly climbing membership with independent access."
+    }
+  },
+  {
+    "id": "VariableID:2097:45917",
+    "name": "Continuation / Context / liveCustomAccess",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Each person needs their own membership access."
+    }
+  },
+  {
+    "id": "VariableID:2097:45918",
+    "name": "Continuation / Context / liveCustomPrice",
+    "type": "STRING",
+    "values": {
+      "2025:2": "$25 / month"
+    }
+  },
+  {
+    "id": "VariableID:2097:45919",
+    "name": "Continuation / Context / liveCustomSpots",
+    "type": "STRING",
+    "values": {
+      "2025:2": "3"
+    }
+  },
+  {
+    "id": "VariableID:2097:45920",
+    "name": "Continuation / Context / liveCustomSummary",
+    "type": "STRING",
+    "values": {
+      "2025:2": "3 spots open"
+    }
+  },
+  {
+    "id": "VariableID:2098:44625",
+    "name": "Continuation / Context / customInitialized",
+    "type": "BOOLEAN",
+    "values": {
+      "2025:2": false
+    }
+  },
+  {
+    "id": "VariableID:2106:44967",
+    "name": "Continuation / Context / housingCheckPending",
+    "type": "BOOLEAN",
+    "values": {
+      "2025:2": false
+    }
+  },
+  {
+    "id": "VariableID:2106:44968",
+    "name": "Continuation / Context / chatReturn",
+    "type": "STRING",
+    "values": {
+      "2025:2": "conversation"
+    }
+  },
+  {
+    "id": "VariableID:2106:44969",
+    "name": "Continuation / Context / draftListTitle",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Netflix Premium"
+    }
+  },
+  {
+    "id": "VariableID:2107:44986",
+    "name": "Continuation / Saved draft / draftKind",
+    "type": "STRING",
+    "values": {
+      "2025:2": "subscription"
+    }
+  },
+  {
+    "id": "VariableID:2107:44987",
+    "name": "Continuation / Saved draft / customCategory",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Membership"
+    }
+  },
+  {
+    "id": "VariableID:2107:44988",
+    "name": "Continuation / Saved draft / customEntry",
+    "type": "STRING",
+    "values": {
+      "2025:2": "custom"
+    }
+  },
+  {
+    "id": "VariableID:2107:44989",
+    "name": "Continuation / Saved draft / customName",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Campus climbing club"
+    }
+  },
+  {
+    "id": "VariableID:2107:44990",
+    "name": "Continuation / Saved draft / customDescription",
+    "type": "STRING",
+    "values": {
+      "2025:2": "A monthly climbing membership with independent access."
+    }
+  },
+  {
+    "id": "VariableID:2107:44991",
+    "name": "Continuation / Saved draft / customAccess",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Each person needs their own membership access."
+    }
+  },
+  {
+    "id": "VariableID:2107:44992",
+    "name": "Continuation / Saved draft / customPrice",
+    "type": "STRING",
+    "values": {
+      "2025:2": "$25 / month"
+    }
+  },
+  {
+    "id": "VariableID:2107:44993",
+    "name": "Continuation / Saved draft / customSpots",
+    "type": "STRING",
+    "values": {
+      "2025:2": "3"
+    }
+  },
+  {
+    "id": "VariableID:2107:44994",
+    "name": "Continuation / Saved draft / customSummary",
+    "type": "STRING",
+    "values": {
+      "2025:2": "3 spots open"
+    }
+  },
+  {
+    "id": "VariableID:2107:44995",
+    "name": "Continuation / Saved draft / phoneProvider",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Verizon"
+    }
+  },
+  {
+    "id": "VariableID:2107:44996",
+    "name": "Continuation / Saved draft / phoneTitle",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Verizon phone plan"
+    }
+  },
+  {
+    "id": "VariableID:2107:44997",
+    "name": "Continuation / Saved draft / phonePrice",
+    "type": "STRING",
+    "values": {
+      "2025:2": "$35 / month"
+    }
+  },
+  {
+    "id": "VariableID:2107:44998",
+    "name": "Continuation / Saved draft / phoneSpots",
+    "type": "STRING",
+    "values": {
+      "2025:2": "1"
+    }
+  },
+  {
+    "id": "VariableID:2107:44999",
+    "name": "Continuation / Saved draft / phoneSummary",
+    "type": "STRING",
+    "values": {
+      "2025:2": "1 line available"
+    }
+  },
+  {
+    "id": "VariableID:2107:45000",
+    "name": "Continuation / Saved draft / phoneCreateFrom",
+    "type": "STRING",
+    "values": {
+      "2025:2": "phoneProviderPicker"
+    }
+  },
+  {
+    "id": "VariableID:2107:45001",
+    "name": "Continuation / Saved draft / subBrand",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Netflix"
+    }
+  },
+  {
+    "id": "VariableID:2107:45002",
+    "name": "Continuation / Saved draft / subPlan",
+    "type": "STRING",
+    "values": {
+      "2025:2": "Netflix Premium"
+    }
+  },
+  {
+    "id": "VariableID:2107:45003",
+    "name": "Continuation / Saved draft / subCategory",
+    "type": "STRING",
+    "values": {
+      "2025:2": "TV & movies"
+    }
+  },
+  {
+    "id": "VariableID:2107:45004",
+    "name": "Continuation / Saved draft / subPrice",
+    "type": "STRING",
+    "values": {
+      "2025:2": "$10 / month"
+    }
+  },
+  {
+    "id": "VariableID:2107:45005",
+    "name": "Continuation / Saved draft / subPriceNumber",
+    "type": "STRING",
+    "values": {
+      "2025:2": "10"
+    }
+  },
+  {
+    "id": "VariableID:2107:45006",
+    "name": "Continuation / Saved draft / subCircleName",
+    "type": "STRING",
+    "values": {
+      "2025:2": "My movie circle"
+    }
+  },
+  {
+    "id": "VariableID:2107:45007",
+    "name": "Continuation / Saved draft / subFormFrom",
+    "type": "STRING",
+    "values": {
+      "2025:2": "subscriptionBrandPicker"
+    }
+  },
+  {
+    "id": "VariableID:2107:45008",
+    "name": "Continuation / Saved draft / showNetflix",
+    "type": "BOOLEAN",
+    "values": {
+      "2025:2": true
+    }
+  },
+  {
+    "id": "VariableID:2107:45009",
+    "name": "Continuation / Saved draft / showSpotify",
+    "type": "BOOLEAN",
+    "values": {
+      "2025:2": false
+    }
+  },
+  {
+    "id": "VariableID:2107:45010",
+    "name": "Continuation / Saved draft / showDropbox",
+    "type": "BOOLEAN",
+    "values": {
+      "2025:2": false
+    }
+  }
+]

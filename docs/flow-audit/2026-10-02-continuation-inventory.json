@@ -1,0 +1,2053 @@
+[
+  {
+    "id": "2012:31975",
+    "name": "Continuation / request / Start with a conversation",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32042",
+    "name": "Continuation / requestEdited / Make it personal",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32100",
+    "name": "Continuation / requestReady / Ready to say hello",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32166",
+    "name": "Continuation / requestSending / Sending your request",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32215",
+    "name": "Continuation / requestSent / Request sent",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32283",
+    "name": "Continuation / pending / Waiting for Maya",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32348",
+    "name": "Continuation / withdraw / Withdraw this request?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32407",
+    "name": "Continuation / withdrawn / Request withdrawn",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32453",
+    "name": "Continuation / accepted / Maya wants to connect",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32527",
+    "name": "Continuation / declined / Keep looking",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32581",
+    "name": "Continuation / unavailable / This spot is unavailable",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32640",
+    "name": "Continuation / requests / Your requests",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32703",
+    "name": "Continuation / sentRequests / Your requests",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32761",
+    "name": "Continuation / requestsEmpty / Make room for someone",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32825",
+    "name": "Continuation / hostReview / Meet Joseph",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32902",
+    "name": "Continuation / hostReviewAlex / Meet Alex",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:32957",
+    "name": "Continuation / hostDecline / Decline this request?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:33014",
+    "name": "Continuation / hostDeclined / Request declined",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2012:33060",
+    "name": "Continuation / hostAccepted / You’re ready to talk",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:32810",
+    "name": "Continuation / accountGate / Keep your place with Maya",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:32846",
+    "name": "Continuation / publishGate / Your draft is ready for you",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:32888",
+    "name": "Continuation / signup / Let’s get you started",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:32923",
+    "name": "Continuation / signupError / Check your email",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:32958",
+    "name": "Continuation / signin / Welcome back",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:32986",
+    "name": "Continuation / password / Enter your password",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:33012",
+    "name": "Continuation / passwordError / Try your password again",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:33037",
+    "name": "Continuation / verifyEmail / Check your inbox",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:33078",
+    "name": "Continuation / emailResent / A fresh link is on its way",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:33111",
+    "name": "Continuation / emailExpired / That link has expired",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:33135",
+    "name": "Continuation / profileSetup / Introduce yourself",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:33169",
+    "name": "Continuation / resume / You’re ready to connect",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:33205",
+    "name": "Continuation / providerHandoff / Continue securely",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:33233",
+    "name": "Continuation / authOffline / Let’s try that again",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:33257",
+    "name": "Continuation / reset / Reset your password",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:33279",
+    "name": "Continuation / resetInbox / Check your inbox",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:33306",
+    "name": "Continuation / newPassword / Choose a new password",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:33330",
+    "name": "Continuation / passwordUpdated / Password updated",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2014:33351",
+    "name": "Continuation / resetExpired / Use a fresh reset link",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:33052",
+    "name": "Continuation / entry / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:33137",
+    "name": "Continuation / brands / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:33239",
+    "name": "Continuation / search / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:33351",
+    "name": "Continuation / brandNetflix / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:33445",
+    "name": "Continuation / brandSpotify / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:33509",
+    "name": "Continuation / brandDropbox / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:33573",
+    "name": "Continuation / filters / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:33602",
+    "name": "Continuation / rules / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:33669",
+    "name": "Continuation / detail / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:33755",
+    "name": "Continuation / profile / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:33815",
+    "name": "Continuation / create / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:33879",
+    "name": "Continuation / arrangement / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:33962",
+    "name": "Continuation / circleSetup / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:34027",
+    "name": "Continuation / preview / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:34107",
+    "name": "Continuation / calendar / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:34200",
+    "name": "Continuation / time / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:34281",
+    "name": "Continuation / timezone / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:34313",
+    "name": "Continuation / housingBrowse / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:34388",
+    "name": "Continuation / housingFilters / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:34488",
+    "name": "Continuation / housingDetail / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:34553",
+    "name": "Continuation / housingCreate / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:34615",
+    "name": "Continuation / housingDetails / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:34711",
+    "name": "Continuation / housingEstimate / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:34783",
+    "name": "Continuation / housingPreview / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:34849",
+    "name": "Continuation / housingPhotos / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:34901",
+    "name": "Continuation / housingVerify / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:34958",
+    "name": "Continuation / housingPending / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:35013",
+    "name": "Continuation / housingManage / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:35076",
+    "name": "Continuation / housingRemove / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:35131",
+    "name": "Continuation / housingRemoved / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:35184",
+    "name": "Continuation / housingInquiry / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:35245",
+    "name": "Continuation / housingChat / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:35307",
+    "name": "Continuation / noResults / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:35390",
+    "name": "Continuation / membershipBrowse / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:35478",
+    "name": "Continuation / membershipFilters / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:35546",
+    "name": "Continuation / membershipEmpty / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2015:35629",
+    "name": "Continuation / saved / Existing design reference",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:34995",
+    "name": "Continuation / publishChecks / Ready to share your listing?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:35055",
+    "name": "Continuation / publishChecked / Your next connection starts here",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:35120",
+    "name": "Continuation / publishing / Publishing your listing",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:35167",
+    "name": "Continuation / published / Your listing is live",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:35236",
+    "name": "Continuation / publishError / Your draft is safe",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:35292",
+    "name": "Continuation / draftSaved / Pick up when you’re ready",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:35347",
+    "name": "Continuation / myListings / My listings",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:35422",
+    "name": "Continuation / drafts / My drafts",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:35497",
+    "name": "Continuation / inactive / Inactive listings",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:35546",
+    "name": "Continuation / manage / Your movie circle",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:35647",
+    "name": "Continuation / ownDetail / Netflix Premium",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:35716",
+    "name": "Continuation / editListing / Keep your listing up to date",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:35781",
+    "name": "Continuation / editSaved / Listing updated",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:35834",
+    "name": "Continuation / takeDown / Take down this listing?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:35892",
+    "name": "Continuation / takenDown / Listing taken down",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:35940",
+    "name": "Continuation / chooseService / What would you like to share?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:36046",
+    "name": "Continuation / customService / Make it yours",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:36112",
+    "name": "Continuation / customOther / Choose a category",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:36163",
+    "name": "Continuation / customArrangement / Set clear expectations",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:36231",
+    "name": "Continuation / customPreview / Your custom listing",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:36296",
+    "name": "Continuation / customPublish / Share your custom service",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:36352",
+    "name": "Continuation / customPublishReady / Ready for people to find",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:36407",
+    "name": "Continuation / customPublished / Your club is on the map",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:36464",
+    "name": "Continuation / customDraft / Your idea is saved",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:36512",
+    "name": "Continuation / housingVerified / You’re ready to publish",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:36569",
+    "name": "Continuation / housingRetry / A little more is needed",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2016:36629",
+    "name": "Continuation / housingPublished / Your housing post is live",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:36146",
+    "name": "Continuation / inbox / Conversations",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:36210",
+    "name": "Continuation / conversation / Maya Chen",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:36280",
+    "name": "Continuation / messageReady / Message Maya",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:36337",
+    "name": "Continuation / messageSent / Maya Chen",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:36400",
+    "name": "Continuation / messageFailed / Maya Chen",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:36460",
+    "name": "Continuation / hostConversation / Joseph Shackelford",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:36525",
+    "name": "Continuation / hostReplySent / Joseph Shackelford",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:36595",
+    "name": "Continuation / inboxEmpty / Your next hello starts here",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:36648",
+    "name": "Continuation / conversationOptions / Conversation options",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:36733",
+    "name": "Continuation / conversationRemoved / Maya Chen",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:36790",
+    "name": "Continuation / reportReason / What’s concerning you?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:36878",
+    "name": "Continuation / reportDetails / Tell us what happened",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:36934",
+    "name": "Continuation / reportSent / Thanks for telling us",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:36983",
+    "name": "Continuation / blockConfirm / Block Maya?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:37040",
+    "name": "Continuation / blocked / Maya is blocked",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:37093",
+    "name": "Continuation / blockedPeople / Blocked people",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:37141",
+    "name": "Continuation / unblockConfirm / Unblock Maya?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:37191",
+    "name": "Continuation / unblocked / Maya is unblocked",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:37238",
+    "name": "Continuation / account / You",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:37357",
+    "name": "Continuation / editProfile / Make your profile yours",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:37421",
+    "name": "Continuation / newProfile / Joseph Shackelford",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:37484",
+    "name": "Continuation / support / How can we help?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:37542",
+    "name": "Continuation / supportListing / Help with a listing",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:37595",
+    "name": "Continuation / supportSent / We have your message",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:37642",
+    "name": "Continuation / legal / Terms & privacy",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:37722",
+    "name": "Continuation / deleteAccount / Before you delete your account",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:37791",
+    "name": "Continuation / deleteConfirm / Confirm account deletion",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:37840",
+    "name": "Continuation / deletePending / Deletion request received",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2017:37862",
+    "name": "Continuation / deleteError / Your account hasn’t been deleted",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:37345",
+    "name": "Continuation / plans / Phone plans",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:37433",
+    "name": "Continuation / phoneSearch / Find a provider",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:37492",
+    "name": "Continuation / phoneListings / Verizon",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:37554",
+    "name": "Continuation / phoneEmpty / Be the first to share",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:37606",
+    "name": "Continuation / phoneDetail / Jordan’s phone plan",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:37686",
+    "name": "Continuation / phoneProfile / Jordan Lee",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:37747",
+    "name": "Continuation / phoneAccountGate / Keep your place with Jordan",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:37784",
+    "name": "Continuation / phoneRequest / Introduce yourself to Jordan",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:37846",
+    "name": "Continuation / phoneRequestReady / Ready to connect",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:37910",
+    "name": "Continuation / phoneRequestSent / Jordan has your introduction",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:37968",
+    "name": "Continuation / createPhone / Your phone-plan listing",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:38024",
+    "name": "Continuation / phoneArrangement / Make the plan clear",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:38092",
+    "name": "Continuation / phonePreview / Your phone-plan preview",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:38154",
+    "name": "Continuation / phonePublishReady / Ready to publish",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:38210",
+    "name": "Continuation / phonePublished / Your phone-plan listing is live",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:38259",
+    "name": "Continuation / phoneDraft / Phone-plan draft saved",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:38306",
+    "name": "Continuation / createMembership / Share a membership",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:38362",
+    "name": "Continuation / membershipDetail / Climb with good company",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:38431",
+    "name": "Continuation / membershipGate / Meet Casey",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:38467",
+    "name": "Continuation / membershipRequest / Say hello to Casey",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:38526",
+    "name": "Continuation / membershipRequestReady / Ready to say hello",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:38582",
+    "name": "Continuation / membershipRequestSent / Casey has your introduction",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:38629",
+    "name": "Continuation / discoveryLoading / Finding opportunities",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2018:38676",
+    "name": "Continuation / discoveryError / We couldn’t load listings",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:38309",
+    "name": "Continuation / circleAdmin / Movie night Circle",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:38407",
+    "name": "Continuation / circleHome / Your Circles",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:38472",
+    "name": "Continuation / circleMembers / People in your Circle",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:38539",
+    "name": "Continuation / circleInvite / Make room for someone",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:38592",
+    "name": "Continuation / circleInviteReview / Invite Alex?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:38651",
+    "name": "Continuation / circleInvitePending / Waiting for Alex",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:38713",
+    "name": "Continuation / circleInviteCanceled / Invitation canceled",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:38758",
+    "name": "Continuation / removeMember / Remove Maya from the Circle?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:38814",
+    "name": "Continuation / memberRemoved / Maya was removed",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:38862",
+    "name": "Continuation / handover / Choose the next Circle Host",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:38923",
+    "name": "Continuation / handoverReview / Ask Jordan to become host?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:38973",
+    "name": "Continuation / handoverPending / Jordan is reviewing your request",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:39029",
+    "name": "Continuation / handoverAccept / Become Circle Host?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:39103",
+    "name": "Continuation / handoverComplete / Jordan is now Circle Host",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:39149",
+    "name": "Continuation / handoverDeclined / Handover declined",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:39195",
+    "name": "Continuation / leaveCircle / Choose a host before leaving",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:39253",
+    "name": "Continuation / memberCircle / Movie night Circle",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:39313",
+    "name": "Continuation / leaveConfirm / Leave Movie night Circle?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:39363",
+    "name": "Continuation / leftCircle / You left the Circle",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2019:39408",
+    "name": "Continuation / circlePrivacy / Circle visibility",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39117",
+    "name": "Continuation / publishAccuracy / Ready to share your listing?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39174",
+    "name": "Continuation / publishPermission / Ready to share your listing?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39231",
+    "name": "Continuation / circleMembersAfterRemove / People in your Circle",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39290",
+    "name": "Continuation / circleMembersAfterCancel / People in your Circle",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39350",
+    "name": "Continuation / circlesAfterLeave / Your Circles",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39408",
+    "name": "Continuation / termsDocument / Terms of Use",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39460",
+    "name": "Continuation / privacyDocument / Privacy Policy",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39512",
+    "name": "Continuation / myListingsAfterRemoval / My listings",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39576",
+    "name": "Continuation / inactiveAfterRemoval / Inactive listings",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39630",
+    "name": "Continuation / phonePending / Waiting for Jordan",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39692",
+    "name": "Continuation / phoneWithdraw / Withdraw your request to Jordan?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39747",
+    "name": "Continuation / phoneWithdrawn / Request withdrawn",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39792",
+    "name": "Continuation / phoneAccepted / Jordan is ready to talk",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39844",
+    "name": "Continuation / phoneConversation / Jordan Lee",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39905",
+    "name": "Continuation / phoneMessageSent / Jordan Lee",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:39961",
+    "name": "Continuation / membershipPending / Waiting for Casey",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:40015",
+    "name": "Continuation / membershipWithdraw / Withdraw your request to Casey?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:40065",
+    "name": "Continuation / membershipWithdrawn / Request withdrawn",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:40110",
+    "name": "Continuation / membershipAccepted / Casey is ready to connect",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:40162",
+    "name": "Continuation / membershipConversation / Casey Morgan",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:40222",
+    "name": "Continuation / membershipMessageSent / Casey Morgan",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:40277",
+    "name": "Continuation / circleInviteReceived / You’re invited",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:40334",
+    "name": "Continuation / circleInviteAccepted / Welcome to movie night",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:40381",
+    "name": "Continuation / circleInviteDeclined / Invitation declined",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2020:40426",
+    "name": "Continuation / circleWithAlex / Movie night Circle",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2023:40101",
+    "name": "Continuation / handoverMayaReview / Ask Maya to become host?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2023:40151",
+    "name": "Continuation / handoverMayaPending / Maya is reviewing your request",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2023:40207",
+    "name": "Continuation / handoverMayaAccept / Become Circle Host?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2023:40281",
+    "name": "Continuation / handoverMayaComplete / Maya is now Circle Host",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2023:40327",
+    "name": "Continuation / apartmentCircle / Apartment crew",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2023:40399",
+    "name": "Continuation / housingPreviewReady / Ready to publish your place?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2023:40473",
+    "name": "Continuation / housingPublishReady / Ready to publish your place?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2025:40401",
+    "name": "Continuation / accountAccess / Make yourself at home",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2025:40428",
+    "name": "Continuation / myListingsCustom / My listings",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2025:40500",
+    "name": "Continuation / myListingsPhone / My listings",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2025:40573",
+    "name": "Continuation / manageCustom / Campus climbing club",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2025:40647",
+    "name": "Continuation / managePhone / T-Mobile family plan",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:42127",
+    "name": "Continuation / Generic icons / request",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:42192",
+    "name": "Continuation / Generic icons / requestEdited",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:42250",
+    "name": "Continuation / Generic icons / requestReady",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:42316",
+    "name": "Continuation / Generic icons / pending",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:42381",
+    "name": "Continuation / Generic icons / withdraw",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:42440",
+    "name": "Continuation / Generic icons / accepted",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:42508",
+    "name": "Continuation / Generic icons / declined",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:42562",
+    "name": "Continuation / Generic icons / unavailable",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:42621",
+    "name": "Continuation / Generic icons / hostReview",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:42698",
+    "name": "Continuation / Generic icons / accountGate",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:42734",
+    "name": "Continuation / Generic icons / brands",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:42836",
+    "name": "Continuation / Generic icons / search",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:42948",
+    "name": "Continuation / Generic icons / brandNetflix",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:43047",
+    "name": "Continuation / Generic icons / brandSpotify",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:43116",
+    "name": "Continuation / Generic icons / brandDropbox",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:43185",
+    "name": "Continuation / Generic icons / detail",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:43276",
+    "name": "Continuation / Generic icons / create",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:43345",
+    "name": "Continuation / Generic icons / publishChecks",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:43405",
+    "name": "Continuation / Generic icons / publishChecked",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:43467",
+    "name": "Continuation / Generic icons / published",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:43536",
+    "name": "Continuation / Generic icons / publishError",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:43592",
+    "name": "Continuation / Generic icons / draftSaved",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:43647",
+    "name": "Continuation / Generic icons / manage",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:43748",
+    "name": "Continuation / Generic icons / ownDetail",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:43817",
+    "name": "Continuation / Generic icons / editSaved",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:43870",
+    "name": "Continuation / Generic icons / takeDown",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:43928",
+    "name": "Continuation / Generic icons / conversation",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:43998",
+    "name": "Continuation / Generic icons / messageReady",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:44055",
+    "name": "Continuation / Generic icons / messageSent",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:44118",
+    "name": "Continuation / Generic icons / messageFailed",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:44178",
+    "name": "Continuation / Generic icons / supportListing",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:44231",
+    "name": "Continuation / Generic icons / publishAccuracy",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:44292",
+    "name": "Continuation / Generic icons / publishPermission",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:46377",
+    "name": "Continuation / blockedInbox / Conversations",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:46439",
+    "name": "Continuation / removedMessageSent / Maya Chen",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:46495",
+    "name": "Continuation / sentRequestsWithdrawn / Your requests",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:46547",
+    "name": "Continuation / sentRequestsPhone / Your requests",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:46599",
+    "name": "Continuation / sentRequestsMembership / Your requests",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:46651",
+    "name": "Continuation / mayaMemberCircle / Movie night Circle",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:46711",
+    "name": "Continuation / handoverMayaDeclined / Handover declined",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:49295",
+    "name": "Continuation / circleHomeAfterHandover / Your Circles",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:49359",
+    "name": "Continuation / circleHomeAfterMayaHandover / Your Circles",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:49411",
+    "name": "Continuation / circleHomeRecipient / Your Circles",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:49470",
+    "name": "Continuation / requestsAccepted / Your requests",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2028:49528",
+    "name": "Continuation / requestsDeclined / Your requests",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2031:42624",
+    "name": "Continuation / mayaProfile / Maya Chen",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2031:42695",
+    "name": "Continuation / recipientAlexAccount / Your account",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2031:42744",
+    "name": "Continuation / recipientJordanAccount / Your account",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2031:42793",
+    "name": "Continuation / recipientMayaAccount / Your account",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2031:42842",
+    "name": "Continuation / sentRequestsPhoneWithdrawn / Your requests",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2031:42887",
+    "name": "Continuation / sentRequestsMembershipWithdrawn / Your requests",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2034:44493",
+    "name": "START HERE — Continuation review guide",
+    "type": "FRAME",
+    "w": 1600,
+    "h": 3674
+  },
+  {
+    "id": "2034:44592",
+    "name": "CONTINUATION · BRAND LOGOS",
+    "type": "TEXT",
+    "w": 3900,
+    "h": 39
+  },
+  {
+    "id": "2034:44593",
+    "name": "MATCHING VARIANTS · GENERIC POTLUCK ICONS",
+    "type": "TEXT",
+    "w": 3900,
+    "h": 39
+  },
+  {
+    "id": "2038:42969",
+    "name": "Continuation / recipientJordanHostConfirmed / You’re now the Circle Host",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2038:43023",
+    "name": "Continuation / recipientJordanCircle / Movie night Circle",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2038:43084",
+    "name": "Continuation / recipientJordanHome / Your Circles",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2038:43136",
+    "name": "Continuation / recipientMayaHostConfirmed / You’re now the Circle Host",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2038:43190",
+    "name": "Continuation / recipientMayaCircle / Movie night Circle",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2038:43251",
+    "name": "Continuation / recipientMayaHome / Your Circles",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2060:43022",
+    "name": "Continuation / Overlay / Message actions / Closed",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2060:43035",
+    "name": "Continuation / Overlay / Message actions / Open",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2060:43048",
+    "name": "Continuation / Overlay / Message actions / Tap catch",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2093:43925",
+    "name": "Continuation / subscriptionBrandPicker / Which service?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2093:44018",
+    "name": "Continuation / tvBrands / TV & movies",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2093:44085",
+    "name": "Continuation / musicBrands / Music",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2093:44152",
+    "name": "Continuation / softwareBrands / Software",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2093:44219",
+    "name": "Continuation / allOpportunities / Find your people",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2093:44342",
+    "name": "Continuation / phoneProviderPicker / Which provider?",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2093:44441",
+    "name": "Continuation / allPhoneListings / Phone-plan listings",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2094:44307",
+    "name": "Continuation / editPhone / Edit your phone listing",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2094:44380",
+    "name": "Continuation / editCustom / Edit your listing",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2094:44453",
+    "name": "Continuation / phoneEditSaved / Listing updated",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2094:44510",
+    "name": "Continuation / customEditSaved / Listing updated",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2094:44566",
+    "name": "Continuation / ownPhoneDetail / Verizon phone plan",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2094:44644",
+    "name": "Continuation / ownCustomDetail / Campus climbing club",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2100:44650",
+    "name": "Continuation / Generic icons / subscriptionBrandPicker",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2100:44785",
+    "name": "Continuation / Generic icons / tvBrands",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2100:44866",
+    "name": "Continuation / Generic icons / musicBrands",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2100:44947",
+    "name": "Continuation / Generic icons / softwareBrands",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2100:45028",
+    "name": "Continuation / Generic icons / allOpportunities",
+    "type": "FRAME",
+    "w": 430,
+    "h": 932
+  }
+]

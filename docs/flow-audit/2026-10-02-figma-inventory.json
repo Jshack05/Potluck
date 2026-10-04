@@ -1,0 +1,4098 @@
+[
+  {
+    "id": "7:423",
+    "name": "Circles / Home",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "199:266",
+    "name": "Circles / Create Popup Overlay - Closed",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "199:317",
+    "name": "Circles / Create Popup Overlay - Open",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "207:267",
+    "name": "Circles / Create Popup Overlay - Open Stay",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "218:314",
+    "name": "Circle Detail / Overview",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "335:506",
+    "name": "Create Circle / New Circle",
+    "type": "INSTANCE",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "371:521",
+    "name": "Circle Detail / Family Circle",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "371:551",
+    "name": "Circle Detail / Study Group",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "427:662",
+    "name": "Circles / Empty",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "434:660",
+    "name": "Circles / No Attention",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "435:758",
+    "name": "Section Label / Circles Home States",
+    "type": "TEXT",
+    "visible": true,
+    "w": 520,
+    "h": 30
+  },
+  {
+    "id": "435:759",
+    "name": "Section Label / Reference",
+    "type": "TEXT",
+    "visible": true,
+    "w": 260,
+    "h": 30
+  },
+  {
+    "id": "435:760",
+    "name": "Section Label / Create Circle Flow",
+    "type": "TEXT",
+    "visible": true,
+    "w": 520,
+    "h": 30
+  },
+  {
+    "id": "435:761",
+    "name": "Section Label / Circle Detail Screens",
+    "type": "TEXT",
+    "visible": true,
+    "w": 520,
+    "h": 30
+  },
+  {
+    "id": "463:750",
+    "name": "Circle Detail / No Cards",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "488:1134",
+    "name": "Add People Overlay - Closed",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "488:1203",
+    "name": "Add People Overlay - Compact Open",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "488:1272",
+    "name": "Add People Overlay - Expanded Open",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "488:1396",
+    "name": "Add People Overlay - Closing Down",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "490:1331",
+    "name": "Add People Overlay - Compact Tap Catch",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "490:1335",
+    "name": "Add People Overlay - Expanded Tap Catch",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "515:1456",
+    "name": "Circle Invite / Game Night",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "515:1457",
+    "name": "Section Label / Invite Flow",
+    "type": "TEXT",
+    "visible": true,
+    "w": 520,
+    "h": 30
+  },
+  {
+    "id": "542:1632",
+    "name": "Create Circle / People Selected",
+    "type": "INSTANCE",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "542:1698",
+    "name": "Section Label / Create Circle Completion",
+    "type": "TEXT",
+    "visible": true,
+    "w": 296,
+    "h": 30
+  },
+  {
+    "id": "547:1625",
+    "name": "Cards / Home",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "547:1626",
+    "name": "Section Label / Cards Home",
+    "type": "TEXT",
+    "visible": true,
+    "w": 145,
+    "h": 30
+  },
+  {
+    "id": "563:1705",
+    "name": "Cards / Grocery Expanded",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "570:1755",
+    "name": "Cards / Family Expanded",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "570:1824",
+    "name": "Cards / Apartment Expanded",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "570:1893",
+    "name": "Cards / Trip Expanded",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "573:1920",
+    "name": "Card Detail / Family",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "573:1988",
+    "name": "Card Detail / Grocery",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "573:2058",
+    "name": "Card Detail / Apartment",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "573:2126",
+    "name": "Card Detail / Trip",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "620:2507",
+    "name": "Safety quick status",
+    "type": "RECTANGLE",
+    "visible": true,
+    "w": 390,
+    "h": 54
+  },
+  {
+    "id": "620:2585",
+    "name": "Safety quick status",
+    "type": "RECTANGLE",
+    "visible": true,
+    "w": 390,
+    "h": 54
+  },
+  {
+    "id": "620:2662",
+    "name": "Safety quick status",
+    "type": "RECTANGLE",
+    "visible": true,
+    "w": 390,
+    "h": 54
+  },
+  {
+    "id": "620:2742",
+    "name": "Safety quick status",
+    "type": "RECTANGLE",
+    "visible": true,
+    "w": 390,
+    "h": 54
+  },
+  {
+    "id": "622:2591",
+    "name": "Card Settings / Family",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "622:2671",
+    "name": "Card Settings / Grocery",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "622:2752",
+    "name": "Card Settings / Apartment",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "622:2832",
+    "name": "Card Settings / Trip",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "652:2589",
+    "name": "You / Settings",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "669:2591",
+    "name": "Settings / Account Profile",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "669:2629",
+    "name": "Settings / Banking & Funding",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "669:2664",
+    "name": "Settings / Login & Security",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "669:2703",
+    "name": "Settings / Personal Details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "669:2734",
+    "name": "Settings / Friends",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "669:2768",
+    "name": "Settings / Privacy",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "669:2798",
+    "name": "Settings / Notifications",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "669:2834",
+    "name": "Settings / Help",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "669:2864",
+    "name": "Settings / Log Out Confirmation",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "700:2647",
+    "name": "Settings / Phone",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "700:2670",
+    "name": "Settings / Email",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "714:2708",
+    "name": "Bills / Home",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "714:2789",
+    "name": "Bill Detail / Internet bill",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "714:2847",
+    "name": "Bill Detail / Electric",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "714:2903",
+    "name": "Bill Detail / Phone plan",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "714:2960",
+    "name": "Bill Detail / Trip lodging",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "714:3018",
+    "name": "Bill Detail / Groceries",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "766:3012",
+    "name": "All Empty / Cards",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "766:3056",
+    "name": "All Empty / Circles",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "766:3098",
+    "name": "All Empty / Bills",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "793:3211",
+    "name": "Create Goal / Details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "793:3256",
+    "name": "Create Goal / People",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "793:3292",
+    "name": "Create Goal / Review",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "793:3345",
+    "name": "Goal / Road trip fund",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "793:3386",
+    "name": "Goal / Contribution terms",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "794:3257",
+    "name": "Create Goal / Time-based details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "801:3281",
+    "name": "Goal / Invite person",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "801:3313",
+    "name": "Goal / Monthly contribution",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "801:3338",
+    "name": "Goal / Target amount",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "801:3363",
+    "name": "Goal / Charge schedule",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "812:3426",
+    "name": "Goal / Charge schedule / Weekly",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "812:3466",
+    "name": "Goal / Attach Circle",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "833:3346",
+    "name": "Goal / Time schedule / Monthly",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "833:3393",
+    "name": "Goal / Time schedule / Weekly",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "839:3372",
+    "name": "Goal / Attach Card",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "854:3466",
+    "name": "Create Card / Details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "854:3495",
+    "name": "Create Card / Attach Circle",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "855:3408",
+    "name": "Create Card / Review",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "859:3441",
+    "name": "Create Bill / Attach Circle",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "861:3572",
+    "name": "Create Card / Review / No Circle",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "861:3585",
+    "name": "Create Bill / Review",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "861:3598",
+    "name": "Create Bill / Review / No Circle",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "881:3646",
+    "name": "Create Bill / Attach Circle / Flexible",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "881:3751",
+    "name": "Create Bill / Review / No Circle / Flexible",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "928:4751",
+    "name": "Create Card / Choose appearance",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "955:4752",
+    "name": "Authentication",
+    "type": "SECTION",
+    "visible": true,
+    "w": 3260,
+    "h": 1120
+  },
+  {
+    "id": "985:4904",
+    "name": "Getting started",
+    "type": "SECTION",
+    "visible": true,
+    "w": 1660,
+    "h": 1120
+  },
+  {
+    "id": "1052:5011",
+    "name": "Bill import",
+    "type": "SECTION",
+    "visible": true,
+    "w": 3340,
+    "h": 2240
+  },
+  {
+    "id": "1151:5159",
+    "name": "Card / Balance details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1151:5189",
+    "name": "Card / Fund card",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1151:5263",
+    "name": "Card / Review transfer",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1151:5290",
+    "name": "Card / Transfer pending",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1166:5269",
+    "name": "Bill / Person contribution details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:6717",
+    "name": "Splitfinder / Welcome",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:6796",
+    "name": "Splitfinder / Browse Spaces",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:6860",
+    "name": "Splitfinder / Browse Experiences",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:6924",
+    "name": "Splitfinder / Browse Memberships",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:6988",
+    "name": "Splitfinder / Detail Spaces",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:7084",
+    "name": "Splitfinder / Detail Experiences",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:7180",
+    "name": "Splitfinder / Detail Memberships",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:7268",
+    "name": "Inbox / Inbox Messages",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:7339",
+    "name": "Inbox / Inbox Splitfinder",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:7402",
+    "name": "Inbox / Inbox Invites",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:7461",
+    "name": "Splitfinder / Saved",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:7514",
+    "name": "Splitfinder / Compose Spaces",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:7579",
+    "name": "Splitfinder / Chat Spaces",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:7644",
+    "name": "Splitfinder / Compose Experiences",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:7709",
+    "name": "Splitfinder / Chat Experiences",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:7774",
+    "name": "Splitfinder / Compose Memberships",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:7839",
+    "name": "Splitfinder / Chat Memberships",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:7904",
+    "name": "Splitfinder / Regular Apartment",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:7958",
+    "name": "Splitfinder / Regular Family",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:8012",
+    "name": "Splitfinder / Regular Direct",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:8066",
+    "name": "Splitfinder / Create",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:8132",
+    "name": "Splitfinder / Create Spaces",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:8194",
+    "name": "Splitfinder / Create Experiences",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:8256",
+    "name": "Splitfinder / Create Memberships",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1209:8318",
+    "name": "Splitfinder / Published",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1212:8306",
+    "name": "Splitfinder / Detail Apartment",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1212:8442",
+    "name": "Splitfinder / Compose Apartment",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1212:8530",
+    "name": "Splitfinder / Chat Apartment",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1224:8773",
+    "name": "Splitfinder / Introduction / Three categories",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:7862",
+    "name": "Splitfinder / Create listing / space_kind",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:7943",
+    "name": "Splitfinder / Create listing / living_status",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:8024",
+    "name": "Splitfinder / Create listing / work_status",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:8105",
+    "name": "Splitfinder / Create listing / living_location",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:8186",
+    "name": "Splitfinder / Create listing / work_location",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:8267",
+    "name": "Splitfinder / Create listing / living_search",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:8348",
+    "name": "Splitfinder / Create listing / work_search",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:8429",
+    "name": "Splitfinder / Create listing / living_details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:8517",
+    "name": "Splitfinder / Create listing / work_details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:8605",
+    "name": "Splitfinder / Create listing / space_dates",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:8693",
+    "name": "Splitfinder / Create listing / experience_kind",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:8774",
+    "name": "Splitfinder / Create listing / experience_location",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:8855",
+    "name": "Splitfinder / Create listing / experience_dates",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:8943",
+    "name": "Splitfinder / Create listing / experience_details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:9031",
+    "name": "Splitfinder / Create listing / membership_source",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:9112",
+    "name": "Splitfinder / Create listing / membership_details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:9200",
+    "name": "Splitfinder / Create listing / membership_confirm",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:9281",
+    "name": "Splitfinder / Create listing / membership_access",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:9369",
+    "name": "Splitfinder / Create listing / membership_rules",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:9457",
+    "name": "Splitfinder / Create listing / pricing",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:9552",
+    "name": "Splitfinder / Create listing / group",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:9633",
+    "name": "Splitfinder / Create listing / split",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:9721",
+    "name": "Splitfinder / Create listing / photos",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:9789",
+    "name": "Splitfinder / Create listing / photos_error",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:9859",
+    "name": "Splitfinder / Create listing / audience",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:9955",
+    "name": "Splitfinder / Create listing / review",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:10077",
+    "name": "Splitfinder / Create listing / publish_checks",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:10164",
+    "name": "Splitfinder / Create listing / publish_error",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:10251",
+    "name": "Splitfinder / Create listing / published_new",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:10323",
+    "name": "Splitfinder / Create listing / manage",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:10438",
+    "name": "Splitfinder / Create listing / draft_saved",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:10496",
+    "name": "Bills / bills_picker",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1246:10592",
+    "name": "Splitfinder / Create listing / photo_picker",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1330:10437",
+    "name": "Bill agreement / Review",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1330:10511",
+    "name": "Bill agreement / Manual",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1330:10587",
+    "name": "Bill agreement / Automatic",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1330:10657",
+    "name": "Bill agreement / Ready manual",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1330:10694",
+    "name": "Bill agreement / Ready automatic",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1330:10731",
+    "name": "Bill agreement / Terms manual",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1330:10778",
+    "name": "Bill agreement / Terms automatic",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1330:10825",
+    "name": "Bill agreement / Accounts",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1330:10860",
+    "name": "Bill agreement / Declined",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1330:10886",
+    "name": "Bill agreement / Question",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1330:10901",
+    "name": "Bill agreement / Question sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1348:10898",
+    "name": "Bill payment / Review",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1348:10951",
+    "name": "Bill payment / Pending",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1348:11048",
+    "name": "Bill payment / Pending details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1348:11099",
+    "name": "Bill payment / Received",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1375:11172",
+    "name": "Bill help / Needs attention",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1375:11314",
+    "name": "Bill help / Transfer unsuccessful",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1375:11413",
+    "name": "Bill help / Reconnect account",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1375:11493",
+    "name": "Bill change / Higher contribution",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1375:11617",
+    "name": "Bill change / Group size changed",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1375:11740",
+    "name": "Bill change / Above maximum",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1377:13017",
+    "name": "Bill change / Updated terms",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1377:13061",
+    "name": "Bill change / Result",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1377:13092",
+    "name": "Bill help / Secure bank connection",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1377:13124",
+    "name": "Bill host / Equal allocation",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1377:13177",
+    "name": "Bill host / Proposal preview",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1377:13249",
+    "name": "Bill help / Message host",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1378:13204",
+    "name": "Bill help / Choose eligible account",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1378:13227",
+    "name": "Bill help / Message sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1408:12182",
+    "name": "Bill host / Custom dollars",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1408:12188",
+    "name": "Bill host / Custom percentages",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1408:12194",
+    "name": "Bill host / Preview equal allocation",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1408:12200",
+    "name": "Bill host / Preview dollar allocation",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1408:12206",
+    "name": "Bill host / Preview percentage allocation",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1408:12212",
+    "name": "Bill host / Allocation proposal sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1420:13562",
+    "name": "Bill host / Proposal responses",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1428:13747",
+    "name": "Bill host / Review 12 contributors",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1428:13817",
+    "name": "Bill host / All contributors / 3 equal",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1428:13932",
+    "name": "Bill host / All contributors / 3 dollars",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1428:14047",
+    "name": "Bill host / All contributors / 3 percentages",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1428:14162",
+    "name": "Bill host / All contributors / 12 equal",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1430:13163",
+    "name": "Bill host / Equal allocation / 12 contributors",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1430:13227",
+    "name": "Bill host / Proposal sent / 12 contributors",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1448:14903",
+    "name": "Bill host / Proposal responses / 12 contributors",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1462:15167",
+    "name": "Bill host / Resolution / Declined share",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1462:15308",
+    "name": "Bill host / Resolution / More options",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1462:15426",
+    "name": "Bill host / Resolution / Message contributor",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1462:15533",
+    "name": "Bill host / Resolution / Message sent preview",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1462:15640",
+    "name": "Bill host / Resolution / Review bill removal",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1462:15768",
+    "name": "Bill host / Resolution / Removal confirmed",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1462:15895",
+    "name": "Bill host / Resolution / Review current share",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1462:16027",
+    "name": "Bill host / Resolution / Current share kept",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1462:16159",
+    "name": "Bill host / Resolution / Review withdrawal",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1462:16278",
+    "name": "Bill host / Resolution / Changes withdrawn",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1462:16397",
+    "name": "Bill host / Resolution / Revised shares review",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1462:16527",
+    "name": "Bill host / Resolution / Revision sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1462:16657",
+    "name": "Bill host / Resolution / Revise shares",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1464:16013",
+    "name": "Bill host / Resolution / Redistribute after removal",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1464:16139",
+    "name": "Bill host / Resolution / Removal plan proposed",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1480:16596",
+    "name": "Bill / Follow-up / Everyone accepted",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1480:16675",
+    "name": "Bill / Follow-up / Scheduled shares",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1480:16885",
+    "name": "Bill / Follow-up / Updated bill October",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1480:16958",
+    "name": "Bill / Follow-up / Removal plan accepted",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1480:17153",
+    "name": "Bill / Follow-up / Confirm accepted removal",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1480:17226",
+    "name": "Bill / Follow-up / Updated contributors",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1480:17401",
+    "name": "Bill / Follow-up / Revision declined again",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1480:17474",
+    "name": "Bill / Follow-up / Your agreement",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1480:17547",
+    "name": "Bill / Follow-up / Choose funding account",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1480:17823",
+    "name": "Bill / Follow-up / Review funding change",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1480:17896",
+    "name": "Bill / Follow-up / Stop future contributions",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1480:17969",
+    "name": "Bill / Follow-up / Future contributions stopped",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1480:18183",
+    "name": "Bill / Follow-up / Funding account updated",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1480:18256",
+    "name": "Bill / Follow-up / Your contribution history",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1480:18329",
+    "name": "Bill / Follow-up / Funding authorization details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1489:17891",
+    "name": "Bill / Follow-up / Current funding account selected",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1489:17970",
+    "name": "Bill / Follow-up / Past contributors",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1489:18043",
+    "name": "Bill / Follow-up / Connect another funding account",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1489:18240",
+    "name": "Bill / Follow-up / Review October contribution",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1489:18313",
+    "name": "Bill / Follow-up / October contribution pending",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1489:18386",
+    "name": "Bill / Follow-up / Bill after accepted removal",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1489:18621",
+    "name": "Bill / Follow-up / Bill with ended agreement",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1490:18336",
+    "name": "Bill / Follow-up / Manual contribution terms",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1490:18415",
+    "name": "Bill / Follow-up / Contribution history with pending transfer",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1490:18488",
+    "name": "Bill / Follow-up / Bill with automatic agreement",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1525:18671",
+    "name": "Bill ending / Review ending",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1525:18787",
+    "name": "Bill ending / Bill ended",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1525:18886",
+    "name": "Bill ending / Bill history",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1528:18888",
+    "name": "Bill ending / September payment record",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1528:19006",
+    "name": "Bill ending / August payment record",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1528:19124",
+    "name": "Bill ending / July payment record",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1528:19242",
+    "name": "Bill ending / Contribution records",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1540:19118",
+    "name": "Profile / Member profile",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1540:19120",
+    "name": "Profile / Contribution track record",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1540:19122",
+    "name": "Profile / Member reviews",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1555:19881",
+    "name": "Bill host / Proposal responses / Waiting for Maya",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:18320",
+    "name": "Role / gp / Spending permissions",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:18392",
+    "name": "Role / tp / Spending permissions",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:18478",
+    "name": "Role / gb / Available to spend",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:18559",
+    "name": "Role / tb / Available to spend",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:18640",
+    "name": "Role / ga / Your card activity",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:18721",
+    "name": "Role / ta / Your card activity",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:18797",
+    "name": "Role / gr / Transaction details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:18878",
+    "name": "Role / grefund / Transaction details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:18946",
+    "name": "Role / tr / Transaction details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:19015",
+    "name": "Role / travel / Transaction details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:19083",
+    "name": "Role / invite / Card invitation",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:19164",
+    "name": "Role / checks / Card access",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:19240",
+    "name": "Role / handoff / Required checks",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:19316",
+    "name": "Role / pending / Card access",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:19397",
+    "name": "Role / ready / Card access",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:19473",
+    "name": "Role / declined / Card invitation",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:19536",
+    "name": "Role / paused / Card access",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:19612",
+    "name": "Role / removed / Card access",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:19688",
+    "name": "Role / closed / Card access",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:19764",
+    "name": "Role / unsuccessful / Card access",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:19840",
+    "name": "Role / decline / Purchase declined",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:19916",
+    "name": "Role / hostPeople / Trusted Spenders",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:19992",
+    "name": "Role / hostPerson / Spender permissions",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:20070",
+    "name": "Role / hostPending / Spender permissions",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:20151",
+    "name": "Role / pick / Invite trusted spender",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:20227",
+    "name": "Role / grant / Review spending access",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:20308",
+    "name": "Role / grantJordan / Review spending access",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:20389",
+    "name": "Role / invited / Invitation sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:20452",
+    "name": "Role / invitedJordan / Invitation sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:20515",
+    "name": "Role / editGrant / Spending permissions",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:20596",
+    "name": "Role / grant150 / Review permissions",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:20677",
+    "name": "Role / grant250 / Review permissions",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:20758",
+    "name": "Role / saved150 / Permissions updated",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:20821",
+    "name": "Role / saved250 / Permissions updated",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:20884",
+    "name": "Role / pauseReview / Pause card access",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:20960",
+    "name": "Role / pauseDone / Card access paused",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:21028",
+    "name": "Role / restoreReview / Restore card access",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:21104",
+    "name": "Role / removeReview / Remove card access",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:21180",
+    "name": "Role / removeDone / Card access removed",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:21248",
+    "name": "Role / ha / Card activity",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:21316",
+    "name": "Role / hr / Transaction details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:21384",
+    "name": "Role / hdeposit / Transfer details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:21452",
+    "name": "Role / ht / Transaction details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:21520",
+    "name": "Role / msgG / Message host",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:21578",
+    "name": "Role / msgT / Message host",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:21636",
+    "name": "Role / msgSentG / Message sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:21694",
+    "name": "Role / msgSentT / Message sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1606:21752",
+    "name": "Role / help / Card help",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:20963",
+    "name": "Role / bHosted / Bills you host",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:21025",
+    "name": "Role / bContrib / Bills you contribute to",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:21094",
+    "name": "Role / bInternet / Bill details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:21166",
+    "name": "Role / bPrivate / Bill details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:21235",
+    "name": "Role / bGrocery / Bill details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:21307",
+    "name": "Role / bTrip / Bill details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:21376",
+    "name": "Role / gAgreement / Your agreement",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:21441",
+    "name": "Role / gHistory / Contribution history",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:21500",
+    "name": "Role / gPay / Review contribution",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:21569",
+    "name": "Role / gPending / Contribution pending",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:21635",
+    "name": "Role / gStop / Stop contributions",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:21701",
+    "name": "Role / gStopped / Contributions stopped",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:21767",
+    "name": "Role / tHistory / Contribution record",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:21829",
+    "name": "Role / msgBillT / Message bill host",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:21885",
+    "name": "Role / billMessageSent / Message sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:21941",
+    "name": "Role / bEnded / Bill ended",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:22114",
+    "name": "Reference before role update / Card Settings / Grocery",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:22136",
+    "name": "Reference before role update / Card Settings / Trip",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:22158",
+    "name": "Reference before role update / Bill Detail / Groceries",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1608:22185",
+    "name": "Reference before role update / Bill Detail / Trip lodging",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21358",
+    "name": "Role / Family / hostPeople",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21389",
+    "name": "Role / Family / hostPerson",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21422",
+    "name": "Role / Family / hostPending",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21456",
+    "name": "Role / Family / pick",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21487",
+    "name": "Role / Family / grant",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21521",
+    "name": "Role / Family / grantJordan",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21555",
+    "name": "Role / Family / invited",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21579",
+    "name": "Role / Family / invitedJordan",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21603",
+    "name": "Role / Family / editGrant",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21637",
+    "name": "Role / Family / grant150",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21671",
+    "name": "Role / Family / grant250",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21705",
+    "name": "Role / Family / saved150",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21729",
+    "name": "Role / Family / saved250",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21753",
+    "name": "Role / Family / pauseReview",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21784",
+    "name": "Role / Family / pauseDone",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21811",
+    "name": "Role / Family / restoreReview",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21842",
+    "name": "Role / Family / removeReview",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21873",
+    "name": "Role / Family / removeDone",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21900",
+    "name": "Role / Family / ha",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21927",
+    "name": "Role / Family / hr",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21954",
+    "name": "Role / Family / hdeposit",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1609:21981",
+    "name": "Role / Family / ht",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1611:21935",
+    "name": "Role / index / Role flow review",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1611:22006",
+    "name": "Role / spenderCards / Cards",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1611:22072",
+    "name": "Role / contributorCards / Cards",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1611:22131",
+    "name": "Role / states / Card access states",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1611:22333",
+    "name": "Circle Detail / Contributor without card access",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:22425",
+    "name": "Splitfinder / Residential / address",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:22507",
+    "name": "Splitfinder / Residential / details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:22621",
+    "name": "Splitfinder / Residential / estimate",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:22713",
+    "name": "Splitfinder / Residential / review",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:22799",
+    "name": "Splitfinder / Residential / add2",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:22917",
+    "name": "Splitfinder / Residential / add3",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:23035",
+    "name": "Splitfinder / Residential / detail1",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:23119",
+    "name": "Splitfinder / Residential / detail2",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:23203",
+    "name": "Splitfinder / Residential / detail3",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:23287",
+    "name": "Splitfinder / Residential / profile",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:23381",
+    "name": "Splitfinder / Residential / browse",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:23465",
+    "name": "Splitfinder / Residential / inquiry",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:23546",
+    "name": "Splitfinder / Residential / chat",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:23625",
+    "name": "Splitfinder / Residential / verify",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:23702",
+    "name": "Splitfinder / Residential / pending",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:23777",
+    "name": "Splitfinder / Residential / manage",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:23858",
+    "name": "Splitfinder / Residential / remove",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1662:23933",
+    "name": "Splitfinder / Residential / removed",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1666:23311",
+    "name": "Splitfinder / Residential / draft",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1666:23384",
+    "name": "Splitfinder / Residential / photos",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1666:23456",
+    "name": "Splitfinder / Residential / override",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1678:22256",
+    "name": "Splitfinder / Residential / filters",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1678:22411",
+    "name": "Splitfinder / Residential / calendarJan",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1678:22561",
+    "name": "Splitfinder / Residential / calendarFeb",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1686:23836",
+    "name": "Splitfinder / Search preview / Spaces",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1686:23935",
+    "name": "Splitfinder / Search preview / Experiences",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1686:24028",
+    "name": "Splitfinder / Search preview / Memberships",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1688:22833",
+    "name": "Splitfinder / Search filters preview / Spaces",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1688:22950",
+    "name": "Splitfinder / Search filters preview / Experiences",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1688:23065",
+    "name": "Splitfinder / Search filters preview / Memberships",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1720:22982",
+    "name": "Splitfinder / Spaces / Search entry / Approved image",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1720:23182",
+    "name": "Splitfinder / Spaces / Filters / Approved image",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1720:23324",
+    "name": "Splitfinder / Spaces / Results / Approved image",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1720:23481",
+    "name": "Splitfinder / Spaces / No results / Approved image",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1720:24882",
+    "name": "Splitfinder / Experiences / Search entry / Approved image",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1720:25065",
+    "name": "Splitfinder / Experiences / Filters / Approved image",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1720:25168",
+    "name": "Splitfinder / Experiences / Results / Approved image",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1720:25297",
+    "name": "Splitfinder / Experiences / No results / Approved image",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1720:25417",
+    "name": "Splitfinder / Memberships / Search entry / Approved image",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1720:25600",
+    "name": "Splitfinder / Memberships / Filters / Approved image",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1720:25708",
+    "name": "Splitfinder / Memberships / Results / Approved image",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1720:25837",
+    "name": "Splitfinder / Memberships / No results / Approved image",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1763:24097",
+    "name": "Splitfinder / Subscriptions / Brand logos — Default",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1782:24235",
+    "name": "Reference / Approved onboarding artwork — overlap retained",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 645
+  },
+  {
+    "id": "1784:24235",
+    "name": "Potluck / Onboarding / Where would you like to save",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1816:24418",
+    "name": "Potluck / Onboarding / Minimal reference",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1833:24398",
+    "name": "Potluck / Onboarding / Plans",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1833:24458",
+    "name": "Potluck / Onboarding / Memberships",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1833:24517",
+    "name": "Potluck / Onboarding / Subscriptions",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1833:24613",
+    "name": "Potluck / Onboarding / Spaces",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1880:24649",
+    "name": "Splitfinder / Subscriptions / Netflix / Details — Brand logo",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1880:24744",
+    "name": "Splitfinder / Subscriptions / Spotify / Details — Brand logo",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1880:24839",
+    "name": "Splitfinder / Subscriptions / Dropbox / Details — Brand logo",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1889:24683",
+    "name": "Splitfinder / Subscriptions / Generic Potluck icons",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1889:24796",
+    "name": "Splitfinder / Subscriptions / Netflix / Details — Generic Potluck icon",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1889:24865",
+    "name": "Splitfinder / Subscriptions / Spotify / Details — Generic Potluck icon",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1889:24934",
+    "name": "Splitfinder / Subscriptions / Dropbox / Details — Generic Potluck icon",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:24857",
+    "name": "Splitfinder / Community discovery / Logos / 01 Brands",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:24918",
+    "name": "Splitfinder / Community discovery / Logos / 02 Search — Net",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:25072",
+    "name": "Splitfinder / Community discovery / Logos / 03 Netflix — People’s listings",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:25137",
+    "name": "Splitfinder / Community discovery / Logos / 03 Spotify — People’s listings",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:25202",
+    "name": "Splitfinder / Community discovery / Logos / 03 Dropbox — People’s listings",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:25274",
+    "name": "Splitfinder / Community discovery / Logos / Filters",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:25378",
+    "name": "Splitfinder / Community discovery / Logos / Sharing Rules — Review",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:25470",
+    "name": "Splitfinder / Community discovery / Logos / 04 Maya Chen — Listing details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:25561",
+    "name": "Splitfinder / Community discovery / Logos / 05 Maya Chen — Join unchecked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:25637",
+    "name": "Splitfinder / Community discovery / Logos / 06 Maya Chen — Join checked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:25713",
+    "name": "Splitfinder / Community discovery / Logos / 07 Maya Chen — Request sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:25800",
+    "name": "Splitfinder / Community discovery / Logos / 04 Jordan Lee — Listing details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:25891",
+    "name": "Splitfinder / Community discovery / Logos / 05 Jordan Lee — Join unchecked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:25967",
+    "name": "Splitfinder / Community discovery / Logos / 06 Jordan Lee — Join checked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:26043",
+    "name": "Splitfinder / Community discovery / Logos / 07 Jordan Lee — Request sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:26130",
+    "name": "Splitfinder / Community discovery / Logos / 04 Alex Rivera — Listing details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:26221",
+    "name": "Splitfinder / Community discovery / Logos / 05 Alex Rivera — Join unchecked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:26297",
+    "name": "Splitfinder / Community discovery / Logos / 06 Alex Rivera — Join checked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:26373",
+    "name": "Splitfinder / Community discovery / Logos / 07 Alex Rivera — Request sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:26460",
+    "name": "Splitfinder / Community discovery / Logos / 04 Sam Taylor — Listing details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:26553",
+    "name": "Splitfinder / Community discovery / Logos / 05 Sam Taylor — Join unchecked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:26629",
+    "name": "Splitfinder / Community discovery / Logos / 06 Sam Taylor — Join checked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:26705",
+    "name": "Splitfinder / Community discovery / Logos / 07 Sam Taylor — Request sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:26792",
+    "name": "Splitfinder / Community discovery / Logos / 04 Casey Morgan — Listing details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:26885",
+    "name": "Splitfinder / Community discovery / Logos / 05 Casey Morgan — Join unchecked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:26961",
+    "name": "Splitfinder / Community discovery / Logos / 06 Casey Morgan — Join checked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:27037",
+    "name": "Splitfinder / Community discovery / Logos / 07 Casey Morgan — Request sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:27109",
+    "name": "Splitfinder / Community discovery / Generic / 01 Brands",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:27170",
+    "name": "Splitfinder / Community discovery / Generic / 02 Search — Net",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:27330",
+    "name": "Splitfinder / Community discovery / Generic / 03 Netflix — People’s listings",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:27395",
+    "name": "Splitfinder / Community discovery / Generic / 03 Spotify — People’s listings",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:27460",
+    "name": "Splitfinder / Community discovery / Generic / 03 Dropbox — People’s listings",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:27532",
+    "name": "Splitfinder / Community discovery / Generic / Filters",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:27636",
+    "name": "Splitfinder / Community discovery / Generic / Sharing Rules — Review",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:27722",
+    "name": "Splitfinder / Community discovery / Generic / 04 Maya Chen — Listing details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:27817",
+    "name": "Splitfinder / Community discovery / Generic / 05 Maya Chen — Join unchecked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:27893",
+    "name": "Splitfinder / Community discovery / Generic / 06 Maya Chen — Join checked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:27969",
+    "name": "Splitfinder / Community discovery / Generic / 07 Maya Chen — Request sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:28056",
+    "name": "Splitfinder / Community discovery / Generic / 04 Jordan Lee — Listing details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:28151",
+    "name": "Splitfinder / Community discovery / Generic / 05 Jordan Lee — Join unchecked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:28227",
+    "name": "Splitfinder / Community discovery / Generic / 06 Jordan Lee — Join checked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:28303",
+    "name": "Splitfinder / Community discovery / Generic / 07 Jordan Lee — Request sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:28390",
+    "name": "Splitfinder / Community discovery / Generic / 04 Alex Rivera — Listing details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:28485",
+    "name": "Splitfinder / Community discovery / Generic / 05 Alex Rivera — Join unchecked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:28561",
+    "name": "Splitfinder / Community discovery / Generic / 06 Alex Rivera — Join checked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:28637",
+    "name": "Splitfinder / Community discovery / Generic / 07 Alex Rivera — Request sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:28724",
+    "name": "Splitfinder / Community discovery / Generic / 04 Sam Taylor — Listing details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:28820",
+    "name": "Splitfinder / Community discovery / Generic / 05 Sam Taylor — Join unchecked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:28896",
+    "name": "Splitfinder / Community discovery / Generic / 06 Sam Taylor — Join checked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:28972",
+    "name": "Splitfinder / Community discovery / Generic / 07 Sam Taylor — Request sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:29059",
+    "name": "Splitfinder / Community discovery / Generic / 04 Casey Morgan — Listing details",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:29155",
+    "name": "Splitfinder / Community discovery / Generic / 05 Casey Morgan — Join unchecked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:29231",
+    "name": "Splitfinder / Community discovery / Generic / 06 Casey Morgan — Join checked",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1894:29307",
+    "name": "Splitfinder / Community discovery / Generic / 07 Casey Morgan — Request sent",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1896:27282",
+    "name": "Community discovery / Prototype notes",
+    "type": "TEXT",
+    "visible": true,
+    "w": 3000,
+    "h": 110
+  },
+  {
+    "id": "1902:27205",
+    "name": "Splitfinder / Community discovery / Logos / Create listing — Netflix",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1902:27327",
+    "name": "Splitfinder / Community discovery / Logos / Listing draft saved — Netflix",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1902:27390",
+    "name": "Splitfinder / Community discovery / Logos / Create listing — Spotify",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1902:27482",
+    "name": "Splitfinder / Community discovery / Logos / Listing draft saved — Spotify",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1902:27540",
+    "name": "Splitfinder / Community discovery / Logos / Create listing — Dropbox",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1902:27632",
+    "name": "Splitfinder / Community discovery / Logos / Listing draft saved — Dropbox",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1902:27782",
+    "name": "Splitfinder / Community discovery / Generic / Create listing — Netflix",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1902:27904",
+    "name": "Splitfinder / Community discovery / Generic / Listing draft saved — Netflix",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1902:27962",
+    "name": "Splitfinder / Community discovery / Generic / Create listing — Spotify",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1902:28054",
+    "name": "Splitfinder / Community discovery / Generic / Listing draft saved — Spotify",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1902:28112",
+    "name": "Splitfinder / Community discovery / Generic / Create listing — Dropbox",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1902:28204",
+    "name": "Splitfinder / Community discovery / Generic / Listing draft saved — Dropbox",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1902:28337",
+    "name": "Community discovery future scope",
+    "type": "TEXT",
+    "visible": true,
+    "w": 950,
+    "h": 88
+  },
+  {
+    "id": "1913:27813",
+    "name": "Splitfinder / Community discovery / Logos / Create 2 — Netflix — Arrangement",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1913:27829",
+    "name": "Splitfinder / Community discovery / Logos / Create 3 — Netflix — Circle",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1913:27845",
+    "name": "Splitfinder / Community discovery / Logos / Create 4 — Netflix — Preview",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1913:28384",
+    "name": "Splitfinder / Community discovery / Logos / Calendar — Netflix",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1913:28536",
+    "name": "Splitfinder / Community discovery / Logos / Create 2 — Spotify — Arrangement",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1913:28552",
+    "name": "Splitfinder / Community discovery / Logos / Create 3 — Spotify — Circle",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1913:28568",
+    "name": "Splitfinder / Community discovery / Logos / Create 4 — Spotify — Preview",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1913:29103",
+    "name": "Splitfinder / Community discovery / Logos / Calendar — Spotify",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1913:29255",
+    "name": "Splitfinder / Community discovery / Logos / Create 2 — Dropbox — Arrangement",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1913:29271",
+    "name": "Splitfinder / Community discovery / Logos / Create 3 — Dropbox — Circle",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1913:29287",
+    "name": "Splitfinder / Community discovery / Logos / Create 4 — Dropbox — Preview",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1913:29822",
+    "name": "Splitfinder / Community discovery / Logos / Calendar — Dropbox",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1918:29991",
+    "name": "Splitfinder / Community discovery / Generic / Create 2 — Netflix — Arrangement",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1918:30028",
+    "name": "Splitfinder / Community discovery / Generic / Create 3 — Netflix — Circle",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1918:30055",
+    "name": "Splitfinder / Community discovery / Generic / Create 4 — Netflix — Preview",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1918:30084",
+    "name": "Splitfinder / Community discovery / Generic / Calendar — Netflix",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1918:30176",
+    "name": "Splitfinder / Community discovery / Generic / Create 2 — Spotify — Arrangement",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1918:30213",
+    "name": "Splitfinder / Community discovery / Generic / Create 3 — Spotify — Circle",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1918:30240",
+    "name": "Splitfinder / Community discovery / Generic / Create 4 — Spotify — Preview",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1918:30269",
+    "name": "Splitfinder / Community discovery / Generic / Calendar — Spotify",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1918:30361",
+    "name": "Splitfinder / Community discovery / Generic / Create 2 — Dropbox — Arrangement",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1918:30398",
+    "name": "Splitfinder / Community discovery / Generic / Create 3 — Dropbox — Circle",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1918:30425",
+    "name": "Splitfinder / Community discovery / Generic / Create 4 — Dropbox — Preview",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1918:30454",
+    "name": "Splitfinder / Community discovery / Generic / Calendar — Dropbox",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1921:30366",
+    "name": "Splitfinder / Timing picker / January 2027",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1921:30559",
+    "name": "Splitfinder / Timing picker / February 2027",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1921:30742",
+    "name": "Splitfinder / Timing picker / Time",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1921:30859",
+    "name": "Splitfinder / Timing picker / Time zone",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1958:30558",
+    "name": "Role / grant200 / Review permissions",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1958:30638",
+    "name": "Role / saved200 / Permissions updated",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1958:30703",
+    "name": "Role / Family / grant200",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1958:30783",
+    "name": "Role / Family / saved200",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1959:32303",
+    "name": "Role / setupSaved / Access setup saved",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1963:33475",
+    "name": "Role / unavailable / Card access unavailable",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1963:33555",
+    "name": "Role / helpTrip / Trip card help",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1970:31927",
+    "name": "Role / helpHost / Apartment card help",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "1970:31977",
+    "name": "Role / Family / helpHost",
+    "type": "FRAME",
+    "visible": true,
+    "w": 430,
+    "h": 932
+  },
+  {
+    "id": "2010:31975",
+    "name": "CONTINUATION — Potluck & Splitfinder — Screens — Oct 02",
+    "type": "SECTION",
+    "visible": true,
+    "w": 10500,
+    "h": 34600
+  }
+]

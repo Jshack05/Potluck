@@ -1,8 +1,10 @@
 # Potluck UI Flow
 
+> **October 2, 2026 audit:** See [APP_FLOW_MAP.md](APP_FLOW_MAP.md) for the newer screen inventory, captured prototype connections, app-code comparison, and conflicts with this older baseline. That audit is explicitly incomplete: Figma quota interrupted connection verification, and three nested sections still need inventory. Do not treat either document as proof that the entire app is wired or implemented.
+
 **Status:** Living product-flow source of truth
 **Approved baseline:** August 10, 2026
-**Last updated:** August 10, 2026
+**Last updated:** September 13, 2026
 
 ## Purpose and authority
 
@@ -14,9 +16,9 @@ Financial consent, provider capability, security, and data-integrity rules in `A
 
 ## Preserved visual references
 
-- [`2026-08-10-potluck-screen-map-v1.png`](ui-flow/2026-08-10-potluck-screen-map-v1.png) — original multi-screen layout map
-- [`2026-08-10-centered-navigation-reference.png`](ui-flow/2026-08-10-centered-navigation-reference.png) — reference for making the central destination visually primary
-- [`2026-08-10-health-face-reference.png`](ui-flow/2026-08-10-health-face-reference.png) — rough reference for the simple health face
+- [`2026-08-10-potluck-screen-map-v1.png`](ui-flow/2026-08-10-potluck-screen-map-v1.png) â€” original multi-screen layout map
+- [`2026-08-10-centered-navigation-reference.png`](ui-flow/2026-08-10-centered-navigation-reference.png) â€” reference for making the central destination visually primary
+- [`2026-08-10-health-face-reference.png`](ui-flow/2026-08-10-health-face-reference.png) â€” rough reference for the simple health face
 
 The bright green highlights, black background, connector lines, rough boxes, sample circles, and sample text in these images are demonstrative only. They are not approved production styling.
 
@@ -24,9 +26,9 @@ The bright green highlights, black background, connector lines, rough boxes, sam
 
 Potluck has three primary user-facing assets:
 
-1. **Circles** — reusable, consent-based groups of people and the main shared-attention surface.
-2. **Cards** — host-controlled payment containers that may have individually approved Trusted Spenders.
-3. **Bills** — one-time or recurring obligations with individually accepted contribution agreements.
+1. **Circles** â€” reusable, consent-based groups of people and the main shared-attention surface.
+2. **Cards** â€” host-controlled payment containers that may have individually approved Trusted Spenders.
+3. **Bills** â€” one-time or recurring obligations with individually accepted contribution agreements.
 
 These assets are related but remain distinct:
 
@@ -48,19 +50,27 @@ These assets are related but remain distinct:
 
 ## Navigation and screen hierarchy
 
+The September 13 [ending-a-shared-bill flow](ui-concepts/2026-09-13-ending-shared-bill.md) adds Host review → ended confirmation → retained bill history, with separate bill-payment and contributor records. The example has no pending transfers or unresolved funds. Ending in Potluck does not cancel external service or remove Circle/Card access. Prior general flow evidence is preserved at [before-bill-ending-v12](ui-flow/2026-09-13-before-bill-ending-v12.png).
+
+The September 11 [bill recovery and contribution-change flow](ui-concepts/2026-09-11-bill-recovery-flow.md) adds contextual issue entry from Bills, failed-transfer review, secure reconnection handoff, eligible-account review, changed-share acceptance or decline, and host proposal preview with an optional reason. Prior visual reference preserved at [2026-09-11-before-bill-recovery-v11.png](ui-flow/2026-09-11-before-bill-recovery-v11.png). Prototype screens use a consistent 430 × 932 shell with scrolling content and stationary actions; real provider and consent state remains application work.
+
+See [Splitfinder context](SPLITFINDER_CONTEXT.md) for the September 8 discovery and messaging extension. The prior flow image is preserved at [2026-09-08-before-splitfinder-v6.png](ui-flow/2026-09-08-before-splitfinder-v6.png); it is a historical snapshot, not an updated map.
+
 The persistent bottom navigation order is:
 
 ```text
-Cards     Circles     Bills
+Circles     Cards     Bills     Splitfinder
 ```
 
-Circles is centered because it is Potluck's primary destination and people-first home surface. Cards and Bills are supporting destinations on either side. The exact visual treatment is not defined by the rough PNG, but the center placement and hierarchy are intentional.
+Circles remains the default people-first home and now sits at the far left. Cards, Bills, and Splitfinder follow. Splitfinder is a separate discovery destination connected to the three existing assets. This September 8 decision supersedes the prior centered three-tab layout.
 
 ### Entry behavior
 
+- The first Splitfinder visit opens its introductory landing page. Continue opens the category explanation screen; Explore Splitfinder there records completion and opens listings. Later visits open listings directly.
+- Inbox sits next to You. Messages, Splitfinder inquiries, and Invites are separate sections. Messaging a listing host opens an inquiry without creating membership or financial consent.
 - The default app entry is Circles.
 - An invitation, notification, or status action may deep-link directly to the affected Circle, Card, Bill, agreement, or account screen.
-- The bottom navigation remains available on the primary Cards, Circles, and Bills screens.
+- The bottom navigation remains available on the primary Circles, Cards, Bills, and Splitfinder screens.
 - Detail and creation screens may use a back action while retaining the user's place.
 
 ### Global creation
@@ -106,16 +116,17 @@ This is not a finance dashboard. People, group identity, shared purpose, readine
 
 - A Circle, Card, or Bill summary that shows its people displays up to four profile-picture bubbles.
 - When the asset has four or fewer people, show each person's profile picture.
-- When it has more than four people, show the first three profile pictures and replace the fourth bubble with `…`.
-- The `…` bubble must have an accessible label that states the hidden count, such as `2 more people`.
+- When it has more than four people, show visible people plus a `+x` bubble for hidden members; do not use an ellipsis bubble in current UI.
+- The `+x` bubble must have an accessible label that states the hidden count, such as `4 more people`.
 - Keep the total people count in adjacent text; the bubbles are a quick identity cue, not the membership source of truth.
+- Current visual rules, including avatar-to-metadata spacing, live in `docs/DESIGN_GUIDELINES.md`.
 
 ### Reusable Circle summary card
 
-- Circle lists use one reusable `390 × 108` summary-card component.
-- The Circle identity bubble is `48 × 48`, leaving a separate lower-left slot for member profiles.
+- Circle lists use one reusable `390 Ã— 108` summary-card component.
+- The Circle identity bubble is `48 Ã— 48`, leaving a separate lower-left slot for member profiles.
 - The Circle name uses a `20 px` title treatment beside the identity bubble and sits slightly lower than the original compact-card layout.
-- The member stack occupies a fixed four-bubble slot on the lower left. The `14 px` people/shared-item summary begins immediately to the right of that reserved slot, even when fewer than four bubbles are visible.
+- The member stack occupies the lower left. The `14 px` people/shared-item summary keeps a `20 px` gap after the final visible member bubble; when fewer than four bubbles are visible, the summary shifts left rather than preserving an empty four-bubble slot.
 - Long Circle names or summaries truncate rather than changing the component height or colliding with the health face.
 - The health face stays in the upper-right position on every Circle card.
 - The member stack follows the profile-picture rules above and remains in the same lower-left position regardless of member count.
@@ -209,7 +220,7 @@ A Trusted Spender:
 The Cards index shows Cards in a scannable list or stack. Each item should prioritize:
 
 - Card name and visual identity
-- Simple health face and text status
+- Card name and visual identity without a generic good-standing health face
 - Available-to-spend or relevant readiness information when accurate
 - Connected Bills or Trusted Spenders only when useful for the next action
 
@@ -236,6 +247,10 @@ Inline Card creation must return the Host to the Bill without losing entered inf
 
 ### Agreement acceptance
 
+September 10 payment follow-through: Bills next contribution → review one-time payment → pending → contribution details. The received example remains separate until settlement. [Payment screen IDs and reusable artwork](ui-concepts/2026-09-10-contribution-payment-flow.md).
+
+September 10 Figma implementation: Inbox → Invites → Review your share → Choose how you’ll contribute → Your contribution is set up. Supporting states cover manual/automatic terms, connected-account choice, decline, and an illustrative host question. Headings remain standardized across bills. See [screen IDs and validation](ui-concepts/2026-09-10-contribution-agreement-flow.md). The earlier map is preserved as `docs/ui-flow/2026-09-10-before-contribution-agreement-v9.png`.
+
 - Each included person receives their own exact contribution agreement.
 - Sending an agreement does not activate it.
 - A person must accept the amount or calculation method, schedule, funding source, effective date, and maximum or variable rule where applicable.
@@ -256,82 +271,67 @@ For a new Circle member or another eligible person:
 
 The host-side invitation can begin with one tap, but any change to financial terms still requires a compact review and confirmation.
 
-## Three-level health-face system
+## Status and standing indicators
 
-Every active Circle, Card, and Bill has a simple, friendly health indicator.
+Potluck uses different status treatments for Circles, Cards, and Bills.
+
+### Circles
+
+Circle health faces summarize Circle readiness/status only.
 
 | Face | Meaning | Use |
 | --- | --- | --- |
-| Green smile | **All good** | The asset is on track and has no unresolved visible issue. |
-| Yellow slanted face | **Needs attention** | A non-urgent action, pending decision, incomplete setup, or emerging risk needs review. |
-| Red frown | **Act now** | A serious or time-sensitive issue threatens access, funding, consent, or successful completion. |
+| Green smile | **All good** | The Circle has no unresolved visible issue. |
+| Yellow slanted face | **Needs attention** | A non-urgent Circle, invitation, agreement, setup, or visible connected-asset action needs review. |
+| Red frown | **Act now** | A serious or time-sensitive visible issue threatens access, funding, consent, or successful completion. |
 
-### Visual requirements
+Rules:
 
-- The face uses two dot eyes and one simple mouth curve or slant.
-- Shape communicates the state in addition to color.
+- Health/smiley faces are reserved for Circle readiness/status.
 - Every face has adjacent or accessible status text.
-- The production colors must use approved Potluck design tokens and meet contrast requirements; the reference PNG's green is not a final token.
+- Shape communicates the state in addition to color.
+- The production colors must use approved Potluck design tokens and meet contrast requirements.
 - Loading or genuinely unknown status shows no health face until Potluck can determine an accurate state.
-- Closed or intentionally archived assets use their explicit lifecycle label rather than a misleading red frown.
 
-### Example triggers
+### Bills
 
-**Bill**
-
-- Green: current occurrence is on track or provider-confirmed paid with no unresolved action.
-- Yellow: agreement review pending, setup incomplete, funding-source update needed before the risk window, or another non-urgent action exists.
-- Red: required contribution failed near the deadline, a cap is exceeded, the Bill is underfunded, consent is missing at a critical point, or provider-reconciled payment status shows failure.
-
-**Card**
-
-- Green: active and able to support its expected approved use with no unresolved action.
-- Yellow: setup is required, a Trusted Spender approval is pending, or a non-urgent control/funding issue needs review.
-- Red: the Card is unexpectedly frozen or compromised, an imminent approved Bill cannot be supported, or another serious provider-reconciled problem requires immediate action.
-
-**Circle**
-
-- Green: no visible connected asset or Circle action needs attention.
-- Yellow: an invitation, agreement, setup step, or other visible non-urgent action is pending.
-- Red: at least one visible connected Card or Bill has an urgent issue.
-
-### Roll-up and privacy rules
-
-Severity order is:
+Bills communicate standing through the bill amount color instead of a smiley face.
 
 ```text
-red > yellow > green
+good / normal = current deep green
+warning / unpaid past threshold = yellow
+serious issue / declined charge / substantial nonpayment = red
 ```
 
-- A Bill's visible health rolls up to its funding Card and attached Circle.
-- A Card's visible direct health rolls up to its attached Circle.
-- Each asset displays the most serious unresolved issue the current viewer is authorized to see.
-- Tapping the face opens the exact visible issue and shortest safe action, not a generic status page.
-- The Circle Host may see full Circle-wide health subject to legitimate permissions.
-- Other members see only health derived from assets, agreements, and issues they are permitted to access.
-- Anonymous-Circle roll-up must not leak another member's identity, contribution state, private asset, or hidden problem.
+Rules:
 
-The face is a summary, not a replacement for precise status. The detail view must still identify the affected occurrence or resource, reason, responsible actor, deadline, and safe next action.
+- Apply the standing color to both the dollar sign and the numeric amount.
+- Yellow covers warning states such as someone not paying past a defined threshold.
+- Red covers serious states such as a declined charge or substantial nonpayment when payment should already have happened.
+- Exact timing thresholds that move a Bill from green to yellow to red remain a product/design decision until explicitly specified.
 
+### Cards
+
+Cards do not have a generic “good standing” health-face pattern. Cards are simply cards unless a separate card-specific action or state is explicitly designed.
 ## Screen-map analysis
 
 The original PNG is a general layout map. It does not flow from left to right, and the green circles merely identify which destination is being demonstrated in each rough screen.
 
 The depicted concepts are:
 
-1. **You/profile screen** — general profile, settings, security, password, and related private account controls.
-2. **Bill or transaction detail** — merchant identity, amount, provider merchant identifier, back navigation, and an association with the relevant Circle or Card.
-3. **Lightweight Card creation** — begins with a Card name and remains intentionally short.
-4. **Cards overview** — stacked Cards with strong visual identity and quick access.
-5. **Circles overview/home** — group summaries, people, upcoming shared work, and attention items.
-6. **Bills overview** — concise Bill rows with identity, related Circle, and health/readiness.
-7. **Global creation menu** — New Card, New Circle, and New Bill.
-8. **Centered-navigation reference** — demonstrates that the central destination is the main product surface; it is not a Potluck visual template.
-9. **Circle people search/invitation** — username search, selected people, and add/invite action.
-10. **Expanded Cards list** — Cards can show a relevant amount, connected people, controls, and health without becoming a dense dashboard.
-11. **Circle detail** — responsive people and attached-asset view; selecting a Card or Bill opens the appropriate destination and detail screen.
-12. **Bill type selection** — Fixed or Flexible starts the Bill flow.
-13. **Card detail and permissions** — back navigation, Card presentation, Host information, protected credential reveal, recent activity, locking/controls, and role-aware access.
+1. **You/profile screen** â€” general profile, settings, security, password, and related private account controls.
+2. **Bill or transaction detail** â€” merchant identity, amount, provider merchant identifier, back navigation, and an association with the relevant Circle or Card.
+3. **Lightweight Card creation** â€” begins with a Card name and remains intentionally short.
+4. **Cards overview** â€” stacked Cards with strong visual identity and quick access.
+5. **Circles overview/home** â€” group summaries, people, upcoming shared work, and attention items.
+6. **Bills overview** â€” concise Bill rows with identity, related Circle, and health/readiness.
+7. **Global creation menu** â€” New Card, New Circle, and New Bill.
+8. **Centered-navigation reference** â€” demonstrates that the central destination is the main product surface; it is not a Potluck visual template.
+9. **Circle people search/invitation** â€” username search, selected people, and add/invite action.
+10. **Expanded Cards list** â€” Cards can show a relevant amount, connected people, controls, and health without becoming a dense dashboard.
+11. **Circle detail** â€” responsive people and attached-asset view; selecting a Card or Bill opens the appropriate destination and detail screen.
+12. **Bill type selection** â€” Fixed or Flexible starts the Bill flow.
+13. **Card detail and permissions** â€” back navigation, Card presentation, Host information, protected credential reveal, recent activity, locking/controls, and role-aware access.
 
 Exact final layouts, copy, information density, icon shapes, active-tab styling, and responsive behavior remain design work. The approved requirements are the relationships, permissions, navigation hierarchy, health model, and shortest safe flows described here.
 
@@ -355,13 +355,13 @@ Exact final layouts, copy, information density, icon shapes, active-tab styling,
 5. Let Hosts exclude people inline instead of forcing duplicate Circles.
 6. Use a compact confirmation when Potluck recalculates a split; do not hide the change behind a one-tap action.
 7. Reserve badges, the You-bubble exclamation, and yellow/red faces for actionable information.
-8. Keep all status explanations direct and specific, for example: `Internet bill is $24 short — Jordan's agreement is still pending.`
+8. Keep all status explanations direct and specific, for example: `Internet bill is $24 short â€” Jordan's agreement is still pending.`
 
 ## Superseded directions and repository conflicts
 
 This approved baseline supersedes these earlier UI/product directions:
 
-- A four-tab `Home · Cards · Bills · Circles` shell. There is no separate Home tab; Circles is the centered shared-home surface.
+- A four-tab `Home Â· Cards Â· Bills Â· Circles` shell. There is no separate Home tab; Circles is the default shared-home surface. The new four-tab navigation adds Splitfinder, not Home.
 - Treating Circles as only a presentation label around Card people. Circles are now primary, reusable, consent-based shared spaces, but they do not create financial ownership.
 - Requiring every Bill contributor to be added to the funding Card first. Bill participation and Card access are separate.
 - Using a generic person-on-Card relationship. The user-facing Card-access role is Trusted Spender; the backend and provider role remains authorized user or authorized spender.
@@ -372,7 +372,7 @@ This approved baseline supersedes these earlier UI/product directions:
 ### Approved
 
 - Three primary assets: Circles, Cards, Bills
-- Navigation order: Cards, centered Circles, Bills
+- Navigation order: Circles, Cards, Bills, Splitfinder; Circles is leftmost and remains the default
 - Circles as the default shared-home surface
 - You bubble for private account and security attention
 - Circle membership requires acceptance
@@ -385,9 +385,10 @@ This approved baseline supersedes these earlier UI/product directions:
 - Equal split as the default Bill calculation with Host review
 - Card selection last in Bill creation, with inline Card creation when needed
 - Previous agreements remain active until validly replaced or ended
-- Permission-aware green/yellow/red health faces and severity roll-up
-- Profile-picture stacks show all people up to four, then three pictures plus an ellipsis bubble
-- One reusable `390 × 108` Circle summary card with a 48 px identity bubble and stable member-stack placement
+- Circle-only green/yellow/red health faces; Bills use amount color for standing and Cards do not have generic good-standing status
+- Profile-picture stacks show visible people and use a centered `+x` bubble for hidden members
+- One reusable `390 Ã— 108` Circle summary card with a 48 px identity bubble and stable member-stack placement
+- Current visual design rules are recorded in `docs/DESIGN_GUIDELINES.md`
 
 ### Not yet approved or provider-dependent
 
@@ -415,7 +416,49 @@ When a new flow PNG is supplied:
 
 ## Change log
 
-### August 10, 2026 — Initial approved living flow
+### September 8, 2026 - Splitfinder listing creation
+
+- New listing -> Spaces, Experiences, or Memberships -> category details -> price -> group size -> split summary -> required photo -> audience -> review -> publication confirmations -> listing management.
+- Spaces branches into Living / Working and secured place / planned search. Homes keep exact addresses private and show neighborhoods; workspaces show business addresses. Experiences collect destination, venue, dates, inclusions, and practical requirements. Memberships collect provider, access, eligibility, and renewal terms.
+- Imported membership -> Bills selection -> existing charge or Import bills -> membership confirmation -> remaining setup. Ordinary import still returns to All bills; listing-originated import returns to the selection screen. Both require a selected charge.
+- Save and exit -> saved draft -> resume the same step. Missing photos and unchecked publication confirmations route to correction states. Publishing does not join people, create a Circle, or start contributions.
+- Added 33 screens with reusable body components and a shared labeled field. All retain the shared 430 x 932 viewport and bottom-navigation position. See [Splitfinder context](SPLITFINDER_CONTEXT.md#september-8-2026---listing-creation) for fields, node IDs, and design limitations.
+- Preserved [the prior visual map](ui-flow/2026-09-08-before-listing-creation-v7.png) before this update. This is a historical snapshot; the listing extension is specified here and in Figma.
+- Validation: 46 routing/state cases passed; destination and placement checks passed. Form data are populated Figma examples, not runtime input or persistence.
+
+### September 5, 2026 - Bill people contributions
+
+- All five Bill Detail screens use a larger reusable people panel with contribution amounts and explicit payment-status labels. Three-, four-, and five-person layouts share reusable person tiles.
+- Person tile -> selected person's contribution details -> Back to the originating Bill. Detail includes paid / agreed amount, payment date, recurring schedule where applicable, accepted date, Circle join date, and membership duration.
+- Monthly, weekly, and one-time progress are labeled by the relevant period. Paid is settled money, not merely a scheduled or pending transfer. Figma fixtures demonstrate Paid, Not paid, and Overdue; production must also distinguish partial payments and unsuccessful or unaccepted agreements.
+- Bill content scrolls below the fixed header and above bottom navigation, keeping the larger panel and attached Circle/Card accessible. The prior general flow map was preserved as `docs/ui-flow/2026-09-05-before-bill-people-v5.png`.
+
+### September 5, 2026 - Card balances and funding
+
+- Card previews and details lead with Available to spend and separately show Reserved for bills. Tapping a detail card opens the reconciled balance and bill-reserve breakdown.
+- Fund card -> select own connected account and amount -> review one-time transfer -> confirm -> pending -> return to the originating Card. Review Back preserves choices; leaving before confirmation does not change balances.
+- Current Figma amount choices are $25, $50, $100, and $250. Live amount entry, eligibility validation, provider errors, and transfer submission remain application implementation work. No real debit is initiated by these design interactions.
+- Confirmation does not increase available or reserved balances. General Card funding becomes spendable only after settlement; Bill-specific contributions stay earmarked. Host covers may use eligible unreserved funds, never another Bill's reserve.
+- New reusable funding sources and summary rows live in 02 Components; the four flow screens live in 03 Screens. The historical general map was preserved as `docs/ui-flow/2026-09-05-before-card-funding-v4.png`; this entry specifies the added flow.
+
+### September 9, 2026 - Bills Overview and By week
+
+- Shared remains the first/default collection tab, with All bills second. These primary tabs sit above the smaller Overview / By week tabs in a fixed-height summary.
+- Overview shows the selected month's personal contribution estimate and next contribution. By week shows the selected collection's weekly breakdown. Collection changes update both summary views without filtering historical items out of the saved list.
+- Month arrows demonstrate August–October 2026. The next contribution opens its existing bill detail; Back returns to the collection and summary state. Import completion still opens All bills.
+- The existing bottom navigation, import action, create button, sharing actions, and bill-detail links are preserved. The Figma data are fixtures, not a financial calculation engine; see `BILLS_CONTEXT.md`.
+- Preserved the prior general map as [2026-09-09-before-bills-summary-v8.png](ui-flow/2026-09-09-before-bills-summary-v8.png). Current screen evidence: [Overview](ui-concepts/2026-09-09-bills-overview-figma-v1.png), [By week](ui-concepts/2026-09-09-bills-by-week-figma-v1.png).
+
+### September 5, 2026 - All bills and Shared
+
+- Bills now uses All bills and Shared tabs with a Potluck-green active underline. All bills retains the complete saved collection across import dates; Shared filters for Circle or funding-Card connections.
+- Import -> choose account -> review detected bills -> confirm -> Save to All bills. Sharing is optional after saving.
+- All bills -> Share bill -> choose a Circle or continue without one -> review connection -> Save sharing -> Shared. The bill remains in All bills. A Card-only connection has no Circle badge.
+- Circle choices carry the chosen identity into review and the saved row. Saving a connection does not activate contributions or enroll members.
+- Import bills sits at the bottom left, beside the persistent create (+) button at the bottom right. Cards, Circles, and Bills use the same create button and menu. Tabs and the scrolling bill list begin directly below the page header.
+- Preserved the prior general screen-map PNG as `docs/ui-flow/2026-09-05-before-bills-library-v2.png`. This is a historical snapshot; the new Bills flow is specified here and in the Figma Bills screen.
+
+### August 10, 2026 â€” Initial approved living flow
 
 - Preserved the original multi-screen map and two supporting visual references.
 - Established Cards, Circles, and Bills as the three primary assets.
@@ -427,3 +470,8 @@ When a new flow PNG is supplied:
 - Added the permission-aware three-level health-face system.
 - Added the four-bubble profile-picture stack rule.
 - Standardized Circle summaries on one compact reusable card component.
+
+### August 12, 2026 â€” Circles visual design rules
+
+- Consolidated current visual-design and Figma QA guidance into `docs/DESIGN_GUIDELINES.md`; superseded `docs/CIRCLES_DESIGN_RULES.md` and the separate Figma QA checklist.
+- Updated the Circle summary metadata rule: metadata now keeps a `20 px` gap after the final visible member bubble, including one-, two-, and three-person rows, instead of always starting after a fixed four-avatar slot.

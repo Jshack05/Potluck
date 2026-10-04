@@ -1,0 +1,235 @@
+{
+  "capturedOn": "2026-10-02",
+  "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+  "pageId": "1:123",
+  "status": "PARTIAL CONNECTION AUDIT; NOT IMPLEMENTATION SIGN-OFF",
+  "records": 786,
+  "reactionAuditedRecords": 240,
+  "controls": 1524,
+  "actionLeaves": 3636,
+  "transitionReferences": 1602,
+  "destinationsOutsideCapturedInventory": 6,
+  "inventoryScope": "495 direct frame/instance children of 03 Screens plus 291 frames in the October 2 continuation section. Includes variants and review/reference boards, not 786 distinct application routes.",
+  "missingSectionChildren": [
+    {
+      "id": "955:4752",
+      "name": "Authentication"
+    },
+    {
+      "id": "985:4904",
+      "name": "Getting started"
+    },
+    {
+      "id": "1052:5011",
+      "name": "Bill import"
+    }
+  ],
+  "limitations": [
+    "Figma MCP quota stopped extraction at 240 records. Remaining 546 records have names/IDs but no complete reaction audit.",
+    "Three older sections have not been expanded. Additional nested screen/component states may exist.",
+    "Navigation references outside captured inventory are not necessarily broken. They may be nested screens, component variants, or scroll targets.",
+    "No live prototype click-through or rendered-screen review was completed in this audit.",
+    "Only 162 of 612 non-color variables were captured. Conditional expressions retain unresolved variable IDs.",
+    "Branch conditions are recorded per reaction, not evaluated. Raw ordered action trees remain in screen-reactions.json.",
+    "Captured visible flags describe the inspection state, not all possible variable-driven states.",
+    "Automatically assigned domains are search aids, not approved navigation assignments."
+  ],
+  "sourceDocuments": [
+    {
+      "path": "docs/2026-09-20-launch-and-conversation-decisions.md",
+      "sha256": "fc078ea8613c377c770a5a4d7a6a784c339c57004c7c7125c12bc9cad0cf5e76"
+    },
+    {
+      "path": "docs/2026-09-22-together-price-market-decision.md",
+      "sha256": "ab04f44b79561d9bdd469523d372fdba71d05dc5505a01f5884da01c28742cb8"
+    },
+    {
+      "path": "docs/2026-09-23-listing-card-research-and-critique.md",
+      "sha256": "880c1f860957cdd70e22312fc7a91ed971504c7cb4da8ebe86c6e75948bb3da6"
+    },
+    {
+      "path": "docs/2026-09-23-onboarding-research-and-decisions.md",
+      "sha256": "973691025cf7d3a178a3803944885f043915b2b41b85acb21da294168bf766c9"
+    },
+    {
+      "path": "docs/APP_FLOW_MAP.md",
+      "sha256": "e16050a72dbac1fea9d6319d7ea6a107f23a9faa3559d5a52d4dbbfc54cf4d6d"
+    },
+    {
+      "path": "docs/BILLS_CONTEXT.md",
+      "sha256": "9c264bde0718f70684be7e6d135175418bf85a61ecd248317a64a7a3064cf440"
+    },
+    {
+      "path": "docs/COMPETITOR_LANDSCAPE.md",
+      "sha256": "ecd28a2d30f9d2efbaf220d50fab4d0d57992624a367e1cf8508248810392e6b"
+    },
+    {
+      "path": "docs/DESIGN_GUIDELINES.md",
+      "sha256": "6c7eb90713769288c72c045c74f970660be9992f67d67a92489a6cd11bcb5cb6"
+    },
+    {
+      "path": "docs/DESIGN_HISTORY.md",
+      "sha256": "a7a1dab0d963923b6bd5b91bcc15c9d9ae2fc6d46161277eaed4d16b4a4d1ee9"
+    },
+    {
+      "path": "docs/PRODUCT_CONTEXT.md",
+      "sha256": "267ed9c753cbbc19bc6ad78008d565e0e7726c34a7f2b8a829495543e3e6b9c1"
+    },
+    {
+      "path": "docs/PROTOTYPE_AND_PROVIDER_HANDOFF.md",
+      "sha256": "3b20366a75aada5fe77a9a4a69df3eb8520a7824951988f404b6bf3cc76ecf34"
+    },
+    {
+      "path": "docs/SPLITFINDER_CONTEXT.md",
+      "sha256": "1bbcb4591cf44e979cfe809e80d58945e47bc1dcc5a071e89f07a932bc6ef7ed"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-08-14-potluck-promo-app-components.md",
+      "sha256": "fb4f4c90f05290bf56f9069a3c144c21c991c08b3171daa81aa4aa0a2d8fd8e7"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-09-22-mobile-screens.md",
+      "sha256": "9e49f6b06da75aa42ad0b3f7faf0e921689d3360f61c309c95bcf0e1950799f9"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-09-22-splitfinder-main-screen-refresh.md",
+      "sha256": "1381b6706aa30fe2bc701a593bfae58c2110c0e6b5205d78e01590d184b3d24f"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-09-25-onboarding-home-sync.md",
+      "sha256": "00b305deb9395b2579620e4ed92257df04c1d64484d51bd98aea3a3d46092445"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-01-potluck-partner-website.md",
+      "sha256": "1fc2ce8bc46a1567e0e0dba35852356005719a92475eebdc63e36370a561d21c"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-01-visual-product-pages.md",
+      "sha256": "3e2739ad4af4cee2781abbc18a1956999473b3d7ad263efbed1caf7ad0f86fb3"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-08-14-potluck-promo-app-components-design.md",
+      "sha256": "a9dd6e91434e7cacc6656d7b4da989acdd9eaa8386c3006d46f045e55b0ecf7d"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-10-contribution-agreement-flow.md",
+      "sha256": "daf1bbf1dfc02ec1e239276d74f69e8eddd5c1ba59e4c2ff2c3a4803799ba0f1"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-10-contribution-payment-flow.md",
+      "sha256": "a62a3f1d1ef6ee2d50164f9e47816381321d0d52283a7fb02b8c88792a6988fb"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-11-bill-allocation.md",
+      "sha256": "687618299edb15cb83d425b18cf33570d37024624ce9a70a4880e6ed14753d92"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-11-bill-recovery-flow.md",
+      "sha256": "320d3ff6e4881aadec1b7fa13112dfa88abd3f7685293bd89754e6bb299f483d"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-12-bill-followup-screens.md",
+      "sha256": "59d479facb4905921fda36d2e95ec5a2824a751aa69aacbedeaa29ec7bac0c8b"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-12-figma-consistency-cleanup.md",
+      "sha256": "f4c23c8b28656a9bcf2cf0401552862c7b564c0b082130736956340d45f8c6b9"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-12-proposal-resolution.md",
+      "sha256": "6519e19bf7acf2c10c2893a0807ee953e542997ea084b3cd48f868651d806f81"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-13-ending-shared-bill.md",
+      "sha256": "2e429ed932b49478d6c5bf3d62f8e2bb7759400a7b8ebdeecb3f860fedda9657"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-14-role-specific-flows-implementation.md",
+      "sha256": "cef272e0e30e5a5b39c76392cb51e986ee3d18c7d427720f1367bcc10ee76f3c"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-14-role-specific-flows-plan.md",
+      "sha256": "a27a40f640ef9107dae0e7f6f8af9cf1568cdb63f2dfe7b50b59f42a05e05205"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-15-residential-splitfinder-implementation.md",
+      "sha256": "5a35241d41e801c7d10483608c8f1a83dc6b462840d44c7fe37f9a59f676e5eb"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-15-splitfinder-search-preview.md",
+      "sha256": "4851859af82bd8e43cf577f6269da3ddd2a743ac68d32022c4233aef6b93b246"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-17-splitfinder-approved-search-screens.md",
+      "sha256": "4986154b2baa4705fab3b6e1c2d72875a9cfea6a049d90971bbb83946256e2e3"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-17-splitfinder-search-flows.md",
+      "sha256": "bb16717ee98c3062147bfd67e39e403c7a2ae8253034b750bbb2e6d95fcb402b"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-23-onboarding/revision-v2-prompt.md",
+      "sha256": "a76aaa0bc7582102e987a216e9099d0e3dedbb11c4e216d7c18e654bf3223b77"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-23-onboarding/revision-v3-prompt.md",
+      "sha256": "7e47a25f37ac0991631eb73d61b553ae750e38cd822807d7ca80b2e1e3235d9d"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-23-onboarding/revision-v4-prompt.md",
+      "sha256": "1717cf1b6255d0c453f30e202125424a43105ea9bbdffea3224f50afb606ce8c"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-23-onboarding/revision-v5-prompt.md",
+      "sha256": "3cfc53b56f0a58c9307bb080b78849a6f5af35dc4d72745175fdb44864e47f16"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-23-onboarding/revision-v6-prompt.md",
+      "sha256": "8c0154625d77562d097b287e23601ccf665e64c99da30b467d0b211d8a5fd9fb"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-23-onboarding/revision-v7-prompt.md",
+      "sha256": "52840ea39a8501a0621002165c08a8ea854f5ec999bae08c96f9c77785cfcd87"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-24-onboarding-styles/prompts.md",
+      "sha256": "0dfb1edf536649d06110b6b2ec1d7e75e1d92507a1cd3a524320d65e44e06d40"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-24-status-cards/05-prompt.md",
+      "sha256": "00ffc11c8e964a2590b5c8583dbd33d1a83c1abd9e462fb0fa9a6606cbb9b1ea"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-24-status-cards/figma-implementation.md",
+      "sha256": "ec1074864c2653a1dc44169fe1d597122ab24f36ee22a87893beb315b90daaac"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-24-status-cards/final-status-prompts.md",
+      "sha256": "5ba27a0abfcb1165e5037fd9046162c750cdfb429434f9214a48dc7381d24fd8"
+    },
+    {
+      "path": "docs/ui-concepts/2026-09-24-status-cards/prompts.md",
+      "sha256": "f42c15c25842f3c6f5ba0fd5bd9153f21b7c2e1b4f324e365fc17f4ec7c1a8a5"
+    },
+    {
+      "path": "docs/UI_FLOW.md",
+      "sha256": "9c37cc88aa5671faa7537ffbd5e4b8dfb6f05025312d8b9e0b49399fd53f0a90"
+    },
+    {
+      "path": "docs/WEBSITE_LEGAL_COPY_DRAFT.md",
+      "sha256": "e86df0fec1fb14545e18934023aa6610c53e3bb247ceda0af52974f3688c995d"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "f7b3c97c162fbf2cf044c3396ceeb4774351a535a0d71b2c19a15573d36f39a3"
+    },
+    {
+      "path": "splitfinder.md",
+      "sha256": "20ce1b8841bdcea851bbe097c593a310e532f5cd650f2daa544b7756af513d8a"
+    },
+    {
+      "path": "my-app/MOBILE_PREVIEW.md",
+      "sha256": "88cb272300010bba034f4e4c88c7f44909399046346e1ae72ebf95fd1cc5a485"
+    }
+  ]
+}

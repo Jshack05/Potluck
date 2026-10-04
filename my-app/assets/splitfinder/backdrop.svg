@@ -1,0 +1,18 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="430" height="228" viewBox="0 0 430 228" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Splitfinder / Brand backdrop" clip-path="url(#clip0_0_267)">
+<rect width="430" height="228" fill="url(#paint0_linear_0_267)"/>
+<ellipse id="Sky connection" opacity="0.65" cx="220" cy="-8" rx="120" ry="140" fill="#C5E4FA"/>
+<ellipse id="Lilac connection" opacity="0.45" cx="412" cy="109" rx="126" ry="175" fill="#CFC7F5"/>
+<ellipse id="Lower blue connection" opacity="0.38" cx="206" cy="262" rx="126" ry="120" fill="#C5E4FA"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_267" x1="0" y1="114" x2="430" y2="114" gradientUnits="userSpaceOnUse">
+<stop stop-color="#EDF7FF"/>
+<stop offset="0.55" stop-color="#D6EBFF"/>
+<stop offset="1" stop-color="#E8DEFC"/>
+</linearGradient>
+<clipPath id="clip0_0_267">
+<rect width="430" height="228" fill="white"/>
+</clipPath>
+</defs>
+</svg>

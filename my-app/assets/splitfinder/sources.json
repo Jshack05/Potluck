@@ -1,0 +1,129 @@
+[
+  {
+    "name": "backdrop.svg",
+    "url": "https://www.figma.com/api/mcp/asset/4833f933-2fa3-44c8-9784-86b57f5f84e4/44fe5.svg",
+    "node": "1209:6717"
+  },
+  {
+    "name": "welcome.svg",
+    "url": "https://www.figma.com/api/mcp/asset/4833f933-2fa3-44c8-9784-86b57f5f84e4/2a368.svg",
+    "node": "1209:6717"
+  },
+  {
+    "name": "inbox.svg",
+    "url": "https://www.figma.com/api/mcp/asset/4833f933-2fa3-44c8-9784-86b57f5f84e4/822a6.svg",
+    "node": "1209:6717"
+  },
+  {
+    "name": "discover.svg",
+    "url": "https://www.figma.com/api/mcp/asset/4833f933-2fa3-44c8-9784-86b57f5f84e4/35c1a.svg",
+    "node": "1209:6717"
+  },
+  {
+    "name": "check.svg",
+    "url": "https://www.figma.com/api/mcp/asset/4833f933-2fa3-44c8-9784-86b57f5f84e4/c0753.svg",
+    "node": "1209:6717"
+  },
+  {
+    "name": "lucky.svg",
+    "url": "https://www.figma.com/api/mcp/asset/80525b68-c5d5-49d2-89df-7a4c2cfe2cee/05612.svg",
+    "node": "1209:6924"
+  },
+  {
+    "name": "fitness.png",
+    "url": "https://www.figma.com/api/mcp/asset/80525b68-c5d5-49d2-89df-7a4c2cfe2cee/f273a.png",
+    "node": "1209:6924"
+  },
+  {
+    "name": "apartment.png",
+    "url": "https://www.figma.com/api/mcp/asset/d06db838-1c4d-4d95-a444-8974fcfd9984/d89d4.png",
+    "node": "1212:8306"
+  },
+  {
+    "name": "back.svg",
+    "url": "https://www.figma.com/api/mcp/asset/d06db838-1c4d-4d95-a444-8974fcfd9984/da5d5.svg",
+    "node": "1212:8306"
+  },
+  {
+    "name": "jordan.png",
+    "url": "https://www.figma.com/api/mcp/asset/86ff3f02-5b95-4fca-adcb-43b17f5b00d6/c6182.png",
+    "node": "1540:19118"
+  },
+  {
+    "name": "search.svg",
+    "node": "477:958",
+    "url": "https://www.figma.com/api/mcp/asset/23cccb28-9695-4fa5-8614-decc8a58a875/7e577.svg"
+  },
+  {
+    "name": "onboarding-phone.svg",
+    "node": "1815:25499",
+    "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+    "source": "Figma high-fidelity design context, September 25, 2026"
+  },
+  {
+    "name": "onboarding-house.svg",
+    "node": "1815:25666",
+    "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+    "source": "Figma high-fidelity design context, September 25, 2026"
+  },
+  {
+    "name": "membership-gym.svg",
+    "node": "1815:25547",
+    "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+    "source": "Figma high-fidelity design context, September 25, 2026"
+  },
+  {
+    "name": "membership-shop.svg",
+    "node": "1815:25556",
+    "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+    "source": "Figma high-fidelity design context, September 25, 2026"
+  },
+  {
+    "name": "subscription-note.svg",
+    "node": "1815:25619",
+    "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+    "source": "Figma high-fidelity design context, September 25, 2026"
+  },
+  {
+    "name": "subscription-play.svg",
+    "node": "1815:25624",
+    "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+    "source": "Figma high-fidelity design context, September 25, 2026"
+  },
+  {
+    "name": "subscription-triangle.svg",
+    "node": "1815:25626",
+    "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+    "source": "Figma high-fidelity design context, September 25, 2026"
+  },
+  {
+    "name": "onboarding-chevron.svg",
+    "node": "1784:24235",
+    "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+    "source": "Figma high-fidelity design context, September 25, 2026"
+  },
+  {
+    "name": "service.png",
+    "node": "1762:25301",
+    "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+    "source": "Figma component export, September 25, 2026"
+  },
+  {
+    "name": "savings.png",
+    "node": "1762:25318",
+    "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+    "source": "Figma component export, September 25, 2026"
+  },
+  {
+    "name": "status-dot.png",
+    "node": "1762:25310",
+    "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+    "source": "Figma component export, September 25, 2026"
+  },
+  {
+    "name": "group-arrow.png",
+    "node": "1762:25331",
+    "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+    "source": "Figma component export, September 25, 2026"
+  }
+]
