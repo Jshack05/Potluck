@@ -181,3 +181,116 @@ test("keyboard focus pauses playback and unmount cancels pending rotations", () 
   unmount();
   expect(vi.getTimerCount()).toBe(0);
 });
+
+test("swiping coasts, settles, holds, then returns to automatic rotation", () => {
+  vi.stubGlobal("PointerEvent", MouseEvent);
+  render(<FloatingCard />);
+  inView(true);
+  const scene = screen.getByRole("img", { name: /Deep teal Potluck/ });
+  const group = screen.getByRole("group", { name: "Virtual card designs" });
+  fireEvent.pointerDown(scene, { clientX: 250, clientY: 100, button: 0 });
+  act(() => vi.advanceTimersByTime(30));
+  fireEvent.pointerMove(scene, { clientX: 70, clientY: 100 });
+  fireEvent.pointerUp(scene, { clientX: 70, clientY: 100 });
+  expect(group).toHaveAttribute("data-interaction", "coasting");
+  act(() => vi.advanceTimersByTime(2050));
+  act(() => vi.advanceTimersByTime(650));
+  expect(group).toHaveAttribute("data-interaction", "idle");
+  const selectedButton = screen
+    .getAllByRole("button")
+    .find((button) => button.getAttribute("aria-pressed") === "true");
+  act(() => vi.advanceTimersByTime(2000));
+  expect(selectedButton).toHaveAttribute("aria-pressed", "true");
+  act(() => vi.advanceTimersByTime(1200));
+  expect(selectedButton).toHaveAttribute("aria-pressed", "false");
+});
+
+test("vertical gestures do not spin cards and cancelled drags settle safely", () => {
+  vi.stubGlobal("PointerEvent", MouseEvent);
+  render(<FloatingCard />);
+  inView(true);
+  const scene = screen.getByRole("img", { name: /Deep teal Potluck/ });
+  fireEvent.pointerDown(scene, { clientX: 200, clientY: 100, button: 0 });
+  fireEvent.pointerMove(scene, { clientX: 202, clientY: 180 });
+  fireEvent.pointerUp(scene);
+  selected("Deep teal");
+  fireEvent.pointerDown(scene, { clientX: 200, clientY: 100, button: 0 });
+  fireEvent.pointerMove(scene, { clientX: 60, clientY: 100 });
+  fireEvent.pointerCancel(scene);
+  act(() => vi.advanceTimersByTime(700));
+  expect(
+    screen.getByRole("group", { name: "Virtual card designs" }),
+  ).toHaveAttribute("data-interaction", "idle");
+});
+
+test("pause stops inertia and a drag does not override an explicit pause", () => {
+  vi.stubGlobal("PointerEvent", MouseEvent);
+  render(<FloatingCard />);
+  inView(true);
+  const scene = screen.getByRole("img", { name: /Deep teal Potluck/ });
+  fireEvent.pointerDown(scene, { clientX: 200, clientY: 100, button: 0 });
+  act(() => vi.advanceTimersByTime(30));
+  fireEvent.pointerMove(scene, { clientX: 30, clientY: 100 });
+  fireEvent.pointerUp(scene);
+  fireEvent.click(screen.getByRole("button", { name: "Pause card animation" }));
+  act(() => vi.advanceTimersByTime(10000));
+  expect(
+    screen.getByRole("group", { name: "Virtual card designs" }),
+  ).toHaveAttribute("data-playing", "false");
+  fireEvent.pointerDown(scene, { clientX: 200, clientY: 100, button: 0 });
+  fireEvent.pointerMove(scene, { clientX: 100, clientY: 100 });
+  fireEvent.pointerUp(scene);
+  act(() => vi.advanceTimersByTime(10000));
+  expect(
+    screen.getByRole("button", { name: "Play card animation" }),
+  ).toBeVisible();
+});
+
+test("reverse swipe momentum decays and freezes offscreen without catch-up", () => {
+  vi.stubGlobal("PointerEvent", MouseEvent);
+  const { container, unmount } = render(<FloatingCard />);
+  inView(true);
+  const scene = screen.getByRole("img", { name: /Deep teal Potluck/ });
+  const angle = () =>
+    parseFloat(
+      (
+        container.querySelector(".card-orbit") as HTMLElement
+      ).style.getPropertyValue("--orbit-angle"),
+    );
+  fireEvent.pointerDown(scene, { clientX: 100, clientY: 100, button: 0 });
+  act(() => vi.advanceTimersByTime(30));
+  fireEvent.pointerMove(scene, { clientX: 280, clientY: 100 });
+  fireEvent.pointerUp(scene);
+  const released = angle();
+  expect(released).toBeGreaterThan(0);
+  act(() => vi.advanceTimersByTime(200));
+  const first = angle();
+  act(() => vi.advanceTimersByTime(200));
+  const second = angle();
+  expect(first - released).toBeGreaterThan(second - first);
+  expect(second).toBeGreaterThan(first);
+  inView(false);
+  act(() => vi.advanceTimersByTime(10000));
+  expect(angle()).toBe(second);
+  inView(true);
+  act(() => vi.advanceTimersByTime(100));
+  expect(angle() - second).toBeLessThan(first - released);
+  unmount();
+  expect(vi.getTimerCount()).toBe(0);
+});
+
+test("reduced-motion swipes select a card without inertial or automatic spinning", () => {
+  vi.stubGlobal("PointerEvent", MouseEvent);
+  reduced = true;
+  render(<FloatingCard />);
+  inView(true);
+  const scene = screen.getByRole("img", { name: /Deep teal Potluck/ });
+  fireEvent.pointerDown(scene, { clientX: 260, clientY: 100, button: 0 });
+  fireEvent.pointerMove(scene, { clientX: 20, clientY: 100 });
+  fireEvent.pointerUp(scene);
+  act(() => vi.advanceTimersByTime(10000));
+  selected("Mountains");
+  expect(
+    screen.getByRole("group", { name: "Virtual card designs" }),
+  ).toHaveAttribute("data-interaction", "idle");
+});

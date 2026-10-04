@@ -36,8 +36,8 @@
 }
 .bill-stack[data-motion="true"] .showcase-bill {
   transition:
-    transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 450ms ease;
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 300ms ease;
 }
 .showcase-bill-identity {
   display: flex;

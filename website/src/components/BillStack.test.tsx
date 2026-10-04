@@ -69,7 +69,7 @@ function inView(visible: boolean) {
   });
 }
 
-function advance(milliseconds = 4400) {
+function advance(milliseconds = 2500) {
   act(() => vi.advanceTimersByTime(milliseconds));
 }
 
@@ -112,9 +112,9 @@ test("cycles through all three bills and wraps after a readable dwell", () => {
   render(<BillStack />);
   inView(true);
   bills("Netflix", "Sam’s Club");
-  advance(3000);
+  advance(900);
   bills("Netflix", "Sam’s Club");
-  advance(1400);
+  advance(100);
   bills("Sam’s Club", "Phone bill");
   advance();
   bills("Phone bill", "Netflix");
@@ -152,7 +152,7 @@ test("offscreen and hidden document time does not skip bills when playback retur
   advance(22000);
   bills("Sam’s Club", "Phone bill");
   inView(true);
-  advance(3000);
+  advance(900);
   bills("Sam’s Club", "Phone bill");
   act(() => {
     visibility = "hidden";
@@ -164,9 +164,9 @@ test("offscreen and hidden document time does not skip bills when playback retur
     visibility = "visible";
     document.dispatchEvent(new Event("visibilitychange"));
   });
-  advance(3000);
+  advance(900);
   bills("Sam’s Club", "Phone bill");
-  advance(1400);
+  advance(1600);
   bills("Phone bill", "Netflix");
 });
 
@@ -205,4 +205,22 @@ test("keyboard focus pauses automatic changes and unmount cancels scheduled work
   unmount();
   expect(vi.getTimerCount()).toBe(0);
   expect(mediaListeners.size).toBe(0);
+});
+
+test("first change arrives after one visible second and hovering pauses reading", () => {
+  render(<BillStack />);
+  advance(10000);
+  bills("Netflix", "Sam’s Club");
+  inView(true);
+  advance(999);
+  bills("Netflix", "Sam’s Club");
+  advance(1);
+  bills("Sam’s Club", "Phone bill");
+  const group = screen.getByRole("group", { name: "Example shared bills" });
+  fireEvent.mouseEnter(group);
+  advance(5000);
+  bills("Sam’s Club", "Phone bill");
+  fireEvent.mouseLeave(group);
+  advance(2500);
+  bills("Phone bill", "Netflix");
 });

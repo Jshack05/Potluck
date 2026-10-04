@@ -45,7 +45,7 @@ Splitfinder showcase listings stay level and centered. The Cards showcase cycles
 
 `src/pages.ts` is the route/metadata source of truth. `scripts/prerender.mjs` emits each directory's `index.html`, `404.html` and `sitemap.xml`. Vite development serves the shared entry for known routes; production preview serves each built page and redirects known paths without trailing slashes. Unknown preview paths return HTTP 404. No router dependency is needed.
 
-The shared-bill showcase cycles Netflix, Sam’s Club and Phone bill examples through two visible rows, with contributor avatars and people counts on each. Rows advance every 4.4 seconds with a 600 ms vertical transition. Pause/next controls support manual viewing; reduced motion, keyboard focus, hidden tabs and offscreen placement suspend automatic cycling. Amounts are illustrative bill totals, not current service prices; the membership example is yearly. The showcase does not imply service affiliation, unrestricted sharing eligibility, accepted contributions or working payments.
+The shared-bill showcase cycles Netflix, Sam’s Club and Phone bill examples through two visible rows, with contributor avatars and people counts on each. The first change occurs after one visible second; subsequent rows advance every 2.5 seconds with a 400 ms vertical transition. Hover pauses the bills for reading. Pause/next controls support manual viewing; reduced motion, keyboard focus, hidden tabs and offscreen placement suspend automatic cycling. Amounts are illustrative bill totals, not current service prices; the membership example is yearly. The showcase does not imply service affiliation, unrestricted sharing eligibility, accepted contributions or working payments.
 
 This presentation serves prospective hosts, contributors and partners: see the people behind a shared bill at a glance. It supports core-product discovery through the existing feature links and partner contact, with no paid placement, upgrade flow or new financial behavior. The recurring-bill story distinguishes the product from a private bill tracker; feature-page engagement is the intended measurement, with no analytics added by this change.
 
@@ -76,3 +76,9 @@ Financial services are not yet available. Site copy describes a conditional comb
 ## Rollback
 
 Switch the hosting deployment back to its previous artifact; there are no migrations or financial side effects. Local rollback removes only this independent website project. Preserve unrelated repository changes.
+
+## Interactive showcases (October 4, 2026)
+
+Visitors can drag the existing card orbit with a cursor or finger. Horizontal movement controls rotation; vertical phone scrolling and pinch zoom remain available. Release momentum decays over up to two seconds, the nearest design settles over 650 ms, and a three-second hold precedes resumed automatic rotation. An explicit pause or design selection stays paused. Reduced motion omits inertia and automatic cycling; controls still select designs. Offscreen and hidden-page time suspend momentum and playback without catch-up.
+
+These ungated marketing interactions help prospective users and partners notice the variety of cards and shared bills. The promise is easier exploration of the existing illustrative product; feature-page engagement and partner inquiries are the relevant measures. No analytics, subscription conversion flow, invitations, money movement, consent changes, provider changes or migrations are introduced. Revert the showcase release or promote the previous Cloudflare version to roll back.

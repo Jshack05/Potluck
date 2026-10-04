@@ -9,6 +9,9 @@
   width: 100%;
   padding: 36px 0 52px;
   perspective: 1100px;
+  touch-action: pan-y pinch-zoom;
+  user-select: none;
+  cursor: grab;
 }
 
 .card-orbit-stage {
@@ -36,6 +39,14 @@
 
 .card-carousel[data-motion="true"] .card-orbit {
   transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card-carousel[data-interaction="dragging"] .floating-card-scene {
+  cursor: grabbing;
+}
+.card-carousel[data-interaction="dragging"] .card-orbit,
+.card-carousel[data-interaction="coasting"] .card-orbit {
+  transition: none;
 }
 
 .floating-card {

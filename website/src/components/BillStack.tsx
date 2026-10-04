@@ -72,12 +72,16 @@ export function BillStack() {
   );
   const [head, setHead] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const motionEnabled = hydrated && !reduced;
-  const playing = motionEnabled && visible && inView && !paused;
+  const playing = motionEnabled && visible && inView && !paused && !hovered;
 
   useEffect(() => {
     if (!playing) return;
-    const timer = window.setTimeout(() => setHead((value) => value + 1), 4400);
+    const timer = window.setTimeout(
+      () => setHead((value) => value + 1),
+      head === 0 ? 1000 : 2500,
+    );
     return () => window.clearTimeout(timer);
   }, [playing, head]);
 
@@ -90,6 +94,8 @@ export function BillStack() {
       aria-roledescription="carousel"
       data-motion={motionEnabled}
       data-playing={playing}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       onPointerDownCapture={() => {
         pointerFocus.current = true;
       }}
