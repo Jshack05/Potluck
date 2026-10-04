@@ -8,7 +8,7 @@ export default ts.config(
   js.configs.recommended,
   ...ts.configs.recommended,
   {
-    files: ["src/**/*.{ts,tsx}"],
+    files: ["src/**/*.{ts,tsx}", "worker/**/*.ts"],
     languageOptions: { globals: { ...globals.browser, ...globals.vitest } },
     plugins: { "react-hooks": hooks },
     rules: { ...hooks.configs.recommended.rules },

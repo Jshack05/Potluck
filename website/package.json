@@ -9,8 +9,8 @@
     "preview": "vite preview --host 127.0.0.1",
     "test": "pnpm build && vitest run",
     "lint": "eslint .",
-    "format": "prettier --write src scripts *.json *.ts *.js *.html *.md",
-    "format:check": "prettier --check src scripts *.json *.ts *.js *.html *.md",
+    "format": "prettier --write src worker scripts *.json *.ts *.js *.html *.md",
+    "format:check": "prettier --check src worker scripts *.json *.ts *.js *.html *.md",
     "validate": "pnpm format:check && pnpm lint && pnpm test && pnpm audit --audit-level=high"
   },
   "dependencies": {
