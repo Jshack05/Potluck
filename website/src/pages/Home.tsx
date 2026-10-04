@@ -1,6 +1,7 @@
 import { AppIcon } from "../components/AppPreviews";
 import { AceternityScroll } from "../components/AceternityScroll";
 import { HeroPhone } from "../components/HeroPhone";
+import { FamilyStory } from "../components/FamilyStory";
 import { ProductVisual } from "../components/ProductVisuals";
 import { Arrow, SkiperLink } from "../components/SkiperLink";
 import { financialNotice, type Feature } from "../pages";
@@ -109,6 +110,7 @@ export function Home() {
           {financialNotice} All app visuals use illustrative data.
         </p>
       </section>
+      <FamilyStory />
       <section
         className="partner-section section-wrap"
         id="partners"

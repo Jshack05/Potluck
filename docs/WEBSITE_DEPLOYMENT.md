@@ -10,6 +10,14 @@ Validation before publication: `pnpm validate` passed formatting, ESLint, TypeSc
 
 ## Updating
 
+### October 4, 2026 release
+
+Publishes the unchanged website from source commit `adb5489`, including the flat Lucky family contribution story, distinct characters, centered bill and attached card, automatic looping, and pause/resume. All existing feature pages and planned-experience disclosures remain intact.
+
+Validation: `pnpm validate` passed formatting, ESLint, TypeScript, production prerendering, 66 tests across 9 files, and dependency audit with no known vulnerabilities. The generated output is copied from that validated build. Previous hashed assets are retained so already-open pages can finish loading during deployment. No secrets, database changes, provider configuration, or financial operations are included.
+
+For this release, rollback is a forward revert of its deployment commit, or restoration of the successful Cloudflare deployment for `69c950d01adcb370534ffe775a43f95e78c9aa53`.
+
 1. Edit source in `website/`, then run `pnpm install --frozen-lockfile` and `pnpm validate` there.
 2. Replace the contents of `marketing-site/` with the validated `website/dist/` output, removing obsolete hashed assets.
 3. Commit both source and generated changes together on the deployment branch. Never include `.env`, dependencies, private app data, or unrelated repository work.

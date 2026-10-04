@@ -1,0 +1,450 @@
+.family-story {
+  background: #eef3eb;
+  border: 1px solid #e1e9dd;
+  border-radius: 30px;
+  padding: 40px 32px 22px;
+  margin-bottom: 42px;
+  overflow: hidden;
+}
+.family-story-heading {
+  text-align: center;
+}
+.family-story-heading .family-eyebrow {
+  color: #38665c;
+  font-size: 14px;
+  font-weight: 550;
+  margin-bottom: 10px;
+}
+.family-story-heading h2 {
+  font-size: clamp(32px, 3.5vw, 48px);
+  letter-spacing: -0.055em;
+  line-height: 1.12;
+  font-weight: 550;
+}
+.family-story-heading h2 span {
+  color: #306e62;
+}
+.family-story-heading > p:last-child {
+  margin-top: 12px;
+  color: #52625c;
+  font-size: 16px;
+}
+.family-scene {
+  position: relative;
+  max-width: 850px;
+  min-height: 555px;
+  padding-top: 270px;
+  margin: 26px auto 0;
+  --to-x: 50%;
+}
+.family-circle-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: #3d665c;
+  font-size: 14px;
+}
+.family-circle-label .app-icon {
+  width: 20px;
+  height: 20px;
+}
+.family-people {
+  position: absolute;
+  inset: 43px 5% auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  z-index: 2;
+}
+.family-person {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.family-share {
+  text-align: center;
+  display: grid;
+  gap: 2px;
+}
+.family-share > span {
+  font-size: 15px;
+  color: #52625c;
+}
+.family-share > strong {
+  font-size: 30px;
+  letter-spacing: -0.05em;
+  font-weight: 600;
+}
+.family-lucky {
+  width: 130px;
+  height: 114px;
+  transform-origin: bottom center;
+}
+.family-lucky svg {
+  width: 100%;
+  height: 100%;
+}
+.family-mint {
+  --share-fill: #2f7061;
+  --share-pale: #d8f3e9;
+  --lucky-fill: #bce8d8;
+}
+.family-peach {
+  --share-fill: #639484;
+  --share-pale: #e0efe4;
+  --lucky-fill: #d2e8bd;
+}
+.family-lilac {
+  --share-fill: #9bbfb0;
+  --share-pale: #e7f2ec;
+  --lucky-fill: #a7d6c5;
+}
+.family-phone-bill {
+  position: relative;
+  margin-inline: auto;
+  width: 480px;
+  max-width: 100%;
+  background: #fff;
+  border: 1px solid #d9e5dc;
+  border-radius: 24px;
+  z-index: 3;
+  overflow: hidden;
+  box-shadow: 0 8px 26px -14px #2e574127;
+}
+.family-bill-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 26px 20px;
+  gap: 12px;
+}
+.family-bill-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.family-phone-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 48px;
+  background: #e8f3ed;
+  border-radius: 14px;
+  flex-shrink: 0;
+}
+.family-phone-icon .app-icon {
+  width: 25px;
+  height: 25px;
+}
+.family-bill-heading > div {
+  display: grid;
+  gap: 5px;
+}
+.family-bill-heading strong {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.family-bill-heading > div > span {
+  font-size: 12px;
+  color: #66766f;
+}
+.family-bill-amount {
+  display: grid;
+  text-align: right;
+  gap: 3px;
+  flex-shrink: 0;
+}
+.family-bill-amount strong {
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+}
+.family-bill-amount > span {
+  font-size: 12px;
+  color: #66766f;
+}
+.family-funding {
+  padding: 4px 26px 18px;
+}
+.family-funding-copy {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  color: #52655c;
+}
+.family-funding-copy > strong {
+  font-size: 20px;
+  font-weight: 600;
+  color: #254e42;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.family-funding-copy > strong > span {
+  font-size: 14px;
+  color: #596962;
+  font-weight: 450;
+}
+.family-meter {
+  display: flex;
+  gap: 3px;
+  height: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #e9eeea;
+}
+.family-meter > span {
+  background: var(--share-fill);
+  opacity: 0;
+}
+.family-meter > span[data-funded="true"] {
+  opacity: 1;
+}
+.family-result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #396455;
+  margin-top: 12px;
+  min-height: 20px;
+}
+.family-result .app-icon {
+  width: 18px;
+  height: 18px;
+}
+.family-payment-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 16px 26px;
+  background: #f4f7f2;
+  border-top: 1px dashed #d5e0d5;
+}
+.family-mini-card {
+  position: relative;
+  flex-shrink: 0;
+  width: 98px;
+  height: 62px;
+  border-radius: 9px;
+  background: #204c41;
+  color: #f4f7e9;
+  padding: 9px 11px;
+  overflow: hidden;
+}
+.family-mini-card::after {
+  content: "";
+  position: absolute;
+  width: 85px;
+  height: 85px;
+  border: 1px solid #668778;
+  border-radius: 50%;
+  right: -35px;
+  bottom: -50px;
+}
+.family-mini-card > span {
+  font-weight: 750;
+  letter-spacing: -0.06em;
+  font-size: 17px;
+}
+.family-mini-card .app-icon {
+  position: absolute;
+  right: 10px;
+  bottom: 9px;
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+}
+.family-card-copy {
+  display: grid;
+  gap: 3px;
+}
+.family-card-copy > strong {
+  font-size: 17px;
+  font-weight: 600;
+}
+.family-card-copy > span {
+  font-size: 12px;
+  color: #63766a;
+}
+.family-card-copy > span:first-child {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.family-token-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+.family-token {
+  position: absolute;
+  left: calc(var(--from-x) + (var(--to-x) - var(--from-x)) * var(--travel));
+  top: calc(208px + 46px * var(--travel));
+  translate: -50% 0;
+  background: var(--share-pale);
+  border: 1px solid var(--share-fill);
+  border-radius: 25px;
+  min-width: 58px;
+  padding: 8px 12px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+.family-scene[data-playing="true"] .family-token {
+  transition:
+    left 50ms linear,
+    top 50ms linear;
+}
+.family-scene[data-playing="true"] .family-lucky {
+  transition: transform 50ms linear;
+}
+.family-story-footer {
+  max-width: 850px;
+  margin: 14px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+.family-story-footer > a {
+  font-size: 15px;
+  color: #26675b;
+  padding-block: 12px;
+}
+.family-story-footer > a:hover {
+  text-decoration: underline;
+}
+.family-story-footer > p {
+  flex-basis: 100%;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #5b6b60;
+  text-align: center;
+  margin-top: 6px;
+}
+.family-playback {
+  display: flex;
+  min-height: 44px;
+}
+.family-playback button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border-radius: 22px;
+  font-size: 14px;
+  color: #2c5c4e;
+  background: #fff;
+}
+.family-playback button:hover {
+  background: #dbece1;
+}
+@media (max-width: 760px) {
+  .family-story {
+    padding: 28px 16px 20px;
+  }
+  .family-story-heading h2 {
+    max-width: 320px;
+    margin-inline: auto;
+  }
+  .family-story-heading > p:last-child {
+    max-width: 290px;
+    margin-inline: auto;
+    line-height: 1.5;
+  }
+  .family-scene {
+    min-height: 515px;
+    padding-top: 227px;
+    margin-top: 24px;
+  }
+  .family-people {
+    inset: 42px 5% auto;
+  }
+  .family-lucky {
+    width: min(100%, 104px);
+    height: auto;
+    aspect-ratio: 160/140;
+  }
+  .family-share > strong {
+    font-size: 27px;
+  }
+  .family-share > span {
+    font-size: 14px;
+  }
+  .family-phone-bill {
+    border-radius: 20px;
+  }
+  .family-bill-top {
+    padding: 20px 16px 18px;
+    gap: 6px;
+  }
+  .family-bill-heading {
+    gap: 8px;
+  }
+  .family-bill-heading strong {
+    font-size: 18px;
+  }
+  .family-bill-heading > div > span {
+    font-size: 11px;
+    max-width: 110px;
+    line-height: 1.4;
+  }
+  .family-phone-icon {
+    width: 32px;
+    height: 40px;
+    border-radius: 10px;
+  }
+  .family-bill-amount strong {
+    font-size: 28px;
+  }
+  .family-funding {
+    padding: 4px 16px 16px;
+  }
+  .family-funding-copy {
+    font-size: 12px;
+  }
+  .family-funding-copy > strong {
+    font-size: 19px;
+  }
+  .family-funding-copy > strong > span {
+    font-size: 12px;
+  }
+  .family-result {
+    font-size: 12px;
+  }
+  .family-payment-card {
+    padding: 16px;
+    gap: 12px;
+  }
+  .family-mini-card {
+    width: 84px;
+    height: 54px;
+  }
+  .family-token {
+    top: calc(180px + 30px * var(--travel));
+    min-width: 50px;
+    font-size: 16px;
+    padding: 6px 10px;
+  }
+  .family-story-footer {
+    justify-content: center;
+    margin-top: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .family-scene .family-token,
+  .family-scene .family-lucky {
+    transition: none;
+  }
+}
