@@ -57,7 +57,7 @@ This presentation serves prospective hosts, contributors and partners: see the p
 - Contact: `joseph@getpotluck.app` from the repository website copy draft.
 - Motion: adapted Aceternity Container Scroll and Skiper 40 Animated Link. See `THIRD_PARTY_NOTICES.md`; retain visible Skiper attribution.
 
-The screen excerpts intentionally omit some mobile controls to present the app as a read-only marketing illustration. Website navigation, sample search and native disclosures are functional. Amounts and service listings are illustrative. The joining flow is an illustration, not a working request form. No login, balance, consent, payment, card issuance, analytics, waitlist submission or provider integration is implemented here. Contact uses `mailto:` and requires the visitor to send their own email.
+The screen excerpts intentionally omit some mobile controls to present the app as a read-only marketing illustration. Website navigation, sample search and native disclosures are functional. Amounts and service listings are illustrative. The joining flow is an illustration, not a working request form. No login, balance, consent, payment, card issuance, analytics, waitlist submission or financial-provider integration is implemented here. The contact page sends partnership inquiries through the restricted Cloudflare email binding; direct `mailto:` remains a fallback.
 
 ## Deployment
 
@@ -67,7 +67,7 @@ The homepage `#together` panel connects a Family Circle, three agreed illustrati
 
 The scene loops automatically after a four-second completed hold, suspends offscreen or in a hidden tab, supports pause/resume throughout the cycle, and renders its complete state for reduced motion or without JavaScript. Tests cover exact totals, preserved pause timing, hidden-tab behavior and motion-preference changes. The mobile composition keeps the bill centered with a compact attached card. Cycling visual totals are not live-announced to screen readers. No provider calls, credentials, real funds, new dependencies or entitlements are involved. Removing `FamilyStory` from `Home.tsx` rolls back the section without a data migration.
 
-Deploy only `website/dist/` to the existing domain's static hosting after reviewing the result and confirming that host's project configuration. This task does not change DNS or publish the site. Canonical links and sitemap target `https://getpotluck.app/`. `public/_headers` is ready for hosts that support that convention; other hosts need equivalent response-header settings. There are no required secrets or environment variables.
+Deploy the validated `website/dist/` output through `marketing-site/` and the contact Worker using root `wrangler.jsonc`; follow `docs/WEBSITE_DEPLOYMENT.md` for activation and rollback. Canonical links and sitemap target `https://getpotluck.app/`. `public/_headers` configures static response headers; API headers are set by the Worker. The contact endpoint needs the configured email and rate-limit bindings, with the recipient verified in Cloudflare. No secret belongs in the browser bundle.
 
 The production host must serve directory indexes, redirect known slashless page URLs to their slash versions, and use `404.html` with HTTP 404 for missing routes. Do not configure a catch-all SPA rewrite to the homepage: it would serve incorrect prerendered content and metadata. Provider-specific hosting configuration remains a deployment step.
 

@@ -1,6 +1,18 @@
 # Potluck website deployment
 
-The `marketing-site` branch of `Jshack05/Potluck` is connected to Cloudflare Workers Builds for Worker `potluck`, serving https://getpotluck.app. Root `wrangler.jsonc` publishes only `marketing-site/` as static assets. Source code, tests, and the lockfile live in `website/`.
+The `marketing-site` branch of `Jshack05/Potluck` is connected to Cloudflare Workers Builds for Worker `potluck`, serving https://getpotluck.app. Root `wrangler.jsonc` publishes `marketing-site/` as static assets and `website/worker/index.ts` for the contact API. Source code, tests, and the lockfile live in `website/`.
+
+## October 4, 2026 contact release
+
+Release commit `36e03c9bf4e51ecc10fc5a6dcc2316a26b433f16` adds `/contact/`, linked from Start a conversation, and `POST /api/v1/contact`. Cloudflare version `b6d3879d-3077-4d0a-b949-2098071fa99d` was tested as a preview and promoted to 100% of production traffic. Both the focused branch and `marketing-site` contain this release; the promoted version was built from the focused branch at the identical commit.
+
+The `CONTACT_EMAIL` binding restricts delivery to verified recipient `joseph@getpotluck.app`. Messages use `website@getpotluck.app` as sender and the validated visitor address as Reply-To. Cloudflare accepted one clearly labeled test inquiry and returned a message ID; the browser displayed the success state. Inbox receipt was not independently observed. No MX records, paid plan, credentials, or financial-provider settings were changed.
+
+The API validates fields and body size, rejects foreign origins and honeypots, and uses per-location rate limits of five requests per IP per minute and thirty delivery attempts per minute. These are not a global hard cap. Form contents are not stored or logged by application code. Provider failure preserves the visitor's draft and offers direct email; there is no automatic retry after uncertain delivery.
+
+Validation: `pnpm validate` passed formatting, lint, TypeScript, build, all 89 tests across 11 files, and the dependency audit. Wrangler's deployment dry run passed. All seven live pages and current JS/CSS assets returned 200; pages use `index-CcCuWUwt.js`. An unknown page returned 404, incomplete contact JSON returned 400, and a foreign-origin submission returned 403. API responses are not cached. The live homepage link and contact page were checked in the browser.
+
+Rollback this contact release by promoting previous production version `d9ac1dcc-e95c-47d2-9157-aaa2f602b065`. That restores the prior mailto link and static website. Already accepted emails remain in the recipient's mailbox; there is no database migration or backfill. Preserve the recipient verification for a later corrected release.
 
 ## October 2, 2026 release
 
