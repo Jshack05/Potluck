@@ -1,5 +1,9 @@
 # Full-app capability register
 
+## October 5 native build checkpoint
+
+The updated signed iPhone development build completed successfully on EAS: [`0cd6df49-87b0-48f9-884b-ebae6f0c71d7`](https://expo.dev/accounts/potluck_splitfinder/projects/jshack05/builds/0cd6df49-87b0-48f9-884b-ebae6f0c71d7). Native storage, secure session storage and Crypto are included. The computer's LAN API and browser sign-in were checked. Physical-phone installation, startup and phone-to-API connectivity are still pending; bank linking remains unavailable. This supersedes earlier statements that the signed build itself is unfinished, but does not establish native runtime verification or release readiness.
+
 ## October 5 correction
 
 Full-app entry is now **account → bank → app**. The shared generic guest screens have been removed; authentication and bank setup use Figma source elements with bottom actions and no app tabs. Core Inbox uses its own teal asset. This does not establish full Figma parity for the remaining screens.

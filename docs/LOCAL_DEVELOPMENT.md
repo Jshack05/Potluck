@@ -1,10 +1,18 @@
 # Full Potluck: local development
 
+## October 5 iPhone build checkpoint
+
+EAS development build [`0cd6df49-87b0-48f9-884b-ebae6f0c71d7`](https://expo.dev/accounts/potluck_splitfinder/projects/jshack05/builds/0cd6df49-87b0-48f9-884b-ebae6f0c71d7) finished successfully from application commit `78df449`. The native logs include RNCAsyncStorage 2.2.0, ExpoSecureStore 57.0.4 and ExpoCrypto 57.0.3. It reuses the existing app identifier, signing credentials and registered iPhone. An earlier attempt failed at Expo's credential service; the retry succeeded without code changes or replacing credentials.
+
+The updated build still needs installation and startup verification on the physical iPhone. JavaScript reloads cannot add native libraries to an older installed app. Install this development build, keep the computer's Expo server running, and select its LAN address in the development launcher. No TestFlight or App Store submission was performed.
+
+For this session, the API is bound to the computer's Wi-Fi IPv4 address, and the ignored `my-app/.env.local` points `EXPO_PUBLIC_API_URL` to that address on port 4100. Expo was restarted on port 8083. The host health check and browser sign-in through the LAN address passed; phone-side connectivity remains to be confirmed. No firewall changes were required. If the computer's address changes, update the local environment and restart both servers. Retain loopback as the versioned default.
+
 ## October 5 entry policy
 
 The full-app build now requires sign-in and bank confirmation before its four tabs. Opening a protected route preserves its destination through account entry. The local API has no bank provider configured: it returns `bank_required` / `unavailable`, and denies protected app data and mutations with `BANK_CONNECTION_REQUIRED`. It never reports a fixture bank as real or enables financial capabilities.
 
-Existing integration tests explicitly inject a confirmed-provider fixture as the setup precondition for their unchanged business assertions. Separate entry tests use the actual default adapter, failures and invalid evidence. No runtime flag, development button or client callback bypasses the bank requirement. The prior browser QA described below predates this new prerequisite. Real linking, verified provider proof persistence/reconciliation, and the new signed iPhone build remain unfinished.
+Existing integration tests explicitly inject a confirmed-provider fixture as the setup precondition for their unchanged business assertions. Separate entry tests use the actual default adapter, failures and invalid evidence. No runtime flag, development button or client callback bypasses the bank requirement. The prior browser QA described below predates this new prerequisite. Real linking, verified provider proof persistence/reconciliation, and physical-iPhone validation remain unfinished.
 
 No migration or data deletion is part of this change. Reverting its code restores the prior entry policy without erasing local records. Before enabling a provider, durably separate completed onboarding from current bank health and preserve essential agreement cancellation/dispute access.
 
