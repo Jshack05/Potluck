@@ -9,13 +9,13 @@ import {
   Icon,
   Action,
   ResourceState,
-  Empty,
   Row,
   styles,
   go,
 } from "@/design/system";
 import { useClient, useResource } from "@/services/client";
 import type { Circle, Collection, Invitation } from "@/features/potluck/types";
+import { HomeEmptyState } from "@/features/potluck/home-empty-state";
 export default function Circles() {
   const { user } = useClient(),
     circles = useResource<Collection<Circle>>(user ? "/circles" : null),
@@ -26,6 +26,7 @@ export default function Circles() {
     <Shell
       title="Circles"
       active="Circles"
+      emptyState={!!circles.data && !circles.data.items.length}
       footer={
         user && (
           <Action
@@ -55,7 +56,7 @@ export default function Circles() {
             ))}
           </>
         )}
-        <Section title="Your circles" />
+        {!!circles.data?.items.length && <Section title="Your circles" />}
         {circles.data?.items.map((circle) => (
           <Pressable
             accessibilityRole="button"
@@ -80,10 +81,7 @@ export default function Circles() {
           </Pressable>
         ))}
         {circles.data && !circles.data.items.length && (
-          <Empty
-            title="A place for your people"
-            detail="Create your first Circle, then bring your shared Bills and Cards together."
-          />
+          <HomeEmptyState area="Circles" />
         )}
       </AuthGate>
     </Shell>

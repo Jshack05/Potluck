@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { createApp } from "./completed-onboarding.fixture.ts";
+import { createApp } from "../../services/potluck-api/src/app.ts";
 
 test("listing acceptance opens a conversation, then a separately accepted Circle invitation", async () => {
   const app = await createApp({ database: ":memory:", mode: "local" });

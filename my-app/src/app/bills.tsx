@@ -9,7 +9,6 @@ import {
   Row,
   Action,
   ResourceState,
-  Empty,
   theme,
   money,
   go,
@@ -18,14 +17,32 @@ import { useClient, useResource } from "@/services/client";
 import type { Bill, Collection } from "@/features/potluck/types";
 import { BillSummary } from "@/features/potluck/bill-summary";
 import {
+  HomeEmptyState,
+  BankAccessPrompt,
+} from "@/features/potluck/home-empty-state";
+import {
   visibleBills,
   ownBillShare,
 } from "@/features/potluck/presentation-state";
 export default function Bills() {
-  const { user } = useClient(),
+  const { user, access } = useClient(),
     resource = useResource<Collection<Bill>>(user ? "/bills" : null),
     [scope, setScope] = useState<"shared" | "all">("shared");
   const bills = resource.data && visibleBills(resource.data.items, scope);
+  if (user && access !== "ready") return <BankAccessPrompt area="Bills" />;
+  if (resource.data && !resource.data.items.length)
+    return (
+      <Shell
+        title="Bills"
+        active="Bills"
+        emptyState
+        footer={
+          <Action label="Create a Bill" onPress={() => go("/create/bill")} />
+        }
+      >
+        <HomeEmptyState area="Bills" />
+      </Shell>
+    );
   return (
     <Shell
       title="Bills"
@@ -112,19 +129,10 @@ export default function Bills() {
           );
         })}
         {bills && !bills.length && (
-          <Empty
-            icon="bills"
-            title={
-              scope === "shared"
-                ? "Share the plan, together"
-                : "Make room for the next bill"
-            }
-            detail={
-              scope === "shared"
-                ? "Create a Bill connected to your Circle or Card. Each person reviews their own share."
-                : "Save your first Bill and bring in the people who share it."
-            }
-          />
+          <Muted>
+            Your saved bills are in All bills. Connect one to a Circle or Card
+            to see it here.
+          </Muted>
         )}
       </AuthGate>
     </Shell>

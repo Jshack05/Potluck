@@ -61,12 +61,19 @@ export function registerOnboarding(
     const path = req.routeOptions.url;
     if (!path || entryRoutes.has(path)) return;
     demand(req.actor, 401, "SIGN_IN_REQUIRED", "Sign in to continue.");
+    // Account-only social scopes. New or financial scopes retain the bank gate.
+    if (
+      /^\/v1\/(circles|circle-transfers|invitations|brands|listings|my-listings|profiles|requests|conversations|blocks|saved|notifications)(\/|$)/.test(
+        path,
+      )
+    )
+      return;
     const result = await status(req.actor.id);
     demand(
       result.access === "ready",
       403,
       "BANK_CONNECTION_REQUIRED",
-      "Connect your bank account to finish setting up Potluck.",
+      "Connect your bank account to use Cards and Bills.",
     );
   });
   app.get("/v1/onboarding", async (req) => {

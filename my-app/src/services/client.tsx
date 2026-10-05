@@ -16,6 +16,7 @@ import { durableCommand } from "./durable-command";
 import { revokeSession, withSessionRecovery } from "./session-recovery";
 import {
   parseEntryStatus,
+  canLoadResource,
   type EntryAccess,
   type EntryStatus,
 } from "./navigation";
@@ -125,6 +126,8 @@ function useClientState() {
               currentToken.current = saved;
               setToken(saved);
               setUser(result.user);
+              // Identity is ready; a slow bank check must not hold social access.
+              setReady(true);
               try {
                 const state = parseEntryStatus(
                   await authenticatedRequest("/onboarding", saved),
@@ -256,9 +259,10 @@ export function useResource<T>(path: string | null) {
   const serial = useRef(0);
   const reload = useCallback(async () => {
     const current = ++serial.current;
-    if (!path || access !== "ready") {
+    if (!path || !user || !canLoadResource(access, path)) {
       setLoading(false);
       setData(null);
+      setError("");
       return;
     }
     setLoading(true);
@@ -272,7 +276,7 @@ export function useResource<T>(path: string | null) {
     } finally {
       if (serial.current === current) setLoading(false);
     }
-  }, [get, path, key, access]);
+  }, [get, path, key, access, user]);
   useFocusEffect(
     useCallback(() => {
       void reload();
@@ -282,7 +286,10 @@ export function useResource<T>(path: string | null) {
     }, [reload]),
   );
   return {
-    data: snapshot?.key === key ? snapshot.value : null,
+    data:
+      path && user && canLoadResource(access, path) && snapshot?.key === key
+        ? snapshot.value
+        : null,
     error,
     loading,
     reload,

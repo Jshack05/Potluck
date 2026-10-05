@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { Redirect, useLocalSearchParams, type Href } from "expo-router";
 import { useState } from "react";
 import {
-  EntryShell,
+  Shell,
   EntryLoading,
   Label,
   Muted,
@@ -12,9 +12,14 @@ import {
   Divider,
   ErrorText,
   theme,
+  go,
 } from "@/design/system";
 import { useAction, useClient } from "@/services/client";
-import { entryDestination, safeReturnTo } from "@/services/navigation";
+import {
+  entryDestination,
+  safeReturnTo,
+  financialArea,
+} from "@/services/navigation";
 
 export default function ConnectBank() {
   const { returnTo } = useLocalSearchParams(),
@@ -27,9 +32,14 @@ export default function ConnectBank() {
   if (client.access === "ready")
     return <Redirect href={safeReturnTo(returnTo) as Href} />;
   const unavailable = client.entryStatus?.bankConnection === "unavailable";
+  const area = financialArea(safeReturnTo(returnTo)) ?? "Cards";
+  const backTo = area === "Cards" ? "/cards" : "/bills";
   return (
-    <EntryShell
-      brand={false}
+    <Shell
+      title="Connect your bank"
+      back
+      active={area}
+      returnTo={backTo}
       footer={
         <>
           <ErrorText text={action.error || client.entryError} />
@@ -39,9 +49,9 @@ export default function ConnectBank() {
           >
             {unavailable
               ? checked
-                ? "Bank connection is still unavailable in this development build. Your account is saved; setup is not complete."
-                : "Bank connection isn't available in this development build yet. Your account is saved; setup is not complete."
-              : "A confirmed bank connection is required before you can enter Potluck."}
+                ? "Bank connection is still unavailable in this development build. You can keep using Circles and Splitfinder."
+                : "Bank connection isn't available in this development build yet. You can keep using Circles and Splitfinder."
+              : "A confirmed bank connection is required for Cards and Bills."}
           </Label>
           <Action label="Connect bank account" disabled onPress={() => {}} />
           <View
@@ -61,7 +71,7 @@ export default function ConnectBank() {
             >
               {action.busy ? "Checking…" : "Check again"}
             </Link>
-            <Link onPress={() => action.run(client.signOut)}>Sign out</Link>
+            <Link onPress={() => go("/circles")}>Back to Circles</Link>
           </View>
         </>
       }
@@ -74,7 +84,7 @@ export default function ConnectBank() {
           textAlign: "center",
         }}
       >
-        2 OF 2 · YOUR BANK
+        CARDS & BILLS · BANK SETUP
       </Label>
       <View
         style={{
@@ -115,8 +125,8 @@ export default function ConnectBank() {
             textAlign: "center",
           }}
         >
-          Get ready to bring your part. Connect your own bank account before
-          entering Potluck.
+          Connect your own bank account when you’re ready to use Cards and
+          Bills.
         </Label>
       </View>
       <View style={{ gap: 20 }}>
@@ -150,6 +160,6 @@ export default function ConnectBank() {
           </Muted>
         </View>
       </View>
-    </EntryShell>
+    </Shell>
   );
 }

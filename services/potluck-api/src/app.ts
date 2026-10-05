@@ -185,6 +185,14 @@ export async function createApp(options: Options) {
       }),
     ),
   );
+  // Separate from the social /circles namespace: financial readiness is required.
+  app.get("/v1/circle-arrangements/:id", (req) =>
+    queries.getCircleArrangements(db, {
+      actor: req.actor ?? null,
+      query: req.query,
+      resourceId: param(req),
+    }),
+  );
   app.get("/v1/invitations", (req) =>
     queries.getInvitations(db, {
       actor: req.actor ?? null,

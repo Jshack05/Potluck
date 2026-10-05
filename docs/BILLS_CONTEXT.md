@@ -1,7 +1,11 @@
 # Potluck Bills Context
 
+## October 5, 2026 — Contextual bank setup
+
+Signing in opens Circles and Splitfinder. Before bank confirmation, the Bills tab uses the established Figma empty-state illustration and a bottom **Connect bank account** action. It does not load Bill data or enable creation, contribution acceptance or financial mutations. The bank handoff retains the destination and allows navigation back to social areas. Provider confirmation remains server-owned and is separate from consent to any contribution or debit. Existing cancellation, dispute and funds-access continuity must be resolved before enabling a live provider; current local financial execution remains unavailable.
+
 **Status:** Product direction approved; implementation details marked as open remain unresolved.
-**Last updated:** September 9, 2026
+**Last updated:** October 5, 2026
 
 ## Purpose
 

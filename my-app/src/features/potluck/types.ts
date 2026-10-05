@@ -23,6 +23,10 @@ export type Card = Item & {
   bills: Bill[];
   availableMinor: number | null;
 };
+export type CircleArrangements = {
+  cards: Pick<Card, "id" | "name" | "status" | "design">[];
+  bills: Pick<Bill, "id" | "name" | "amountMinor" | "status">[];
+};
 export type Agreement = Item & {
   currentAgreement?: Agreement | null;
   billId: string;

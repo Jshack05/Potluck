@@ -1,6 +1,16 @@
 # Potluck Product Context
 
-## October 5, 2026 — Account and bank setup before full-app access
+## October 5, 2026 — Account-first access; bank setup within Cards and Bills
+
+The founder revised entry to **sign in or create an account → use Circles and Splitfinder**. Bank connection is required for Cards and Bills only. Their tabs stay visible and show the existing illustrated empty states with a bottom **Connect bank account** action. Authentication remains required for the combined app; this decision does not restore guest browsing.
+
+Bank setup retains the intended financial destination and main navigation, so people can return to Circles or Splitfinder. Social access, including listings, conversations, Circle creation, invitations and administration, must not depend on a bank status check or provider availability. Financial routes and mutations continue to require server-confirmed, actor-bound provider evidence. Bank linking is still unavailable locally; there is no simulated confirmation, money movement, debit consent or issuance.
+
+Use Figma's original Lucky/table empty states for Circles, Cards and Bills, not generic enlarged navigation icons. Preserve separate Circle membership, contribution consent and issuer-approved spending grants.
+
+This is Free/core. Target new organizers and people joining shared arrangements; the promise is **find your people and make a plan before connecting a bank**. Listing conversations and Circle invitations drive acquisition; recurring group coordination supports retention. Bank setup appears when its purpose is relevant. Paid conversion is deferred, with no safety or core-access paywall. Compared with a bill tracker, discovery and consent-based groups provide the reason to start. Measure account-to-first-Circle/listing-conversation activation and subsequent bank-setup completion. No schema migration is required; rollback restores the earlier gate without deleting records.
+
+## October 5, 2026 — Earlier account and bank setup prerequisite (superseded above)
 
 The founder changed full Potluck entry to **sign in or create account → connect an eligible bank account → access Circles, Cards, Bills and Splitfinder**. Guest browsing and contextual registration no longer apply to the combined app. A future Splitfinder-only release may use a different entry policy, but requires a new explicit launch decision.
 

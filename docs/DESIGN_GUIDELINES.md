@@ -3,11 +3,12 @@
 ## October 5, 2026 — Full-app entry and shared shell
 
 - Existing Figma compositions and components remain the visual authority; integration work does not authorize generic replacements.
-- Account and bank setup precede all four destinations, with no main navigation, Inbox or You controls during entry.
+- Account entry precedes all four destinations and has no app navigation. Bank setup is contextual to Cards and Bills; Circles and Splitfinder open after sign-in, and remain reachable through navigation during bank setup.
 - Primary flow actions stay in the fixed lower action area, above navigation when present or above the safe area otherwise. Content scrolls independently. Field toggles and per-item/retry actions stay near their context.
 - Replace repeated guest cards and inline sign-in buttons with one entry flow that preserves the intended destination.
 - Core Inbox uses teal Figma source `1555:19208`; the blue Inbox belongs to Splitfinder.
 - Account source: `940:4770`. Bank handoff source: `1489:18043` / `1486:17690`. Adapt old inline action placement to the current bottom-action rule. Do not fabricate bank confirmation or working social authentication.
+- Empty-home sources: Cards `766:3012` / component `776:3168`; Circles `766:3056` / component `427:649`; Bills `766:3098` / component `765:3333`. Use the original 164×128 Lucky/table artwork and distinct pink card, teal Circle and amber bill details. Center the illustration and standalone copy; do not replace them with a generic icon in a circle or an information card. For bank-required states, adapt the description and use a bottom Connect bank account action. For available empty areas, use the appropriate creation action in that same bottom area.
 
 **Status:** Current design and Figma QA guidance  
 **Last updated:** August 13, 2026  

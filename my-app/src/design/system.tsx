@@ -22,7 +22,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useClient } from "@/services/client";
-import { entryDestination } from "@/services/navigation";
+import { entryDestination, financialArea } from "@/services/navigation";
 export const theme = {
   canvas: "#F3F2EF",
   blueCanvas: "#F2F9FD",
@@ -390,6 +390,7 @@ export function Shell({
   blue = false,
   active,
   returnTo,
+  emptyState = false,
 }: {
   title: string;
   children: ReactNode;
@@ -398,6 +399,7 @@ export function Shell({
   blue?: boolean;
   active?: "Circles" | "Cards" | "Bills" | "Splitfinder";
   returnTo?: string;
+  emptyState?: boolean;
 }) {
   const inset = useSafeAreaInsets(),
     pathname = usePathname();
@@ -412,7 +414,13 @@ export function Shell({
     client.access,
     pathname + (query.size ? "?" + query.toString() : ""),
   );
-  if (!client.ready || client.access === "loading") return <EntryLoading />;
+  if (
+    !client.ready ||
+    (client.access === "loading" &&
+      financialArea(pathname) &&
+      !["/cards", "/bills"].includes(pathname))
+  )
+    return <EntryLoading />;
   if (destination) return <Redirect href={destination as Href} />;
   const selected =
     active ??
@@ -429,12 +437,35 @@ export function Shell({
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={{
           flex: 1,
-          backgroundColor: blue ? theme.blueCanvas : theme.canvas,
+          backgroundColor: blue
+            ? theme.blueCanvas
+            : emptyState && active !== "Circles"
+              ? "#F1EFE7"
+              : theme.canvas,
         }}
       >
         <View
-          style={{ flex: 1, width: "100%", maxWidth: 478, alignSelf: "center" }}
+          style={{
+            flex: 1,
+            width: "100%",
+            maxWidth: emptyState ? 430 : 478,
+            alignSelf: "center",
+          }}
         >
+          {emptyState && active !== "Circles" && (
+            <View
+              style={{
+                pointerEvents: "none",
+                position: "absolute",
+                top: 16,
+                bottom: 16,
+                left: 16,
+                right: 16,
+                borderRadius: 24,
+                backgroundColor: "#FBFAF5",
+              }}
+            />
+          )}
           <View
             style={[
               styles.row,
@@ -479,7 +510,7 @@ export function Shell({
               accessibilityRole="header"
               style={{
                 fontFamily: "Inter_700Bold",
-                fontSize: back ? 25 : 32,
+                fontSize: back ? 25 : emptyState ? 28 : 32,
                 lineHeight: 38,
                 flex: 1,
               }}
@@ -615,8 +646,8 @@ export function AuthGate({
   children: ReactNode;
   returnTo: string;
 }) {
-  const { access } = useClient();
-  if (access === "loading") return <EntryLoading />;
+  const { access, ready } = useClient();
+  if (!ready) return <EntryLoading />;
   const destination = entryDestination(access, returnTo);
   return destination ? (
     <Redirect href={destination as Href} />

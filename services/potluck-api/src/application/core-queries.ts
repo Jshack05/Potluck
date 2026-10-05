@@ -24,6 +24,22 @@ export async function getCirclesDetail(db: Queryable, context: QueryContext) {
       hidden ? [circle.id, user] : [circle.id],
     )
   ).rows.map(api);
+  return {
+    ...api(circle),
+    people,
+    // Keep the response shape for older clients; financial projections are
+    // available only through the separately bank-gated arrangements endpoint.
+    cards: [],
+    bills: [],
+    role: circle.host_id === user ? "host" : "member",
+  };
+}
+export async function getCircleArrangements(
+  db: Queryable,
+  context: QueryContext,
+) {
+  const user = requiredActor(context.actor),
+    circle = await member(db, context.resourceId, user);
   const cards = (
     await db.query(
       "SELECT id,name,status,design FROM cards WHERE circle_id=$1 AND host_id=$2",
@@ -36,13 +52,7 @@ export async function getCirclesDetail(db: Queryable, context: QueryContext) {
       [circle.id, user],
     )
   ).rows.map(api);
-  return {
-    ...api(circle),
-    people,
-    cards,
-    bills,
-    role: circle.host_id === user ? "host" : "member",
-  };
+  return { cards, bills };
 }
 export async function getInvitations(db: Queryable, context: QueryContext) {
   return {

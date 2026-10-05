@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="62" height="21" viewBox="0 0 62 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Lucky contact shadow" filter="url(#filter0_f_0_84)">
+<ellipse cx="31" cy="10.5" rx="26" ry="5.5" fill="#AEC8BE" fill-opacity="0.1"/>
+</g>
+<defs>
+<filter id="filter0_f_0_84" x="0" y="0" width="62" height="21" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="2.5" result="effect1_foregroundBlur_0_84"/>
+</filter>
+</defs>
+</svg>

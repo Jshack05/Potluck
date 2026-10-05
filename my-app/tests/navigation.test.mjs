@@ -5,8 +5,9 @@ import {
   creationPath,
   entryDestination,
   parseEntryStatus,
+  canLoadResource,
 } from "../src/services/navigation.ts";
-test("every full-app destination requires sign-in then bank confirmation and retains its intent", () => {
+test("financial deep links require bank confirmation and retain their intent", () => {
   const destination = "/create/bill?circleId=invite-context";
   assert.equal(
     entryDestination("signed_out", destination),
@@ -33,6 +34,72 @@ test("every full-app destination requires sign-in then bank confirmation and ret
     parseEntryStatus({ access: "ready", bankConnection: "unavailable" }),
   );
   assert.throws(() => parseEntryStatus({ access: "ready" }));
+});
+test("bank status checks and failures do not suppress signed-in social data or release financial data", () => {
+  for (const path of [
+    "/circles",
+    "/circles/a",
+    "/brands?q=Net",
+    "/listings?category=subscriptions",
+    "/conversations/a",
+    "/notifications",
+    "/invitations",
+  ]) {
+    for (const status of ["loading", "bank_required", "error", "ready"])
+      assert.equal(canLoadResource(status, path), true, status + " " + path);
+    assert.equal(canLoadResource("signed_out", path), false);
+  }
+  for (const path of [
+    "/cards",
+    "/bills",
+    "/bill-summary?scope=all",
+    "/agreements/a",
+    "/circle-arrangements/a",
+    "/future-financial-resource",
+  ]) {
+    for (const status of ["loading", "bank_required", "error", "signed_out"])
+      assert.equal(canLoadResource(status, path), false, status + " " + path);
+    assert.equal(canLoadResource("ready", path), true);
+  }
+});
+test("signed-in social destinations and financial tab prompts remain accessible without a bank", () => {
+  for (const access of ["bank_required", "error", "ready"]) {
+    for (const path of [
+      "/circles",
+      "/circle/example",
+      "/circle/example/invite",
+      "/create/circle",
+      "/invitation/example",
+      "/circle-transfer/example",
+      "/discover",
+      "/listing/example",
+      "/create/listing?brand=Netflix",
+      "/inbox",
+      "/conversation/example",
+      "/you",
+      "/cards",
+      "/bills",
+    ]) {
+      assert.equal(entryDestination(access, path), null, access + " " + path);
+      assert.equal(
+        entryDestination("signed_out", path),
+        "/sign-in?returnTo=" + encodeURIComponent(path),
+      );
+    }
+  }
+  for (const path of [
+    "/card/example",
+    "/bill/example",
+    "/agreement/example",
+    "/create/card?circleId=a",
+    "/manage/cards/example",
+    "/manage/bills/example",
+  ]) {
+    assert.equal(
+      entryDestination("bank_required", path),
+      "/connect-bank?returnTo=" + encodeURIComponent(path),
+    );
+  }
 });
 test("creation context survives contextual registration with encoded values", () => {
   const destination = creationPath("/create/listing", {

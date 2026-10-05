@@ -1,10 +1,18 @@
 # Full-app capability register
 
+## October 5 revised access policy
+
+Sign-in opens Circles and Splitfinder. Bank confirmation gates Cards and Bills only, including direct financial links and server mutations. Their tab prompts and the Circles empty home reuse the existing Lucky/table Figma assets; actions stay above navigation. Bank setup no longer traps users outside social features. There is no native dependency change, schema migration, bank simulation or financial activation. Earlier snapshots below are historical.
+
+Circle details now keep people and invitations separate from financial projections. `GET /v1/circles/:id` retains empty `cards`/`bills` arrays for response compatibility; the client reads financial summaries through `GET /v1/circle-arrangements/:id`, which requires bank confirmation, Circle membership and the existing per-resource permissions. This also keeps Circle coordination available during a bank-provider outage. Regression tests cover guests, unbanked members, confirmed members, hosts, unrelated users and provider failures. Independent review rechecked this boundary after the fix.
+
+Validation: formatting, backend/mobile strict types, mobile lint, **34 backend/domain tests + 26 mobile/model tests**, and all-platform exports passed. The unchanged dependency audit reports **22 mobile findings (19 high, 3 moderate)** and zero backend findings, so the release security gate remains blocked. Browser review at 430×932 and 320×600 checked original artwork rendering, centered copy and bottom actions, signup/sign-in directly to Circles, Circle creation without a bank, Circle-to-Bill destination preservation, bank-tab prompts, and navigation back to Splitfinder. This is browser and local-service evidence, not physical-iPhone or real-provider verification.
+
 ## October 5 native build checkpoint
 
 The updated signed iPhone development build completed successfully on EAS: [`0cd6df49-87b0-48f9-884b-ebae6f0c71d7`](https://expo.dev/accounts/potluck_splitfinder/projects/jshack05/builds/0cd6df49-87b0-48f9-884b-ebae6f0c71d7). Native storage, secure session storage and Crypto are included. The computer's LAN API and browser sign-in were checked. Physical-phone installation, startup and phone-to-API connectivity are still pending; bank linking remains unavailable. This supersedes earlier statements that the signed build itself is unfinished, but does not establish native runtime verification or release readiness.
 
-## October 5 correction
+## October 5 earlier correction (entry policy superseded above)
 
 Full-app entry is now **account → bank → app**. The shared generic guest screens have been removed; authentication and bank setup use Figma source elements with bottom actions and no app tabs. Core Inbox uses its own teal asset. This does not establish full Figma parity for the remaining screens.
 

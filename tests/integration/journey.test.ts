@@ -134,7 +134,7 @@ test("two local accounts connect Circle, Bill and Card without implied financial
       409,
     );
     const overview = (
-      await call(host.token, "GET", "/v1/circles/" + circle.id)
+      await call(host.token, "GET", "/v1/circle-arrangements/" + circle.id)
     ).json();
     assert.equal(overview.bills[0].id, bill.id);
     assert.equal(overview.cards[0].id, card.id);

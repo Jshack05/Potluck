@@ -5,20 +5,25 @@ import {
   Title,
   Muted,
   Action,
-  Empty,
   ResourceState,
   go,
 } from "@/design/system";
 import { useClient, useResource } from "@/services/client";
 import { CardPreview } from "@/features/potluck/card-preview";
 import type { Card, Collection } from "@/features/potluck/types";
+import {
+  HomeEmptyState,
+  BankAccessPrompt,
+} from "@/features/potluck/home-empty-state";
 export default function Cards() {
-  const { user } = useClient(),
+  const { user, access } = useClient(),
     resource = useResource<Collection<Card>>(user ? "/cards" : null);
+  if (user && access !== "ready") return <BankAccessPrompt area="Cards" />;
   return (
     <Shell
       title="Cards"
       active="Cards"
+      emptyState={!!resource.data && !resource.data.items.length}
       footer={
         user && (
           <Action label="Create a Card" onPress={() => go("/create/card")} />
@@ -26,8 +31,12 @@ export default function Cards() {
       }
     >
       <AuthGate returnTo="/cards">
-        <Title>Your cards</Title>
-        <Muted>Open a Card to see its setup and connected Bills.</Muted>
+        {!!resource.data?.items.length && (
+          <>
+            <Title>Your cards</Title>
+            <Muted>Open a Card to see its setup and connected Bills.</Muted>
+          </>
+        )}
         <ResourceState
           loading={resource.loading}
           error={resource.error}
@@ -45,11 +54,7 @@ export default function Cards() {
           </Pressable>
         ))}
         {resource.data && !resource.data.items.length && (
-          <Empty
-            icon="cards"
-            title="One place for shared expenses"
-            detail="Name a Card and connect the Bills you want to manage together."
-          />
+          <HomeEmptyState area="Cards" />
         )}
       </AuthGate>
     </Shell>

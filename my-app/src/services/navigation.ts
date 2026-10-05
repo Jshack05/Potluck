@@ -61,9 +61,38 @@ export function entryDestination(
   destination: unknown,
 ): string | null {
   if (access === "ready" || access === "loading") return null;
+  const target = safeReturnTo(destination);
+  // The tabs themselves explain bank setup. Only financial workflows redirect.
+  if (
+    access !== "signed_out" &&
+    (!financialArea(target) ||
+      ["/cards", "/bills"].includes(target.split("?")[0]))
+  )
+    return null;
   return (
     (access === "signed_out" ? "/sign-in" : "/connect-bank") +
     "?returnTo=" +
-    encodeURIComponent(safeReturnTo(destination))
+    encodeURIComponent(target)
   );
+}
+
+export function financialArea(path: string): "Cards" | "Bills" | null {
+  const pathname = path.split("?")[0];
+  if (/^\/(cards?|create\/card|manage\/cards)(\/|$)/.test(pathname))
+    return "Cards";
+  if (/^\/(bills?|agreement|create\/bill|manage\/bills)(\/|$)/.test(pathname))
+    return "Bills";
+  return null;
+}
+
+/** Social reads do not depend on the bank provider. Unknown resources fail closed. */
+export function canLoadResource(access: EntryAccess, path: string): boolean {
+  if (access === "signed_out") return false;
+  if (
+    /^\/(circles|circle-transfers|invitations|brands|listings|my-listings|profiles|requests|conversations|saved|notifications)(\/|\?|$)/.test(
+      path,
+    )
+  )
+    return true;
+  return access === "ready";
 }

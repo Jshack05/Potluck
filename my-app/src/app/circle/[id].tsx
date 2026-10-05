@@ -15,12 +15,15 @@ import {
   money,
 } from "@/design/system";
 import { useClient, useResource } from "@/services/client";
-import type { Circle } from "@/features/potluck/types";
+import type { Circle, CircleArrangements } from "@/features/potluck/types";
 export default function CircleDetail() {
   const { id } = useLocalSearchParams<{ id: string }>(),
-    { user } = useClient();
+    { user, access } = useClient();
   const resource = useResource<Circle>(user ? "/circles/" + id : null),
     circle = resource.data;
+  const arrangements = useResource<CircleArrangements>(
+    user && access === "ready" ? "/circle-arrangements/" + id : null,
+  );
   return (
     <Shell
       title={circle?.name ?? "Circle"}
@@ -67,12 +70,19 @@ export default function CircleDetail() {
             {circle.privacy === "anonymous" && (
               <Muted>Members’ identities are private.</Muted>
             )}
+            {access === "ready" && (
+              <ResourceState
+                loading={arrangements.loading}
+                error={arrangements.error}
+                retry={arrangements.reload}
+              />
+            )}
             <Section
               title="Bills"
               action="+ Bill"
               onAction={() => go("/create/bill?circleId=" + id)}
             />
-            {circle.bills.map((bill) => (
+            {arrangements.data?.bills.map((bill) => (
               <Row
                 key={bill.id}
                 title={bill.name}
@@ -84,9 +94,11 @@ export default function CircleDetail() {
                 onPress={() => go("/bill/" + bill.id)}
               />
             ))}
-            {!circle.bills.length && (
+            {(access !== "ready" || arrangements.data?.bills.length === 0) && (
               <Muted>
-                Bring a shared expense into this Circle when you’re ready.
+                {access !== "ready"
+                  ? "Connect your bank when you’re ready to add a shared bill."
+                  : "Bring a shared expense into this Circle when you’re ready."}
               </Muted>
             )}
             <Section
@@ -94,7 +106,7 @@ export default function CircleDetail() {
               action="+ Card"
               onAction={() => go("/create/card?circleId=" + id)}
             />
-            {circle.cards.map((card) => (
+            {arrangements.data?.cards.map((card) => (
               <Row
                 key={card.id}
                 title={card.name}
@@ -103,8 +115,12 @@ export default function CircleDetail() {
                 onPress={() => go("/card/" + card.id)}
               />
             ))}
-            {!circle.cards.length && (
-              <Muted>Cards you’re permitted to access will appear here.</Muted>
+            {(access !== "ready" || arrangements.data?.cards.length === 0) && (
+              <Muted>
+                {access !== "ready"
+                  ? "Cards become available after you connect your bank."
+                  : "Cards you’re permitted to access will appear here."}
+              </Muted>
             )}
             <Row
               title="Manage arrangement"

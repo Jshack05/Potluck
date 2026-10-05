@@ -32,7 +32,7 @@ export default function SignIn() {
         ...(register ? { name: name.trim() } : {}),
       }),
     );
-  if (!client.ready || client.access === "loading") return <EntryLoading />;
+  if (!client.ready) return <EntryLoading />;
   if (client.user)
     return (
       <Redirect
@@ -86,13 +86,13 @@ export default function SignIn() {
             fontSize: 13,
           }}
         >
-          1 OF 2 · YOUR ACCOUNT
+          YOUR POTLUCK ACCOUNT
         </Label>
         <Title>{register ? "A place for your people." : "Welcome back"}</Title>
         <Muted>
           {register
-            ? "Create your account, then connect your bank to get started with Potluck."
-            : "Sign in to Potluck. We'll check your bank connection before you continue."}
+            ? "Find something to share. Bring your people together."
+            : "Your people and shared plans are right here."}
         </Muted>
       </View>
       <View style={{ gap: 18, marginTop: 12 }}>
