@@ -1,6 +1,6 @@
 # Full-app capability register
 
-Snapshot: October 4, 2026, during implementation. Local records are real persisted development records. This register must be updated with final validation evidence; it is not a claim that the master plan is complete.
+Snapshot: October 4, 2026, after the local implementation and one independent review/fix pass. Local records are real persisted development records. The full master plan remains in progress; this is not a public-release or financial-program approval.
 
 | Capability | Current status | Remaining boundary |
 |---|---|---|
@@ -9,7 +9,7 @@ Snapshot: October 4, 2026, during implementation. Local records are real persist
 | Circles, invitations, separate membership | Implemented; API and browser checks | External invitation delivery |
 | Circle privacy, leave/remove, hosting transfer, archive | Implemented; transfer and independent-ownership tests | Complete UI verification |
 | Bill proposals, equal/custom shares, Fixed/Flexible maximum | Implemented; integer cents and role tests | Provider-specific variable-payment execution is separate |
-| Individual accept/decline/cancel and revised terms | Implemented; stale-consent and history tests | Provider-specific payment authorization remains separate |
+| Individual accept/decline/cancel and revised terms | Implemented; personal cap choice, current/proposed comparison, host note, stale-consent and retained-history tests | Provider-specific payment authorization remains separate |
 | Bill connection, end, month/week planning | Implemented; date tests | Payment occurrences/settlement require provider facts |
 | Card setup and connection | Implemented; no issued credential or fake balance | Approved issuer program |
 | Funding, automatic contributions and money movement | Unavailable, denied by server | Written approval, provider integration and lifecycle tests |
@@ -19,7 +19,9 @@ Snapshot: October 4, 2026, during implementation. Local records are real persist
 | Goal/Pledge variants | Inventoried, not enabled | Accepted goal/final-payment specification and net-settled provider events |
 | Brand directory, real listings, public profiles, saved items | Implemented locally | Public launch moderation and eligibility review |
 | Requests → conversations → separate Circle invitation | Implemented; API and browser review | Push/email delivery and production abuse operations |
-| Listing drafts/edit/publish/close | Implemented locally | Production media storage and verification |
+| Listing drafts/edit/publish/close | Implemented; checkpointed publish recovery and stable workflow identity | Production media storage and verification |
+| Circle/Card/Bill drafts and contextual sign-in | Implemented; per-user restoration, intent preservation and deduplicated retries | Native termination/storage testing |
+| Conversation history and failed sends | Implemented; cursor paging, preserved newer drafts and retry | Unread/delivery operations and external push |
 | Housing publication | Drafts only | Real identity-verification adapter and private media/location handling |
 | Reporting/blocking | Stored and enforced for interactions | Operational moderation owner and case handling before public launch |
 | Bill import and external account data | Not connected | Source-specific consent, provider/import specification and deduplication |
@@ -29,8 +31,18 @@ Changing a Circle connection does not grant a financial role. Circle hosting tra
 
 ## Validation checkpoint
 
-The full validation command passed formatting, both strict type checks, mobile lint, 21 backend tests, 13 mobile/model tests and iOS/Android/web exports before the final additional blocked-invitation regression. That regression also passed independently. The release gate failed on the mobile dependency audit: 30 findings (19 high, 11 moderate); backend audit found zero. Final independent review and any resulting fixes are recorded in the delivery status.
+The final functional verification covers backend formatting, both strict type checks, zero-warning mobile lint, 30 backend/domain tests, 21 mobile/model tests and iOS/Android/web JavaScript/assets exports. The full release command remains unsuccessful because the mobile audit reports **22 findings: 19 high and 3 moderate**. Backend audit: zero. A scoped compatible UUID update reduced the mobile findings from 30; no incompatible SDK downgrade or audit suppression was applied. See [review and release record](2026-10-04-local-integration-review.md) for exact evidence and rulings.
 
-Browser checks used disposable QA identities: guest category discovery, contextual sign-in, Circle invitation acceptance with private Card/Bill isolation, Circle-to-Bill creation, selecting an existing Card setup, individual agreement acceptance, and accepted-share planning at 320px. These are browser observations, not native-device or financial-program certification.
+Browser checks used disposable QA identities: guest category discovery, contextual sign-in, Circle invitation acceptance with private Card/Bill isolation, Circle-to-Bill creation, selecting an existing Card setup, individual agreement acceptance, accepted-share planning at 320px, restored Circle/Card drafts, host request acceptance into a conversation, local messages, and current/proposed Flexible terms with the previous lower personal cap preserved by default. These are browser observations, not native-device or financial-program certification.
 
 Remaining work includes the full legacy authentication/import/role screen audit, production account recovery/Apple sign-in, private media and housing verification, unread/delivery operations, provider-backed occurrences and funding, and physical-device validation. No master milestone covering these is marked complete.
+
+## Remaining local work, separate from provider approval
+
+- Complete the full legacy Figma authentication, import, role and recovery inventory; verify remaining native layouts, larger text, keyboard behavior and screen readers.
+- Complete unread/read receipts, notification routing/delivery operations and public launch moderation tools; currently messages and notifications are persisted locally and exposed in Inbox.
+- Expand specified discovery/housing fields, supported private media and operational verification; draft housing is not a claim of complete residential UX.
+- Expand API collection pagination beyond listings/message history and finish API response-contract coverage before a public-scale deployment.
+- Finish specified Bill occurrence/reminder/import workflows and their source/consent specifications. Financial execution and reconciled history separately require an approved provider.
+
+These are implementation work, not all external blockers. They remain in the master plan. The completed local continuation establishes the shared core and consent boundaries without claiming every historic Figma state is implemented.

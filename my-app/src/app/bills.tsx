@@ -17,13 +17,15 @@ import {
 import { useClient, useResource } from "@/services/client";
 import type { Bill, Collection } from "@/features/potluck/types";
 import { BillSummary } from "@/features/potluck/bill-summary";
+import {
+  visibleBills,
+  ownBillShare,
+} from "@/features/potluck/presentation-state";
 export default function Bills() {
   const { user } = useClient(),
     resource = useResource<Collection<Bill>>(user ? "/bills" : null),
     [scope, setScope] = useState<"shared" | "all">("shared");
-  const bills = resource.data?.items.filter(
-    (bill) => scope === "all" || bill.circleId || bill.cardId,
-  );
+  const bills = resource.data && visibleBills(resource.data.items, scope);
   return (
     <Shell
       title="Bills"
@@ -81,13 +83,7 @@ export default function Bills() {
             : "All your saved Bills and individual contributions"}
         </Muted>
         {bills?.map((bill) => {
-          const agreement =
-            bill.agreements.find(
-              (a) => a.participantId === user?.id && a.status === "accepted",
-            ) ??
-            bill.agreements.find(
-              (a) => a.participantId === user?.id && a.status === "offered",
-            );
+          const agreement = ownBillShare(bill, user?.id);
           return (
             <Row
               key={bill.id}
@@ -100,7 +96,7 @@ export default function Bills() {
                         ? "Your agreed share"
                         : "Review your share") +
                       " · " +
-                      bill.frequency
+                      agreement.terms.frequency
                     : "Waiting for individual acceptance"
               }
               icon="bills"

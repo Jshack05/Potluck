@@ -144,6 +144,12 @@ export function registerAuth(
   });
   app.post("/v1/sign-out", async (req) => {
     demand(req.actor, 401, "SIGN_IN_REQUIRED", "Sign in to continue.");
+    demand(
+      options.mode === "local",
+      501,
+      "AUTH_CONFIGURATION_REQUIRED",
+      "Hosted session revocation has not been configured. This session has not been revoked.",
+    );
     if (options.mode === "local")
       await db.query("DELETE FROM sessions WHERE token_hash=$1", [
         hash(req.headers.authorization!.slice(7)),

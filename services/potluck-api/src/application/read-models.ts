@@ -19,7 +19,12 @@ export async function billView(tx: Queryable, billId: string, user: string) {
   ).rows.map(api);
   const result = api(bill);
   if (!host) delete result.cardId;
-  return { ...result, role: host ? "host" : "contributor", agreements };
+  return {
+    ...result,
+    isShared: Boolean(bill.circle_id || bill.card_id),
+    role: host ? "host" : "contributor",
+    agreements,
+  };
 }
 export const conversation = async (
   tx: Queryable,

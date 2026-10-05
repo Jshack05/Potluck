@@ -166,12 +166,27 @@ export async function getConversationsDetail(
 ) {
   const user = requiredActor(context.actor),
     c = await conversation(db, context.resourceId, user);
-  const messages = (
+  const { before } = z
+    .object({ before: z.uuid().optional() })
+    .parse(context.query);
+  const cursor = before
+    ? await one(
+        db,
+        "SELECT id,created_at FROM messages WHERE id=$1 AND conversation_id=$2",
+        [before, c.id],
+      )
+    : null;
+  const rows = (
     await db.query(
-      "SELECT * FROM (SELECT m.*,u.name AS sender_name FROM messages m JOIN users u ON u.id=m.sender_id WHERE m.conversation_id=$1 ORDER BY m.created_at DESC,m.id DESC LIMIT 100) recent ORDER BY created_at,id",
-      [c.id],
+      "SELECT m.*,u.name AS sender_name FROM messages m JOIN users u ON u.id=m.sender_id WHERE m.conversation_id=$1" +
+        (cursor ? " AND (m.created_at,m.id)<($2::timestamptz,$3::uuid)" : "") +
+        " ORDER BY m.created_at DESC,m.id DESC LIMIT 51",
+      cursor ? [c.id, cursor.created_at, cursor.id] : [c.id],
     )
-  ).rows.map(api);
+  ).rows;
+  const page = rows.slice(0, 50),
+    nextBefore = rows.length > 50 ? page[page.length - 1].id : null;
+  const messages = page.reverse().map(api);
   const blocked =
     (
       await db.query(
@@ -179,7 +194,7 @@ export async function getConversationsDetail(
         [c.host_id, c.participant_id],
       )
     ).rows.length > 0;
-  return { ...api(c), messages, blocked };
+  return { ...api(c), messages, nextBefore, blocked };
 }
 export async function getSaved(db: Queryable, context: QueryContext) {
   return {

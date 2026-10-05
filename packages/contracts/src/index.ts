@@ -44,6 +44,7 @@ export const billInput = z
     allocation: z.record(id, minor).optional(),
     percentages: z.record(id, z.number().int().min(0).max(10000)).optional(),
     personalCaps: z.record(id, minor).optional(),
+    reasonForChange: z.string().trim().max(500).optional(),
   })
   .refine(
     (value) =>
@@ -86,6 +87,7 @@ export const requestInput = z.strictObject({
 export const agreementAcceptance = z.strictObject({
   termsVersion: z.number().int().positive(),
   accepted: z.literal(true),
+  personalMaximumMinor: minor.optional(),
 });
 export type Actor = {
   id: string;

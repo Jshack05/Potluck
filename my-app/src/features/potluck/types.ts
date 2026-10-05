@@ -24,6 +24,7 @@ export type Card = Item & {
   availableMinor: number | null;
 };
 export type Agreement = Item & {
+  currentAgreement?: Agreement | null;
   billId: string;
   billName?: string;
   hostName?: string;
@@ -37,10 +38,18 @@ export type Agreement = Item & {
     frequency: string;
     firstDueDate: string;
     kind: string;
-    calculation?: { kind: string; numerator: number; denominator: number };
+    calculation?: {
+      kind: string;
+      numerator: number;
+      denominator: number;
+      basis?: "equal" | "percentages" | "amounts";
+    };
+    capBehavior?: "stop_if_exceeded";
+    reasonForChange?: string;
   };
 };
 export type Bill = Item & {
+  isShared: boolean;
   connectionVersion: number;
   hostId: string;
   circleId: string | null;
@@ -87,6 +96,7 @@ export type ListingRequest = Item & {
   message: string;
 };
 export type Conversation = Item & {
+  nextBefore: string | null;
   listingId: string;
   listingTitle: string;
   hostId: string;

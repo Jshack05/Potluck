@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCreationDraft } from "@/services/creation-draft";
 import { View, Pressable } from "react-native";
 import { router, useLocalSearchParams, type Href } from "expo-router";
 import {
@@ -9,6 +9,7 @@ import {
   Field,
   Action,
   ErrorText,
+  Link,
   Label,
   theme,
 } from "@/design/system";
@@ -16,12 +17,23 @@ import { useAction, useClient, useCommand } from "@/services/client";
 import { CardPreview } from "@/features/potluck/card-preview";
 import type { Card } from "@/features/potluck/types";
 export default function CreateCard() {
+  const { user } = useClient(),
+    { circleId } = useLocalSearchParams<{ circleId?: string }>();
+  return <CardForm key={(user?.id ?? "guest") + ":" + (circleId ?? "new")} />;
+}
+function CardForm() {
   const { circleId } = useLocalSearchParams<{ circleId?: string }>(),
     { user } = useClient(),
     command = useCommand(),
     action = useAction();
-  const [name, setName] = useState(""),
-    [design, setDesign] = useState<Card["design"]>("aurora");
+  const draft = useCreationDraft<
+    { name: string; design: Card["design"] },
+    Card
+  >(user ? "potluck.draft.card." + user.id + "." + (circleId ?? "new") : null, {
+    name: "",
+    design: "aurora",
+  });
+  const { name, design } = draft.fields;
   return (
     <Shell
       title="Create card"
@@ -30,18 +42,31 @@ export default function CreateCard() {
       footer={
         user && (
           <>
-            <ErrorText text={action.error} />
+            <ErrorText text={action.error || draft.error} />
+            {!draft.ready && draft.error && (
+              <Link onPress={draft.retry}>Retry draft</Link>
+            )}
             <Action
-              label={action.busy ? "Saving…" : "Create Card setup"}
-              disabled={action.busy || !name.trim()}
+              label={
+                action.busy
+                  ? "Saving…"
+                  : draft.resuming
+                    ? "Finish Card setup"
+                    : "Create Card setup"
+              }
+              disabled={action.busy || !draft.ready || !name.trim()}
               onPress={() =>
                 action.run(async () => {
-                  const card = await command<Card>("/cards", {
-                    name,
-                    design,
-                    circleId: circleId ?? null,
-                  });
+                  const card = await draft.submit(
+                    {
+                      name,
+                      design,
+                      circleId: circleId ?? null,
+                    },
+                    (body, identity) => command<Card>("/cards", body, identity),
+                  );
                   router.replace(("/card/" + card.id) as Href);
+                  await draft.clear();
                 })
               }
             />
@@ -57,7 +82,8 @@ export default function CreateCard() {
           label="Card name"
           placeholder="e.g. Apartment card"
           value={name}
-          onChangeText={setName}
+          editable={!draft.locked}
+          onChangeText={(value) => draft.update("name", value)}
           maxLength={80}
         />
         <Title>Your card</Title>
@@ -71,7 +97,8 @@ export default function CreateCard() {
               accessibilityRole="radio"
               accessibilityState={{ checked: design === value }}
               aria-checked={design === value}
-              onPress={() => setDesign(value)}
+              disabled={draft.locked}
+              onPress={() => draft.update("design", value)}
               style={{
                 minHeight: 48,
                 borderRadius: 24,

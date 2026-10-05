@@ -12,6 +12,10 @@
 
 **Status:** Execution approved and in progress. The founder confirmed local-first development without an existing Supabase project. See `2026-10-04-local-subsystems.md` and the capability register for implementation evidence and outstanding gates. This document does not establish provider approval or replace legal/program review.
 
+## Local execution checkpoint — October 4
+
+The reviewed local continuation now connects shared identity, Circles and invitations, Bill proposals/individual consent, unissued Card setup, and Splitfinder publishing/requests/conversations. See [capability register](../../architecture/full-app-capabilities.md) and [review record](../../architecture/2026-10-04-local-integration-review.md). The coordinating milestones below deliberately remain open where their complete acceptance criteria include unimplemented local work, hosted/native validation or external provider approval. A local implementation is not completion of every milestone.
+
 ## Global Constraints
 
 - Main navigation: **Circles · Cards · Bills · Splitfinder**. Circles is the signed-in default; guest discovery and invitation links retain their intended destination.

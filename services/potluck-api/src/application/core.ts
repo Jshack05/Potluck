@@ -187,6 +187,7 @@ export async function createBill(
     );
   }
   for (const person of input.participants) {
+    if (person !== user) await unblocked(tx, user, person);
     await one(tx, "SELECT id FROM users WHERE id=$1 AND NOT disabled", [
       person,
     ]);
@@ -228,6 +229,7 @@ export async function createBill(
       firstDueDate: input.firstDueDate,
       kind: input.kind,
       fundingAuthorization: "none",
+      capBehavior: "stop_if_exceeded",
     };
     const agreementId = uuid();
     await tx.query(
@@ -273,14 +275,28 @@ export async function acceptAgreement(
     "UPDATE agreements SET status='superseded' WHERE bill_id=$1 AND participant_id=$2 AND status='accepted'",
     [agreement.bill_id, user],
   );
+  const maximum = input.personalMaximumMinor ?? agreement.maximum_minor;
+  demand(
+    maximum <= agreement.maximum_minor &&
+      (agreement.terms.kind === "flexible" ||
+        maximum === agreement.maximum_minor),
+    400,
+    "INVALID_CAP",
+    "Choose a maximum within the proposed terms. Fixed shares cannot be changed here.",
+  );
+  const terms = {
+    ...agreement.terms,
+    maximumMinor: maximum,
+    proposedMaximumMinor: agreement.maximum_minor,
+  };
   const result = await one(
     tx,
-    "UPDATE agreements SET status='accepted',accepted_at=now() WHERE id=$1 RETURNING *",
-    [agreement.id],
+    "UPDATE agreements SET status='accepted',accepted_at=now(),maximum_minor=$2,terms=$3 WHERE id=$1 RETURNING *",
+    [agreement.id, maximum, JSON.stringify(terms)],
   );
   await audit(tx, user, "agreement.accepted", agreement.id, context.requestId, {
     termsVersion: input.termsVersion,
-    terms: agreement.terms,
+    terms,
   });
   return api(result);
 }

@@ -11,6 +11,7 @@ import {
   notify,
   one,
   uuid,
+  unblocked,
 } from "../lib.ts";
 import type { CommandContext, Queryable, Row } from "./ports.ts";
 const acknowledged = versionInput.extend({ acknowledged: z.literal(true) });
@@ -19,8 +20,11 @@ export async function reviseBill(
   user: string,
   context: CommandContext,
 ): Promise<Row> {
-  const { expectedVersion, ...fields } = z
-      .object({ expectedVersion: z.number().int().positive() })
+  const { expectedVersion, expectedConnectionVersion, ...fields } = z
+      .object({
+        expectedVersion: z.number().int().positive(),
+        expectedConnectionVersion: z.number().int().positive(),
+      })
       .passthrough()
       .parse(context.body),
     v = billInput.parse(fields);
@@ -35,6 +39,12 @@ export async function reviseBill(
     "BILL_CHANGED",
     "Review the latest Bill before changing its terms.",
   );
+  demand(
+    bill.connection_version === expectedConnectionVersion,
+    409,
+    "CONNECTION_CHANGED",
+    "Review the current Bill connection before changing its terms.",
+  );
   await attachable(tx, v.circleId, user);
   if (v.cardId)
     await one(
@@ -43,6 +53,7 @@ export async function reviseBill(
       [v.cardId, user],
     );
   for (const person of v.participants) {
+    if (person !== user) await unblocked(tx, user, person);
     await one(tx, "SELECT id FROM users WHERE id=$1 AND NOT disabled", [
       person,
     ]);
@@ -67,7 +78,7 @@ export async function reviseBill(
   const { allocation, caps, calculations } = proposal;
   const result = await one(
     tx,
-    "UPDATE bills SET name=$1,circle_id=$2,card_id=$3,kind=$4,amount_minor=$5,maximum_minor=$6,frequency=$7,first_due_date=$8,version=version+1 WHERE id=$9 RETURNING *",
+    "UPDATE bills SET name=$1,circle_id=$2,card_id=$3,kind=$4,amount_minor=$5,maximum_minor=$6,frequency=$7,first_due_date=$8,version=version+1,connection_version=connection_version+CASE WHEN circle_id IS DISTINCT FROM $2::uuid OR card_id IS DISTINCT FROM $3::uuid THEN 1 ELSE 0 END WHERE id=$9 RETURNING *",
     [
       v.name,
       v.circleId,
@@ -95,6 +106,8 @@ export async function reviseBill(
       firstDueDate: v.firstDueDate,
       kind: v.kind,
       fundingAuthorization: "none",
+      capBehavior: "stop_if_exceeded",
+      ...(v.reasonForChange ? { reasonForChange: v.reasonForChange } : {}),
     };
     const aid = uuid();
     await tx.query(

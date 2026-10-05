@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useCreationDraft } from "@/services/creation-draft";
+import { creationPath } from "@/services/navigation";
 import { View, Switch } from "react-native";
 import { router, type Href, useLocalSearchParams } from "expo-router";
 import {
@@ -10,21 +11,36 @@ import {
   Muted,
   Action,
   ErrorText,
+  Link,
   styles,
   theme,
 } from "@/design/system";
 import { useAction, useClient, useCommand } from "@/services/client";
 import type { Circle } from "@/features/potluck/types";
 export default function CreateCircle() {
+  const { user } = useClient(),
+    { conversationId } = useLocalSearchParams<{ conversationId?: string }>();
+  return (
+    <CircleForm key={(user?.id ?? "guest") + ":" + (conversationId ?? "new")} />
+  );
+}
+function CircleForm() {
   const { conversationId } = useLocalSearchParams<{
     conversationId?: string;
   }>();
   const { user } = useClient(),
     command = useCommand(),
     action = useAction();
-  const [name, setName] = useState(""),
-    [description, setDescription] = useState(""),
-    [anonymous, setAnonymous] = useState(false);
+  const draft = useCreationDraft<
+    { name: string; description: string; anonymous: boolean },
+    Circle
+  >(
+    user
+      ? "potluck.draft.circle." + user.id + "." + (conversationId ?? "new")
+      : null,
+    { name: "", description: "", anonymous: false },
+  );
+  const { name, description, anonymous } = draft.fields;
   return (
     <Shell
       title="Create Circle"
@@ -32,23 +48,37 @@ export default function CreateCircle() {
       footer={
         user && (
           <>
-            <ErrorText text={action.error} />
+            <ErrorText text={action.error || draft.error} />
+            {!draft.ready && draft.error && (
+              <Link onPress={draft.retry}>Retry draft</Link>
+            )}
             <Action
-              label={action.busy ? "Creating…" : "Create Circle"}
-              disabled={action.busy || !name.trim()}
+              label={
+                action.busy
+                  ? "Creating…"
+                  : draft.resuming
+                    ? "Finish creating Circle"
+                    : "Create Circle"
+              }
+              disabled={action.busy || !draft.ready || !name.trim()}
               onPress={() =>
                 action.run(async () => {
-                  const circle = await command<Circle>("/circles", {
-                    name,
-                    description,
-                    privacy: anonymous ? "anonymous" : "normal",
-                  });
+                  const circle = await draft.submit(
+                    {
+                      name,
+                      description,
+                      privacy: anonymous ? "anonymous" : "normal",
+                    },
+                    (body, identity) =>
+                      command<Circle>("/circles", body, identity),
+                  );
                   router.replace(
                     (conversationId
                       ? "/conversation/" + conversationId
                       : " /circle/" + circle.id
                     ).trim() as Href,
                   );
+                  await draft.clear();
                 })
               }
             />
@@ -56,7 +86,7 @@ export default function CreateCircle() {
         )
       }
     >
-      <AuthGate returnTo="/create/circle">
+      <AuthGate returnTo={creationPath("/create/circle", { conversationId })}>
         <View style={{ alignItems: "center", paddingVertical: 22 }}>
           <Avatar name={name || "C"} size={88} />
         </View>
@@ -64,14 +94,16 @@ export default function CreateCircle() {
           label="Circle name"
           placeholder="e.g. Apartment crew"
           value={name}
-          onChangeText={setName}
+          editable={!draft.locked}
+          onChangeText={(value) => draft.update("name", value)}
           maxLength={80}
         />
         <Field
           label="What brings you together? (optional)"
           placeholder="A few words about your Circle"
           value={description}
-          onChangeText={setDescription}
+          editable={!draft.locked}
+          onChangeText={(value) => draft.update("description", value)}
           maxLength={400}
         />
         <Title>Privacy</Title>
@@ -83,7 +115,8 @@ export default function CreateCircle() {
           <Switch
             accessibilityLabel="Anonymous Circle"
             value={anonymous}
-            onValueChange={setAnonymous}
+            disabled={draft.locked}
+            onValueChange={(value) => draft.update("anonymous", value)}
             trackColor={{ true: theme.teal }}
           />
         </View>

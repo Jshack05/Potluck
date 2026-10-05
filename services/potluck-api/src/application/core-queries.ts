@@ -103,11 +103,18 @@ export async function getAgreementsDetail(
   context: QueryContext,
 ) {
   const user = requiredActor(context.actor);
-  return api(
+  const agreement = api(
     await one(
       db,
       "SELECT a.*,b.name AS bill_name,u.name AS host_name FROM agreements a JOIN bills b ON b.id=a.bill_id JOIN users u ON u.id=b.host_id WHERE a.id=$1 AND a.participant_id=$2",
       [context.resourceId, user],
     ),
   );
+  const current = (
+    await db.query(
+      "SELECT * FROM agreements WHERE bill_id=$1 AND participant_id=$2 AND status='accepted' AND id!=$3 ORDER BY terms_version DESC LIMIT 1",
+      [agreement.billId, user, agreement.id],
+    )
+  ).rows[0];
+  return { ...agreement, currentAgreement: current ? api(current) : null };
 }

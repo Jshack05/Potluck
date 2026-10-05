@@ -1,4 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { creationPath } from "@/services/navigation";
+import * as Crypto from "expo-crypto";
+import {
+  runListingWorkflow,
+  type ListingWorkflow,
+} from "@/services/listing-workflow";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View } from "react-native";
 import { useLocalSearchParams, router, type Href } from "expo-router";
@@ -37,9 +43,7 @@ export default function CreateListing() {
   if (!user || (params.id && !existing.data))
     return (
       <Shell title="Create listing" back blue>
-        <AuthGate
-          returnTo={"/create/listing" + (params.id ? "?id=" + params.id : "")}
-        >
+        <AuthGate returnTo={creationPath("/create/listing", params)}>
           <ResourceState {...existing} retry={existing.reload} />
         </AuthGate>
       </Shell>
@@ -105,41 +109,47 @@ function ListingEditor({
   const [form, setForm] = useState(initial),
     [step, setStep] = useState(0),
     [loaded, setLoaded] = useState(false),
-    [saved, setSaved] = useState<Listing | null>(original);
+    [attempt, setAttempt] = useState(0);
+  const workflow = useRef<ListingWorkflow<Listing>>({
+      workflowId: Crypto.randomUUID(),
+      listing: original,
+      savedBody: null,
+      phase: "editing",
+      pending: null,
+    }),
+    completed = useRef(false);
   const draftKey = user
     ? "potluck.draft.listing." + user.id + "." + (params.id ?? "new")
     : null;
   useEffect(() => {
     let active = true;
     if (!draftKey) return;
-    void AsyncStorage.getItem(draftKey)
-      .then((value) => {
-        if (active && value) {
-          try {
-            const draft = JSON.parse(value);
-            setForm({ ...initial, ...draft });
-          } catch {
-            setError("The saved draft could not be restored.");
-          }
-        }
+    void Promise.all([
+      AsyncStorage.getItem(draftKey),
+      AsyncStorage.getItem(draftKey + ".workflow"),
+    ])
+      .then(([value, storedWorkflow]) => {
+        if (!active) return;
+        if (value) setForm({ ...initial, ...JSON.parse(value) });
+        if (storedWorkflow) workflow.current = JSON.parse(storedWorkflow);
+        setError("");
+        setLoaded(true);
       })
       .catch(() => {
         if (active)
           setError(
-            "Draft storage is unavailable. Keep this screen open while editing.",
+            "Your draft could not be restored. Retry before continuing.",
           );
-      })
-      .finally(() => {
-        if (active) setLoaded(true);
       });
     return () => {
       active = false;
     };
-  }, [draftKey, initial, setError]);
+  }, [draftKey, initial, setError, attempt]);
   useEffect(() => {
-    if (!draftKey || !loaded) return;
+    if (!draftKey || !loaded || completed.current) return;
     const timer = setTimeout(
       () =>
+        !completed.current &&
         void AsyncStorage.setItem(draftKey, JSON.stringify(form)).catch(() =>
           setError("This draft could not be saved on your device."),
         ),
@@ -166,19 +176,24 @@ function ListingEditor({
   async function save(publish: boolean) {
     await act.run(async () => {
       const data = body();
-      let listing = await command<Listing>(
-        saved ? "/listings/" + saved.id + "/edit" : "/listings",
-        saved ? { ...data, expectedVersion: saved.version } : data,
+      if (!draftKey || !loaded)
+        throw new Error("Restore the saved draft first.");
+      await AsyncStorage.setItem(draftKey, JSON.stringify(form));
+      const listing = await runListingWorkflow(
+        workflow.current,
+        data,
+        publish,
+        (path, payload, identity) => command<Listing>(path, payload, identity),
+        async (state) => {
+          await AsyncStorage.setItem(
+            draftKey + ".workflow",
+            JSON.stringify(state),
+          );
+          workflow.current = state;
+        },
       );
-      setSaved(listing);
-      if (publish) {
-        listing = await command<Listing>(
-          "/listings/" + listing.id + "/publish",
-          { expectedVersion: listing.version },
-        );
-        setSaved(listing);
-      }
-      if (draftKey) await AsyncStorage.removeItem(draftKey);
+      completed.current = true;
+      await AsyncStorage.multiRemove([draftKey, draftKey + ".workflow"]);
       router.replace(("/my-listings?updated=" + listing.id) as Href);
     });
   }
@@ -192,6 +207,9 @@ function ListingEditor({
         user ? (
           <>
             <ErrorText text={act.error} />
+            {!loaded && act.error && (
+              <Link onPress={() => setAttempt((n) => n + 1)}>Retry draft</Link>
+            )}
             {step > 0 && (
               <Link onPress={() => setStep(step - 1)}>Previous step</Link>
             )}
@@ -207,7 +225,9 @@ function ListingEditor({
               onPress={() => (step < 3 ? setStep(step + 1) : save(true))}
             />
             {step === 3 && (
-              <Link onPress={() => save(false)}>Save as draft</Link>
+              <Link onPress={() => !act.busy && loaded && save(false)}>
+                Save as draft
+              </Link>
             )}
           </>
         ) : undefined

@@ -1,3 +1,14 @@
+export function creationPath(
+  path: "/create/circle" | "/create/card" | "/create/bill" | "/create/listing",
+  params: Record<string, string | undefined>,
+): string {
+  const query = new URLSearchParams(
+    Object.entries(params).filter(
+      (entry): entry is [string, string] => typeof entry[1] === "string",
+    ),
+  );
+  return path + (query.size ? "?" + query.toString() : "");
+}
 export function safeReturnTo(value: unknown): string {
   if (
     typeof value !== "string" ||

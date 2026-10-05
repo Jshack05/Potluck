@@ -16,7 +16,7 @@ For a physical development device, configure `EXPO_PUBLIC_API_URL` to this compu
 
 - A Circle invitation grants Circle membership only.
 - A listing acceptance opens a conversation only. Sending a Circle invitation is a separate action.
-- A Bill offer records the exact amount, maximum and schedule for individual acceptance. Accepting it does not authorize a bank debit. Changed offers do not replace previously accepted terms until accepted.
+- A Bill offer records the exact amount, maximum and schedule for individual acceptance. Contributors can choose a lower personal cap; a revised review defaults to the lower existing cap. An exceeded cap means no contribution, not a partial payment. Accepting terms does not authorize a bank debit. Changed offers do not replace previously accepted terms until accepted.
 - A Card is a saved setup shell, not an issued card. There is no synthetic available balance, credential, transfer, payment or settlement.
 - Local email/password identities are development identities. Hosted authentication, verification, delivery and financial providers require separate configuration and validation. Local invitations and notifications appear in Inbox; no email or push delivery is claimed.
 - Housing drafts remain private until a supported verification flow is connected. Brand marks identify community listings and do not establish a partnership or sharing eligibility.
@@ -26,6 +26,10 @@ For a physical development device, configure `EXPO_PUBLIC_API_URL` to this compu
 Versioned SQL migrations run transactionally on startup. PGlite supplies local PostgreSQL semantics; the deployment adapter uses `pg`. Production mode refuses local identity and an in-process database. The `potluck` schema is private and public privileges are revoked. Before hosting, provision separate migration and least-privilege application roles, private network access, encrypted storage, backups and monitoring. Do not expose this schema through a public data API.
 
 Stop the local API before backing up its complete `.local/potluck-db` directory. Restore into a separate directory and set `DATABASE_URL` to that directory path. The restart integration test validates persisted records and sessions across reopen; it does not certify a hosted backup system. Do not delete or rewrite existing migration history. Add a forward corrective migration if needed; retain audit and financial history.
+
+Migration `0005_contributor_caps.sql` allows a contributor’s Flexible Bill cap to be below the planning estimate while retaining the Fixed Bill invariant. It rewrites no records. Reverting that constraint would reject valid accepted terms: keep the forward migration and disable new acceptance in a rollback, preserving existing records. Terms revisions now require both terms and connection versions; old clients may read but must update before revising.
+
+Circle/Card/Bill/listing drafts are stored per user on the device. Interrupted creations and listing publication retain their command identity and acknowledged resource before continuing. Clearing browser/app storage removes local drafts; it does not delete server records. Hosted sign-out explicitly reports an unconfigured-revocation error instead of claiming a session was revoked.
 
 ## Release boundaries
 

@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect, useCallback } from "react";
+import { draftAfterSend } from "@/features/potluck/presentation-state";
 import { View, Pressable } from "react-native";
 import { useLocalSearchParams, useFocusEffect } from "expo-router";
 import {
@@ -29,6 +30,7 @@ import type {
   Conversation,
   Collection,
   Circle,
+  Message,
 } from "@/features/potluck/types";
 export default function ConversationScreen() {
   const { id } = useLocalSearchParams<{ id: string }>(),
@@ -37,11 +39,32 @@ export default function ConversationScreen() {
 }
 function ConversationEditor() {
   const { id } = useLocalSearchParams<{ id: string }>(),
-    { user } = useClient(),
+    { user, get } = useClient(),
     thread = useResource<Conversation>(user ? "/conversations/" + id : null),
     circles = useResource<Collection<Circle>>(user ? "/circles" : null),
     act = useAction(),
     command = useCommand();
+  const paging = useAction();
+  const [history, setHistory] = useState<Message[]>([]),
+    [before, setBefore] = useState<string | null | undefined>(undefined);
+  function merge(left: Message[], right: Message[]) {
+    return [
+      ...new Map(
+        [...left, ...right].map((message) => [message.id, message]),
+      ).values(),
+    ].sort(
+      (a, b) =>
+        a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id),
+    );
+  }
+  const [previousMessages, setPreviousMessages] = useState<
+    Message[] | undefined
+  >();
+  if (thread.data && previousMessages !== thread.data.messages) {
+    setPreviousMessages(thread.data.messages);
+    setHistory((current) => merge(current, thread.data!.messages));
+  }
+  const olderCursor = before === undefined ? thread.data?.nextBefore : before;
   const [text, setText] = useState(""),
     [failed, setFailed] = useState<string | null>(null),
     [actions, setActions] = useState(false),
@@ -103,13 +126,13 @@ function ConversationEditor() {
     await act.run(async () => {
       try {
         await command("/conversations/" + id + "/messages", { text: value });
-        setText("");
+        setText((current) => draftAfterSend(current, value));
         setFailed(null);
         setActions(false);
         await thread.reload();
       } catch (e) {
         setFailed(value);
-        setText("");
+        setText((current) => draftAfterSend(current, value));
         throw e;
       }
     });
@@ -163,7 +186,23 @@ function ConversationEditor() {
               Say hello and discuss the arrangement. You each decide whether to
               continue.
             </Muted>
-            {c.messages.map((m) => (
+            <ErrorText text={paging.error} />
+            {olderCursor && (
+              <Link
+                onPress={() =>
+                  paging.run(async () => {
+                    const page = await get<Conversation>(
+                      "/conversations/" + id + "?before=" + olderCursor,
+                    );
+                    setHistory((current) => merge(page.messages, current));
+                    setBefore(page.nextBefore);
+                  })
+                }
+              >
+                {paging.busy ? "Loading earlier messages…" : "Earlier messages"}
+              </Link>
+            )}
+            {merge(history, c.messages).map((m) => (
               <View
                 key={m.id}
                 style={{

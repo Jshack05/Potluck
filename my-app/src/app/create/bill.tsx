@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { creationPath } from "@/services/navigation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Crypto from "expo-crypto";
 import { proposalShares } from "@potluck/domain/money";
@@ -103,7 +104,7 @@ function BillEditor({ original }: { original: Bill | null }) {
   if (!user || loaded?.key !== draftKey)
     return (
       <Shell title="Create Bill" back active="Bills">
-        <AuthGate returnTo="/create/bill">
+        <AuthGate returnTo={creationPath("/create/bill", params)}>
           <ResourceState
             loading={!error}
             error={error}
@@ -135,6 +136,7 @@ function BillForm({
     command = useCommand(),
     action = useAction();
   const [step, setStep] = useState<number>(draft?.step ?? 0),
+    [reason, setReason] = useState<string>(draft?.reason ?? ""),
     [name, setName] = useState<string>(draft?.name ?? original?.name ?? ""),
     [amount, setAmount] = useState<string>(
       draft?.amount ?? (original ? String(original.amountMinor / 100) : ""),
@@ -168,7 +170,13 @@ function BillForm({
               .map((a) => a.participantId)
           : null),
     ),
-    [equal, setEqual] = useState<boolean>(draft?.equal ?? !original),
+    [equal, setEqual] = useState<boolean>(
+      draft?.equal ??
+        (!original ||
+          original.agreements
+            .filter((a) => a.termsVersion === original.version)
+            .every((a) => a.terms.calculation?.basis === "equal")),
+    ),
     [custom, setCustom] = useState<Record<string, string>>(
       draft?.custom ??
         Object.fromEntries(
@@ -205,6 +213,7 @@ function BillForm({
         ),
     );
   const snapshot = {
+    reason,
     step,
     name,
     amount,
@@ -323,7 +332,12 @@ function BillForm({
       const bill = await command<Bill>(
         original ? "/bills/" + original.id + "/revise" : "/bills",
         {
-          ...(original ? { expectedVersion: original.version } : {}),
+          ...(original
+            ? {
+                expectedVersion: original.version,
+                expectedConnectionVersion: original.connectionVersion,
+              }
+            : {}),
           name,
           kind,
           amountMinor: moneyInput(amount),
@@ -333,9 +347,14 @@ function BillForm({
           circleId,
           cardId: fundingCard,
           participants: selected,
-          ...(!equal && unit === "percent"
-            ? { percentages: percentages() }
-            : { allocation: allocation() }),
+          ...(original && reason.trim()
+            ? { reasonForChange: reason.trim() }
+            : {}),
+          ...(equal
+            ? {}
+            : unit === "percent"
+              ? { percentages: percentages() }
+              : { allocation: allocation() }),
           ...(kind === "flexible" ? { personalCaps: proposal().caps } : {}),
         },
         workflowId,
@@ -661,6 +680,16 @@ function BillForm({
         {step === 3 && (
           <>
             <Title>Review the proposal</Title>
+            {original && (
+              <Field
+                label="Reason for the change (optional)"
+                value={reason}
+                onChangeText={setReason}
+                multiline
+                maxLength={500}
+                placeholder="Explain the change in your own words"
+              />
+            )}
             <Label
               style={{
                 fontSize: 40,

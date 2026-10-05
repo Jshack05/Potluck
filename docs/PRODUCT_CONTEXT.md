@@ -4,6 +4,8 @@
 
 The founder confirmed there is no existing Supabase project and requested local-first development of the approved Circles, Cards, Bills and Splitfinder integration. Development accounts and persistent local PostgreSQL-compatible records are permitted; this is not verified production identity, financial approval, hosted deployment or launch. Card creation saves an unissued setup shell. Accepting Bill terms does not authorize a bank debit. The intended consumer funding/issuer model remains conditional on written program approval. See [local development](LOCAL_DEVELOPMENT.md) and the [capability register](architecture/full-app-capabilities.md) for current implementation limits.
 
+The local implementation preserves consent through later revisions: equal Flexible Bill ratios do not derive from rounded estimates; contributors choose personal hard caps and retain their lower current cap as the default when reviewing changed terms. Exceeding a cap means no contribution, never a partial debit. Current and proposed terms remain distinguishable, and the host may provide a note. Blocking prevents new invitations and Bill proposals without removing access to existing agreements or cancellation. These behaviors implement the established Bills rules; they do not enable collection.
+
 
 ## October 4, 2026 — Full Potluck integration planning scope
 

@@ -103,9 +103,20 @@ export function proposalShares(input: ShareProposal) {
     : (input.allocation ?? splitEqually(input.amountMinor, ids));
   if (!matches(allocation)) throw new Error("Set a share for every person");
   validateAllocation(input.amountMinor, allocation);
+  // An equal split remains equal at every occurrence. A rounded estimate is
+  // an output, never the ratio used to calculate future shares.
+  const weights =
+    input.percentages ??
+    input.allocation ??
+    Object.fromEntries(ids.map((id) => [id, 1]));
+  const denominator = input.percentages
+    ? 10000
+    : input.allocation
+      ? input.amountMinor
+      : ids.length;
   const defaults =
     input.kind === "flexible"
-      ? allocateRatio(input.maximumMinor!, input.percentages ?? allocation)
+      ? allocateRatio(input.maximumMinor!, weights)
       : allocation;
   if (input.personalCaps && !matches(input.personalCaps))
     throw new Error("Set a maximum for every person");
@@ -134,8 +145,13 @@ export function proposalShares(input: ShareProposal) {
         id,
         {
           kind: input.kind === "flexible" ? "proportional" : "fixed",
-          numerator: input.percentages?.[id] ?? allocation[id],
-          denominator: input.percentages ? 10000 : input.amountMinor,
+          basis: input.percentages
+            ? "percentages"
+            : input.allocation
+              ? "amounts"
+              : "equal",
+          numerator: weights[id],
+          denominator,
         },
       ]),
     ),

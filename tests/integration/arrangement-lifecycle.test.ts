@@ -55,6 +55,7 @@ test("revised terms never replace consent until accepted; leaving Circle preserv
       ...body,
       amountMinor: 12000,
       expectedVersion: 1,
+      expectedConnectionVersion: 1,
     });
     assert.equal(revised.statusCode, 200, revised.body);
     const next = revised
@@ -71,6 +72,7 @@ test("revised terms never replace consent until accepted; leaving Circle preserv
         await call(p, "/bills/" + bill.id + "/revise", {
           ...body,
           expectedVersion: 2,
+          expectedConnectionVersion: 1,
         })
       ).statusCode,
       404,
