@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { createApp } from "../../services/potluck-api/src/app.ts";
+import { createApp } from "./completed-onboarding.fixture.ts";
 
 test("two local accounts connect Circle, Bill and Card without implied financial permissions", async () => {
   const app = await createApp({ database: ":memory:", mode: "local" });

@@ -1,5 +1,15 @@
 # Full-app capability register
 
+## October 5 correction
+
+Full-app entry is now **account → bank → app**. The shared generic guest screens have been removed; authentication and bank setup use Figma source elements with bottom actions and no app tabs. Core Inbox uses its own teal asset. This does not establish full Figma parity for the remaining screens.
+
+The API independently requires sign-in and actor-bound provider confirmation for protected app routes. Its current provider adapter is unavailable, so local accounts stop at bank setup. The tests supply provider fixtures only inside the test process. No bank link, verification, debit permission or card activation is fabricated. The earlier capability/validation snapshot below is historical; native installation and real bank linking remain unverified.
+
+October 5 verification: backend formatting, both strict type checks, mobile lint, **32 backend/domain tests and 24 mobile/model tests**, and iOS/Android/web JavaScript/assets exports passed. The full `npm run validate` command still exits unsuccessfully because of the existing **22 mobile dependency findings (19 high, 3 moderate)**; backend audit reports zero. No dependencies were added or audits suppressed by this correction.
+
+Browser QA confirmed Bills deep-link preservation through sign-in and bank setup, unavailable-bank retry, sign-out, and scrollable account fields with bottom actions at 430×932, 320×760 and 320×600. These dimensions are browser checks, not physical keyboard/device verification. Independent review identified and rechecked an expired-session recovery fix: a confirmed 401 clears identity, while network failures do not masquerade as session revocation. The review approved this correction's scope; the broader Figma alignment, signed phone build and provider integration remain unfinished.
+
 Snapshot: October 4, 2026, after the local implementation and one independent review/fix pass. Local records are real persisted development records. The full master plan remains in progress; this is not a public-release or financial-program approval.
 
 | Capability | Current status | Remaining boundary |

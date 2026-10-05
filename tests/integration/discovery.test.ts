@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { createApp } from "../../services/potluck-api/src/app.ts";
+import { createApp } from "./completed-onboarding.fixture.ts";
 
 test("listing acceptance opens a conversation, then a separately accepted Circle invitation", async () => {
   const app = await createApp({ database: ":memory:", mode: "local" });
@@ -57,7 +57,7 @@ test("listing acceptance opens a conversation, then a separately accepted Circle
       ).statusCode,
       200,
     );
-    const brands = (await app.inject("/v1/brands?q=Net")).json().items;
+    const brands = (await call(b, "GET", "/v1/brands?q=Net")).json().items;
     assert.deepEqual(
       brands.map((x: any) => x.name),
       ["Netflix"],
@@ -187,7 +187,10 @@ test("housing publication preserves draft while verification is unavailable", as
     });
     assert.equal(result.statusCode, 200, result.body);
     assert.equal(result.json().status, "verification_required");
-    assert.equal((await app.inject("/v1/listings")).json().items.length, 0);
+    assert.equal(
+      (await app.inject({ url: "/v1/listings", headers })).json().items.length,
+      0,
+    );
     assert.equal(
       (await app.inject({ url: "/v1/my-listings", headers })).json().items
         .length,

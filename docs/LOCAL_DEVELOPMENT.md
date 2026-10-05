@@ -1,5 +1,13 @@
 # Full Potluck: local development
 
+## October 5 entry policy
+
+The full-app build now requires sign-in and bank confirmation before its four tabs. Opening a protected route preserves its destination through account entry. The local API has no bank provider configured: it returns `bank_required` / `unavailable`, and denies protected app data and mutations with `BANK_CONNECTION_REQUIRED`. It never reports a fixture bank as real or enables financial capabilities.
+
+Existing integration tests explicitly inject a confirmed-provider fixture as the setup precondition for their unchanged business assertions. Separate entry tests use the actual default adapter, failures and invalid evidence. No runtime flag, development button or client callback bypasses the bank requirement. The prior browser QA described below predates this new prerequisite. Real linking, verified provider proof persistence/reconciliation, and the new signed iPhone build remain unfinished.
+
+No migration or data deletion is part of this change. Reverting its code restores the prior entry policy without erasing local records. Before enabling a provider, durably separate completed onboarding from current bank health and preserve essential agreement cancellation/dispute access.
+
 This branch connects the existing Expo app to a persistent local Potluck API. It is a development environment, not an activated financial program or public release.
 
 ## Start

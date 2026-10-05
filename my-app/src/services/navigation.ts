@@ -27,3 +27,43 @@ export function safeReturnTo(value: unknown): string {
     return "/circles";
   return url.pathname + url.search;
 }
+
+export type EntryAccess =
+  "loading" | "signed_out" | "bank_required" | "ready" | "error";
+export type EntryStatus =
+  | { access: "ready"; bankConnection: "confirmed" }
+  | {
+      access: "bank_required";
+      bankConnection: "unavailable" | "not_connected";
+    };
+
+export function parseEntryStatus(value: unknown): EntryStatus {
+  if (
+    value &&
+    typeof value === "object" &&
+    "access" in value &&
+    "bankConnection" in value
+  ) {
+    if (value.access === "ready" && value.bankConnection === "confirmed")
+      return { access: "ready", bankConnection: "confirmed" };
+    if (
+      value.access === "bank_required" &&
+      (value.bankConnection === "unavailable" ||
+        value.bankConnection === "not_connected")
+    )
+      return { access: "bank_required", bankConnection: value.bankConnection };
+  }
+  throw new Error("We couldn't confirm your account setup. Please try again.");
+}
+
+export function entryDestination(
+  access: EntryAccess,
+  destination: unknown,
+): string | null {
+  if (access === "ready" || access === "loading") return null;
+  return (
+    (access === "signed_out" ? "/sign-in" : "/connect-bank") +
+    "?returnTo=" +
+    encodeURIComponent(safeReturnTo(destination))
+  );
+}

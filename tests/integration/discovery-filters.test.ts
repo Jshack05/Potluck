@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createApp } from "../../services/potluck-api/src/app.ts";
+import { createApp } from "./completed-onboarding.fixture.ts";
 test("brand directory filters by category, service type and price without suggesting plan names", async () => {
   const app = await createApp({ mode: "local", database: ":memory:" });
   try {
@@ -45,17 +45,32 @@ test("brand directory filters by category, service type and price without sugges
       });
     }
     assert.deepEqual(
-      (await app.inject("/v1/brands?category=subscriptions&serviceKind=music"))
+      (
+        await app.inject({
+          url: "/v1/brands?category=subscriptions&serviceKind=music",
+          headers: { authorization: "Bearer " + a.token },
+        })
+      )
         .json()
         .items.map((x: any) => x.name),
       ["Spotify"],
     );
     assert.equal(
-      (await app.inject("/v1/brands?category=plans")).json().items.length,
+      (
+        await app.inject({
+          url: "/v1/brands?category=plans",
+          headers: { authorization: "Bearer " + a.token },
+        })
+      ).json().items.length,
       0,
     );
     assert.deepEqual(
-      (await app.inject("/v1/brands?maxMinor=700"))
+      (
+        await app.inject({
+          url: "/v1/brands?maxMinor=700",
+          headers: { authorization: "Bearer " + a.token },
+        })
+      )
         .json()
         .items.map((x: any) => x.name),
       ["Spotify"],

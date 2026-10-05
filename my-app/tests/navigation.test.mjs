@@ -1,6 +1,39 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { safeReturnTo, creationPath } from "../src/services/navigation.ts";
+import {
+  safeReturnTo,
+  creationPath,
+  entryDestination,
+  parseEntryStatus,
+} from "../src/services/navigation.ts";
+test("every full-app destination requires sign-in then bank confirmation and retains its intent", () => {
+  const destination = "/create/bill?circleId=invite-context";
+  assert.equal(
+    entryDestination("signed_out", destination),
+    "/sign-in?returnTo=" + encodeURIComponent(destination),
+  );
+  assert.equal(
+    entryDestination("bank_required", destination),
+    "/connect-bank?returnTo=" + encodeURIComponent(destination),
+  );
+  assert.equal(
+    entryDestination("error", destination),
+    "/connect-bank?returnTo=" + encodeURIComponent(destination),
+  );
+  assert.equal(entryDestination("ready", destination), null);
+  assert.equal(
+    entryDestination("signed_out", "https://evil.test"),
+    "/sign-in?returnTo=%2Fcircles",
+  );
+  assert.deepEqual(
+    parseEntryStatus({ access: "ready", bankConnection: "confirmed" }),
+    { access: "ready", bankConnection: "confirmed" },
+  );
+  assert.throws(() =>
+    parseEntryStatus({ access: "ready", bankConnection: "unavailable" }),
+  );
+  assert.throws(() => parseEntryStatus({ access: "ready" }));
+});
 test("creation context survives contextual registration with encoded values", () => {
   const destination = creationPath("/create/listing", {
     brand: "A & B",

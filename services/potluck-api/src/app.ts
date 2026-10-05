@@ -11,8 +11,13 @@ import { AppError, demand, hash, uuid } from "./lib.ts";
 import { registerCircleAdministration } from "./modules/circle-administration.ts";
 import { registerDiscovery } from "./modules/discovery.ts";
 import { registerLifecycle } from "./modules/lifecycle.ts";
+import { registerOnboarding, type BankOnboardingReader } from "./onboarding.ts";
 
-export type Options = AuthOptions & { database: string; origins?: string[] };
+export type Options = AuthOptions & {
+  database: string;
+  origins?: string[];
+  bankOnboarding?: BankOnboardingReader;
+};
 export async function createApp(options: Options) {
   demand(
     options.mode === "local" ||
@@ -42,6 +47,7 @@ export async function createApp(options: Options) {
   });
   await app.register(rateLimit, { max: 120, timeWindow: "1 minute" });
   registerAuth(app, db, options);
+  registerOnboarding(app, options.bankOnboarding);
   app.setErrorHandler((error, req, reply) => {
     const e = error as Error & { code?: string; statusCode?: number };
     const status =

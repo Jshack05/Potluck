@@ -1,5 +1,14 @@
 ﻿# Potluck Design Guidelines
 
+## October 5, 2026 — Full-app entry and shared shell
+
+- Existing Figma compositions and components remain the visual authority; integration work does not authorize generic replacements.
+- Account and bank setup precede all four destinations, with no main navigation, Inbox or You controls during entry.
+- Primary flow actions stay in the fixed lower action area, above navigation when present or above the safe area otherwise. Content scrolls independently. Field toggles and per-item/retry actions stay near their context.
+- Replace repeated guest cards and inline sign-in buttons with one entry flow that preserves the intended destination.
+- Core Inbox uses teal Figma source `1555:19208`; the blue Inbox belongs to Splitfinder.
+- Account source: `940:4770`. Bank handoff source: `1489:18043` / `1486:17690`. Adapt old inline action placement to the current bottom-action rule. Do not fabricate bank confirmation or working social authentication.
+
 **Status:** Current design and Figma QA guidance  
 **Last updated:** August 13, 2026  
 **Applies to:** Potluck Figma files, Circles home, Circle Detail, Cards/Bills rows, bottom navigation, overlays, and reusable UI components.

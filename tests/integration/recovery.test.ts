@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { createApp } from "../../services/potluck-api/src/app.ts";
+import { createApp } from "./completed-onboarding.fixture.ts";
 
 test("accounts and arrangements survive a database restart, and sign-out revokes the session", async () => {
   const dir = await mkdtemp(join(tmpdir(), "potluck-test-"));

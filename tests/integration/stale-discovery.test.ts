@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { createApp } from "../../services/potluck-api/src/app.ts";
+import { createApp } from "./completed-onboarding.fixture.ts";
 test("a changed listing cannot silently accept an old request, and a stale detail cannot send a request", async () => {
   const app = await createApp({ mode: "local", database: ":memory:" });
   try {

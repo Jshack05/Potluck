@@ -1,5 +1,9 @@
 # Splitfinder
 
+## October 5, 2026 — Entry in the combined app
+
+The founder now requires account entry and bank connection before any full-app destination, including Splitfinder. This supersedes browse-first/contextual registration for the current combined app. A future Splitfinder-only release can revisit that policy through an explicit decision. Brand-only discovery, individual listings, requests opening conversations, and separate Circle invitations are unchanged. See `PRODUCT_CONTEXT.md` for provider-confirmation and consent boundaries.
+
 ## September 24, 2026 — Header and listing refinements
 
 For the new subscription listing screen (`1763:24097`), the header should blend with the feed canvas rather than end in a contrasting decorative banner. The card status must retain right padding and an unclipped green dot. These refinements are scoped to the new reference-card screen/component, not a replacement of every existing Splitfinder header.

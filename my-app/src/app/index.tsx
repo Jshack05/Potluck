@@ -1,9 +1,13 @@
-import { Redirect, useLocalSearchParams } from "expo-router";
+import { Redirect, useLocalSearchParams, type Href } from "expo-router";
 import Welcome from "@/features/splitfinder/welcome";
 import { useClient } from "@/services/client";
+import { entryDestination } from "@/services/navigation";
+import { EntryLoading } from "@/design/system";
 export default function Entry() {
-  const { user, ready } = useClient();
+  const { access, ready } = useClient();
   const { change } = useLocalSearchParams();
-  if (!ready) return null;
-  return user && change !== "1" ? <Redirect href="/circles" /> : <Welcome />;
+  if (!ready || access === "loading") return <EntryLoading />;
+  const destination = entryDestination(access, "/circles");
+  if (destination) return <Redirect href={destination as Href} />;
+  return change === "1" ? <Welcome /> : <Redirect href="/circles" />;
 }

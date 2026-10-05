@@ -13,6 +13,12 @@ import * as Crypto from "expo-crypto";
 import { useFocusEffect } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { durableCommand } from "./durable-command";
+import { revokeSession, withSessionRecovery } from "./session-recovery";
+import {
+  parseEntryStatus,
+  type EntryAccess,
+  type EntryStatus,
+} from "./navigation";
 export type User = {
   id: string;
   name: string;
@@ -82,6 +88,30 @@ function useClientState() {
   const [token, setToken] = useState<string | null>(null),
     [user, setUser] = useState<User | null>(null),
     [ready, setReady] = useState(false);
+  const [entryStatus, setEntryStatus] = useState<EntryStatus | null>(null),
+    [access, setAccess] = useState<EntryAccess>("loading"),
+    [entryError, setEntryError] = useState("");
+  const currentToken = useRef<string | null>(null);
+  const clearSession = useCallback(async () => {
+    currentToken.current = null;
+    setToken(null);
+    setUser(null);
+    setEntryStatus(null);
+    setEntryError("");
+    setAccess("signed_out");
+    await sessions.set(null);
+  }, []);
+  const authenticatedRequest = useCallback(
+    <T,>(path: string, saved: string | null, body?: unknown, key?: string) =>
+      withSessionRecovery(
+        () => request<T>(path, saved, body, key),
+        async () => {
+          // An older request must never sign out a newer account.
+          if (saved && currentToken.current === saved) await clearSession();
+        },
+      ),
+    [clearSession],
+  );
   useEffect(() => {
     let active = true;
     void sessions
@@ -92,16 +122,35 @@ function useClientState() {
           try {
             const result = await request<{ user: User }>("/me", saved);
             if (active) {
+              currentToken.current = saved;
               setToken(saved);
               setUser(result.user);
+              try {
+                const state = parseEntryStatus(
+                  await authenticatedRequest("/onboarding", saved),
+                );
+                if (active && currentToken.current === saved) {
+                  setEntryStatus(state);
+                  setAccess(state.access);
+                }
+              } catch (e) {
+                if (active && currentToken.current === saved) {
+                  setAccess("error");
+                  setEntryError(
+                    e instanceof Error ? e.message : "Please try again.",
+                  );
+                }
+              }
             }
           } catch {
             /* A failed restore never establishes an authenticated identity. */
+            if (active) setAccess("signed_out");
           }
-        }
+        } else if (active) setAccess("signed_out");
       })
       .catch(() => {
         /* Secure storage failure falls back to explicit account entry. */
+        if (active) setAccess("signed_out");
       })
       .finally(() => {
         if (active) setReady(true);
@@ -109,15 +158,15 @@ function useClientState() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [authenticatedRequest]);
   const get = useCallback(
-    <T,>(path: string) => request<T>(path, token),
-    [token],
+    <T,>(path: string) => authenticatedRequest<T>(path, token),
+    [token, authenticatedRequest],
   );
   const command = useCallback(
     <T,>(path: string, body: unknown, key = Crypto.randomUUID()) =>
-      request<T>(path, token, body, key),
-    [token],
+      authenticatedRequest<T>(path, token, body, key),
+    [token, authenticatedRequest],
   );
   const signIn = async (input: {
     email: string;
@@ -130,16 +179,63 @@ function useClientState() {
       input,
     );
     await sessions.set(result.token);
+    currentToken.current = result.token;
     setToken(result.token);
     setUser(result.user);
+    setEntryStatus(null);
+    setEntryError("");
+    setAccess("loading");
+    try {
+      const state = parseEntryStatus(
+        await authenticatedRequest("/onboarding", result.token),
+      );
+      if (currentToken.current !== result.token) return;
+      setEntryStatus(state);
+      setAccess(state.access);
+    } catch (e) {
+      if (currentToken.current !== result.token) return;
+      setAccess("error");
+      setEntryError(e instanceof Error ? e.message : "Please try again.");
+    }
+  };
+  const refreshEntry = async () => {
+    if (!token) return;
+    setEntryError("");
+    try {
+      const state = parseEntryStatus(
+        await authenticatedRequest("/onboarding", token),
+      );
+      if (currentToken.current !== token) return;
+      setEntryStatus(state);
+      setAccess(state.access);
+    } catch (e) {
+      if (currentToken.current !== token) return;
+      setAccess("error");
+      setEntryError(e instanceof Error ? e.message : "Please try again.");
+    }
   };
   const signOut = async () => {
-    if (token) await request("/sign-out", token, {});
-    await sessions.set(null);
-    setToken(null);
-    setUser(null);
+    await revokeSession(
+      async () => {
+        if (token) await request("/sign-out", token, {});
+      },
+      async () => {
+        if (currentToken.current === token) await clearSession();
+      },
+    );
   };
-  return { user, ready, get, command, signIn, signOut };
+  return {
+    user,
+    ready,
+    access,
+    entryStatus,
+    entryError,
+    refreshEntry,
+    get,
+    command,
+    signIn,
+    signOut,
+  };
 }
 const Context = createContext<ReturnType<typeof useClientState> | null>(null);
 export function ClientProvider({ children }: { children: ReactNode }) {
@@ -152,7 +248,7 @@ export function useClient() {
   return value;
 }
 export function useResource<T>(path: string | null) {
-  const { get, user } = useClient();
+  const { get, user, access } = useClient();
   const key = JSON.stringify([path, user?.id]);
   const [snapshot, setData] = useState<{ key: string; value: T } | null>(null),
     [error, setError] = useState(""),
@@ -160,7 +256,7 @@ export function useResource<T>(path: string | null) {
   const serial = useRef(0);
   const reload = useCallback(async () => {
     const current = ++serial.current;
-    if (!path) {
+    if (!path || access !== "ready") {
       setLoading(false);
       setData(null);
       return;
@@ -176,7 +272,7 @@ export function useResource<T>(path: string | null) {
     } finally {
       if (serial.current === current) setLoading(false);
     }
-  }, [get, path, key]);
+  }, [get, path, key, access]);
   useFocusEffect(
     useCallback(() => {
       void reload();

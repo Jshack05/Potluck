@@ -1,5 +1,17 @@
 # Potluck Product Context
 
+## October 5, 2026 — Account and bank setup before full-app access
+
+The founder changed full Potluck entry to **sign in or create account → connect an eligible bank account → access Circles, Cards, Bills and Splitfinder**. Guest browsing and contextual registration no longer apply to the combined app. A future Splitfinder-only release may use a different entry policy, but requires a new explicit launch decision.
+
+Use the established Figma screens, components and section colors. Do not substitute repeated generic guest cards. Authentication and bank setup sit outside the four-tab shell. Preserve the intended destination through setup. Primary flow actions belong at the bottom; core Potluck uses its teal Inbox asset.
+
+Bank connection is a first-entry prerequisite, not debit consent, an accepted contribution agreement, Card issuance or Circle membership. Access requires server-confirmed provider evidence belonging to the authenticated user. No bank provider is connected in the current local build, so entry stays visibly incomplete and app-data routes fail closed. No account is silently labeled bank-connected. Automated tests may supply provider fixtures; the running app has no bypass.
+
+When a provider is implemented, persist onboarding completion independently of later bank health. Reconnection or an outage must not remove existing cancellation, dispute, account-security or funds access. Issuer eligibility, identity and financial consent remain separate requirements; the combined-app assumption is not financial-program approval.
+
+This is Free/core setup with no paid gate. Its promise is one setup for the connected app. Invitations and recurring shared arrangements support acquisition and retention. Measure setup completion, bank-handoff failure and successful invitation resumption. See the [entry correction plan](superpowers/plans/2026-10-05-full-app-entry-correction.md).
+
 ## October 4, 2026 — Local-first full-app implementation
 
 The founder confirmed there is no existing Supabase project and requested local-first development of the approved Circles, Cards, Bills and Splitfinder integration. Development accounts and persistent local PostgreSQL-compatible records are permitted; this is not verified production identity, financial approval, hosted deployment or launch. Card creation saves an unissued setup shell. Accepting Bill terms does not authorize a bank debit. The intended consumer funding/issuer model remains conditional on written program approval. See [local development](LOCAL_DEVELOPMENT.md) and the [capability register](architecture/full-app-capabilities.md) for current implementation limits.

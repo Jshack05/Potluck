@@ -31,7 +31,7 @@ export default function You() {
               onPress={() =>
                 action.run(async () => {
                   await client.signOut();
-                  router.replace("/discover");
+                  router.replace("/sign-in");
                 })
               }
             />

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { createApp } from "../../services/potluck-api/src/app.ts";
+import { createApp } from "./completed-onboarding.fixture.ts";
 test("listing edits preserve ownership and version; public profiles omit private identity and blocked saves", async () => {
   const app = await createApp({ mode: "local", database: ":memory:" });
   try {
@@ -66,7 +66,7 @@ test("listing edits preserve ownership and version; public profiles omit private
     await call(host, "/listings/" + listing.id + "/publish", {
       expectedVersion: 2,
     });
-    const profile = (await app.inject("/v1/profiles/" + host.user.id)).json();
+    const profile = (await call(person, "/profiles/" + host.user.id)).json();
     assert.equal(profile.name, "Host");
     assert.equal(profile.email, undefined);
     assert.equal(profile.password_hash, undefined);

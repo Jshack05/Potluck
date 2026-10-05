@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { createApp } from "../../services/potluck-api/src/app.ts";
+import { createApp } from "./completed-onboarding.fixture.ts";
 test("blocking a person also prevents direct Circle invitations and accepting an old invitation", async () => {
   const app = await createApp({ mode: "local", database: ":memory:" });
   try {

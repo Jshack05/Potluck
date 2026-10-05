@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { View } from "react-native";
-import { router, useLocalSearchParams, type Href } from "expo-router";
+import { Redirect, useLocalSearchParams, type Href } from "expo-router";
 import {
-  Shell,
+  EntryShell,
+  EntryLoading,
   Title,
   Muted,
   Field,
   Action,
   Link,
   ErrorText,
-  Icon,
+  Label,
   theme,
 } from "@/design/system";
 import { useAction, useClient } from "@/services/client";
-import { safeReturnTo } from "@/services/navigation";
+import { entryDestination, safeReturnTo } from "@/services/navigation";
+
 export default function SignIn() {
   const { returnTo } = useLocalSearchParams();
   const client = useClient(),
@@ -23,18 +25,25 @@ export default function SignIn() {
     [email, setEmail] = useState(""),
     [password, setPassword] = useState("");
   const submit = () =>
-    action.run(async () => {
-      await client.signIn({
+    action.run(() =>
+      client.signIn({
         email: email.trim(),
         password,
         ...(register ? { name: name.trim() } : {}),
-      });
-      router.replace(safeReturnTo(returnTo) as Href);
-    });
+      }),
+    );
+  if (!client.ready || client.access === "loading") return <EntryLoading />;
+  if (client.user)
+    return (
+      <Redirect
+        href={
+          (entryDestination(client.access, returnTo) ??
+            safeReturnTo(returnTo)) as Href
+        }
+      />
+    );
   return (
-    <Shell
-      title={register ? "Create your account" : "Welcome back"}
-      back
+    <EntryShell
       footer={
         <>
           <ErrorText text={action.error} />
@@ -54,56 +63,69 @@ export default function SignIn() {
             }
             onPress={submit}
           />
+          <View style={{ alignItems: "center" }}>
+            <Link
+              onPress={() => {
+                setRegister(!register);
+                action.setError("");
+              }}
+            >
+              {register
+                ? "Already have an account? Sign in"
+                : "New to Potluck? Create account"}
+            </Link>
+          </View>
         </>
       }
     >
-      <View style={{ alignItems: "center", marginVertical: 22 }}>
-        <View
-          style={{ backgroundColor: theme.mint, borderRadius: 52, padding: 24 }}
+      <View style={{ gap: 8 }}>
+        <Label
+          style={{
+            color: theme.teal,
+            fontFamily: "Inter_600SemiBold",
+            fontSize: 13,
+          }}
         >
-          <Icon name="circles" size={52} />
-        </View>
+          1 OF 2 · YOUR ACCOUNT
+        </Label>
+        <Title>{register ? "A place for your people." : "Welcome back"}</Title>
+        <Muted>
+          {register
+            ? "Create your account, then connect your bank to get started with Potluck."
+            : "Sign in to Potluck. We'll check your bank connection before you continue."}
+        </Muted>
       </View>
-      <Title>Your people, together.</Title>
-      <Muted>Pick up your conversation or bring a Circle together.</Muted>
-      {register && (
+      <View style={{ gap: 18, marginTop: 12 }}>
+        {register && (
+          <Field
+            label="Your name"
+            value={name}
+            onChangeText={setName}
+            autoComplete="name"
+            maxLength={80}
+          />
+        )}
         <Field
-          label="Your name"
-          value={name}
-          onChangeText={setName}
-          autoComplete="name"
-          maxLength={80}
+          label="Email address"
+          placeholder="you@example.com"
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          autoComplete="email"
         />
-      )}
-      <Field
-        label="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        keyboardType="email-address"
-        autoComplete="email"
-      />
-      <Field
-        label="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        autoCapitalize="none"
-        autoComplete={register ? "new-password" : "current-password"}
-      />
-      <Muted>
-        Use at least 12 characters for this local development account.
-      </Muted>
-      <Link
-        onPress={() => {
-          setRegister(!register);
-          action.setError("");
-        }}
-      >
-        {register
-          ? "Already have an account? Sign in"
-          : "New here? Create an account"}
-      </Link>
-    </Shell>
+        <Field
+          label="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          autoCapitalize="none"
+          autoComplete={register ? "new-password" : "current-password"}
+        />
+        <Muted>
+          Use at least 12 characters for this local development account.
+        </Muted>
+      </View>
+    </EntryShell>
   );
 }

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { createApp } from "../../services/potluck-api/src/app.ts";
+import { createApp } from "./completed-onboarding.fixture.ts";
 
 test("private routes require sessions and local authentication is unavailable in production", async () => {
   const app = await createApp({ database: ":memory:", mode: "local" });

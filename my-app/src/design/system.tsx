@@ -1,5 +1,11 @@
 import { Image } from "expo-image";
-import { router, usePathname, type Href } from "expo-router";
+import {
+  Redirect,
+  router,
+  usePathname,
+  useLocalSearchParams,
+  type Href,
+} from "expo-router";
 import { type ReactNode, createContext, useContext } from "react";
 import {
   ActivityIndicator,
@@ -16,6 +22,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useClient } from "@/services/client";
+import { entryDestination } from "@/services/navigation";
 export const theme = {
   canvas: "#F3F2EF",
   blueCanvas: "#F2F9FD",
@@ -44,7 +51,11 @@ export const icons = {
   plus: require("../../assets/potluck/plus.svg"),
   back: require("../../assets/potluck/back.svg"),
   discover: require("../../assets/splitfinder/discover.svg"),
-  inbox: require("../../assets/splitfinder/inbox.svg"),
+  inbox: require("../../assets/potluck/inbox.svg"),
+  inboxBlue: require("../../assets/splitfinder/inbox.svg"),
+  bank: require("../../assets/potluck/bank-house.svg"),
+  agreement: require("../../assets/potluck/agreement-document.svg"),
+  authLucky: require("../../assets/potluck/auth-lucky.svg"),
   lucky: require("../../assets/splitfinder/lucky.svg"),
   service: require("../../assets/splitfinder/service.png"),
   check: require("../../assets/splitfinder/check.svg"),
@@ -86,6 +97,23 @@ export function Icon({
   name: keyof typeof icons;
   size?: number;
 }) {
+  if (name === "inbox")
+    return (
+      <View
+        style={{
+          width: size,
+          height: size,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Image
+          source={icons.inbox}
+          contentFit="contain"
+          style={{ width: (size * 17.8) / 24, height: (size * 15.8) / 24 }}
+        />
+      </View>
+    );
   return (
     <Image
       source={icons[name]}
@@ -373,6 +401,19 @@ export function Shell({
 }) {
   const inset = useSafeAreaInsets(),
     pathname = usePathname();
+  const params = useLocalSearchParams(),
+    client = useClient();
+  const query = new URLSearchParams(
+    Object.entries(params).filter(
+      (entry): entry is [string, string] => typeof entry[1] === "string",
+    ),
+  );
+  const destination = entryDestination(
+    client.access,
+    pathname + (query.size ? "?" + query.toString() : ""),
+  );
+  if (!client.ready || client.access === "loading") return <EntryLoading />;
+  if (destination) return <Redirect href={destination as Href} />;
   const selected =
     active ??
     (pathname.startsWith("/card")
@@ -453,7 +494,7 @@ export function Shell({
                   onPress={() => go("/inbox")}
                   style={styles.round}
                 >
-                  <Icon name="inbox" />
+                  <Icon name={blue ? "inboxBlue" : "inbox"} />
                 </Pressable>
                 <Pressable
                   accessibilityRole="button"
@@ -574,21 +615,101 @@ export function AuthGate({
   children: ReactNode;
   returnTo: string;
 }) {
-  const { user, ready } = useClient();
-  if (!ready) return <ResourceState loading error="" retry={() => {}} />;
-  if (user) return <>{children}</>;
+  const { access } = useClient();
+  if (access === "loading") return <EntryLoading />;
+  const destination = entryDestination(access, returnTo);
+  return destination ? (
+    <Redirect href={destination as Href} />
+  ) : (
+    <>{children}</>
+  );
+}
+
+export function EntryLoading() {
   return (
-    <>
-      <Empty
-        title="Bring your people together"
-        detail="Sign in when you’re ready to create a Circle or join an arrangement."
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: theme.canvas,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <ActivityIndicator
+        accessibilityLabel="Opening Potluck"
+        color={theme.teal}
       />
-      <Action
-        label="Continue to sign in"
-        onPress={() => go("/sign-in?returnTo=" + encodeURIComponent(returnTo))}
-      />
-      <Link onPress={() => go("/discover")}>Keep exploring Splitfinder</Link>
-    </>
+    </View>
+  );
+}
+
+/** Content scrolls; entry actions stay at the lower safe area, above the keyboard. */
+export function EntryShell({
+  children,
+  footer,
+  brand = true,
+}: {
+  children: ReactNode;
+  footer: ReactNode;
+  brand?: boolean;
+}) {
+  const inset = useSafeAreaInsets();
+  return (
+    <Accent.Provider value={theme.teal}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        style={{ flex: 1, backgroundColor: theme.canvas }}
+      >
+        <View
+          style={{ flex: 1, width: "100%", maxWidth: 430, alignSelf: "center" }}
+        >
+          <ScrollView
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={{
+              paddingHorizontal: 20,
+              paddingTop: Math.max(inset.top, 24) + 28,
+              paddingBottom: 24,
+              gap: 20,
+              flexGrow: 1,
+            }}
+          >
+            {brand && (
+              <View
+                style={{
+                  height: 88,
+                  alignItems: "center",
+                  gap: 12,
+                  marginBottom: 16,
+                }}
+              >
+                <Icon name="authLucky" size={44} />
+                <Label
+                  style={{
+                    fontFamily: "Inter_700Bold",
+                    fontSize: 22,
+                    lineHeight: 28,
+                    color: theme.teal,
+                  }}
+                >
+                  Potluck
+                </Label>
+              </View>
+            )}
+            {children}
+          </ScrollView>
+          <View
+            style={{
+              paddingHorizontal: 20,
+              paddingTop: 12,
+              paddingBottom: Math.max(inset.bottom, 24),
+              gap: 12,
+            }}
+          >
+            {footer}
+          </View>
+        </View>
+      </KeyboardAvoidingView>
+    </Accent.Provider>
   );
 }
 export const styles = StyleSheet.create({

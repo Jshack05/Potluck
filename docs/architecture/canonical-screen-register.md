@@ -1,5 +1,13 @@
 # Full-app canonical implementation register
 
+## October 5 entry correction sources
+
+- `940:4770`: Auth / Sign in; brand lockup `939:4808`, 44px source Lucky and source input treatment. Local email/password fields reflect the implemented authentication method. Primary action moved to the bottom per the founder's latest rule.
+- `1489:18043` / `1486:17690`: bank handoff; reuse document illustration and `1107:5658` bank icon. First-use adaptation removes the unrelated Bill identity and white information container, retaining open rows and dividers.
+- `1555:19208`: core Potluck's 54px Inbox control and centered teal glyph. Splitfinder blue remains section-specific.
+
+The new source files are downloaded original assets with provenance in `my-app/assets/potluck/sources.json`. No Figma file was changed by this implementation correction.
+
 Figma file: 1hAy3kcZAEvqq8ZNjKU7CD. Live design context and screenshots checked October 4.
 
 | Purpose | Figma source | Runtime interpretation |
