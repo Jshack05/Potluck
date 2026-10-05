@@ -125,5 +125,35 @@
     "node": "1762:25331",
     "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
     "source": "Figma component export, September 25, 2026"
+  },
+  {
+    "name": "category-tv.svg",
+    "url": "https://www.figma.com/api/mcp/asset/3c39ef73-2cf2-4859-bddb-e2ee50516e49/b2b15.svg",
+    "node": "1894:24857"
+  },
+  {
+    "name": "category-music.svg",
+    "url": "https://www.figma.com/api/mcp/asset/3c39ef73-2cf2-4859-bddb-e2ee50516e49/c58de.svg",
+    "node": "1894:24857"
+  },
+  {
+    "name": "category-software.svg",
+    "url": "https://www.figma.com/api/mcp/asset/3c39ef73-2cf2-4859-bddb-e2ee50516e49/0fafe.svg",
+    "node": "1894:24857"
+  },
+  {
+    "name": "spotify.svg",
+    "url": "https://www.figma.com/api/mcp/asset/3c39ef73-2cf2-4859-bddb-e2ee50516e49/2f4e7.svg",
+    "node": "1894:24857"
+  },
+  {
+    "name": "dropbox.svg",
+    "url": "https://www.figma.com/api/mcp/asset/3c39ef73-2cf2-4859-bddb-e2ee50516e49/c6bb8.svg",
+    "node": "1894:24857"
+  },
+  {
+    "name": "netflix.svg",
+    "url": "https://www.figma.com/api/mcp/asset/55308aef-b318-4a69-8af7-a153c7b15113/a6fb6.svg",
+    "node": "1894:25072"
   }
 ]

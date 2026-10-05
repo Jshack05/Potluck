@@ -1,18 +1,53 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
 import {
-  appendMessage,
-  toggleSaved,
-  type Category,
-  type Conversations,
-} from "./model";
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  type ReactNode,
+} from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import type { Category } from "./model";
 function usePreviewState() {
-  const [introduced, setIntroduced] = useState(false);
-  const [category, setCategory] = useState<Category>("housing");
-  const [query, setQuery] = useState("");
-  const [maxMinor, setMaxMinor] = useState<number | null>(null);
-  const [saved, setSaved] = useState<string[]>([]);
-  const [messages, setMessages] = useState<Conversations>({});
-  const [drafts, setDrafts] = useState<Record<string, string>>({});
+  const [introduced, setIntroduced] = useState(false),
+    [category, setCategory] = useState<Category>("housing"),
+    [query, setQuery] = useState(""),
+    [maxMinor, setMaxMinor] = useState<number | null>(null),
+    [ready, setReady] = useState(false);
+  useEffect(() => {
+    let active = true;
+    void AsyncStorage.getItem("potluck.discovery.preference")
+      .then((value) => {
+        if (active && value) {
+          const saved = JSON.parse(value);
+          if (
+            [
+              "subscriptions",
+              "memberships",
+              "plans",
+              "housing",
+              "all",
+            ].includes(saved.category)
+          ) {
+            setCategory(saved.category);
+            setIntroduced(saved.introduced === true);
+          }
+        }
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (active) setReady(true);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+  useEffect(() => {
+    if (ready)
+      void AsyncStorage.setItem(
+        "potluck.discovery.preference",
+        JSON.stringify({ category, introduced }),
+      ).catch(() => {});
+  }, [category, introduced, ready]);
   return {
     introduced,
     setIntroduced,
@@ -22,18 +57,7 @@ function usePreviewState() {
     setQuery,
     maxMinor,
     setMaxMinor,
-    saved,
-    messages,
-    drafts,
-    save: (id: string) => setSaved((current) => toggleSaved(current, id)),
-    draft: (id: string, value: string) =>
-      setDrafts((current) => ({ ...current, [id]: value })),
-    send: (id: string) => {
-      const text = drafts[id] ?? "";
-      if (!text.trim() || text.trim().length > 2000) return;
-      setMessages((current) => appendMessage(current, id, text));
-      setDrafts((current) => ({ ...current, [id]: "" }));
-    },
+    ready,
   };
 }
 const PreviewContext = createContext<ReturnType<typeof usePreviewState> | null>(

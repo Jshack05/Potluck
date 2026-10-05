@@ -1,0 +1,10 @@
+{
+  "name": "@potluck/domain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./money": "./src/money.ts",
+    "./schedule": "./src/schedule.ts"
+  }
+}

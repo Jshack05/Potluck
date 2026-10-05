@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Create Action / FAB">
+<circle id="FAB background" cx="30" cy="30" r="30" fill="#006D67"/>
+<path id="Plus vertical" d="M28 20C28 18.8954 28.8954 18 30 18V18C31.1046 18 32 18.8954 32 20V40C32 41.1046 31.1046 42 30 42V42C28.8954 42 28 41.1046 28 40V20Z" fill="white"/>
+<path id="Plus horizontal" d="M18 30C18 28.8954 18.8954 28 20 28H40C41.1046 28 42 28.8954 42 30V30C42 31.1046 41.1046 32 40 32H20C18.8954 32 18 31.1046 18 30V30Z" fill="white"/>
+</g>
+</svg>

@@ -1,5 +1,10 @@
 # Potluck Product Context
 
+## October 4, 2026 — Local-first full-app implementation
+
+The founder confirmed there is no existing Supabase project and requested local-first development of the approved Circles, Cards, Bills and Splitfinder integration. Development accounts and persistent local PostgreSQL-compatible records are permitted; this is not verified production identity, financial approval, hosted deployment or launch. Card creation saves an unissued setup shell. Accepting Bill terms does not authorize a bank debit. The intended consumer funding/issuer model remains conditional on written program approval. See [local development](LOCAL_DEVELOPMENT.md) and the [capability register](architecture/full-app-capabilities.md) for current implementation limits.
+
+
 ## October 4, 2026 — Full Potluck integration planning scope
 
 The founder explicitly reopened the whole application: connect **Circles, Cards, Bills, and Splitfinder** in the real Potluck app, using the existing Figma work. This supersedes the September 20 Splitfinder-only implementation boundary. Splitfinder is an optional discovery entry into the same product; existing friends and families can start with Circles, Bills, or Cards. The current request is for an implementation plan, issues, and solutions, not permission to execute live financial operations or a claim that the full application is implemented.

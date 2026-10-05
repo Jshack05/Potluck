@@ -1,0 +1,24 @@
+{
+  "name": "potluck",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "test": "node --test --test-concurrency=1 tests/integration/*.test.ts tests/domain/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "format:check": "prettier --check packages services tests/domain tests/integration",
+    "api": "node services/potluck-api/src/main.ts",
+    "validate": "node scripts/validate.mjs",
+    "mobile:validate": "npm --prefix my-app run validate",
+    "validate:local": "node scripts/validate.mjs --local"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/pg": "^8.15.0",
+    "prettier": "^3.6.0",
+    "typescript": "~6.0.3"
+  }
+}

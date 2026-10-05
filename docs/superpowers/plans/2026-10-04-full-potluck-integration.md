@@ -10,7 +10,7 @@
 
 **Spec:** [Product context](../../PRODUCT_CONTEXT.md), [Bills context](../../BILLS_CONTEXT.md), [UI flow](../../UI_FLOW.md), [Splitfinder context](../../SPLITFINDER_CONTEXT.md), [design guidelines](../../DESIGN_GUIDELINES.md), [existing flow audit](../../APP_FLOW_MAP.md), and the founder's October 4 full-app scope instruction. Figma source: [Potluck Core UI](https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD), Components `1:122`, Screens `1:123`.
 
-**Status:** Proposed plan. Scope expansion is approved by the user; implementation has not begun under this plan. This document does not establish provider approval or replace legal/program review.
+**Status:** Execution approved and in progress. The founder confirmed local-first development without an existing Supabase project. See `2026-10-04-local-subsystems.md` and the capability register for implementation evidence and outstanding gates. This document does not establish provider approval or replace legal/program review.
 
 ## Global Constraints
 

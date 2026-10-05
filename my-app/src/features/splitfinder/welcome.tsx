@@ -1,6 +1,12 @@
 import { Image } from "expo-image";
 import { Redirect, router, useLocalSearchParams } from "expo-router";
-import { Pressable, ScrollView, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { categoryLabels, type Category } from "./model";
 import { usePreview } from "./state";
@@ -36,6 +42,12 @@ export default function Welcome() {
   const state = usePreview();
   const { change } = useLocalSearchParams<{ change?: string }>();
   const insets = useSafeAreaInsets();
+  if (!state.ready)
+    return (
+      <View style={[styles.canvas, { justifyContent: "center" }]}>
+        <ActivityIndicator accessibilityLabel="Loading your preference" />
+      </View>
+    );
   if (state.introduced && change !== "1") return <Redirect href="/discover" />;
   function choose(category: Category) {
     state.setCategory(category);
