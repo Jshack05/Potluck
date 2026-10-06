@@ -6,7 +6,7 @@ import {
   useLocalSearchParams,
   type Href,
 } from "expo-router";
-import { type ReactNode, createContext, useContext } from "react";
+import { type ReactNode, createContext, useContext, useId } from "react";
 import {
   ActivityIndicator,
   KeyboardAvoidingView,
@@ -188,20 +188,38 @@ export function Link({
     </Pressable>
   );
 }
-export function Field({ label, ...props }: TextInputProps & { label: string }) {
+export function Field({
+  label,
+  error,
+  ...props
+}: TextInputProps & { label: string; error?: string }) {
+  const errorId = useId();
   return (
     <View style={{ gap: 8 }}>
       <Label style={{ fontFamily: "Inter_600SemiBold" }}>{label}</Label>
       <TextInput
         {...props}
         accessibilityLabel={label}
+        accessibilityHint={error || props.accessibilityHint}
+        aria-invalid={!!error}
+        aria-describedby={error ? errorId : undefined}
         placeholderTextColor={theme.muted}
         style={[
           styles.field,
           props.multiline && { minHeight: 115, textAlignVertical: "top" },
           props.style,
+          !!error && { borderColor: theme.danger, borderWidth: 2 },
         ]}
       />
+      {!!error && (
+        <Label
+          nativeID={errorId}
+          accessibilityRole="alert"
+          style={{ color: theme.danger, fontSize: 14 }}
+        >
+          {error}
+        </Label>
+      )}
     </View>
   );
 }

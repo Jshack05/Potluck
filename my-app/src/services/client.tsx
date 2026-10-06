@@ -45,10 +45,17 @@ const sessions = {
 export class ApiError extends Error {
   code: string;
   status: number;
-  constructor(message: string, code: string, status: number) {
+  fields: Record<string, string>;
+  constructor(
+    message: string,
+    code: string,
+    status: number,
+    fields: Record<string, string> = {},
+  ) {
     super(message);
     this.code = code;
     this.status = status;
+    this.fields = fields;
   }
 }
 async function request<T>(
@@ -82,6 +89,7 @@ async function request<T>(
       value.error?.message ?? "Please try again.",
       value.error?.code ?? "REQUEST_FAILED",
       response.status,
+      value.error?.fields,
     );
   return value as T;
 }
@@ -177,7 +185,7 @@ function useClientState() {
     name?: string;
   }) => {
     const result = await request<{ token: string; user: User }>(
-      input.name ? "/local/accounts" : "/local/session",
+      input.name !== undefined ? "/local/accounts" : "/local/session",
       null,
       input,
     );

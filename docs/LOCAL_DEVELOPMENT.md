@@ -1,5 +1,15 @@
 # Full Potluck: local development
 
+## Authentication validation repair
+
+Local sign-up and sign-in show server-validated name, email and password errors beside the affected fields with a visible border and accessible error text. Submit stays available to explain missing entries; only an in-flight request disables it. Editing a field clears its previous error, and switching forms clears stale errors. Registration requires a name, a complete email address such as you@example.com, and a 12–200-character password. The API remains authoritative; no test login or bank bypass is introduced.
+
+This Free/core repair serves new and returning users: understand what to correct and continue into Circles or Splitfinder. It protects invitation activation and recurring access, with no paid conversion gate or new competitive feature. Measure successful account-entry recovery. No migration, new dependency or provider configuration is required; reverting the changed files restores the prior UI without touching accounts or sessions. Regression tests cover invalid input, corrected registration, wrong passwords, duplicate accounts, revoked sessions, social access and financial gating.
+
+October 6 verification: browser checks at 390×844 and 320×600 confirmed the `test@gm` email error, red field borders and accessibility associations, clearing errors on edit and form changes, blank-name registration validation, scrollable fields, and bottom actions. Corrected registration opened Circles and Splitfinder while Cards retained the bank prompt. The check caught and fixed an empty-string child in the shared Field error conditional; repeating the interactions produced no browser console errors. Physical-iPhone display, keyboard timing and native screen-reader behavior remain unverified.
+
+The full validation command passed 36 backend/domain tests, 26 mobile tests, formatting, lint, type checks and all-platform exports, but failed the mobile dependency audit: **23 findings (19 high, 3 moderate, 1 critical)**. The critical finding is the existing `shell-quote` dependency ([GHSA-pqg4-j6r4-53mv](https://github.com/advisories/GHSA-pqg4-j6r4-53mv)); the backend audit reports zero. No dependencies or lockfiles changed in this repair. npm was available through `pnpm dlx npm@11 run validate`; the missing shell command did not prevent running the audits. Authentication verification does not establish release readiness.
+
 ## October 5 iPhone build checkpoint
 
 EAS development build [`0cd6df49-87b0-48f9-884b-ebae6f0c71d7`](https://expo.dev/accounts/potluck_splitfinder/projects/jshack05/builds/0cd6df49-87b0-48f9-884b-ebae6f0c71d7) finished successfully from application commit `78df449`. The native logs include RNCAsyncStorage 2.2.0, ExpoSecureStore 57.0.4 and ExpoCrypto 57.0.3. It reuses the existing app identifier, signing credentials and registered iPhone. An earlier attempt failed at Expo's credential service; the retry succeeded without code changes or replacing credentials.

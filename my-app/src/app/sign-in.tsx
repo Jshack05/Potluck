@@ -13,7 +13,7 @@ import {
   Label,
   theme,
 } from "@/design/system";
-import { useAction, useClient } from "@/services/client";
+import { ApiError, useAction, useClient } from "@/services/client";
 import { entryDestination, safeReturnTo } from "@/services/navigation";
 
 export default function SignIn() {
@@ -24,14 +24,26 @@ export default function SignIn() {
     [name, setName] = useState(""),
     [email, setEmail] = useState(""),
     [password, setPassword] = useState("");
-  const submit = () =>
-    action.run(() =>
-      client.signIn({
-        email: email.trim(),
-        password,
-        ...(register ? { name: name.trim() } : {}),
-      }),
-    );
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const clearFieldError = (field: string) => {
+    setFieldErrors((previous) => ({ ...previous, [field]: "" }));
+    action.setError("");
+  };
+  const submit = () => {
+    setFieldErrors({});
+    return action.run(async () => {
+      try {
+        await client.signIn({
+          email: email.trim(),
+          password,
+          ...(register ? { name: name.trim() } : {}),
+        });
+      } catch (error) {
+        if (error instanceof ApiError) setFieldErrors(error.fields);
+        throw error;
+      }
+    });
+  };
   if (!client.ready) return <EntryLoading />;
   if (client.user)
     return (
@@ -55,18 +67,15 @@ export default function SignIn() {
                   ? "Create account"
                   : "Sign in"
             }
-            disabled={
-              action.busy ||
-              !email.trim() ||
-              password.length < 12 ||
-              (register && !name.trim())
-            }
+            disabled={action.busy}
             onPress={submit}
           />
           <View style={{ alignItems: "center" }}>
             <Link
               onPress={() => {
+                if (action.busy) return;
                 setRegister(!register);
+                setFieldErrors({});
                 action.setError("");
               }}
             >
@@ -100,7 +109,12 @@ export default function SignIn() {
           <Field
             label="Your name"
             value={name}
-            onChangeText={setName}
+            onChangeText={(value) => {
+              setName(value);
+              clearFieldError("name");
+            }}
+            error={fieldErrors.name}
+            editable={!action.busy}
             autoComplete="name"
             maxLength={80}
           />
@@ -109,7 +123,12 @@ export default function SignIn() {
           label="Email address"
           placeholder="you@example.com"
           value={email}
-          onChangeText={setEmail}
+          onChangeText={(value) => {
+            setEmail(value);
+            clearFieldError("email");
+          }}
+          error={fieldErrors.email}
+          editable={!action.busy}
           autoCapitalize="none"
           keyboardType="email-address"
           autoComplete="email"
@@ -117,7 +136,12 @@ export default function SignIn() {
         <Field
           label="Password"
           value={password}
-          onChangeText={setPassword}
+          onChangeText={(value) => {
+            setPassword(value);
+            clearFieldError("password");
+          }}
+          error={fieldErrors.password}
+          editable={!action.busy}
           secureTextEntry
           autoCapitalize="none"
           autoComplete={register ? "new-password" : "current-password"}

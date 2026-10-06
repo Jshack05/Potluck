@@ -74,11 +74,32 @@ export async function createApp(options: Options) {
                 : status === 429
                   ? "RATE_LIMITED"
                   : "INTERNAL_ERROR";
+    // Only public authentication fields receive hints. Never serialize Zod
+    // issues, submitted values, or internal validation paths into API errors.
+    const fields: Record<string, string> = {};
+    if (
+      error instanceof ZodError &&
+      ["/v1/local/accounts", "/v1/local/session"].includes(
+        req.routeOptions.url ?? "",
+      )
+    ) {
+      const hints: Record<string, string> = {
+        name: "Enter your name (1–80 characters).",
+        email:
+          "Enter a valid email address, such as you@example.com (up to 254 characters).",
+        password: "Use a password with 12–200 characters.",
+      };
+      for (const issue of error.issues) {
+        const field = String(issue.path[0]);
+        if (Object.hasOwn(hints, field)) fields[field] = hints[field];
+      }
+    }
     const message =
       error instanceof AppError
         ? error.message
         : error instanceof ZodError
-          ? "Check the highlighted details and try again."
+          ? Object.values(fields).join(" ") ||
+            "Some details are invalid. Check your entries and try again."
           : status === 409
             ? "This action conflicts with an existing item."
             : status === 400 || status === 415
@@ -96,7 +117,14 @@ export async function createApp(options: Options) {
           errorClass: e.name,
         }),
       );
-    reply.code(status).send({ error: { code, message }, requestId: req.id });
+    reply.code(status).send({
+      error: {
+        code,
+        message,
+        ...(Object.keys(fields).length ? { fields } : {}),
+      },
+      requestId: req.id,
+    });
   });
   const actor = (req: FastifyRequest) => {
     demand(req.actor, 401, "SIGN_IN_REQUIRED", "Sign in to continue.");
