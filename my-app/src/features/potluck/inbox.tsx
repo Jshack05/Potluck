@@ -64,7 +64,6 @@ export default function Inbox() {
     <Shell title="Inbox" back>
       <AuthGate returnTo="/inbox">
         <ResourceState
-          variant="messages"
           loading={
             (!threads.data && threads.loading) ||
             (!requests.data && requests.loading) ||

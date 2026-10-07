@@ -299,6 +299,7 @@ export function useResource<T>(path: string | null) {
     }, [reload]),
   );
   return {
+    loadingKey: key,
     data:
       path && user && canLoadResource(access, path) && snapshot?.key === key
         ? snapshot.value

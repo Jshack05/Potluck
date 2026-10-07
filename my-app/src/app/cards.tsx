@@ -35,7 +35,7 @@ export default function Cards() {
         <ResourceState
           loading={resource.loading}
           data={resource.data}
-          variant="cards"
+          loadingKey={resource.loadingKey}
           error={resource.error}
           retry={resource.reload}
         />

@@ -4,7 +4,7 @@
 
 All bills (left) and Shared (right, default) remain present while loading and when empty. Both scopes reuse the established No bills yet artwork; a Shared-only empty result can direct users to All bills when personal bills exist. The Import bills action follows its existing Figma design at approximately 1.5 times its prior dimensions, alongside the creation + above navigation. It opens the existing bank-import/manual-entry flow.
 
-Summary month and Overview/By week controls remain available while a month request is pending or fails. Replace only unresolved data with placeholders; preserve current-resource data through a refresh and expose any refresh failure. Loading is not an empty collection or a financial zero.
+Summary month and Overview/By week controls remain available while a month request is pending or fails. Leave unresolved content blank initially and show only minimal feedback after 500 ms; do not use skeleton placeholders. Preserve current-resource data through a refresh and expose any refresh failure. A new month/scope starts a fresh loading delay and must not show the old month's total. Loading is not an empty collection or a financial zero.
 
 ## October 7, 2026 — Manual Bills before banking
 

@@ -11,7 +11,7 @@ import {
   styles,
   theme,
 } from "@/design/system";
-import { ScreenSkeleton } from "@/design/loading";
+import { LoadingFeedback } from "@/design/loading";
 import { useResource } from "@/services/client";
 type Occurrence = {
   billId: string;
@@ -119,7 +119,7 @@ export function BillSummary({ scope }: { scope: "shared" | "all" }) {
         </Pressable>
       </View>
       <ResourceState loading={false} error={r.error} retry={r.reload} />
-      {!data && !r.error && <ScreenSkeleton variant="summary-content" />}
+      {!data && !r.error && <LoadingFeedback key={scope + month} />}
       {data &&
         (view === "overview" ? (
           <>

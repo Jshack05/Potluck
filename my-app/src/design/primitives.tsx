@@ -11,7 +11,6 @@ export const theme = {
   mint: "#E3F6F0",
   paleBlue: "#E4F1FC",
   line: "#D9E5E0",
-  skeleton: "#DDE3DF",
   danger: "#AD3E48",
   amber: "#996300",
 };

@@ -206,6 +206,7 @@ function CardForm() {
             <ResourceState
               loading={circles.loading}
               data={circles.data}
+              loadingKey={circles.loadingKey}
               error={circles.error}
               retry={circles.reload}
             />

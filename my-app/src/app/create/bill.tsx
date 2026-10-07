@@ -824,6 +824,7 @@ function BillForm({
               <ResourceState
                 loading={circles.loading}
                 data={circles.data}
+                loadingKey={circles.loadingKey}
                 error={circles.error}
                 retry={circles.reload}
               />
@@ -850,6 +851,7 @@ function BillForm({
               <ResourceState
                 loading={circle.loading}
                 data={circle.data}
+                loadingKey={circle.loadingKey}
                 error={circle.error}
                 retry={circle.reload}
               />
@@ -881,6 +883,7 @@ function BillForm({
                       <ResourceState
                         loading={foundPeople.loading}
                         data={foundPeople.data}
+                        loadingKey={foundPeople.loadingKey}
                         error={foundPeople.error}
                         retry={foundPeople.reload}
                       />
@@ -1031,6 +1034,7 @@ function BillForm({
               <ResourceState
                 loading={cards.loading}
                 data={cards.data}
+                loadingKey={cards.loadingKey}
                 error={cards.error}
                 retry={cards.reload}
               />

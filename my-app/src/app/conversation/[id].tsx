@@ -169,7 +169,6 @@ function ConversationEditor() {
     >
       <AuthGate returnTo={"/conversation/" + id}>
         <ResourceState
-          variant="messages"
           loading={thread.loading && !c}
           error={thread.error}
           retry={thread.reload}

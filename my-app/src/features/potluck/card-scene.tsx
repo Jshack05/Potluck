@@ -48,6 +48,7 @@ export function CardScene({
         <ResourceState
           loading={card.loading}
           data={card.data}
+          loadingKey={card.loadingKey}
           error={card.error}
           retry={card.reload}
         />

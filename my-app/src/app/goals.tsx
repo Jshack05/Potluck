@@ -30,6 +30,7 @@ export default function Goals() {
         <ResourceState
           loading={resource.loading}
           data={resource.data}
+          loadingKey={resource.loadingKey}
           error={resource.error}
           retry={resource.reload}
         />

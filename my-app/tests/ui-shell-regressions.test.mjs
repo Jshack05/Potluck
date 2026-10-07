@@ -45,7 +45,7 @@ function renderSummary(resource) {
     "react-native": { View: node, Pressable: pressable },
     "@/services/client": { useResource: () => resource },
     "@/design/loading": {
-      ScreenSkeleton: () => React.createElement("div", { role: "progressbar" }),
+      LoadingFeedback: () => null,
     },
     "@/design/system": {
       Label: node,
@@ -100,9 +100,12 @@ for (const [name, resource] of [
       !html.includes("$0.00"),
       "an unresolved month must not show a financial zero",
     );
-    assert.ok(
-      html.includes(resource.error ? 'role="alert"' : 'role="progressbar"'),
-    );
+    if (resource.error) assert.ok(html.includes('role="alert"'));
+    else
+      assert.ok(
+        !html.includes('role="progressbar"'),
+        "the initial content area stays blank",
+      );
   });
 }
 

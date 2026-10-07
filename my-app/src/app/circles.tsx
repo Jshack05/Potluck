@@ -35,13 +35,9 @@ export default function Circles() {
       emptyState={!!circles.data && !circles.data.items.length}
     >
       <AuthGate returnTo="/circles">
-        <ResourceState {...circles} variant="circles" retry={circles.reload} />
+        <ResourceState {...circles} retry={circles.reload} />
         {(circles.data || invitations.error) && (
-          <ResourceState
-            {...invitations}
-            variant="people"
-            retry={invitations.reload}
-          />
+          <ResourceState {...invitations} retry={invitations.reload} />
         )}
         {invitations.data?.items.map((invite) => (
           <Pressable

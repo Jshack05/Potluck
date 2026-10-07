@@ -75,7 +75,7 @@ export default function Bills() {
         <ResourceState
           loading={phase === "loading" || resource.loading}
           data={resource.data}
-          variant="bills"
+          loadingKey={resource.loadingKey}
           error={resource.error}
           retry={resource.reload}
         />

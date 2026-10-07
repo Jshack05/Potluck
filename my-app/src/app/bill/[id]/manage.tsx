@@ -180,6 +180,7 @@ export default function ManageBill() {
                   <ResourceState
                     loading={circles.loading}
                     data={circles.data}
+                    loadingKey={circles.loadingKey}
                     error={circles.error}
                     retry={circles.reload}
                   />
@@ -215,6 +216,7 @@ export default function ManageBill() {
                   <ResourceState
                     loading={cards.loading}
                     data={cards.data}
+                    loadingKey={cards.loadingKey}
                     error={cards.error}
                     retry={cards.reload}
                   />

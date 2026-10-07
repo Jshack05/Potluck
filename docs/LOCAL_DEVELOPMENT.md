@@ -1,5 +1,13 @@
 # Full Potluck: local development
 
+## October 7 blank-first loading follow-up
+
+The approved follow-up removes skeletons in favor of blank initial content and minimal feedback only after 500 ms. Existing resource data stays visible during refresh; changed resource identities restart the delay. The shared session-restoration state uses the same timing. No native configuration, dependency, backend, provider or schema change is part of this follow-up, so an existing compatible development binary only needs a JavaScript reload.
+
+`node scripts/validate.mjs` passed formatting, lint, strict types, **47 backend/domain tests, 50 mobile tests**, and iOS/Android/web exports. The full command still fails only the pre-existing mobile dependency audit: **23 findings (19 high, 3 moderate, 1 critical)**; backend audit zero. No dependency declarations or lockfiles changed.
+
+Browser checks exercised all four populated home tabs and Bills month navigation at 430×932. A temporary ignored browser harness mounted the real `LoadingFeedback`: a 100 ms completion produced no indicator; a pending request began blank and displayed feedback after 508 ms in that run; resolving it removed the indicator immediately, and a subsequent request began blank again. This is component/browser evidence, not a physical-device timing guarantee. Figma initial/delayed states were checked through metadata and renders. Fresh independent review found no actionable issues and independently passed the eight focused loader/shell tests. Physical-device and native screen-reader verification remain pending. See the [follow-up record](ui-concepts/2026-10-07-ui-stability.md#blank-first-loading-follow-up).
+
 ## October 7 shared UI stability verification
 
 The [UI stability record](ui-concepts/2026-10-07-ui-stability.md) documents shared navigation/header controls, stationary sheet backdrops, persistent Bills scopes, original empty states, enlarged import action, removal of Goals from Cards, and reusable loading states. Authentication and optional-bank boundaries are unchanged.

@@ -8,7 +8,6 @@ import {
 } from "expo-router";
 import { type ReactNode, createContext, useContext, useId } from "react";
 import {
-  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -24,7 +23,7 @@ import { entryDestination } from "@/services/navigation";
 import { CreationMenu } from "@/features/potluck/creation-menu";
 import { theme, icons, Label, Title, Muted, Icon } from "./primitives";
 import { BottomNavigation, HeaderActions, mainTab } from "./chrome";
-import { ScreenSkeleton, type SkeletonVariant } from "./loading";
+import { LoadingFeedback } from "./loading";
 export { theme, icons, Label, Title, Muted, Icon } from "./primitives";
 const Accent = createContext(theme.teal);
 export function Action({
@@ -228,16 +227,16 @@ export function ResourceState({
   error,
   retry,
   data,
-  variant = "details",
+  loadingKey,
 }: {
   loading: boolean;
   error: string;
   retry: () => void;
   data?: unknown;
-  variant?: SkeletonVariant;
+  loadingKey?: string;
 }) {
   return loading && data == null ? (
-    <ScreenSkeleton variant={variant} />
+    <LoadingFeedback key={loadingKey} />
   ) : error ? (
     <View style={{ gap: 12, marginVertical: 20 }}>
       <ErrorText text={error} />
@@ -537,10 +536,7 @@ export function EntryLoading() {
         alignItems: "center",
       }}
     >
-      <ActivityIndicator
-        accessibilityLabel="Opening Potluck"
-        color={theme.teal}
-      />
+      <LoadingFeedback label="Opening Potluck…" />
     </View>
   );
 }

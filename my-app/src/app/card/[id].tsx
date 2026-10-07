@@ -24,6 +24,7 @@ export default function CardDetail() {
         <ResourceState
           loading={resource.loading}
           data={resource.data}
+          loadingKey={resource.loadingKey}
           error={resource.error}
           retry={resource.reload}
         />

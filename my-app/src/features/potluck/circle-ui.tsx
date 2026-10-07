@@ -426,11 +426,7 @@ export function AddCirclePeople({
           style={{ flex: 1 }}
           contentContainerStyle={{ gap: 8 }}
         >
-          <ResourceState
-            {...contacts}
-            variant="people"
-            retry={contacts.reload}
-          />
+          <ResourceState {...contacts} retry={contacts.reload} />
           {contacts.data?.items
             .filter((p) => p.id !== user?.id)
             .map((person, index) => {
