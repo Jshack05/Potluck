@@ -29,6 +29,7 @@ export default function Goals() {
       <AuthGate returnTo="/goals">
         <ResourceState
           loading={resource.loading}
+          data={resource.data}
           error={resource.error}
           retry={resource.reload}
         />

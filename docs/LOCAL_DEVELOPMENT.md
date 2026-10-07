@@ -1,5 +1,15 @@
 # Full Potluck: local development
 
+## October 7 shared UI stability verification
+
+The [UI stability record](ui-concepts/2026-10-07-ui-stability.md) documents shared navigation/header controls, stationary sheet backdrops, persistent Bills scopes, original empty states, enlarged import action, removal of Goals from Cards, and reusable loading states. Authentication and optional-bank boundaries are unchanged.
+
+Final `node scripts/validate.mjs` execution (with `npm_execpath` pointing to an integrity-verified temporary official npm CLI) passed backend formatting, backend/mobile strict types, mobile lint, **47 backend/domain tests, 46 mobile tests**, and iOS/Android/web exports. Formatting of every changed mobile file also passed. The full command exits unsuccessfully only for the existing mobile dependency audit: **23 findings (19 high, 3 moderate, 1 critical)**; backend audit zero. No dependency or lockfile changes were made. Do not describe this as a green release gate.
+
+Browser verification covered populated/empty data, both Bills scopes, four-tab chrome, original artwork, the import entry, and people-sheet dismissal/reopening at 430×932 and 320×600. The independent code review identified Android resize behavior and disappearing month controls; both were reproduced by regression tests and fixed before this final run. Physical-iPhone/Android keyboard, animation and large-text checks remain pending.
+
+Android now requests `adjustPan` through Expo configuration. An installed Android development binary needs rebuilding/reinstallation for this native manifest change. This task changes no iOS native settings. Local Expo/API servers were reused; no production provider operation was performed.
+
 ## Authentication validation repair
 
 Local sign-up and sign-in show server-validated name, email and password errors beside the affected fields with a visible border and accessible error text. Submit stays available to explain missing entries; only an in-flight request disables it. Editing a field clears its previous error, and switching forms clears stale errors. Registration requires a name, a complete email address such as you@example.com, and a 12–200-character password. The API remains authoritative; no test login or bank bypass is introduced.

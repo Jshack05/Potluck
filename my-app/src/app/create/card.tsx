@@ -205,6 +205,7 @@ function CardForm() {
             <Title small>Choose a Circle</Title>
             <ResourceState
               loading={circles.loading}
+              data={circles.data}
               error={circles.error}
               retry={circles.reload}
             />

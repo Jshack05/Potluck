@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
+import { SheetSurface } from "@/design/sheet";
 import { Image } from "expo-image";
 import {
-  Modal,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -314,61 +314,23 @@ export function CircleSheet({
   onExpand?: () => void;
 }) {
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="slide"
-      onRequestClose={onClose}
-    >
-      <View
+    <SheetSurface visible={visible} onClose={onClose} height={height}>
+      <Pressable
+        hitSlop={12}
+        accessibilityRole={onExpand ? "button" : undefined}
+        accessibilityLabel={onExpand ? "Expand or collapse people" : undefined}
+        onPress={onExpand}
         style={{
-          flex: 1,
-          justifyContent: "flex-end",
-          backgroundColor: "#0000002E",
-          padding: 20,
-          paddingBottom: 32,
+          height: 5,
+          width: 58,
+          borderRadius: 3,
+          backgroundColor: "#D8E2DE",
+          alignSelf: "center",
+          marginBottom: 6,
         }}
-      >
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Close popup"
-          onPress={onClose}
-          style={StyleSheet.absoluteFill}
-        />
-        <View
-          accessibilityViewIsModal
-          style={{
-            backgroundColor: "white",
-            borderRadius: 32,
-            width: "100%",
-            maxWidth: 430,
-            alignSelf: "center",
-            maxHeight: "85%",
-            height,
-            padding: 20,
-            gap: 12,
-          }}
-        >
-          <Pressable
-            hitSlop={12}
-            accessibilityRole={onExpand ? "button" : undefined}
-            accessibilityLabel={
-              onExpand ? "Expand or collapse people" : undefined
-            }
-            onPress={onExpand}
-            style={{
-              height: 5,
-              width: 58,
-              borderRadius: 3,
-              backgroundColor: "#D8E2DE",
-              alignSelf: "center",
-              marginBottom: 6,
-            }}
-          />
-          {children}
-        </View>
-      </View>
-    </Modal>
+      />
+      {children}
+    </SheetSurface>
   );
 }
 export function AddCirclePeople({
@@ -464,7 +426,11 @@ export function AddCirclePeople({
           style={{ flex: 1 }}
           contentContainerStyle={{ gap: 8 }}
         >
-          <ResourceState {...contacts} retry={contacts.reload} />
+          <ResourceState
+            {...contacts}
+            variant="people"
+            retry={contacts.reload}
+          />
           {contacts.data?.items
             .filter((p) => p.id !== user?.id)
             .map((person, index) => {

@@ -6,7 +6,6 @@ import {
   AuthGate,
   Label,
   Muted,
-  Action,
   ResourceState,
   theme,
   money,
@@ -22,9 +21,14 @@ import {
   billStatusLabel,
 } from "@/features/potluck/bill-flow-model";
 import {
+  collectionPhase,
   visibleBills,
   ownBillShare,
 } from "@/features/potluck/presentation-state";
+import {
+  BillScopeTabs,
+  ImportBillsButton,
+} from "@/features/potluck/bill-home-controls";
 export default function Bills() {
   const params = useLocalSearchParams<{ scope?: string }>();
   const { user } = useClient(),
@@ -32,24 +36,7 @@ export default function Bills() {
   const scope = params.scope === "all" ? "all" : "shared";
   const bills = resource.data && visibleBills(resource.data.items, scope);
   const attention = billAttention(resource.data?.items ?? [], user?.id ?? "");
-  if (resource.data && !resource.data.items.length)
-    return (
-      <Shell
-        title="Bills"
-        active="Bills"
-        emptyState
-        createMenu
-        footer={
-          <Action
-            secondary
-            label="Import bills"
-            onPress={() => go("/import-bills")}
-          />
-        }
-      >
-        <HomeEmptyState area="Bills" />
-      </Shell>
-    );
+  const phase = collectionPhase(bills, resource.error);
   return (
     <Shell
       title="Bills"
@@ -78,79 +65,28 @@ export default function Bills() {
         )
       }
       createMenu
-      footer={
-        user && (
-          <Pressable
-            accessibilityRole="button"
-            onPress={() => go("/import-bills")}
-            style={{
-              backgroundColor: "white",
-              borderRadius: 16,
-              minHeight: 46,
-              flexDirection: "row",
-              gap: 12,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Image
-              source={require("../../assets/potluck/bill/import.svg")}
-              style={{ width: 18, height: 18 }}
-            />
-            <Label
-              style={{
-                color: theme.teal,
-                fontFamily: "Inter_600SemiBold",
-                fontSize: 14,
-              }}
-            >
-              Import bills
-            </Label>
-          </Pressable>
-        )
-      }
+      footer={<ImportBillsButton />}
     >
       <AuthGate returnTo="/bills">
-        <View style={{ flexDirection: "row" }}>
-          {(["all", "shared"] as const).map((value) => (
-            <Pressable
-              key={value}
-              accessibilityRole="tab"
-              accessibilityState={{ selected: scope === value }}
-              aria-selected={scope === value}
-              onPress={() => router.setParams({ scope: value })}
-              style={{
-                flex: 1,
-                minHeight: 52,
-                alignItems: "center",
-                justifyContent: "center",
-                borderBottomWidth: 3,
-                borderColor: scope === value ? theme.teal : "transparent",
-              }}
-            >
-              <Label
-                style={{
-                  fontSize: 20,
-                  fontFamily: "Inter_600SemiBold",
-                  color: scope === value ? theme.teal : theme.muted,
-                }}
-              >
-                {value === "shared" ? "Shared" : "All bills"}
-              </Label>
-            </Pressable>
-          ))}
-        </View>
+        <BillScopeTabs
+          scope={scope}
+          onChange={(scope) => router.setParams({ scope })}
+        />
         <ResourceState
-          loading={resource.loading}
+          loading={phase === "loading" || resource.loading}
+          data={resource.data}
+          variant="bills"
           error={resource.error}
           retry={resource.reload}
         />
-        {user && <BillSummary scope={scope} />}
-        <Muted>
-          {scope === "shared"
-            ? "Connected to a Circle or Card"
-            : "All your saved bills"}
-        </Muted>
+        {phase === "ready" && <BillSummary scope={scope} />}
+        {phase === "ready" && (
+          <Muted>
+            {scope === "shared"
+              ? "Connected to a Circle or Card"
+              : "All your saved bills"}
+          </Muted>
+        )}
         {bills?.map((bill) => {
           const agreement = ownBillShare(bill, user?.id);
           return (
@@ -187,11 +123,11 @@ export default function Bills() {
             </Pressable>
           );
         })}
-        {bills && !bills.length && (
-          <Muted>
-            Your saved bills are in All bills. Connect one to a Circle or Card
-            to see it here.
-          </Muted>
+        {phase === "empty" && (
+          <HomeEmptyState
+            area="Bills"
+            sharedOnly={scope === "shared" && !!resource.data?.items.length}
+          />
         )}
       </AuthGate>
     </Shell>

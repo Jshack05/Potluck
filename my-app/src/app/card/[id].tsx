@@ -23,6 +23,7 @@ export default function CardDetail() {
       <AuthGate returnTo={"/card/" + resource.id}>
         <ResourceState
           loading={resource.loading}
+          data={resource.data}
           error={resource.error}
           retry={resource.reload}
         />

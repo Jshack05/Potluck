@@ -179,6 +179,7 @@ export default function ManageBill() {
                   <Title>Connect to your people</Title>
                   <ResourceState
                     loading={circles.loading}
+                    data={circles.data}
                     error={circles.error}
                     retry={circles.reload}
                   />
@@ -213,6 +214,7 @@ export default function ManageBill() {
                   <Title small>Funding Card</Title>
                   <ResourceState
                     loading={cards.loading}
+                    data={cards.data}
                     error={cards.error}
                     retry={cards.reload}
                   />

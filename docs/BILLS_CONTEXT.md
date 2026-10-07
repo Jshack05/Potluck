@@ -1,5 +1,11 @@
 # Potluck Bills Context
 
+## October 7, 2026 — Collection states and controls
+
+All bills (left) and Shared (right, default) remain present while loading and when empty. Both scopes reuse the established No bills yet artwork; a Shared-only empty result can direct users to All bills when personal bills exist. The Import bills action follows its existing Figma design at approximately 1.5 times its prior dimensions, alongside the creation + above navigation. It opens the existing bank-import/manual-entry flow.
+
+Summary month and Overview/By week controls remain available while a month request is pending or fails. Replace only unresolved data with placeholders; preserve current-resource data through a refresh and expose any refresh failure. Loading is not an empty collection or a financial zero.
+
 ## October 7, 2026 — Manual Bills before banking
 
 The latest founder instruction permits unconnected manual Bills after sign-in. A self-only planning Bill is saved as a draft without contribution offers; shared proposals still record exact terms and require each person's acceptance. Importing bank-detected Bills and bank-funded payment actions lead to bank setup. No provider is configured locally, so the app must not invent detected charges, linked accounts or transfer results. Bank outages must not remove organization, agreement review or cancellation access. Resource permissions continue to apply independently of bank status.

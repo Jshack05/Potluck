@@ -14,115 +14,19 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
   View,
-  type TextProps,
   type TextInputProps,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useClient } from "@/services/client";
 import { entryDestination } from "@/services/navigation";
 import { CreationMenu } from "@/features/potluck/creation-menu";
-export const theme = {
-  canvas: "#F3F2EF",
-  blueCanvas: "#F2F9FD",
-  ink: "#273432",
-  muted: "#596562",
-  teal: "#006D67",
-  blue: "#287AAA",
-  mint: "#E3F6F0",
-  paleBlue: "#E4F1FC",
-  line: "#D9E5E0",
-  danger: "#AD3E48",
-  amber: "#996300",
-};
+import { theme, icons, Label, Title, Muted, Icon } from "./primitives";
+import { BottomNavigation, HeaderActions, mainTab } from "./chrome";
+import { ScreenSkeleton, type SkeletonVariant } from "./loading";
+export { theme, icons, Label, Title, Muted, Icon } from "./primitives";
 const Accent = createContext(theme.teal);
-export const icons = {
-  circles: require("../../assets/potluck/circles.svg"),
-  cards: require("../../assets/potluck/cards.svg"),
-  bills: require("../../assets/potluck/bills.svg"),
-  pending: require("../../assets/potluck/pending.svg"),
-  healthy: require("../../assets/potluck/health-good.svg"),
-  attention: require("../../assets/potluck/health-attention.svg"),
-  internet: require("../../assets/potluck/internet.svg"),
-  phone: require("../../assets/potluck/phone.svg"),
-  electric: require("../../assets/potluck/electric.svg"),
-  groceries: require("../../assets/potluck/groceries.svg"),
-  plus: require("../../assets/potluck/plus.svg"),
-  back: require("../../assets/potluck/back.svg"),
-  discover: require("../../assets/splitfinder/discover.svg"),
-  inbox: require("../../assets/potluck/inbox.svg"),
-  inboxBlue: require("../../assets/splitfinder/inbox.svg"),
-  bank: require("../../assets/potluck/bank-house.svg"),
-  agreement: require("../../assets/potluck/agreement-document.svg"),
-  authLucky: require("../../assets/potluck/auth-lucky.svg"),
-  lucky: require("../../assets/splitfinder/lucky.svg"),
-  service: require("../../assets/splitfinder/service.png"),
-  check: require("../../assets/splitfinder/check.svg"),
-};
-export function Label({ style, ...props }: TextProps) {
-  return <Text {...props} style={[styles.text, style]} />;
-}
-export function Title({
-  children,
-  small = false,
-}: {
-  children: ReactNode;
-  small?: boolean;
-}) {
-  return (
-    <Label
-      accessibilityRole="header"
-      style={{
-        fontFamily: "Inter_700Bold",
-        fontSize: small ? 20 : 26,
-        lineHeight: small ? 27 : 33,
-      }}
-    >
-      {children}
-    </Label>
-  );
-}
-export function Muted({ children }: { children: ReactNode }) {
-  return (
-    <Label style={{ color: theme.muted, fontSize: 14, lineHeight: 21 }}>
-      {children}
-    </Label>
-  );
-}
-export function Icon({
-  name,
-  size = 24,
-}: {
-  name: keyof typeof icons;
-  size?: number;
-}) {
-  if (name === "inbox")
-    return (
-      <View
-        style={{
-          width: size,
-          height: size,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Image
-          source={icons.inbox}
-          contentFit="contain"
-          style={{ width: (size * 17.8) / 24, height: (size * 15.8) / 24 }}
-        />
-      </View>
-    );
-  return (
-    <Image
-      source={icons[name]}
-      contentFit="contain"
-      style={{ width: size, height: size }}
-    />
-  );
-}
 export function Action({
   label,
   onPress,
@@ -323,13 +227,17 @@ export function ResourceState({
   loading,
   error,
   retry,
+  data,
+  variant = "details",
 }: {
   loading: boolean;
   error: string;
   retry: () => void;
+  data?: unknown;
+  variant?: SkeletonVariant;
 }) {
-  return loading ? (
-    <ActivityIndicator color={theme.teal} style={{ marginVertical: 30 }} />
+  return loading && data == null ? (
+    <ScreenSkeleton variant={variant} />
   ) : error ? (
     <View style={{ gap: 12, marginVertical: 20 }}>
       <ErrorText text={error} />
@@ -409,7 +317,6 @@ export function Shell({
   blue = false,
   active,
   returnTo,
-  emptyState = false,
   onBack,
   hideNavigation = false,
   createMenu,
@@ -460,18 +367,14 @@ export function Shell({
         style={{
           flex: 1,
           backgroundColor:
-            blue || continuation
-              ? theme.blueCanvas
-              : emptyState && active !== "Circles"
-                ? "#F1EFE7"
-                : theme.canvas,
+            blue || continuation ? theme.blueCanvas : theme.canvas,
         }}
       >
         <View
           style={{
             flex: 1,
             width: "100%",
-            maxWidth: emptyState ? 430 : 478,
+            maxWidth: 430,
             alignSelf: "center",
           }}
         >
@@ -479,27 +382,13 @@ export function Shell({
             behavior={Platform.OS === "ios" ? "padding" : undefined}
             style={{ flex: 1 }}
           >
-            {emptyState && active !== "Circles" && (
-              <View
-                style={{
-                  pointerEvents: "none",
-                  position: "absolute",
-                  top: 16,
-                  bottom: 16,
-                  left: 16,
-                  right: 16,
-                  borderRadius: 24,
-                  backgroundColor: "#FBFAF5",
-                }}
-              />
-            )}
             <View
               style={[
                 styles.row,
                 {
                   paddingHorizontal: 20,
-                  paddingTop: Math.max(inset.top, 18) + 12,
-                  paddingBottom: 20,
+                  paddingTop: Math.max(inset.top + 12, 45),
+                  paddingBottom: mainTab(pathname) ? 11 : 20,
                   gap: 12,
                 },
               ]}
@@ -539,13 +428,7 @@ export function Shell({
                 accessibilityRole="header"
                 style={{
                   fontFamily: "Inter_700Bold",
-                  fontSize: continuation
-                    ? 36
-                    : back
-                      ? 25
-                      : emptyState
-                        ? 28
-                        : 32,
+                  fontSize: continuation ? 36 : back ? 25 : 28,
                   lineHeight: continuation ? 44 : 38,
                   color: continuation ? theme.teal : theme.ink,
                   flex: 1,
@@ -556,33 +439,7 @@ export function Shell({
               {(!back || continuation) && (
                 <>
                   {headerAccessory}
-                  <Pressable
-                    accessibilityRole="button"
-                    accessibilityLabel="Open inbox"
-                    onPress={() => go("/inbox")}
-                    style={styles.round}
-                  >
-                    <Icon name={blue ? "inboxBlue" : "inbox"} />
-                  </Pressable>
-                  <Pressable
-                    accessibilityRole="button"
-                    accessibilityLabel="Your profile"
-                    onPress={() => go("/you")}
-                    style={[
-                      styles.round,
-                      { borderWidth: 1.8, borderColor: theme.teal },
-                    ]}
-                  >
-                    <Label
-                      style={{
-                        fontFamily: "Inter_600SemiBold",
-                        color: theme.teal,
-                        fontSize: 14,
-                      }}
-                    >
-                      You
-                    </Label>
-                  </Pressable>
+                  <HeaderActions blue={blue} />
                 </>
               )}
             </View>
@@ -627,7 +484,7 @@ export function Shell({
                   paddingBottom: 12,
                   gap: 10,
                   flexDirection: "row",
-                  alignItems: "flex-end",
+                  alignItems: mainTab(pathname) ? "center" : "flex-end",
                 }}
               >
                 <View style={{ flex: 1, gap: 10 }}>{footer}</View>
@@ -645,71 +502,8 @@ export function Shell({
               </View>
             )}
           </KeyboardAvoidingView>
-          {!hideNavigation && (
-            <View
-              style={{
-                paddingHorizontal: 20,
-                paddingTop: 6,
-                paddingBottom: Math.max(inset.bottom, 16),
-              }}
-            >
-              <View style={styles.nav}>
-                {(["Circles", "Cards", "Bills", "Splitfinder"] as const).map(
-                  (name, index) => (
-                    <Pressable
-                      key={name}
-                      accessibilityRole="tab"
-                      accessibilityState={{ selected: selected === name }}
-                      aria-selected={selected === name}
-                      accessibilityLabel={name}
-                      onPress={() =>
-                        router.replace(
-                          ["/circles", "/cards", "/bills", "/discover"][
-                            index
-                          ] as Href,
-                        )
-                      }
-                      style={[
-                        styles.tab,
-                        selected === name && {
-                          backgroundColor:
-                            name === "Splitfinder"
-                              ? theme.paleBlue
-                              : theme.mint,
-                        },
-                      ]}
-                    >
-                      <Icon
-                        name={
-                          (["circles", "cards", "bills", "discover"] as const)[
-                            index
-                          ]
-                        }
-                        size={26}
-                      />
-                      <Label
-                        style={{
-                          fontSize: 10,
-                          lineHeight: 15,
-                          color:
-                            selected === name
-                              ? name === "Splitfinder"
-                                ? theme.blue
-                                : theme.teal
-                              : theme.muted,
-                          fontFamily:
-                            selected === name
-                              ? "Inter_600SemiBold"
-                              : "Inter_400Regular",
-                        }}
-                      >
-                        {name}
-                      </Label>
-                    </Pressable>
-                  ),
-                )}
-              </View>
-            </View>
+          {!hideNavigation && !mainTab(pathname) && (
+            <BottomNavigation selected={selected} />
           )}
         </View>
       </View>

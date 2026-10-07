@@ -29,6 +29,7 @@ export default function GoalTerms() {
       <AuthGate returnTo={"/goal/" + id + "/terms"}>
         <ResourceState
           loading={resource.loading}
+          data={resource.data}
           error={resource.error}
           retry={resource.reload}
         />

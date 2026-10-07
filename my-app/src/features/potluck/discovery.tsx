@@ -236,7 +236,7 @@ export default function Discovery() {
       )}
       {directory && !brand ? (
         <>
-          <ResourceState {...brands} retry={brands.reload} />
+          <ResourceState {...brands} variant="people" retry={brands.reload} />
           {!query &&
             list.data?.items
               .filter((x) => !x.brand)
@@ -285,7 +285,7 @@ export default function Discovery() {
         </>
       ) : (
         <>
-          <ResourceState {...list} retry={list.reload} />
+          <ResourceState {...list} variant="listings" retry={list.reload} />
           {list.data?.items.map((item) => (
             <ListingRow key={item.id} listing={item} />
           ))}

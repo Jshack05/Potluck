@@ -1,5 +1,11 @@
 # Potluck Product Context
 
+## October 7, 2026 — Consistent app navigation and honest loading
+
+All four home tabs share one navigation component, with consistent Inbox and You controls. Navigation stays separate from content keyboard avoidance. Empty, loading, populated and failed states preserve the same screen structure; unresolved financial data is never represented as a balance or total. The original illustrated empty states remain authoritative. Add-people sheets use a stationary backdrop and independently moving foreground.
+
+Cards must not contain a Your Goals section. The founder intends Goals to live with Bills and connect to Circles; that relocation is deferred. Existing Goal planning and its consent boundaries remain unchanged. This is a Free/core usability correction, with no new entitlement or bank-connection requirement. See the [implementation and verification record](ui-concepts/2026-10-07-ui-stability.md).
+
 ## October 7, 2026 — Restore Potluck flows; contextual, optional banking
 
 The founder's October 6 instruction supersedes the earlier Cards/Bills gate: **sign in → organize Circles, Card setups, manual Bills and Goals**. Bank connection is optional for organization. It belongs within Card activation/funding and bank-imported Bills; a personal unconnected Bill may be saved without proposals or a bank account. Authentication, ownership and resource permissions remain required. No client callback may assert provider confirmation.

@@ -64,20 +64,27 @@ export default function Inbox() {
     <Shell title="Inbox" back>
       <AuthGate returnTo="/inbox">
         <ResourceState
+          variant="messages"
           loading={
-            threads.loading ||
-            requests.loading ||
-            invitations.loading ||
-            bills.loading
+            (!threads.data && threads.loading) ||
+            (!requests.data && requests.loading) ||
+            (!invitations.data && invitations.loading) ||
+            (!bills.data && bills.loading) ||
+            (!transfers.data && transfers.loading)
           }
           error={
-            threads.error || requests.error || invitations.error || bills.error
+            threads.error ||
+            requests.error ||
+            invitations.error ||
+            bills.error ||
+            transfers.error
           }
           retry={() => {
             void threads.reload();
             void requests.reload();
             void invitations.reload();
             void bills.reload();
+            void transfers.reload();
           }}
         />
         <ErrorText text={act.error} />

@@ -456,6 +456,7 @@ function GoalForm() {
             <Title small>Choose a Circle</Title>
             <ResourceState
               loading={circles.loading}
+              data={circles.data}
               error={circles.error}
               retry={circles.reload}
             />
@@ -493,6 +494,7 @@ function GoalForm() {
             <Title small>Who is contributing?</Title>
             <ResourceState
               loading={circle.loading}
+              data={circle.data}
               error={circle.error}
               retry={circle.reload}
             />
@@ -635,6 +637,7 @@ function GoalForm() {
             <Title small>Choose a Card</Title>
             <ResourceState
               loading={cards.loading}
+              data={cards.data}
               error={cards.error}
               retry={cards.reload}
             />
