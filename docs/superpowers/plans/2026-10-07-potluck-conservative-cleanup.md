@@ -10,7 +10,7 @@ This is maintenance of the Free/core experience, not a new feature or entitlemen
 
 - Worktree: `potluck-full-integration/Potluck`; the separate website checkout is untouched.
 - Backup: `codex/backup-potluck-pre-cleanup-2026-10-07`, commit `ad93968a80e210a83909221c54a6383fa878b0d6`, pushed and verified before cleanup.
-- Cleanup: `codex/potluck-conservative-cleanup-2026-10-07`; PR targets the backup branch to isolate this cleanup from the preceding restoration. Do not merge automatically.
+- Cleanup: `codex/potluck-conservative-cleanup-2026-10-07`; a review-only draft PR targets the backup branch to isolate this cleanup from the preceding restoration. Keep the backup unchanged. Before any later integration, retarget onto the approved integration branch containing the restoration. Do not merge automatically.
 - Baseline: 47 backend/domain tests, 39 mobile tests, formatting, lint, strict types and iOS/Android/web exports pass. Backend audit is clean. The full gate fails only the existing mobile audit: 23 findings (19 high, 3 moderate, 1 critical). Dependencies and lockfiles remain unchanged.
 - Backup history and staged snapshot were scanned with Gitleaks 8.30.1. The only reviewed false positive was the public Figma file identifier, not an authentication credential. Local environment files, databases, logs and scanner reports remain ignored.
 
@@ -54,4 +54,30 @@ There are no migrations or data changes. Revert the cleanup commits in reverse o
 
 ## Execution record
 
-Pending implementation and final review. Validation and final findings will be recorded below before handoff.
+Implemented in two reviewable batches:
+
+1. `2d347af`: remove the 16 unused starter files and 14 unused starter images listed above. Mobile lint, strict types (including unused locals/parameters), and all 39 mobile tests passed after this batch.
+2. `37f9ac0`: remove unused declarations from the legacy UI module. The same mobile checks passed again. An AST comparison against the backup confirmed the three retained declarations and their two style entries are text-identical, apart from line endings.
+
+All 55 route/layout source files are unchanged. So are the application services, backend/domain/contracts, tests, scripts, package manifests, lockfiles and native configuration. No tests were weakened or removed. No new source-text tests were added merely to assert that deleted code is absent: import/configuration proof, existing behavior tests, cross-platform exports and browser checks provide the relevant evidence for these low-impact deletions. The residual risk is an unknown consumer outside the inspected private app; there is no published package export or known external import contract for these files.
+
+Final full validation used `node scripts/validate.mjs` with `npm_execpath` set to the existing npm CLI:
+
+| Check                               | Before                  | After                                             |
+| ----------------------------------- | ----------------------- | ------------------------------------------------- |
+| Backend formatting and strict types | Pass                    | Pass                                              |
+| Backend/domain tests                | 47 pass                 | 47 pass                                           |
+| Mobile lint and strict types        | Pass                    | Pass                                              |
+| Mobile tests                        | 39 pass                 | 39 pass                                           |
+| iOS, Android and web exports        | Pass                    | Pass; 56 static routes                            |
+| Backend dependency audit            | 0 findings              | 0 findings                                        |
+| Mobile dependency audit             | 23 findings             | Same 23 findings: 19 high, 3 moderate, 1 critical |
+| Full gate                           | Fails mobile audit only | Fails mobile audit only                           |
+
+Browser verification used the existing local QA account: sign-in, search, clear search, category selection and sign-out worked. The welcome screenshot was byte-identical before/after; search screenshots visually matched, with the blinking text caret differing. No provider operations or real financial transactions were performed. This browser check does not substitute for a physical-device smoke test.
+
+Staged scans for both code batches and the two-commit cleanup range passed Gitleaks with the reviewed Figma-identifier exception described above. Ignored redacted reports and validation logs remain local.
+
+The independent fresh-context review found no Critical, Important or Minor issues. It examined all 219 tracked JavaScript/TypeScript files at the baseline, confirmed no surviving importer of any deleted file, and independently matched the retained declarations/styles against the backup. It also inspected baseline/final validation receipts rather than repeating the full export.
+
+Review boundaries: physical-device rendering/accessibility remains unverified; platform exports establish bundling, not device behavior. Financial/provider readiness was not recertified: those implementations are unchanged, and their existing provider limits remain. Dependency remediation stays deferred and the audit failure remains a release blocker. These boundaries do not justify weakening the gate or claiming production readiness. The draft PR is for review only; do not merge into the backup branch.
