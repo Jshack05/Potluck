@@ -34,6 +34,8 @@ export default function Cards() {
         )}
         <ResourceState
           loading={resource.loading}
+          data={resource.data}
+          loadingKey={resource.loadingKey}
           error={resource.error}
           retry={resource.reload}
         />
@@ -85,13 +87,11 @@ export default function Cards() {
                 go("/card/" + resource.data!.items[0].id + "/setup")
               }
             />
-            <Link onPress={() => go("/goals")}>Your Goals</Link>
           </View>
         )}
         {resource.data && !resource.data.items.length && (
           <>
             <HomeEmptyState area="Cards" />
-            <Link onPress={() => go("/goals")}>Your Goals</Link>
           </>
         )}
       </AuthGate>

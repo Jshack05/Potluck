@@ -82,6 +82,8 @@ export default function InviteSpender() {
     >
       <ResourceState
         loading={card.loading}
+        data={card.data}
+        loadingKey={card.loadingKey}
         error={card.error}
         retry={card.reload}
       />
@@ -94,6 +96,8 @@ export default function InviteSpender() {
                 <Muted>{card.data.name}</Muted>
                 <ResourceState
                   loading={circle.loading}
+                  data={circle.data}
+                  loadingKey={circle.loadingKey}
                   error={circle.error}
                   retry={circle.reload}
                 />

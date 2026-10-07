@@ -1,5 +1,23 @@
 # Full Potluck: local development
 
+## October 7 blank-first loading follow-up
+
+The approved follow-up removes skeletons in favor of blank initial content and minimal feedback only after 500 ms. Existing resource data stays visible during refresh; changed resource identities restart the delay. The shared session-restoration state uses the same timing. No native configuration, dependency, backend, provider or schema change is part of this follow-up, so an existing compatible development binary only needs a JavaScript reload.
+
+`node scripts/validate.mjs` passed formatting, lint, strict types, **47 backend/domain tests, 50 mobile tests**, and iOS/Android/web exports. The full command still fails only the pre-existing mobile dependency audit: **23 findings (19 high, 3 moderate, 1 critical)**; backend audit zero. No dependency declarations or lockfiles changed.
+
+Browser checks exercised all four populated home tabs and Bills month navigation at 430×932. A temporary ignored browser harness mounted the real `LoadingFeedback`: a 100 ms completion produced no indicator; a pending request began blank and displayed feedback after 508 ms in that run; resolving it removed the indicator immediately, and a subsequent request began blank again. This is component/browser evidence, not a physical-device timing guarantee. Figma initial/delayed states were checked through metadata and renders. Fresh independent review found no actionable issues and independently passed the eight focused loader/shell tests. Physical-device and native screen-reader verification remain pending. See the [follow-up record](ui-concepts/2026-10-07-ui-stability.md#blank-first-loading-follow-up).
+
+## October 7 shared UI stability verification
+
+The [UI stability record](ui-concepts/2026-10-07-ui-stability.md) documents shared navigation/header controls, stationary sheet backdrops, persistent Bills scopes, original empty states, enlarged import action, removal of Goals from Cards, and reusable loading states. Authentication and optional-bank boundaries are unchanged.
+
+Final `node scripts/validate.mjs` execution (with `npm_execpath` pointing to an integrity-verified temporary official npm CLI) passed backend formatting, backend/mobile strict types, mobile lint, **47 backend/domain tests, 46 mobile tests**, and iOS/Android/web exports. Formatting of every changed mobile file also passed. The full command exits unsuccessfully only for the existing mobile dependency audit: **23 findings (19 high, 3 moderate, 1 critical)**; backend audit zero. No dependency or lockfile changes were made. Do not describe this as a green release gate.
+
+Browser verification covered populated/empty data, both Bills scopes, four-tab chrome, original artwork, the import entry, and people-sheet dismissal/reopening at 430×932 and 320×600. The independent code review identified Android resize behavior and disappearing month controls; both were reproduced by regression tests and fixed before this final run. Physical-iPhone/Android keyboard, animation and large-text checks remain pending.
+
+Android now requests `adjustPan` through Expo configuration. An installed Android development binary needs rebuilding/reinstallation for this native manifest change. This task changes no iOS native settings. Local Expo/API servers were reused; no production provider operation was performed.
+
 ## Authentication validation repair
 
 Local sign-up and sign-in show server-validated name, email and password errors beside the affected fields with a visible border and accessible error text. Submit stays available to explain missing entries; only an in-flight request disables it. Editing a field clears its previous error, and switching forms clears stale errors. Registration requires a name, a complete email address such as you@example.com, and a 12–200-character password. The API remains authoritative; no test login or bank bypass is introduced.

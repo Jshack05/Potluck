@@ -8,10 +8,12 @@ type Area = "Circles" | "Cards" | "Bills";
 /** Figma 766:3012 / 766:3056 / 766:3098. Original assets at native dimensions. */
 export function HomeEmptyState({
   area,
+  sharedOnly = false,
   bankRequired = false,
   bankStatusError = false,
 }: {
   area: Area;
+  sharedOnly?: boolean;
   bankRequired?: boolean;
   bankStatusError?: boolean;
 }) {
@@ -197,7 +199,9 @@ export function HomeEmptyState({
               ? "Your table is wide open"
               : area === "Cards"
                 ? "No cards yet"
-                : "No bills yet"}
+                : sharedOnly
+                  ? "No shared bills yet"
+                  : "No bills yet"}
         </Label>
         <Label
           style={{
@@ -218,7 +222,9 @@ export function HomeEmptyState({
                   : "Connect your bank account to get started with shared bills."
                 : area === "Cards"
                   ? "Create a shared card when you are ready to spend together."
-                  : "Add your first bill when you are ready to share the plan."}
+                  : sharedOnly
+                    ? "Your personal bills are in All bills. Connect a bill to a Circle or Card to see it here."
+                    : "Add a bill or import bills when you are ready."}
         </Label>
       </View>
     </View>

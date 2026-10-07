@@ -47,6 +47,8 @@ export function CardScene({
       <AuthGate returnTo={"/card/" + card.id}>
         <ResourceState
           loading={card.loading}
+          data={card.data}
+          loadingKey={card.loadingKey}
           error={card.error}
           retry={card.reload}
         />

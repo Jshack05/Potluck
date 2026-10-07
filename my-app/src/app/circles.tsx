@@ -36,7 +36,9 @@ export default function Circles() {
     >
       <AuthGate returnTo="/circles">
         <ResourceState {...circles} retry={circles.reload} />
-        <ResourceState {...invitations} retry={invitations.reload} />
+        {(circles.data || invitations.error) && (
+          <ResourceState {...invitations} retry={invitations.reload} />
+        )}
         {invitations.data?.items.map((invite) => (
           <Pressable
             accessibilityRole="button"

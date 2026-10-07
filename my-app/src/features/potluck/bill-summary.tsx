@@ -11,6 +11,7 @@ import {
   styles,
   theme,
 } from "@/design/system";
+import { LoadingFeedback } from "@/design/loading";
 import { useResource } from "@/services/client";
 type Occurrence = {
   billId: string;
@@ -117,11 +118,8 @@ export function BillSummary({ scope }: { scope: "shared" | "all" }) {
           <Label>›</Label>
         </Pressable>
       </View>
-      <ResourceState
-        loading={r.loading && !data}
-        error={r.error}
-        retry={r.reload}
-      />
+      <ResourceState loading={false} error={r.error} retry={r.reload} />
+      {!data && !r.error && <LoadingFeedback key={scope + month} />}
       {data &&
         (view === "overview" ? (
           <>

@@ -1,5 +1,17 @@
 # Potluck Product Context
 
+## October 7, 2026 — Blank-first loading (supersedes skeleton placeholders)
+
+Fast initial requests leave the content area blank on the existing canvas: beige for Potluck, pale blue for Splitfinder. Headers, navigation and applicable collection controls/actions stay in place. If a request is still unresolved after 500 ms, show minimal loading feedback; never delay ready content or impose a minimum display time. Session restoration follows the same rule. Do not predict data volume with skeleton cards, rows or avatars.
+
+Current-resource content remains visible through refresh; changing resource, user or query must not display previous data under the new context. Errors retain their recovery actions, and real empty states appear only after a successful response. Explicit save, send and provider-processing feedback is unchanged. This is Free/core presentation polish, not an access, consent or financial-state change.
+
+## October 7, 2026 — Consistent app navigation and honest loading
+
+All four home tabs share one navigation component, with consistent Inbox and You controls. Navigation stays separate from content keyboard avoidance. Empty, loading, populated and failed states preserve the same screen structure; unresolved financial data is never represented as a balance or total. The original illustrated empty states remain authoritative. Add-people sheets use a stationary backdrop and independently moving foreground.
+
+Cards must not contain a Your Goals section. The founder intends Goals to live with Bills and connect to Circles; that relocation is deferred. Existing Goal planning and its consent boundaries remain unchanged. This is a Free/core usability correction, with no new entitlement or bank-connection requirement. See the [implementation and verification record](ui-concepts/2026-10-07-ui-stability.md).
+
 ## October 7, 2026 — Restore Potluck flows; contextual, optional banking
 
 The founder's October 6 instruction supersedes the earlier Cards/Bills gate: **sign in → organize Circles, Card setups, manual Bills and Goals**. Bank connection is optional for organization. It belongs within Card activation/funding and bank-imported Bills; a personal unconnected Bill may be saved without proposals or a bank account. Authentication, ownership and resource permissions remain required. No client callback may assert provider confirmation.
@@ -39,7 +51,6 @@ This is Free/core setup with no paid gate. Its promise is one setup for the conn
 The founder confirmed there is no existing Supabase project and requested local-first development of the approved Circles, Cards, Bills and Splitfinder integration. Development accounts and persistent local PostgreSQL-compatible records are permitted; this is not verified production identity, financial approval, hosted deployment or launch. Card creation saves an unissued setup shell. Accepting Bill terms does not authorize a bank debit. The intended consumer funding/issuer model remains conditional on written program approval. See [local development](LOCAL_DEVELOPMENT.md) and the [capability register](architecture/full-app-capabilities.md) for current implementation limits.
 
 The local implementation preserves consent through later revisions: equal Flexible Bill ratios do not derive from rounded estimates; contributors choose personal hard caps and retain their lower current cap as the default when reviewing changed terms. Exceeding a cap means no contribution, never a partial debit. Current and proposed terms remain distinguishable, and the host may provide a note. Blocking prevents new invitations and Bill proposals without removing access to existing agreements or cancellation. These behaviors implement the established Bills rules; they do not enable collection.
-
 
 ## October 4, 2026 — Full Potluck integration planning scope
 
@@ -1190,5 +1201,3 @@ Bill hosts manage their own Bills and propose changes, but cannot accept another
 **Purpose:** Give each person a clear view of their responsibilities and permitted actions. This is Free/core correctness and consent functionality, without a paid gate. Measure correct invitation-path completion and use permission misrouting or information exposure as guardrails.
 
 **Implementation boundary:** Figma role variants specify intended presentation only. Runtime access control must be enforced server-side, and credential eligibility, display, controls, transaction state, and activation remain subject to the approved provider program. Managed-minor-specific onboarding is not added by this decision.
-
-

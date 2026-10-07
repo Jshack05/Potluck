@@ -1,4 +1,12 @@
 import type { Bill } from "./types";
+/** An absent response is unknown, never a successfully empty collection. */
+export function collectionPhase(
+  items: readonly unknown[] | null | undefined,
+  error: string,
+) {
+  if (items == null) return error ? "error" : "loading";
+  return items.length ? "ready" : "empty";
+}
 export function defaultPersonalMaximum(agreement: {
   maximumMinor: number;
   currentAgreement?: { maximumMinor: number } | null;
