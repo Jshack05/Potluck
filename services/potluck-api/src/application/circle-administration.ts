@@ -17,7 +17,14 @@ export async function editCircle(
   context: CommandContext,
 ): Promise<Row> {
   const input = circleInput
-      .extend({ expectedVersion: z.number().int().positive() })
+      .omit({ invitedEmails: true, invitedUserIds: true })
+      .extend({
+        expectedVersion: z.number().int().positive(),
+        icon: z.enum(["circles", "home", "heart", "star"]).optional(),
+        color: z.enum(["lilac", "mint", "peach", "blue"]).optional(),
+        membersCanInvite: z.boolean().optional(),
+        requireHostApproval: z.boolean().optional(),
+      })
       .parse(context.body),
     c = await one(
       tx,
@@ -32,12 +39,33 @@ export async function editCircle(
   );
   const result = await one(
     tx,
-    "UPDATE circles SET name=$1,description=$2,privacy=$3,version=version+1 WHERE id=$4 RETURNING *",
-    [input.name, input.description, input.privacy, c.id],
+    "UPDATE circles SET name=$1,description=$2,privacy=$3,icon=$4,color=$5,members_can_invite=$6,require_host_approval=$7,version=version+1 WHERE id=$8 RETURNING *",
+    [
+      input.name,
+      input.description,
+      input.privacy,
+      input.icon ?? c.icon,
+      input.color ?? c.color,
+      input.membersCanInvite ?? c.members_can_invite,
+      input.requireHostApproval ?? c.require_host_approval,
+      c.id,
+    ],
   );
   await audit(tx, user, "circle.updated", c.id, context.requestId, {
     previousPrivacy: c.privacy,
     privacy: input.privacy,
+    previousSettings: {
+      icon: c.icon,
+      color: c.color,
+      membersCanInvite: c.members_can_invite,
+      requireHostApproval: c.require_host_approval,
+    },
+    settings: {
+      icon: result.icon,
+      color: result.color,
+      membersCanInvite: result.members_can_invite,
+      requireHostApproval: result.require_host_approval,
+    },
   });
   return api(result);
 }
@@ -158,7 +186,7 @@ export async function archiveCircle(
     "Review the latest Circle.",
   );
   await tx.query(
-    "UPDATE invitations SET status='revoked',version=version+1 WHERE circle_id=$1 AND status='pending'",
+    "UPDATE invitations SET status='revoked',version=version+1 WHERE circle_id=$1 AND status IN ('pending','awaiting_host_approval')",
     [c.id],
   );
   await tx.query(

@@ -1,11 +1,19 @@
 # Potluck Bills Context
 
-## October 5, 2026 — Contextual bank setup
+## October 7, 2026 — Manual Bills before banking
+
+The latest founder instruction permits unconnected manual Bills after sign-in. A self-only planning Bill is saved as a draft without contribution offers; shared proposals still record exact terms and require each person's acceptance. Importing bank-detected Bills and bank-funded payment actions lead to bank setup. No provider is configured locally, so the app must not invent detected charges, linked accounts or transfer results. Bank outages must not remove organization, agreement review or cancellation access. Resource permissions continue to apply independently of bank status.
+
+The live original Figma layout recovered for the app places **All bills left, Shared right**, with Shared selected by default. Saving a personal Bill explicitly opens All bills. The prior September 8 written ordering below is superseded by this restoration decision. The source chooser, icon/color identity, calendar and schedule, direct people/allocation, Card connection, review, acceptance, changed-share review, management and ending flows reuse the established designs. Import results remain unavailable until backed by real suggestions.
+
+Private Bills with no agreement history skip allocation. Summaries include the host's personal draft Bills on their scheduled dates, separately labeled from accepted contribution shares; these plans are not debit consent. Once proposed to people or ended, a Bill leaves the personal total. See the [restoration record](ui-concepts/2026-10-07-bill-flow-restoration.md).
+
+## October 5, 2026 — Contextual bank setup (superseded above)
 
 Signing in opens Circles and Splitfinder. Before bank confirmation, the Bills tab uses the established Figma empty-state illustration and a bottom **Connect bank account** action. It does not load Bill data or enable creation, contribution acceptance or financial mutations. The bank handoff retains the destination and allows navigation back to social areas. Provider confirmation remains server-owned and is separate from consent to any contribution or debit. Existing cancellation, dispute and funds-access continuity must be resolved before enabling a live provider; current local financial execution remains unavailable.
 
 **Status:** Product direction approved; implementation details marked as open remain unresolved.
-**Last updated:** October 5, 2026
+**Last updated:** October 7, 2026
 
 ## Purpose
 

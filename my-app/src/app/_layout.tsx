@@ -22,7 +22,12 @@ export default function RootLayout() {
         <StatusBar style="dark" />
         <Stack
           screenOptions={{ headerShown: false, animation: "slide_from_right" }}
-        />
+        >
+          <Stack.Screen name="circles" options={{ animation: "none" }} />
+          <Stack.Screen name="cards" options={{ animation: "none" }} />
+          <Stack.Screen name="bills" options={{ animation: "none" }} />
+          <Stack.Screen name="discover" options={{ animation: "none" }} />
+        </Stack>
       </PreviewProvider>
     </ClientProvider>
   );

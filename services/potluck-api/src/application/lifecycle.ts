@@ -33,6 +33,20 @@ export async function reviseBill(
     "SELECT * FROM bills WHERE id=$1 AND host_id=$2 FOR UPDATE",
     [context.resourceId, user],
   );
+  if (v.planningOnly) {
+    demand(
+      v.participants.length === 1 &&
+        v.participants[0] === user &&
+        !(
+          await tx.query("SELECT 1 FROM agreements WHERE bill_id=$1 LIMIT 1", [
+            bill.id,
+          ])
+        ).rows.length,
+      400,
+      "INVALID_PRIVATE_BILL",
+      "An existing agreement cannot be replaced by a personal draft.",
+    );
+  }
   demand(
     bill.status !== "ended" && bill.version === expectedVersion,
     409,
@@ -78,7 +92,7 @@ export async function reviseBill(
   const { allocation, caps, calculations } = proposal;
   const result = await one(
     tx,
-    "UPDATE bills SET name=$1,circle_id=$2,card_id=$3,kind=$4,amount_minor=$5,maximum_minor=$6,frequency=$7,first_due_date=$8,version=version+1,connection_version=connection_version+CASE WHEN circle_id IS DISTINCT FROM $2::uuid OR card_id IS DISTINCT FROM $3::uuid THEN 1 ELSE 0 END WHERE id=$9 RETURNING *",
+    "UPDATE bills SET name=$1,circle_id=$2,card_id=$3,kind=$4,amount_minor=$5,maximum_minor=$6,frequency=$7,first_due_date=$8,version=version+1,connection_version=connection_version+CASE WHEN circle_id IS DISTINCT FROM $2::uuid OR card_id IS DISTINCT FROM $3::uuid THEN 1 ELSE 0 END,icon=$10,color=$11,status=$12 WHERE id=$9 RETURNING *",
     [
       v.name,
       v.circleId,
@@ -89,8 +103,17 @@ export async function reviseBill(
       v.frequency,
       v.firstDueDate,
       bill.id,
+      v.icon,
+      v.color,
+      v.planningOnly ? "draft" : "proposed",
     ],
   );
+  if (v.planningOnly) {
+    await audit(tx, user, "bill.updated", bill.id, context.requestId, {
+      version: result.version,
+    });
+    return api(result);
+  }
   await tx.query(
     "UPDATE agreements SET status='withdrawn' WHERE bill_id=$1 AND status='offered'",
     [bill.id],

@@ -22,7 +22,8 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useClient } from "@/services/client";
-import { entryDestination, financialArea } from "@/services/navigation";
+import { entryDestination } from "@/services/navigation";
+import { CreationMenu } from "@/features/potluck/creation-menu";
 export const theme = {
   canvas: "#F3F2EF",
   blueCanvas: "#F2F9FD",
@@ -409,6 +410,11 @@ export function Shell({
   active,
   returnTo,
   emptyState = false,
+  onBack,
+  hideNavigation = false,
+  createMenu,
+  continuation = false,
+  headerAccessory,
 }: {
   title: string;
   children: ReactNode;
@@ -418,6 +424,11 @@ export function Shell({
   active?: "Circles" | "Cards" | "Bills" | "Splitfinder";
   returnTo?: string;
   emptyState?: boolean;
+  onBack?: () => void;
+  hideNavigation?: boolean;
+  createMenu?: boolean;
+  continuation?: boolean;
+  headerAccessory?: ReactNode;
 }) {
   const inset = useSafeAreaInsets(),
     pathname = usePathname();
@@ -432,13 +443,7 @@ export function Shell({
     client.access,
     pathname + (query.size ? "?" + query.toString() : ""),
   );
-  if (
-    !client.ready ||
-    (client.access === "loading" &&
-      financialArea(pathname) &&
-      !["/cards", "/bills"].includes(pathname))
-  )
-    return <EntryLoading />;
+  if (!client.ready) return <EntryLoading />;
   if (destination) return <Redirect href={destination as Href} />;
   const selected =
     active ??
@@ -451,15 +456,15 @@ export function Shell({
           : "Circles");
   return (
     <Accent.Provider value={blue ? theme.blue : theme.teal}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+      <View
         style={{
           flex: 1,
-          backgroundColor: blue
-            ? theme.blueCanvas
-            : emptyState && active !== "Circles"
-              ? "#F1EFE7"
-              : theme.canvas,
+          backgroundColor:
+            blue || continuation
+              ? theme.blueCanvas
+              : emptyState && active !== "Circles"
+                ? "#F1EFE7"
+                : theme.canvas,
         }}
       >
         <View
@@ -470,53 +475,130 @@ export function Shell({
             alignSelf: "center",
           }}
         >
-          {emptyState && active !== "Circles" && (
-            <View
-              style={{
-                pointerEvents: "none",
-                position: "absolute",
-                top: 16,
-                bottom: 16,
-                left: 16,
-                right: 16,
-                borderRadius: 24,
-                backgroundColor: "#FBFAF5",
-              }}
-            />
-          )}
-          <View
-            style={[
-              styles.row,
-              {
-                paddingHorizontal: 20,
-                paddingTop: Math.max(inset.top, 18) + 12,
-                paddingBottom: 20,
-                gap: 12,
-              },
-            ]}
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
+            style={{ flex: 1 }}
           >
-            {back && (
+            {emptyState && active !== "Circles" && (
+              <View
+                style={{
+                  pointerEvents: "none",
+                  position: "absolute",
+                  top: 16,
+                  bottom: 16,
+                  left: 16,
+                  right: 16,
+                  borderRadius: 24,
+                  backgroundColor: "#FBFAF5",
+                }}
+              />
+            )}
+            <View
+              style={[
+                styles.row,
+                {
+                  paddingHorizontal: 20,
+                  paddingTop: Math.max(inset.top, 18) + 12,
+                  paddingBottom: 20,
+                  gap: 12,
+                },
+              ]}
+            >
+              {back && !continuation && (
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel="Go back"
+                  onPress={
+                    onBack ??
+                    (() =>
+                      router.canGoBack()
+                        ? router.back()
+                        : router.replace((returnTo ?? "/circles") as Href))
+                  }
+                  style={styles.back}
+                >
+                  <Image
+                    source={icons.back}
+                    style={{
+                      position: "absolute",
+                      width: 60,
+                      height: 60,
+                      left: -8,
+                      top: -6,
+                    }}
+                    contentFit="contain"
+                  />
+                  <Label
+                    style={{ fontSize: 30, color: theme.teal, lineHeight: 32 }}
+                  >
+                    ‹
+                  </Label>
+                </Pressable>
+              )}
+              <Label
+                accessibilityRole="header"
+                style={{
+                  fontFamily: "Inter_700Bold",
+                  fontSize: continuation
+                    ? 36
+                    : back
+                      ? 25
+                      : emptyState
+                        ? 28
+                        : 32,
+                  lineHeight: continuation ? 44 : 38,
+                  color: continuation ? theme.teal : theme.ink,
+                  flex: 1,
+                }}
+              >
+                {title}
+              </Label>
+              {(!back || continuation) && (
+                <>
+                  {headerAccessory}
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel="Open inbox"
+                    onPress={() => go("/inbox")}
+                    style={styles.round}
+                  >
+                    <Icon name={blue ? "inboxBlue" : "inbox"} />
+                  </Pressable>
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel="Your profile"
+                    onPress={() => go("/you")}
+                    style={[
+                      styles.round,
+                      { borderWidth: 1.8, borderColor: theme.teal },
+                    ]}
+                  >
+                    <Label
+                      style={{
+                        fontFamily: "Inter_600SemiBold",
+                        color: theme.teal,
+                        fontSize: 14,
+                      }}
+                    >
+                      You
+                    </Label>
+                  </Pressable>
+                </>
+              )}
+            </View>
+            {back && continuation && (
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Go back"
-                onPress={() =>
-                  router.canGoBack()
-                    ? router.back()
-                    : router.replace((returnTo ?? "/circles") as Href)
+                onPress={
+                  onBack ??
+                  (() =>
+                    router.canGoBack()
+                      ? router.back()
+                      : router.replace((returnTo ?? "/circles") as Href))
                 }
-                style={styles.back}
+                style={[styles.back, { marginLeft: 20, marginBottom: 20 }]}
               >
-                <Image
-                  source={icons.back}
-                  style={{
-                    position: "absolute",
-                    width: 60,
-                    height: 60,
-                    left: -8,
-                    top: -6,
-                  }}
-                  contentFit="contain"
-                />
                 <Label
                   style={{ fontSize: 30, color: theme.teal, lineHeight: 32 }}
                 >
@@ -524,136 +606,113 @@ export function Shell({
                 </Label>
               </Pressable>
             )}
-            <Label
-              accessibilityRole="header"
-              style={{
-                fontFamily: "Inter_700Bold",
-                fontSize: back ? 25 : emptyState ? 28 : 32,
-                lineHeight: 38,
-                flex: 1,
+            <ScrollView
+              keyboardShouldPersistTaps="handled"
+              contentContainerStyle={{
+                paddingHorizontal: 20,
+                paddingBottom: 24,
+                gap: 16,
+                flexGrow: 1,
               }}
             >
-              {title}
-            </Label>
-            {!back && (
-              <>
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel="Open inbox"
-                  onPress={() => go("/inbox")}
-                  style={styles.round}
-                >
-                  <Icon name={blue ? "inboxBlue" : "inbox"} />
-                </Pressable>
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel="Your profile"
-                  onPress={() => go("/you")}
-                  style={[
-                    styles.round,
-                    { borderWidth: 1.8, borderColor: theme.teal },
-                  ]}
-                >
-                  <Label
-                    style={{
-                      fontFamily: "Inter_600SemiBold",
-                      color: theme.teal,
-                      fontSize: 14,
-                    }}
-                  >
-                    You
-                  </Label>
-                </Pressable>
-              </>
+              {children}
+            </ScrollView>
+            {(footer ||
+              (createMenu ??
+                ["/circles", "/cards", "/bills"].includes(pathname))) && (
+              <View
+                style={{
+                  paddingHorizontal: 20,
+                  paddingTop: 12,
+                  paddingBottom: 12,
+                  gap: 10,
+                  flexDirection: "row",
+                  alignItems: "flex-end",
+                }}
+              >
+                <View style={{ flex: 1, gap: 10 }}>{footer}</View>
+                {(createMenu ??
+                  ["/circles", "/cards", "/bills"].includes(pathname)) && (
+                  <CreationMenu
+                    circleId={
+                      typeof params.id === "string" &&
+                      pathname.startsWith("/circle/")
+                        ? params.id
+                        : undefined
+                    }
+                  />
+                )}
+              </View>
             )}
-          </View>
-          <ScrollView
-            keyboardShouldPersistTaps="handled"
-            contentContainerStyle={{
-              paddingHorizontal: 20,
-              paddingBottom: 24,
-              gap: 16,
-              flexGrow: 1,
-            }}
-          >
-            {children}
-          </ScrollView>
-          {footer && (
+          </KeyboardAvoidingView>
+          {!hideNavigation && (
             <View
               style={{
                 paddingHorizontal: 20,
-                paddingTop: 12,
-                paddingBottom: 12,
-                gap: 10,
+                paddingTop: 6,
+                paddingBottom: Math.max(inset.bottom, 16),
               }}
             >
-              {footer}
+              <View style={styles.nav}>
+                {(["Circles", "Cards", "Bills", "Splitfinder"] as const).map(
+                  (name, index) => (
+                    <Pressable
+                      key={name}
+                      accessibilityRole="tab"
+                      accessibilityState={{ selected: selected === name }}
+                      aria-selected={selected === name}
+                      accessibilityLabel={name}
+                      onPress={() =>
+                        router.replace(
+                          ["/circles", "/cards", "/bills", "/discover"][
+                            index
+                          ] as Href,
+                        )
+                      }
+                      style={[
+                        styles.tab,
+                        selected === name && {
+                          backgroundColor:
+                            name === "Splitfinder"
+                              ? theme.paleBlue
+                              : theme.mint,
+                        },
+                      ]}
+                    >
+                      <Icon
+                        name={
+                          (["circles", "cards", "bills", "discover"] as const)[
+                            index
+                          ]
+                        }
+                        size={26}
+                      />
+                      <Label
+                        style={{
+                          fontSize: 10,
+                          lineHeight: 15,
+                          color:
+                            selected === name
+                              ? name === "Splitfinder"
+                                ? theme.blue
+                                : theme.teal
+                              : theme.muted,
+                          fontFamily:
+                            selected === name
+                              ? "Inter_600SemiBold"
+                              : "Inter_400Regular",
+                        }}
+                      >
+                        {name}
+                      </Label>
+                    </Pressable>
+                  ),
+                )}
+              </View>
             </View>
           )}
-          <View
-            style={{
-              paddingHorizontal: 20,
-              paddingTop: 6,
-              paddingBottom: Math.max(inset.bottom, 16),
-            }}
-          >
-            <View style={styles.nav}>
-              {(["Circles", "Cards", "Bills", "Splitfinder"] as const).map(
-                (name, index) => (
-                  <Pressable
-                    key={name}
-                    accessibilityRole="tab"
-                    accessibilityState={{ selected: selected === name }}
-                    aria-selected={selected === name}
-                    accessibilityLabel={name}
-                    onPress={() =>
-                      router.replace(
-                        ["/circles", "/cards", "/bills", "/discover"][
-                          index
-                        ] as Href,
-                      )
-                    }
-                    style={[
-                      styles.tab,
-                      selected === name && {
-                        backgroundColor:
-                          name === "Splitfinder" ? theme.paleBlue : theme.mint,
-                      },
-                    ]}
-                  >
-                    <Icon
-                      name={
-                        (["circles", "cards", "bills", "discover"] as const)[
-                          index
-                        ]
-                      }
-                      size={26}
-                    />
-                    <Label
-                      style={{
-                        fontSize: 10,
-                        lineHeight: 15,
-                        color:
-                          selected === name
-                            ? name === "Splitfinder"
-                              ? theme.blue
-                              : theme.teal
-                            : theme.muted,
-                        fontFamily:
-                          selected === name
-                            ? "Inter_600SemiBold"
-                            : "Inter_400Regular",
-                      }}
-                    >
-                      {name}
-                    </Label>
-                  </Pressable>
-                ),
-              )}
-            </View>
-          </View>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     </Accent.Provider>
   );
 }

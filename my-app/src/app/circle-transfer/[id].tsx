@@ -1,14 +1,13 @@
-import { useLocalSearchParams, router, type Href } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import {
   Shell,
-  Title,
   Muted,
   Action,
   Link,
   AuthGate,
   ResourceState,
-  Empty,
   ErrorText,
+  go,
 } from "@/design/system";
 import {
   useClient,
@@ -16,78 +15,151 @@ import {
   useAction,
   useCommand,
 } from "@/services/client";
-type Transfer = {
-  id: string;
-  circleId: string;
-  circleName: string;
-  senderName: string;
-  version: number;
-};
+import {
+  circleInvitationState,
+  type CircleTransfer,
+} from "@/features/potluck/circle-model";
+import {
+  CircleHeading,
+  CircleHero,
+  CircleMenuRow,
+  CirclePersonRow,
+} from "@/features/potluck/circle-ui";
 export default function HostingInvitation() {
   const { id } = useLocalSearchParams<{ id: string }>(),
     { user } = useClient(),
-    r = useResource<{ items: Transfer[] }>(user ? "/circle-transfers" : null),
-    act = useAction(),
+    resource = useResource<CircleTransfer>(
+      user ? "/circle-transfers/" + id : null,
+    ),
+    action = useAction(),
     command = useCommand(),
-    t = r.data?.items.find((x) => x.id === id);
+    transfer = resource.data;
+  const state = transfer ? circleInvitationState(transfer) : "",
+    recipient = transfer?.recipientId === user?.id,
+    sender = transfer?.senderId === user?.id;
+  const respond = (intent: string) =>
+    action.run(async () => {
+      await command("/circle-transfers/" + id + "/" + intent, {
+        expectedVersion: transfer!.version,
+      });
+      await resource.reload();
+    });
   return (
     <Shell
-      title="Circle hosting"
+      title="Potluck"
+      continuation
       back
+      active="Circles"
       footer={
-        t && (
+        transfer && (
           <>
-            <ErrorText text={act.error} />
-            <Action
-              label="Accept Circle hosting"
-              disabled={act.busy}
-              onPress={() =>
-                act.run(async () => {
-                  await command("/circle-transfers/" + id + "/accept", {
-                    expectedVersion: t.version,
-                  });
-                  router.replace(("/circle/" + t.circleId) as Href);
-                })
-              }
-            />
-            <Link
-              onPress={() =>
-                act.run(async () => {
-                  await command("/circle-transfers/" + id + "/decline", {
-                    expectedVersion: t.version,
-                  });
-                  router.replace("/inbox");
-                })
-              }
-            >
-              Decline invitation
-            </Link>
+            <ErrorText text={action.error} />
+            {state === "pending" && recipient ? (
+              <>
+                <Action
+                  label="Decline"
+                  secondary
+                  disabled={action.busy}
+                  onPress={() => respond("decline")}
+                />
+                <Action
+                  label="Accept Circle Host role"
+                  disabled={action.busy}
+                  onPress={() => respond("accept")}
+                />
+              </>
+            ) : (
+              <Action
+                label={state === "accepted" ? "View Circle" : "Back to Circle"}
+                onPress={() => go("/circle/" + transfer.circleId + "/settings")}
+              />
+            )}
           </>
         )
       }
     >
       <AuthGate returnTo={"/circle-transfer/" + id}>
-        <ResourceState {...r} retry={r.reload} />
-        {t ? (
-          <>
-            <Title>{t.circleName}</Title>
-            <Muted>{t.senderName} invited you to become Circle Host.</Muted>
-            <Title small>Bring your people together</Title>
-            <Muted>
-              You’ll manage Circle membership and privacy. Bills and Cards
-              retain their existing hosts, owners, permissions and agreements.
-              This does not make you responsible for someone else’s Card or
-              grant financial access.
-            </Muted>
-          </>
-        ) : (
-          !r.loading && (
-            <Empty
-              title="Invitation no longer available"
-              detail="It may have expired or already been answered."
-            />
-          )
-        )}
+        <ResourceState {...resource} retry={resource.reload} />
+        {transfer &&
+          (state === "pending" ? (
+            recipient ? (
+              <>
+                <CircleHeading>Become Circle Host?</CircleHeading>
+                <CircleHero
+                  detail={
+                    transfer.senderName +
+                    " asked you to host " +
+                    transfer.circleName +
+                    "."
+                  }
+                />
+                <CircleMenuRow
+                  title="Manage Circle membership"
+                  detail="Handle invitations and member removal."
+                />
+                <CircleMenuRow
+                  title="Manage Circle privacy"
+                  detail="Help the group stay organized."
+                  icon="lock"
+                />
+                <CircleHeading>Group responsibility only</CircleHeading>
+                <Muted>
+                  You will not become the owner of other people’s Cards, Bills
+                  or funds.
+                </Muted>
+              </>
+            ) : (
+              <>
+                <CircleHeading>
+                  {transfer.recipientName} is reviewing your request
+                </CircleHeading>
+                <CirclePersonRow
+                  name={transfer.recipientName}
+                  subtitle="Circle Host handover pending"
+                />
+                <Muted>
+                  You are still the Circle Host. Nothing changes until{" "}
+                  {transfer.recipientName} accepts.
+                </Muted>
+                {sender && (
+                  <Link
+                    danger
+                    onPress={() => {
+                      if (!action.busy) void respond("revoke");
+                    }}
+                  >
+                    Cancel handover request
+                  </Link>
+                )}
+              </>
+            )
+          ) : (
+            <>
+              <CircleHero
+                complete={state === "accepted" || state === "revoked"}
+                title={
+                  state === "accepted"
+                    ? "Handover complete"
+                    : state === "declined"
+                      ? "Handover declined"
+                      : state === "expired"
+                        ? "Handover expired"
+                        : "Handover canceled"
+                }
+                detail={
+                  state === "accepted"
+                    ? transfer.recipientName +
+                      " is now Circle Host. " +
+                      transfer.senderName +
+                      " remains a member."
+                    : "The Circle Host role is unchanged."
+                }
+              />
+              <Muted>
+                No Card, Bill, contribution or fund ownership changed.
+              </Muted>
+            </>
+          ))}
       </AuthGate>
     </Shell>
   );

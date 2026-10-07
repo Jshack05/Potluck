@@ -34,12 +34,42 @@ export async function getBillSummary(db: Queryable, context: QueryContext) {
       ),
     )
     .sort((a, b) => a.date.localeCompare(b.date));
+  // A saved personal plan has no agreement, acceptance or funding authorization.
+  // Exclude any Bill with agreement history so revisions cannot be double counted.
+  const personal = (
+    await db.query(
+      "SELECT b.id,b.name,b.kind,b.amount_minor,b.frequency,b.first_due_date::text AS first_due_date FROM bills b WHERE b.host_id=$1 AND b.status='draft' AND NOT EXISTS (SELECT 1 FROM agreements a WHERE a.bill_id=b.id)" +
+        (q.scope === "shared"
+          ? " AND (b.circle_id IS NOT NULL OR b.card_id IS NOT NULL)"
+          : ""),
+      [user],
+    )
+  ).rows;
+  const planningOccurrences = personal
+    .flatMap((bill) =>
+      datesInMonth(bill.first_due_date, bill.frequency, q.month).map(
+        (date) => ({
+          billId: bill.id,
+          name: bill.name,
+          date,
+          amountMinor: bill.amount_minor,
+          estimated: bill.kind === "flexible",
+          status: "draft",
+        }),
+      ),
+    )
+    .sort((a, b) => a.date.localeCompare(b.date));
   return {
     month: q.month,
     scope: q.scope,
     currency: "USD",
     totalMinor: occurrences.reduce((sum, x) => sum + x.amountMinor, 0),
     occurrences,
+    planningTotalMinor: planningOccurrences.reduce(
+      (sum, x) => sum + x.amountMinor,
+      0,
+    ),
+    planningOccurrences,
     financialActivity: false,
   };
 }

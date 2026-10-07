@@ -1,5 +1,6 @@
 import * as queries from "../application/circle-administration-queries.ts";
 import * as commands from "../application/circle-administration.ts";
+import { respondToInvitation } from "../application/circle-flows.ts";
 import type { ModuleContext } from "./context.ts";
 export function registerCircleAdministration({
   app,
@@ -7,6 +8,44 @@ export function registerCircleAdministration({
   param,
   mutation,
 }: ModuleContext) {
+  app.get("/v1/circles/:id/invitations", (req) =>
+    queries.getCircleInvitations(db, {
+      actor: req.actor ?? null,
+      query: req.query,
+      resourceId: param(req),
+    }),
+  );
+  app.get("/v1/circles/:id/transfers", (req) =>
+    queries.getCircleTransferHistory(db, {
+      actor: req.actor ?? null,
+      query: req.query,
+      resourceId: param(req),
+    }),
+  );
+  app.get("/v1/invitations/:id", (req) =>
+    queries.getInvitation(db, {
+      actor: req.actor ?? null,
+      query: req.query,
+      resourceId: param(req),
+    }),
+  );
+  app.get("/v1/circle-transfers/:id", (req) =>
+    queries.getCircleTransfer(db, {
+      actor: req.actor ?? null,
+      query: req.query,
+      resourceId: param(req),
+    }),
+  );
+  app.post("/v1/invitations/:id/approve", async (req, reply) =>
+    mutation(req, reply, 200, (tx, user) =>
+      respondToInvitation(
+        tx,
+        user,
+        { body: req.body, resourceId: param(req), requestId: req.id },
+        "approve",
+      ),
+    ),
+  );
   app.post("/v1/circles/:id/edit", async (req, reply) =>
     mutation(req, reply, 200, (tx, user) =>
       commands.editCircle(tx, user, {

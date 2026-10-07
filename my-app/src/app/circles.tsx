@@ -3,22 +3,28 @@ import {
   Shell,
   AuthGate,
   Section,
-  Avatar,
   Label,
   Muted,
   Icon,
-  Action,
   ResourceState,
-  Row,
-  styles,
   go,
+  theme,
 } from "@/design/system";
 import { useClient, useResource } from "@/services/client";
-import type { Circle, Collection, Invitation } from "@/features/potluck/types";
+import type {
+  Collection,
+  Invitation,
+  CircleArrangements,
+} from "@/features/potluck/types";
 import { HomeEmptyState } from "@/features/potluck/home-empty-state";
+import { CircleAvatar } from "@/features/potluck/circle-ui";
+import {
+  circleSummary,
+  type CircleDetail,
+} from "@/features/potluck/circle-model";
 export default function Circles() {
   const { user } = useClient(),
-    circles = useResource<Collection<Circle>>(user ? "/circles" : null),
+    circles = useResource<Collection<CircleDetail>>(user ? "/circles" : null),
     invitations = useResource<Collection<Invitation>>(
       user ? "/invitations" : null,
     );
@@ -27,63 +33,131 @@ export default function Circles() {
       title="Circles"
       active="Circles"
       emptyState={!!circles.data && !circles.data.items.length}
-      footer={
-        user && (
-          <Action
-            label="Create a Circle"
-            onPress={() => go("/create/circle")}
-          />
-        )
-      }
     >
       <AuthGate returnTo="/circles">
-        <ResourceState
-          loading={circles.loading}
-          error={circles.error}
-          retry={circles.reload}
-        />
-        {!!invitations.data?.items.length && (
-          <>
-            <Section title="Invitations" />
-            {invitations.data.items.map((invite) => (
-              <Row
-                key={invite.id}
-                title={invite.senderName + " invited you"}
-                subtitle={"Join " + invite.circleName}
-                icon="circles"
-                onPress={() => go("/invitation/" + invite.id)}
-              />
-            ))}
-          </>
-        )}
-        {!!circles.data?.items.length && <Section title="Your circles" />}
-        {circles.data?.items.map((circle) => (
+        <ResourceState {...circles} retry={circles.reload} />
+        <ResourceState {...invitations} retry={invitations.reload} />
+        {invitations.data?.items.map((invite) => (
           <Pressable
             accessibilityRole="button"
-            key={circle.id}
-            onPress={() => go("/circle/" + circle.id)}
-            style={[styles.item, { gap: 14 }]}
+            key={invite.id}
+            onPress={() => go("/invitation/" + invite.id)}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              borderRadius: 24,
+              padding: 20,
+              backgroundColor: "white",
+              gap: 14,
+            }}
           >
-            <View style={styles.row}>
-              <Avatar name={circle.name} />
-              <Label
-                style={{ fontFamily: "Inter_700Bold", fontSize: 20, flex: 1 }}
-              >
-                {circle.name}
+            <CircleAvatar name={invite.senderName} size={50} />
+            <View style={{ flex: 1, gap: 4 }}>
+              <Label style={{ fontFamily: "Inter_700Bold" }}>
+                {invite.senderName} invited you
               </Label>
-              <Icon name="circles" size={28} />
+              <Muted>Join {invite.circleName}</Muted>
             </View>
-            <Muted>
-              {circle.privacy === "anonymous"
-                ? "Private member identities"
-                : circle.description || "Your people and shared arrangements"}
-            </Muted>
+            <View
+              style={{
+                backgroundColor: theme.teal,
+                paddingHorizontal: 18,
+                paddingVertical: 12,
+                borderRadius: 18,
+              }}
+            >
+              <Label
+                style={{
+                  color: "white",
+                  fontSize: 13,
+                  fontFamily: "Inter_700Bold",
+                }}
+              >
+                View
+              </Label>
+            </View>
           </Pressable>
+        ))}
+        {!!circles.data?.items.length && <Section title="Your circles" />}
+        {circles.data?.items.map((circle) => (
+          <CircleSummary key={circle.id} circle={circle} />
         ))}
         {circles.data && !circles.data.items.length && (
           <HomeEmptyState area="Circles" />
         )}
       </AuthGate>
     </Shell>
+  );
+}
+function CircleSummary({ circle }: { circle: CircleDetail }) {
+  const arrangements = useResource<CircleArrangements>(
+    "/circle-arrangements/" + circle.id,
+  );
+  const people = circle.people ?? [],
+    visible = people.slice(0, 4),
+    extra = Math.max(0, (circle.memberCount ?? people.length) - 3);
+  return (
+    <Pressable
+      accessibilityRole="button"
+      onPress={() => go("/circle/" + circle.id)}
+      style={{
+        borderRadius: 24,
+        backgroundColor: "white",
+        padding: 20,
+        gap: 10,
+        minHeight: 108,
+      }}
+    >
+      <View style={{ flexDirection: "row", gap: 12, alignItems: "center" }}>
+        <CircleAvatar name={circle.name} size={48} color={circle.color} />
+        <Label style={{ fontFamily: "Inter_700Bold", fontSize: 20, flex: 1 }}>
+          {circle.name}
+        </Label>
+        {circle.pendingInvitationCount > 0 && <Icon name="pending" size={30} />}
+      </View>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
+        <View style={{ flexDirection: "row" }}>
+          {visible.map((person, index) => (
+            <View
+              key={person.id}
+              style={{
+                marginLeft: index ? -5 : 0,
+                borderWidth: 1,
+                borderColor: "white",
+                borderRadius: 15,
+              }}
+            >
+              {index === 3 && extra > 1 && circle.privacy !== "anonymous" ? (
+                <View
+                  style={{
+                    width: 26,
+                    height: 26,
+                    borderRadius: 13,
+                    backgroundColor: "#FFE1D9",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Label style={{ fontSize: 9, fontFamily: "Inter_700Bold" }}>
+                    +{extra}
+                  </Label>
+                </View>
+              ) : (
+                <CircleAvatar name={person.name} size={26} index={index} />
+              )}
+            </View>
+          ))}
+        </View>
+        <Label style={{ flex: 1, fontSize: 14, color: theme.muted }}>
+          {circleSummary(circle, arrangements.data ?? undefined)}
+        </Label>
+      </View>
+      {circle.pendingInvitationCount > 0 && (
+        <Label style={{ fontSize: 12, color: theme.amber }}>
+          {circle.pendingInvitationCount} invitation
+          {circle.pendingInvitationCount === 1 ? "" : "s"} pending
+        </Label>
+      )}
+    </Pressable>
   );
 }

@@ -3,13 +3,18 @@ import type { Queryable } from "./ports.ts";
 import { requiredActor, type QueryContext } from "./query-context.ts";
 import { billView, ownedCard } from "./read-models.ts";
 export async function getCircles(db: Queryable, context: QueryContext) {
+  const circles = (
+    await db.query(
+      "SELECT c.id FROM circles c JOIN memberships m ON m.circle_id=c.id WHERE m.user_id=$1 AND m.status='accepted' AND c.status='active' ORDER BY c.created_at DESC LIMIT 100",
+      [requiredActor(context.actor)],
+    )
+  ).rows;
   return {
-    items: (
-      await db.query(
-        "SELECT c.* FROM circles c JOIN memberships m ON m.circle_id=c.id WHERE m.user_id=$1 AND m.status='accepted' AND c.status='active' ORDER BY c.created_at DESC LIMIT 100",
-        [requiredActor(context.actor)],
-      )
-    ).rows.map(api),
+    items: await Promise.all(
+      circles.map((circle) =>
+        getCirclesDetail(db, { ...context, resourceId: circle.id }),
+      ),
+    ),
   };
 }
 export async function getCirclesDetail(db: Queryable, context: QueryContext) {
@@ -19,16 +24,22 @@ export async function getCirclesDetail(db: Queryable, context: QueryContext) {
   const people = (
     await db.query(
       "SELECT u.id,u.name,m.joined_at FROM memberships m JOIN users u ON u.id=m.user_id WHERE m.circle_id=$1 AND m.status='accepted'" +
-        (hidden ? " AND m.user_id=$2" : "") +
+        (hidden ? " AND (m.user_id=$2 OR m.user_id=$3)" : "") +
         " ORDER BY m.joined_at",
-      hidden ? [circle.id, user] : [circle.id],
+      hidden ? [circle.id, user, circle.host_id] : [circle.id],
     )
   ).rows.map(api);
+  const summary = await one(
+    db,
+    "SELECT (SELECT count(*)::integer FROM memberships WHERE circle_id=$1 AND status='accepted') AS member_count,(SELECT count(*)::integer FROM invitations WHERE circle_id=$1 AND (sender_id=$2 OR $3=$2) AND status IN ('pending','awaiting_host_approval') AND expires_at>now()) AS pending_invitation_count",
+    [circle.id, user, circle.host_id],
+  );
   return {
     ...api(circle),
+    ...api(summary),
     people,
     // Keep the response shape for older clients; financial projections are
-    // available only through the separately bank-gated arrangements endpoint.
+    // available through the separately resource-authorized arrangements endpoint.
     cards: [],
     bills: [],
     role: circle.host_id === user ? "host" : "member",

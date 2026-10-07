@@ -45,7 +45,7 @@ test("Circle hosting transfer needs target acceptance and never transfers Card o
     });
     assert.equal(
       (await call(p, "/circles/" + circle.id)).json().people.length,
-      1,
+      2,
     );
     const transfer = await call(h, "/circles/" + circle.id + "/transfer", {
       userId: p.user.id,

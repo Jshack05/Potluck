@@ -1,4 +1,31 @@
 import { useEffect, useState, useRef } from "react";
+import { Image } from "expo-image";
+import {
+  billSteps,
+  restoredBillStep,
+  restoredBillConnection,
+  savesPlanningBill,
+  adjacentBillStep,
+  nextWeekday,
+} from "@/features/potluck/bill-flow-model";
+import {
+  BillIcon,
+  BillInput,
+  BillOption,
+  BillPanel,
+  BillInfo,
+  BillPerson,
+  billIcons,
+  billColors,
+  billStyles,
+  type BillIconName,
+  type BillColorName,
+} from "@/features/potluck/bill-ui";
+import { CardPreview } from "@/features/potluck/card-preview";
+import {
+  submitCreation,
+  type CreationDraft,
+} from "@/services/creation-draft-model";
 import { creationPath } from "@/services/navigation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Crypto from "expo-crypto";
@@ -16,12 +43,13 @@ import {
   Action,
   ErrorText,
   ResourceState,
-  Section,
   theme,
   money,
   dateLabel,
   styles,
   Link,
+  Avatar,
+  go,
 } from "@/design/system";
 import {
   useAction,
@@ -135,7 +163,20 @@ function BillForm({
     { user } = useClient(),
     command = useCommand(),
     action = useAction();
-  const [step, setStep] = useState<number>(draft?.step ?? 0),
+  const [storedStep, setStep] = useState<number>(
+      restoredBillStep(draft?.step, draft?.flowVersion),
+    ),
+    [icon, setIcon] = useState<BillIconName>(
+      draft?.icon ?? original?.icon ?? "bill",
+    ),
+    [color, setColor] = useState<BillColorName>(
+      draft?.color ?? original?.color ?? "teal",
+    ),
+    [search, setSearch] = useState(""),
+    [searched, setSearched] = useState(""),
+    [directPeople, setDirectPeople] = useState<Person[]>(
+      draft?.directPeople ?? [],
+    ),
     [reason, setReason] = useState<string>(draft?.reason ?? ""),
     [name, setName] = useState<string>(draft?.name ?? original?.name ?? ""),
     [amount, setAmount] = useState<string>(
@@ -157,14 +198,22 @@ function BillForm({
         new Date().toISOString().slice(0, 10),
     ),
     [circleId, setCircleId] = useState<string | null>(
-      draft?.circleId ?? original?.circleId ?? params.circleId ?? null,
+      restoredBillConnection(
+        draft,
+        "circleId",
+        original?.circleId ?? params.circleId ?? null,
+      ),
     ),
     [cardId, setCardId] = useState<string | null>(
-      draft?.cardId ?? original?.cardId ?? params.cardId ?? null,
+      restoredBillConnection(
+        draft,
+        "cardId",
+        original?.cardId ?? params.cardId ?? null,
+      ),
     ),
     [selectedOverride, setSelected] = useState<string[] | null>(
       draft?.selectedOverride ??
-        (original
+        (original && original.agreements.length > 0
           ? original.agreements
               .filter((a) => a.termsVersion === original.version)
               .map((a) => a.participantId)
@@ -194,8 +243,25 @@ function BillForm({
     ),
     completed = useRef(false),
     [draftError, setDraftError] = useState("");
+  const [submission, setSubmission] = useState<
+    CreationDraft<Record<string, never>, Bill>
+  >(
+    () =>
+      draft?.submission ?? {
+        workflowId,
+        fields: {},
+        pending: null,
+        result: null,
+      },
+  );
+  const submissionRef = useRef(submission),
+    draftQueue = useRef(Promise.resolve());
+  const resuming = Boolean(submission.pending || submission.result);
   const circles = useResource<Collection<Circle>>(user ? "/circles" : null),
     cards = useResource<Collection<Card>>(user ? "/cards" : null),
+    foundPeople = useResource<Collection<Person>>(
+      user && searched ? "/people?q=" + encodeURIComponent(searched) : null,
+    ),
     circle = useResource<Circle>(
       user && circleId ? "/circles/" + circleId : null,
     );
@@ -212,7 +278,19 @@ function BillForm({
           ).map((a) => [a.participantId, String(a.maximumMinor / 100)]),
         ),
     );
+  const selected = selectedOverride ?? (user ? [user.id] : []);
+  const planningOnly = savesPlanningBill(
+    selected,
+    user?.id ?? "",
+    original?.agreements.length ?? 0,
+  );
+  // Old personal drafts may still point at the allocation page.
+  const step = planningOnly && storedStep === 3 ? 4 : storedStep;
   const snapshot = {
+    flowVersion: 2,
+    icon,
+    color,
+    directPeople,
     reason,
     step,
     name,
@@ -231,15 +309,42 @@ function BillForm({
     unit,
     caps,
     workflowId,
+    submission,
   };
   const draftText = JSON.stringify(snapshot);
+  const latestDraft = useRef(snapshot);
+  useEffect(() => {
+    latestDraft.current = JSON.parse(draftText);
+  }, [draftText]);
+  function persistDraft() {
+    const write = draftQueue.current.then(() =>
+      AsyncStorage.setItem(
+        draftKey,
+        JSON.stringify({
+          ...latestDraft.current,
+          submission: submissionRef.current,
+        }),
+      ),
+    );
+    draftQueue.current = write.catch(() => {});
+    return write;
+  }
   useEffect(() => {
     if (completed.current) return;
-    void AsyncStorage.setItem(draftKey, draftText).catch(() =>
+    const write = draftQueue.current.then(() =>
+      AsyncStorage.setItem(
+        draftKey,
+        JSON.stringify({
+          ...latestDraft.current,
+          submission: submissionRef.current,
+        }),
+      ),
+    );
+    draftQueue.current = write.catch(() => {});
+    void write.catch(() =>
       setDraftError("Your draft could not be saved on this device."),
     );
   }, [draftKey, draftText]);
-  const selected = selectedOverride ?? (user ? [user.id] : []);
   const people: Person[] = Array.from(
     new Map(
       [
@@ -248,6 +353,7 @@ function BillForm({
           name: a.name,
         })) ?? []),
         ...(circle.data?.people ?? []),
+        ...directPeople,
         ...(user ? [{ id: user.id, name: user.name }] : []),
       ].map((p) => [p.id, p]),
     ).values(),
@@ -265,7 +371,7 @@ function BillForm({
       kind,
       maximumMinor: kind === "flexible" ? moneyInput(maximum) : null,
       participants: selected,
-      ...(equal
+      ...(equal || planningOnly
         ? {}
         : unit === "percent"
           ? { percentages: percentages() }
@@ -278,7 +384,7 @@ function BillForm({
     const initial = proposalShares(input);
     return proposalShares({
       ...input,
-      ...(kind === "flexible"
+      ...(kind === "flexible" && !planningOnly
         ? {
             personalCaps: Object.fromEntries(
               selected.map((id) => [
@@ -293,460 +399,778 @@ function BillForm({
   function allocation() {
     return proposal().allocation;
   }
+  const selectedPeople = people.filter((person) =>
+    selected.includes(person.id),
+  );
+  const selectedCard = cards.data?.items.find((card) => card.id === cardId);
   function next() {
     action.setError("");
     try {
-      if (step === 0) {
-        if (!name.trim()) throw new Error("Give this Bill a name.");
-        if (moneyInput(amount) <= 0) throw new Error("Enter a Bill amount.");
+      if (step === 0 && !name.trim()) throw new Error("Give this bill a name.");
+      if (step === 1) {
+        if (moneyInput(amount) <= 0)
+          throw new Error("Enter a positive bill amount.");
         if (kind === "flexible" && moneyInput(maximum) < moneyInput(amount))
           throw new Error("The maximum must cover the estimate.");
+        if (!date) throw new Error("Choose the first due date.");
       }
-      if (step === 1) allocation();
-      if (step === 2 && createCard && !newCardName.trim())
+      if (step === 2 && !selected.length)
+        throw new Error("Choose at least one person.");
+      if (step === 3) allocation();
+      if (step === 4 && createCard && !newCardName.trim())
         throw new Error("Name the new Card.");
-      setStep(step + 1);
-    } catch (e) {
-      action.setError((e as Error).message);
+      setStep(adjacentBillStep(step, 1, planningOnly));
+    } catch (error) {
+      action.setError((error as Error).message);
     }
   }
   const submit = () =>
     action.run(async () => {
       proposal();
-      await AsyncStorage.setItem(draftKey, draftText);
-      let fundingCard = cardId;
-      if (createCard) {
-        const card = await command<Card>(
-          "/cards",
-          {
-            name: newCardName,
-            design: "aurora",
-            circleId,
-          },
-          workflowId,
-        );
-        fundingCard = card.id;
-        setCardId(card.id);
-        setCreateCard(false);
-      }
-      const bill = await command<Bill>(
-        original ? "/bills/" + original.id + "/revise" : "/bills",
+      const body = {
+        ...(original
+          ? {
+              expectedVersion: original.version,
+              expectedConnectionVersion: original.connectionVersion,
+            }
+          : {}),
+        name,
+        icon,
+        color,
+        kind,
+        amountMinor: moneyInput(amount),
+        maximumMinor: kind === "flexible" ? moneyInput(maximum) : null,
+        frequency,
+        firstDueDate: date,
+        circleId,
+        cardId,
+        participants: selected,
+        planningOnly,
+        ...(original && reason.trim()
+          ? { reasonForChange: reason.trim() }
+          : {}),
+        ...(equal || planningOnly
+          ? {}
+          : unit === "percent"
+            ? { percentages: percentages() }
+            : { allocation: allocation() }),
+        ...(kind === "flexible" ? { personalCaps: proposal().caps } : {}),
+      };
+      const bill = await submitCreation(
+        submissionRef.current,
         {
-          ...(original
-            ? {
-                expectedVersion: original.version,
-                expectedConnectionVersion: original.connectionVersion,
-              }
-            : {}),
-          name,
-          kind,
-          amountMinor: moneyInput(amount),
-          maximumMinor: kind === "flexible" ? moneyInput(maximum) : null,
-          frequency,
-          firstDueDate: date,
-          circleId,
-          cardId: fundingCard,
-          participants: selected,
-          ...(original && reason.trim()
-            ? { reasonForChange: reason.trim() }
-            : {}),
-          ...(equal
-            ? {}
-            : unit === "percent"
-              ? { percentages: percentages() }
-              : { allocation: allocation() }),
-          ...(kind === "flexible" ? { personalCaps: proposal().caps } : {}),
+          bill: body,
+          card: createCard
+            ? { name: newCardName, design: "aurora", circleId }
+            : null,
         },
-        workflowId,
+        async (request, identity) => {
+          const billBody = request.bill as Record<string, unknown>;
+          let fundingCard = billBody.cardId;
+          if (request.card) {
+            const card = await command<Card>(
+              "/cards",
+              request.card,
+              identity + ":card",
+            );
+            fundingCard = card.id;
+            setCardId(card.id);
+            setCreateCard(false);
+          }
+          return command<Bill>(
+            original ? "/bills/" + original.id + "/revise" : "/bills",
+            { ...billBody, cardId: fundingCard },
+            identity + ":bill",
+          );
+        },
+        async (state) => {
+          submissionRef.current = state;
+          setSubmission(state);
+          await persistDraft();
+        },
       );
       completed.current = true;
+      await draftQueue.current;
       await AsyncStorage.removeItem(draftKey);
-      router.replace(("/bill/" + bill.id) as Href);
+      router.replace(
+        (planningOnly ? "/bills?scope=all" : "/bill/" + bill.id) as Href,
+      );
     });
-  let review: Record<string, number> = {};
+  let review: Record<string, number> = {},
+    calculationError = "";
   try {
-    if (step === 3) review = allocation();
-  } catch {}
+    if (step >= 3) review = allocation();
+  } catch (error) {
+    calculationError = (error as Error).message;
+  }
+  const back = () => {
+    if (action.busy || resuming) return;
+    action.setError("");
+    if (step > 0) setStep(adjacentBillStep(step, -1, planningOnly));
+    else if (router.canGoBack()) router.back();
+    else router.replace("/bills");
+  };
+  const chooseCircle = (id: string | null) => {
+    if (id !== circleId) {
+      setCircleId(id);
+      setSelected(user ? [user.id] : []);
+      setDirectPeople([]);
+    }
+  };
+  const togglePerson = (id: string) =>
+    setSelected(
+      selected.includes(id)
+        ? selected.filter((value) => value !== id)
+        : [...selected, id],
+    );
   return (
     <Shell
-      title={original ? "Update Bill terms" : "Create Bill"}
+      title={billSteps[step]}
       back
+      onBack={back}
+      hideNavigation
       active="Bills"
+      returnTo="/bills"
       footer={
         user && (
           <>
             <ErrorText text={action.error || draftError} />
-            {step > 0 && (
-              <Action
-                label="Previous step"
-                secondary
-                disabled={action.busy}
-                onPress={() => {
-                  action.setError("");
-                  setStep(step - 1);
-                }}
-              />
+            {resuming && (
+              <Muted>
+                Finish saving this request before changing its details.
+              </Muted>
             )}
             <Action
               label={
                 action.busy
                   ? "Saving…"
-                  : step === 3
-                    ? "Send individual proposals"
-                    : "Continue"
+                  : resuming
+                    ? "Resume saving bill"
+                    : step === 5
+                      ? planningOnly
+                        ? "Save bill"
+                        : original
+                          ? "Send updated proposals"
+                          : "Create bill and send proposals"
+                      : step === 1
+                        ? "Confirm amount and schedule"
+                        : step === 3
+                          ? "Confirm contributions"
+                          : "Continue"
               }
               disabled={action.busy}
-              onPress={step === 3 ? submit : next}
+              onPress={step === 5 || resuming ? submit : next}
             />
           </>
         )
       }
     >
-      <AuthGate
-        returnTo={
-          "/create/bill" +
-          (params.circleId ? "?circleId=" + params.circleId : "")
-        }
-      >
-        <View style={styles.row}>
-          {["Bill", "People", "Card", "Review"].map((label, index) => (
-            <View key={label} style={{ flex: 1, gap: 7 }}>
-              <View
-                style={{
-                  height: 4,
-                  borderRadius: 2,
-                  backgroundColor: index <= step ? theme.teal : theme.line,
-                }}
-              />
-              <Label
-                style={{
-                  fontSize: 12,
-                  color: index === step ? theme.teal : theme.muted,
-                }}
-              >
-                {label}
+      <AuthGate returnTo={creationPath("/create/bill", params)}>
+        <View
+          pointerEvents={action.busy || resuming ? "none" : "auto"}
+          style={{ gap: 16 }}
+        >
+          {step === 0 && (
+            <>
+              <Muted>
+                Review the bill name and choose how its amount works.
+              </Muted>
+              <Label style={billStyles.section}>
+                What kind of bill is this?
               </Label>
-            </View>
-          ))}
-        </View>
-        {step === 0 && (
-          <>
-            <Title>What are you sharing?</Title>
-            <Field
-              label="Bill name"
-              value={name}
-              onChangeText={setName}
-              placeholder="e.g. Internet"
-              maxLength={80}
-            />
-            <View style={styles.row}>
-              {(["fixed", "flexible"] as const).map((value) => (
-                <Pressable
-                  key={value}
-                  accessibilityRole="radio"
-                  accessibilityState={{ checked: kind === value }}
-                  aria-checked={kind === value}
-                  onPress={() => setKind(value)}
-                  style={{
-                    flex: 1,
-                    padding: 16,
-                    borderRadius: 22,
-                    backgroundColor: kind === value ? theme.mint : "white",
-                  }}
-                >
-                  <Label style={{ fontFamily: "Inter_600SemiBold" }}>
-                    {value === "fixed" ? "Fixed amount" : "Flexible amount"}
-                  </Label>
-                </Pressable>
-              ))}
-            </View>
-            <Field
-              label={
-                kind === "fixed" ? "Bill total ($)" : "Estimated total ($)"
-              }
-              keyboardType="decimal-pad"
-              value={amount}
-              onChangeText={setAmount}
-              placeholder="0.00"
-            />
-            {kind === "flexible" && (
-              <Field
-                label="Bill maximum ($)"
-                keyboardType="decimal-pad"
-                value={maximum}
-                onChangeText={setMaximum}
-                placeholder="0.00"
-              />
-            )}
-            <Section title="How often?" />
-            <View style={[styles.row, { flexWrap: "wrap" }]}>
-              {(["once", "weekly", "monthly"] as const).map((value) => (
-                <Pressable
-                  key={value}
-                  accessibilityRole="radio"
-                  accessibilityState={{ checked: frequency === value }}
-                  aria-checked={frequency === value}
-                  onPress={() => setFrequency(value)}
-                  style={{
-                    padding: 12,
-                    borderRadius: 24,
-                    backgroundColor: value === frequency ? theme.mint : "white",
-                    minHeight: 48,
-                  }}
-                >
-                  <Label style={{ textTransform: "capitalize" }}>{value}</Label>
-                </Pressable>
-              ))}
-            </View>
-            <Section title="First due date" />
-            <Calendar value={date} onChange={setDate} />
-            <Section title="Connect a Circle" />
-            <Row
-              title="Continue without a Circle"
-              right={<Label>{!circleId ? "✓" : ""}</Label>}
-              onPress={() => {
-                setCircleId(null);
-                setSelected(user ? [user.id] : []);
-              }}
-            />
-            {circles.data?.items.map((c) => (
-              <Row
-                key={c.id}
-                title={c.name}
-                right={<Label>{circleId === c.id ? "✓" : ""}</Label>}
-                onPress={() => {
-                  setCircleId(c.id);
-                  setSelected(user ? [user.id] : []);
-                }}
-              />
-            ))}
-          </>
-        )}
-        {step === 1 && (
-          <>
-            <Title>Who’s sharing this Bill?</Title>
-            <Muted>
-              Everyone receives their own proposal. Nothing is collected when
-              you send it.
-            </Muted>
-            <ResourceState
-              loading={circle.loading}
-              error={circle.error}
-              retry={circle.reload}
-            />
-            {people.map((person) => (
-              <Row
-                key={person.id}
-                title={person.name + (person.id === user?.id ? " (you)" : "")}
-                right={
-                  <Label style={{ color: theme.teal }}>
-                    {selected.includes(person.id) ? "✓" : "+"}
-                  </Label>
-                }
-                onPress={() =>
-                  setSelected(
-                    selected.includes(person.id)
-                      ? selected.filter((id) => id !== person.id)
-                      : [...selected, person.id],
-                  )
-                }
-              />
-            ))}
-            <View style={[styles.row, { justifyContent: "space-between" }]}>
-              <Title small>Split equally</Title>
-              <Switch
-                accessibilityLabel="Split equally"
-                value={equal}
-                onValueChange={setEqual}
-                trackColor={{ true: theme.teal }}
-              />
-            </View>
-            {!equal && (
               <View style={styles.row}>
-                {(["dollars", "percent"] as const).map((x) => (
-                  <Action
-                    key={x}
-                    secondary={unit !== x}
-                    label={x === "dollars" ? "Dollars" : "Percentages"}
-                    onPress={() => {
-                      setUnit(x);
-                      setCustom({});
+                <BillOption
+                  title="Fixed bill"
+                  detail="Same amount every cycle."
+                  selected={kind === "fixed"}
+                  onPress={() => setKind("fixed")}
+                />
+                <BillOption
+                  title="Flexible bill"
+                  detail="Amount can change each cycle."
+                  selected={kind === "flexible"}
+                  onPress={() => setKind("flexible")}
+                />
+              </View>
+              <View style={{ marginTop: 30, gap: 12 }}>
+                <Label style={billStyles.section}>Bill name</Label>
+                <BillInput
+                  accessibilityLabel="Bill name"
+                  value={name}
+                  onChangeText={setName}
+                  placeholder="e.g. Internet bill"
+                  maxLength={80}
+                  style={{ borderRadius: 28 }}
+                />
+              </View>
+              <Label style={billStyles.section}>Choose an icon</Label>
+              <View style={{ gap: 16 }}>
+                {Array.from({ length: 3 }, (_, row) => (
+                  <View
+                    key={row}
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
                     }}
-                  />
+                  >
+                    {(Object.keys(billIcons) as BillIconName[])
+                      .slice(row * 5, row * 5 + 5)
+                      .map((key) => (
+                        <Pressable
+                          key={key}
+                          accessibilityRole="radio"
+                          accessibilityLabel={key + " icon"}
+                          accessibilityState={{ checked: icon === key }}
+                          aria-checked={icon === key}
+                          onPress={() => setIcon(key)}
+                          style={{
+                            borderRadius: 19,
+                            borderWidth: 2,
+                            borderColor:
+                              icon === key ? theme.teal : "transparent",
+                          }}
+                        >
+                          <BillIcon name={key} />
+                        </Pressable>
+                      ))}
+                  </View>
                 ))}
               </View>
-            )}
-            {!equal &&
-              people
-                .filter((p) => selected.includes(p.id))
-                .map((person) => (
-                  <Field
-                    key={person.id}
-                    label={
-                      person.name +
-                      (unit === "dollars"
-                        ? "’s proposed share ($)"
-                        : "’s percentage (%)")
-                    }
-                    keyboardType="decimal-pad"
-                    value={custom[person.id] ?? ""}
-                    onChangeText={(value) =>
-                      setCustom({ ...custom, [person.id]: value })
-                    }
-                  />
-                ))}
-            {kind === "flexible" && (
-              <>
-                <Title small>Personal maximums</Title>
-                <Muted>
-                  Each person will review their own cap. Leave blank to use
-                  their proportional share of the Bill maximum.
-                </Muted>
-                {people
-                  .filter((p) => selected.includes(p.id))
-                  .map((p) => (
-                    <Field
-                      key={p.id}
-                      label={p.name + "’s maximum ($)"}
-                      value={caps[p.id] ?? ""}
-                      keyboardType="decimal-pad"
-                      onChangeText={(value) =>
-                        setCaps({ ...caps, [p.id]: value })
-                      }
-                    />
-                  ))}
-              </>
-            )}
-            <Muted>
-              {circleId
-                ? "Only accepted Circle members are shown."
-                : "Continue with your own Bill, or connect a Circle to propose shares to its members."}
-            </Muted>
-          </>
-        )}
-        {step === 2 && (
-          <>
-            <Title>Choose a funding Card</Title>
-            <Muted>
-              Connecting a Card does not give contributors spending access.
-            </Muted>
-            <ResourceState
-              loading={cards.loading}
-              error={cards.error}
-              retry={cards.reload}
-            />
-            {cards.data?.items.map((card) => (
-              <Row
-                key={card.id}
-                title={card.name}
-                subtitle="Setup required"
-                icon="cards"
-                right={
-                  <Label>{card.id === cardId && !createCard ? "✓" : ""}</Label>
-                }
-                onPress={() => {
-                  setCardId(card.id);
-                  setCreateCard(false);
+              <Label style={billStyles.section}>Choose a color</Label>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  paddingVertical: 4,
                 }}
+              >
+                {(Object.keys(billColors) as BillColorName[]).map((key) => (
+                  <Pressable
+                    key={key}
+                    accessibilityRole="radio"
+                    accessibilityLabel={key + " color"}
+                    accessibilityState={{ checked: color === key }}
+                    aria-checked={color === key}
+                    onPress={() => setColor(key)}
+                    style={{
+                      width: 52,
+                      height: 52,
+                      borderRadius: 26,
+                      borderWidth: 2,
+                      borderColor: "transparent",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {color === key && (
+                      <Image
+                        source={require("../../../assets/potluck/bill/color-ring.svg")}
+                        style={{ position: "absolute", width: 52, height: 52 }}
+                      />
+                    )}
+                    <Image
+                      source={billColors[key].asset}
+                      style={{ width: 44, height: 44 }}
+                      contentFit="contain"
+                    />
+                  </Pressable>
+                ))}
+              </View>
+            </>
+          )}
+          {step === 1 && (
+            <>
+              <Muted>Choose the amount and when this bill is due.</Muted>
+              <Label style={billStyles.section}>
+                {kind === "fixed"
+                  ? frequency === "weekly"
+                    ? "Weekly amount"
+                    : frequency === "once"
+                      ? "Bill amount"
+                      : "Monthly amount"
+                  : "Estimated amount"}
+              </Label>
+              <BillInput
+                accessibilityLabel="Bill amount in dollars"
+                keyboardType="decimal-pad"
+                value={amount}
+                onChangeText={setAmount}
+                placeholder="$0.00"
+                style={{ borderRadius: 28 }}
               />
-            ))}
-            <Row
-              title="Create a new Card setup"
-              icon="cards"
-              right={<Label>{createCard ? "✓" : "+"}</Label>}
-              onPress={() => {
-                setCreateCard(true);
-                setNewCardName(name + " card");
-              }}
-            />
-            {createCard && (
-              <Field
-                label="New Card name"
-                value={newCardName}
-                onChangeText={setNewCardName}
-                maxLength={80}
-              />
-            )}
-            <Link
-              onPress={() => {
-                setCreateCard(false);
-                setCardId(null);
-              }}
-            >
-              Set up the funding Card later{!cardId && !createCard ? " ✓" : ""}
-            </Link>
-          </>
-        )}
-        {step === 3 && (
-          <>
-            <Title>Review the proposal</Title>
-            {original && (
-              <Field
-                label="Reason for the change (optional)"
-                value={reason}
-                onChangeText={setReason}
-                multiline
-                maxLength={500}
-                placeholder="Explain the change in your own words"
-              />
-            )}
-            <Label
-              style={{
-                fontSize: 40,
-                lineHeight: 48,
-                fontFamily: "Inter_700Bold",
-                color: theme.teal,
-              }}
-            >
-              {money(moneyInput(amount))}
-            </Label>
-            <Muted>
-              {name} · {frequency} · starts {dateLabel(date)}
-              {kind === "flexible" ? " · estimate" : ""}
-            </Muted>
-            {kind === "flexible" && (
-              <Muted>Bill maximum {money(moneyInput(maximum))}</Muted>
-            )}
-            <Section title="Individual shares" />
-            {people
-              .filter((p) => selected.includes(p.id))
-              .map((person) => (
+              {kind === "flexible" && (
+                <>
+                  <Label style={billStyles.section}>Bill maximum</Label>
+                  <BillInput
+                    accessibilityLabel="Bill maximum in dollars"
+                    keyboardType="decimal-pad"
+                    value={maximum}
+                    onChangeText={setMaximum}
+                    placeholder="$0.00"
+                    style={{ borderRadius: 28 }}
+                  />
+                  <Muted>
+                    Your estimate helps with planning. Each person reviews their
+                    own maximum before accepting.
+                  </Muted>
+                </>
+              )}
+              <Label style={billStyles.section}>How often?</Label>
+              <View style={styles.row}>
+                <BillOption
+                  title="Monthly"
+                  detail="Due once a month."
+                  selected={frequency === "monthly"}
+                  onPress={() => setFrequency("monthly")}
+                />
+                <BillOption
+                  title="Weekly"
+                  detail="Due once a week."
+                  selected={frequency === "weekly"}
+                  onPress={() => setFrequency("weekly")}
+                />
+              </View>
+              <Link
+                onPress={() =>
+                  setFrequency(frequency === "once" ? "monthly" : "once")
+                }
+              >
+                {frequency === "once"
+                  ? "✓ One-time bill"
+                  : "Make this a one-time bill"}
+              </Link>
+              <Label style={billStyles.section}>
+                {frequency === "weekly"
+                  ? "Select a day of the week"
+                  : frequency === "once"
+                    ? "Select a due date"
+                    : "Select a day of the month"}
+              </Label>
+              {frequency === "weekly" && (
                 <View
-                  key={person.id}
                   style={{
-                    paddingVertical: 12,
-                    borderBottomWidth: 1,
-                    borderBottomColor: theme.line,
-                    gap: 6,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    backgroundColor: "white",
+                    borderRadius: 28,
+                    padding: 8,
                   }}
                 >
-                  <View
-                    style={[styles.row, { justifyContent: "space-between" }]}
-                  >
-                    <Label style={{ flex: 1 }}>{person.name}</Label>
-                    <Label>{money(review[person.id] ?? 0)}</Label>
-                  </View>
-                  <Muted>
-                    {kind === "flexible"
-                      ? "Maximum " + money(proposal().caps[person.id]) + " · "
-                      : ""}
-                    Acceptance required
-                  </Muted>
+                  {["S", "M", "T", "W", "T", "F", "S"].map((day, index) => (
+                    <Pressable
+                      key={index}
+                      accessibilityRole="radio"
+                      accessibilityLabel={
+                        [
+                          "Sunday",
+                          "Monday",
+                          "Tuesday",
+                          "Wednesday",
+                          "Thursday",
+                          "Friday",
+                          "Saturday",
+                        ][index]
+                      }
+                      accessibilityState={{
+                        checked:
+                          new Date(date + "T12:00:00").getDay() === index,
+                      }}
+                      aria-checked={
+                        new Date(date + "T12:00:00").getDay() === index
+                      }
+                      onPress={() => setDate(nextWeekday(index, date))}
+                      style={{
+                        width: "13%",
+                        minHeight: 44,
+                        borderRadius: 22,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor:
+                          new Date(date + "T12:00:00").getDay() === index
+                            ? theme.teal
+                            : "white",
+                      }}
+                    >
+                      <Label
+                        style={{
+                          color:
+                            new Date(date + "T12:00:00").getDay() === index
+                              ? "white"
+                              : theme.ink,
+                        }}
+                      >
+                        {day}
+                      </Label>
+                    </Pressable>
+                  ))}
                 </View>
+              )}
+              <Calendar value={date} onChange={setDate} />
+              <Muted>
+                First due: {dateLabel(date)}
+                {frequency === "monthly" && Number(date.slice(8)) > 28
+                  ? ". Shorter months use their last day."
+                  : ""}
+              </Muted>
+            </>
+          )}
+          {step === 2 && (
+            <>
+              <Muted>
+                Choose a Circle to connect this bill to, or invite people
+                directly.
+              </Muted>
+              <Label style={billStyles.section}>Choose a Circle</Label>
+              <ResourceState
+                loading={circles.loading}
+                error={circles.error}
+                retry={circles.reload}
+              />
+              {circles.data?.items.map((item) => (
+                <BillPerson
+                  key={item.id}
+                  name={item.name}
+                  subtitle={`${item.people?.length ?? 0} members`}
+                  selected={circleId === item.id}
+                  onPress={() => chooseCircle(item.id)}
+                />
               ))}
-            <Section title="Funding Card" />
-            <Muted>
-              {createCard
-                ? newCardName
-                : (cards.data?.items.find((c) => c.id === cardId)?.name ??
-                  "Set up later")}
-            </Muted>
-            <Muted>
-              Sending this proposal does not debit anyone’s bank account. Each
-              person must separately agree to their terms.
-            </Muted>
-          </>
-        )}
+              <Row
+                title="Continue without a Circle"
+                right={<Label>{!circleId ? "✓" : "○"}</Label>}
+                onPress={() => chooseCircle(null)}
+              />
+              <Row
+                title="Create a new Circle"
+                icon="plus"
+                onPress={() => go("/create/circle")}
+              />
+              <Label style={billStyles.section}>People on this bill</Label>
+              <ResourceState
+                loading={circle.loading}
+                error={circle.error}
+                retry={circle.reload}
+              />
+              {people.map((person) => (
+                <BillPerson
+                  key={person.id}
+                  name={person.name + (person.id === user?.id ? " (you)" : "")}
+                  selected={selected.includes(person.id)}
+                  onPress={() => togglePerson(person.id)}
+                />
+              ))}
+              {!circleId && (
+                <>
+                  <Field
+                    label="Find someone on Potluck"
+                    value={search}
+                    onChangeText={setSearch}
+                    placeholder="Name or exact email"
+                    autoCapitalize="none"
+                  />
+                  <Action
+                    secondary
+                    label="Find people"
+                    disabled={search.trim().length < 2}
+                    onPress={() => setSearched(search.trim())}
+                  />
+                  {searched && (
+                    <>
+                      <ResourceState
+                        loading={foundPeople.loading}
+                        error={foundPeople.error}
+                        retry={foundPeople.reload}
+                      />
+                      {foundPeople.data?.items
+                        .filter(
+                          (person) =>
+                            !people.some((value) => value.id === person.id),
+                        )
+                        .map((person) => (
+                          <BillPerson
+                            key={person.id}
+                            name={person.name}
+                            selected={false}
+                            onPress={() => {
+                              setDirectPeople([...directPeople, person]);
+                              setSelected([...selected, person.id]);
+                            }}
+                          />
+                        ))}
+                      {foundPeople.data?.items.length === 0 && (
+                        <Muted>
+                          No matching people. Try their exact email.
+                        </Muted>
+                      )}
+                    </>
+                  )}
+                </>
+              )}
+              <BillInfo>
+                Connecting a Circle does not enroll its members. Choose who
+                should receive their own contribution terms.
+              </BillInfo>
+            </>
+          )}
+          {step === 3 && (
+            <>
+              <Muted>
+                {planningOnly
+                  ? "Save your bill for planning. No contribution agreement is created."
+                  : "Set each person’s proposed share. They’ll review it before anything starts."}
+              </Muted>
+              <BillPanel>
+                <View style={styles.row}>
+                  <BillIcon name={icon} />
+                  <View style={{ flex: 1 }}>
+                    <Title small>{name}</Title>
+                    <Muted>
+                      {money(moneyInput(amount))} · {frequency}
+                    </Muted>
+                  </View>
+                </View>
+              </BillPanel>
+              <View
+                style={[
+                  styles.row,
+                  { justifyContent: "space-between", marginTop: 12 },
+                ]}
+              >
+                <Title small>Split equally</Title>
+                <Switch
+                  accessibilityLabel="Split equally"
+                  value={equal}
+                  onValueChange={setEqual}
+                  trackColor={{ true: theme.teal }}
+                />
+              </View>
+              {!equal && (
+                <View style={styles.row}>
+                  {(["dollars", "percent"] as const).map((value) => (
+                    <View key={value} style={{ flex: 1 }}>
+                      <Action
+                        secondary={unit !== value}
+                        label={value === "dollars" ? "Dollars" : "Percentages"}
+                        onPress={() => {
+                          setUnit(value);
+                          setCustom({});
+                        }}
+                      />
+                    </View>
+                  ))}
+                </View>
+              )}
+              {selectedPeople.map((person) => (
+                <BillPanel key={person.id}>
+                  <View style={styles.row}>
+                    <Avatar name={person.name} size={40} />
+                    <Label style={{ flex: 1 }}>{person.name}</Label>
+                    {equal && (
+                      <Label
+                        style={{
+                          color: theme.teal,
+                          fontFamily: "Inter_600SemiBold",
+                        }}
+                      >
+                        {money(review[person.id] ?? 0)}
+                      </Label>
+                    )}
+                  </View>
+                  {!equal && (
+                    <Field
+                      label={
+                        person.name +
+                        (unit === "dollars"
+                          ? "’s proposed share ($)"
+                          : "’s percentage (%)")
+                      }
+                      keyboardType="decimal-pad"
+                      value={custom[person.id] ?? ""}
+                      onChangeText={(value) =>
+                        setCustom({ ...custom, [person.id]: value })
+                      }
+                    />
+                  )}
+                  {!equal &&
+                    unit === "percent" &&
+                    review[person.id] !== undefined && (
+                      <Muted>
+                        {money(review[person.id])} at the current estimate
+                      </Muted>
+                    )}
+                  {kind === "flexible" && (
+                    <Field
+                      label="Personal maximum ($)"
+                      value={caps[person.id] ?? ""}
+                      placeholder="Proportional maximum"
+                      keyboardType="decimal-pad"
+                      onChangeText={(value) =>
+                        setCaps({ ...caps, [person.id]: value })
+                      }
+                    />
+                  )}
+                </BillPanel>
+              ))}
+              <ErrorText text={calculationError} />
+              <BillInfo>
+                {kind === "flexible"
+                  ? "Each person accepts their own maximum. If their calculated share exceeds it, the entire contribution stops; the difference is not passed to others."
+                  : "Allocate the full bill before continuing. Equal shares use whole cents; any remainder is distributed in the listed order."}
+              </BillInfo>
+            </>
+          )}
+          {step === 4 && (
+            <>
+              <Muted>
+                Choose a Card for this bill. You can also set it up later.
+              </Muted>
+              <Label style={billStyles.section}>Funding card</Label>
+              <ResourceState
+                loading={cards.loading}
+                error={cards.error}
+                retry={cards.reload}
+              />
+              {cards.data?.items
+                .filter(
+                  (card) =>
+                    card.hostId === user?.id && card.status !== "closed",
+                )
+                .map((card) => (
+                  <Pressable
+                    key={card.id}
+                    accessibilityRole="radio"
+                    accessibilityLabel={card.name}
+                    accessibilityState={{
+                      checked: cardId === card.id && !createCard,
+                    }}
+                    aria-checked={cardId === card.id && !createCard}
+                    onPress={() => {
+                      setCardId(card.id);
+                      setCreateCard(false);
+                    }}
+                    style={{
+                      gap: 8,
+                      padding: 12,
+                      borderWidth: 2,
+                      borderColor:
+                        cardId === card.id && !createCard
+                          ? theme.teal
+                          : "transparent",
+                      borderRadius: 28,
+                    }}
+                  >
+                    <CardPreview name={card.name} design={card.design} />
+                  </Pressable>
+                ))}
+              <Row
+                title="Create a new Card setup"
+                icon="cards"
+                right={<Label>{createCard ? "✓" : "+"}</Label>}
+                onPress={() => {
+                  setCreateCard(true);
+                  setNewCardName(newCardName || name + " card");
+                }}
+              />
+              {createCard && (
+                <Field
+                  label="New Card name"
+                  value={newCardName}
+                  onChangeText={setNewCardName}
+                  maxLength={80}
+                />
+              )}
+              <Row
+                title="Continue without a Card"
+                right={<Label>{!cardId && !createCard ? "✓" : "○"}</Label>}
+                onPress={() => {
+                  setCreateCard(false);
+                  setCardId(null);
+                }}
+              />
+              <BillInfo>
+                A Card setup is not an issued card. Connecting it does not move
+                money or give contributors spending access.
+              </BillInfo>
+            </>
+          )}
+          {step === 5 && (
+            <>
+              <Muted>Confirm the people and funding setup.</Muted>
+              <Label style={billStyles.section}>Funding card</Label>
+              {createCard || selectedCard ? (
+                <CardPreview
+                  name={createCard ? newCardName : selectedCard!.name}
+                  design={createCard ? "aurora" : selectedCard!.design}
+                />
+              ) : (
+                <BillPanel>
+                  <Title small>No Card attached</Title>
+                  <Muted>You can connect one when you’re ready.</Muted>
+                </BillPanel>
+              )}
+              <Label style={billStyles.section}>Attached Circle</Label>
+              {circleId ? (
+                <BillPerson
+                  name={
+                    circles.data?.items.find((item) => item.id === circleId)
+                      ?.name ?? "Your Circle"
+                  }
+                  selected
+                  onPress={() => setStep(2)}
+                />
+              ) : (
+                <Row title="No Circle attached" onPress={() => setStep(2)} />
+              )}
+              <Label style={billStyles.section}>Contributions</Label>
+              <BillPanel>
+                <View style={styles.row}>
+                  <BillIcon name={icon} />
+                  <View style={{ flex: 1 }}>
+                    <Title small>{name}</Title>
+                    <Muted>
+                      {money(moneyInput(amount))} · {frequency}
+                    </Muted>
+                  </View>
+                </View>
+                <Muted>Starts {dateLabel(date)}</Muted>
+                {kind === "flexible" && (
+                  <Muted>Bill maximum {money(moneyInput(maximum))}</Muted>
+                )}
+                {planningOnly ? (
+                  <>
+                    <Title small>No contributions scheduled</Title>
+                    <Muted>Your private bill is saved for planning.</Muted>
+                  </>
+                ) : (
+                  selectedPeople.map((person) => (
+                    <View
+                      key={person.id}
+                      style={[styles.row, { justifyContent: "space-between" }]}
+                    >
+                      <Label style={{ flex: 1 }}>{person.name}</Label>
+                      <Label>{money(review[person.id] ?? 0)}</Label>
+                    </View>
+                  ))
+                )}
+              </BillPanel>
+              {original && (
+                <Field
+                  label="Reason for the change (optional)"
+                  value={reason}
+                  onChangeText={setReason}
+                  multiline
+                  maxLength={500}
+                  placeholder="Explain the change in your own words"
+                />
+              )}
+              <BillInfo>
+                {planningOnly
+                  ? "Saving this bill does not create contribution proposals or authorize a payment."
+                  : "No contributions start until each person accepts their terms. Sending a proposal does not debit anyone’s account."}
+              </BillInfo>
+            </>
+          )}
+        </View>
       </AuthGate>
     </Shell>
   );

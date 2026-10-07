@@ -19,7 +19,15 @@ export type Card = Item & {
   hostId: string;
   circleId: string | null;
   description: string;
-  design: "teal" | "graphite" | "aurora";
+  design:
+    | "teal"
+    | "graphite"
+    | "aurora"
+    | "aurora_gradient"
+    | "sunset"
+    | "coral"
+    | "ocean"
+    | "berry";
   bills: Bill[];
   availableMinor: number | null;
 };
@@ -53,6 +61,23 @@ export type Agreement = Item & {
   };
 };
 export type Bill = Item & {
+  icon?:
+    | "internet"
+    | "phone"
+    | "tv"
+    | "lightning"
+    | "rent"
+    | "water"
+    | "trash"
+    | "groceries"
+    | "car"
+    | "insurance"
+    | "streaming"
+    | "medical"
+    | "bill"
+    | "utilities"
+    | "gas";
+  color?: "teal" | "blue" | "coral" | "gold" | "purple";
   isShared: boolean;
   connectionVersion: number;
   hostId: string;

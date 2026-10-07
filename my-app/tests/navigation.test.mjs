@@ -7,20 +7,14 @@ import {
   parseEntryStatus,
   canLoadResource,
 } from "../src/services/navigation.ts";
-test("financial deep links require bank confirmation and retain their intent", () => {
+test("planning deep links require identity and retain their intent without requiring bank setup", () => {
   const destination = "/create/bill?circleId=invite-context";
   assert.equal(
     entryDestination("signed_out", destination),
     "/sign-in?returnTo=" + encodeURIComponent(destination),
   );
-  assert.equal(
-    entryDestination("bank_required", destination),
-    "/connect-bank?returnTo=" + encodeURIComponent(destination),
-  );
-  assert.equal(
-    entryDestination("error", destination),
-    "/connect-bank?returnTo=" + encodeURIComponent(destination),
-  );
+  assert.equal(entryDestination("bank_required", destination), null);
+  assert.equal(entryDestination("error", destination), null);
   assert.equal(entryDestination("ready", destination), null);
   assert.equal(
     entryDestination("signed_out", "https://evil.test"),
@@ -35,7 +29,7 @@ test("financial deep links require bank confirmation and retain their intent", (
   );
   assert.throws(() => parseEntryStatus({ access: "ready" }));
 });
-test("bank status checks and failures do not suppress signed-in social data or release financial data", () => {
+test("bank status checks do not suppress planning data, while provider and unknown resources remain gated", () => {
   for (const path of [
     "/circles",
     "/circles/a",
@@ -44,17 +38,23 @@ test("bank status checks and failures do not suppress signed-in social data or r
     "/conversations/a",
     "/notifications",
     "/invitations",
+    "/cards",
+    "/bills",
+    "/bill-summary?scope=all",
+    "/agreements/a",
+    "/circle-arrangements/a",
+    "/goals",
+    "/goals/a",
+    "/people?q=Example",
   ]) {
     for (const status of ["loading", "bank_required", "error", "ready"])
       assert.equal(canLoadResource(status, path), true, status + " " + path);
     assert.equal(canLoadResource("signed_out", path), false);
   }
   for (const path of [
-    "/cards",
-    "/bills",
-    "/bill-summary?scope=all",
-    "/agreements/a",
-    "/circle-arrangements/a",
+    "/cards/a/credentials",
+    "/cards/a/transactions",
+    "/bank-accounts",
     "/future-financial-resource",
   ]) {
     for (const status of ["loading", "bank_required", "error", "signed_out"])
@@ -95,10 +95,7 @@ test("signed-in social destinations and financial tab prompts remain accessible 
     "/manage/cards/example",
     "/manage/bills/example",
   ]) {
-    assert.equal(
-      entryDestination("bank_required", path),
-      "/connect-bank?returnTo=" + encodeURIComponent(path),
-    );
+    assert.equal(entryDestination("bank_required", path), null);
   }
 });
 test("creation context survives contextual registration with encoded values", () => {

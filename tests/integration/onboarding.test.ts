@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { createApp } from "../../services/potluck-api/src/app.ts";
 
-test("Circle people stay available while attached financial details require bank confirmation and resource permission", async () => {
+test("Circle arrangements require resource permission but organization does not require banking", async () => {
   const confirmed = new Set<string>();
   let unavailable = false;
   const app = await createApp({
@@ -89,7 +89,7 @@ test("Circle people stay available while attached financial details require bank
     assert.equal(
       (await call(member.token, "/circle-arrangements/" + circle.id))
         .statusCode,
-      403,
+      200,
     );
     assert.equal(
       (await app.inject("/v1/circle-arrangements/" + circle.id)).statusCode,
@@ -119,14 +119,14 @@ test("Circle people stay available while attached financial details require bank
     );
     assert.equal(
       (await call(host.token, "/circle-arrangements/" + circle.id)).statusCode,
-      503,
+      200,
     );
   } finally {
     await app.close();
   }
 });
 
-test("only actor-bound provider confirmation opens the app; failures and forged proof fail closed", async () => {
+test("only actor-bound provider confirmation permits activation checks; forged proof fails closed", async () => {
   let evidence: unknown = null;
   let failure = false;
   const app = await createApp({
@@ -151,11 +151,26 @@ test("only actor-bound provider confirmation opens the app; failures and forged 
         },
       })
     ).json();
-    const headers = { authorization: "Bearer " + account.token };
-    assert.equal(
-      (await app.inject({ url: "/v1/cards", headers })).statusCode,
-      403,
-    );
+    const headers = {
+      authorization: "Bearer " + account.token,
+      "idempotency-key": "bank-proof-test",
+    };
+    const card = (
+      await app.inject({
+        method: "POST",
+        url: "/v1/cards",
+        headers,
+        payload: { name: "Unissued setup" },
+      })
+    ).json();
+    const activate = () =>
+      app.inject({
+        method: "POST",
+        url: "/v1/cards/" + card.id + "/activate",
+        headers: { ...headers, "idempotency-key": "bank-proof-activate" },
+        payload: {},
+      });
+    assert.equal((await activate()).statusCode, 403);
     const proof = {
       actorId: account.user.id,
       providerReference: "test-only-provider-reference",
@@ -172,10 +187,7 @@ test("only actor-bound provider confirmation opens the app; failures and forged 
         (await app.inject({ url: "/v1/onboarding", headers })).statusCode,
         503,
       );
-      assert.equal(
-        (await app.inject({ url: "/v1/cards", headers })).statusCode,
-        503,
-      );
+      assert.equal((await activate()).statusCode, 503);
     }
     evidence = proof;
     assert.deepEqual(
@@ -187,6 +199,9 @@ test("only actor-bound provider confirmation opens the app; failures and forged 
       200,
     );
     assert.equal((await app.inject("/v1/cards")).statusCode, 401);
+    const unavailable = await activate();
+    assert.equal(unavailable.statusCode, 409);
+    assert.equal(unavailable.json().error.code, "PROGRAM_UNAVAILABLE");
     assert.equal(
       (await app.inject("/v1/capabilities")).json().financial.funding,
       false,
@@ -205,7 +220,7 @@ test("only actor-bound provider confirmation opens the app; failures and forged 
   }
 });
 
-test("sign-in opens social areas while financial access requires a confirmed bank", async () => {
+test("sign-in opens planning areas, with bank activation and resource permissions enforced separately", async () => {
   const app = await createApp({ mode: "local", database: ":memory:" });
   try {
     for (const url of [
@@ -244,19 +259,19 @@ test("sign-in opens social areas while financial access requires a confirmed ban
       "/v1/saved",
       "/v1/my-listings",
       "/v1/circle-transfers",
+      "/v1/cards",
+      "/v1/bills",
+      "/v1/bill-summary?scope=all&month=2026-11",
     ]) {
       assert.equal((await app.inject({ url, headers })).statusCode, 200, url);
     }
     for (const url of [
-      "/v1/cards",
-      "/v1/bills",
-      "/v1/bill-summary",
       "/v1/cards/11111111-1111-4111-8111-111111111111",
       "/v1/agreements/11111111-1111-4111-8111-111111111111",
     ]) {
       const result = await app.inject({ url, headers });
-      assert.equal(result.statusCode, 403, url);
-      assert.equal(result.json().error.code, "BANK_CONNECTION_REQUIRED");
+      assert.equal(result.statusCode, 404, url);
+      assert.equal(result.json().error.code, "NOT_FOUND");
     }
     const spoof = await app.inject({
       method: "POST",
@@ -269,14 +284,12 @@ test("sign-in opens social areas while financial access requires a confirmed ban
       method: "POST",
       url: "/v1/cards",
       headers: { ...headers, "idempotency-key": "entry-card-test" },
-      payload: { name: "Cannot bypass" },
+      payload: { name: "Unissued setup" },
     });
-    assert.equal(mutation.statusCode, 403);
+    assert.equal(mutation.statusCode, 201);
+    assert.equal(mutation.json().status, "setup_required");
     for (const url of [
-      "/v1/bills",
-      "/v1/bills/11111111-1111-4111-8111-111111111111/revise",
       "/v1/cards/11111111-1111-4111-8111-111111111111/activate",
-      "/v1/agreements/11111111-1111-4111-8111-111111111111/accept",
     ]) {
       const denied = await app.inject({
         method: "POST",
@@ -317,7 +330,7 @@ test("sign-in opens social areas while financial access requires a confirmed ban
   }
 });
 
-test("a failing bank provider cannot block Circles or Splitfinder", async () => {
+test("a failing bank provider cannot block planning but activation still fails closed", async () => {
   let bankReads = 0;
   const app = await createApp({
     mode: "local",
@@ -348,6 +361,8 @@ test("a failing bank provider cannot block Circles or Splitfinder", async () => 
       "/v1/brands",
       "/v1/notifications",
       "/v1/conversations",
+      "/v1/cards",
+      "/v1/bills",
     ]) {
       assert.equal((await app.inject({ url, headers })).statusCode, 200, url);
     }
@@ -356,7 +371,12 @@ test("a failing bank provider cannot block Circles or Splitfinder", async () => 
       0,
       "Social routes must not wait for the bank provider",
     );
-    const denied = await app.inject({ url: "/v1/cards", headers });
+    const denied = await app.inject({
+      method: "POST",
+      url: "/v1/cards/11111111-1111-4111-8111-111111111111/activate",
+      headers: { ...headers, "idempotency-key": "outage-activation" },
+      payload: {},
+    });
     assert.equal(denied.statusCode, 503);
     assert.equal(denied.body.includes("private provider error"), false);
   } finally {

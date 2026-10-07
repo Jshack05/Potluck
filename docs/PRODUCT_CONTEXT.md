@@ -1,6 +1,18 @@
 # Potluck Product Context
 
-## October 5, 2026 — Account-first access; bank setup within Cards and Bills
+## October 7, 2026 — Restore Potluck flows; contextual, optional banking
+
+The founder's October 6 instruction supersedes the earlier Cards/Bills gate: **sign in → organize Circles, Card setups, manual Bills and Goals**. Bank connection is optional for organization. It belongs within Card activation/funding and bank-imported Bills; a personal unconnected Bill may be saved without proposals or a bank account. Authentication, ownership and resource permissions remain required. No client callback may assert provider confirmation.
+
+The original Figma flows are authoritative for the recovered app: consistent creation `+`, Circle creation and invitation management, Card details → appearance → Circle → review, Bill identity → schedule → people/allocation → connection → review, and Goal planning. Main tabs switch without a horizontal stack animation. Keyboard avoidance is confined to content/actions rather than the bottom navigation. Card and Bill setup must not falsely depict issued credentials, available funds, successful transfers or accepted contributions.
+
+Circle invitations preserve host approval when configured, then require the recipient's independent acceptance. In an anonymous Circle, members can identify the Circle Host and themselves; other member identities remain private. The Host may administer membership but does not obtain control of attached Cards or Bills through that role. Exact email lookup and already visible Circle contacts support the people picker; it is not a global private-user directory.
+
+A Goal currently saves a host-owned **planning draft**. Planned people, dates, amounts and a lock preference do not send invitations, create accepted contribution agreements, lock funds, schedule payments or move money. Provider-dependent results stop at an explicit unavailable boundary. Account Settings follows the existing structure, with unimplemented account/security/delivery controls identified rather than given fake working toggles.
+
+This is Free/core. Target organizers and invited contributors; promise: **organize your people and shared plans, then connect banking when it is useful**. Invitations drive acquisition, recurring coordination supports retention, and connected people/agreements/Card purposes differentiate the product from a passive tracker. Paid conversion is deferred. Measure creation completion, invitation acceptance, first arrangement and contextual bank setup completion. See [restoration plan](superpowers/plans/2026-10-06-potluck-flow-restoration.md) and its validation record. New forward migrations retain existing data; rollback must retain arrangements and audit history.
+
+## October 5, 2026 — Account-first access; bank setup within Cards and Bills (superseded above)
 
 The founder revised entry to **sign in or create an account → use Circles and Splitfinder**. Bank connection is required for Cards and Bills only. Their tabs stay visible and show the existing illustrated empty states with a bottom **Connect bank account** action. Authentication remains required for the combined app; this decision does not restore guest browsing.
 

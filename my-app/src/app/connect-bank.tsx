@@ -49,9 +49,9 @@ export default function ConnectBank() {
           >
             {unavailable
               ? checked
-                ? "Bank connection is still unavailable in this development build. You can keep using Circles and Splitfinder."
-                : "Bank connection isn't available in this development build yet. You can keep using Circles and Splitfinder."
-              : "A confirmed bank connection is required for Cards and Bills."}
+                ? "Bank connection is still unavailable. Your Circles, Card setups and manual Bills remain available."
+                : "Bank connection isn't available in this development build yet. You can still organize your Cards and Bills."
+              : "Connect a bank for bank-powered actions. Creating and organizing your arrangements stays available."}
           </Label>
           <Action label="Connect bank account" disabled onPress={() => {}} />
           <View
@@ -71,7 +71,9 @@ export default function ConnectBank() {
             >
               {action.busy ? "Checking…" : "Check again"}
             </Link>
-            <Link onPress={() => go("/circles")}>Back to Circles</Link>
+            <Link onPress={() => go(safeReturnTo(returnTo))}>
+              Back to your setup
+            </Link>
           </View>
         </>
       }
@@ -84,7 +86,7 @@ export default function ConnectBank() {
           textAlign: "center",
         }}
       >
-        CARDS & BILLS · BANK SETUP
+        OPTIONAL BANK SETUP
       </Label>
       <View
         style={{
@@ -125,8 +127,8 @@ export default function ConnectBank() {
             textAlign: "center",
           }}
         >
-          Connect your own bank account when you’re ready to use Cards and
-          Bills.
+          Connect your own bank account when you’re ready to import Bills or
+          prepare a Card for bank-powered features.
         </Label>
       </View>
       <View style={{ gap: 20 }}>

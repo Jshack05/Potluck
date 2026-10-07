@@ -18,16 +18,57 @@ export const circleInput = z.strictObject({
   name,
   description: z.string().trim().max(400).default(""),
   privacy: z.enum(["normal", "anonymous"]).default("normal"),
+  icon: z.enum(["circles", "home", "heart", "star"]).default("circles"),
+  color: z.enum(["lilac", "mint", "peach", "blue"]).default("lilac"),
+  membersCanInvite: z.boolean().default(false),
+  requireHostApproval: z.boolean().default(true),
+  invitedEmails: z
+    .array(z.email().transform((v) => v.toLowerCase().trim()))
+    .max(20)
+    .default([]),
+  invitedUserIds: z.array(id).max(20).default([]),
 });
 export const cardInput = z.strictObject({
   name,
   description: z.string().trim().max(400).default(""),
-  design: z.enum(["teal", "graphite", "aurora"]).default("teal"),
+  design: z
+    .enum([
+      "teal",
+      "graphite",
+      "aurora",
+      "aurora_gradient",
+      "sunset",
+      "coral",
+      "ocean",
+      "berry",
+    ])
+    .default("teal"),
   circleId: id.nullable().default(null),
 });
 export const billInput = z
   .strictObject({
     name,
+    icon: z
+      .enum([
+        "internet",
+        "phone",
+        "tv",
+        "lightning",
+        "rent",
+        "water",
+        "trash",
+        "groceries",
+        "car",
+        "insurance",
+        "streaming",
+        "medical",
+        "bill",
+        "utilities",
+        "gas",
+      ])
+      .default("bill"),
+    color: z.enum(["teal", "blue", "coral", "gold", "purple"]).default("teal"),
+    planningOnly: z.boolean().default(false),
     circleId: id.nullable().default(null),
     cardId: id.nullable().default(null),
     amountMinor: minor.refine((value) => value > 0),

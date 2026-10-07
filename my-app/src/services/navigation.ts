@@ -1,5 +1,10 @@
 export function creationPath(
-  path: "/create/circle" | "/create/card" | "/create/bill" | "/create/listing",
+  path:
+    | "/create/circle"
+    | "/create/card"
+    | "/create/bill"
+    | "/create/goal"
+    | "/create/listing",
   params: Record<string, string | undefined>,
 ): string {
   const query = new URLSearchParams(
@@ -20,7 +25,7 @@ export function safeReturnTo(value: unknown): string {
   const url = new URL(value, "https://potluck.invalid");
   if (
     url.origin !== "https://potluck.invalid" ||
-    !/^\/(circles|circle|cards|card|bills|bill|agreement|discover|listing|inbox|conversation|create|saved|you|invitation|my-listings|sharing-rules|manage|profile|circle-transfer)(\/|$)/.test(
+    !/^\/(circles|circle|cards|card|bills|bill|bill-attention|agreement|goal|goals|import-bills|settings|discover|listing|inbox|conversation|create|saved|you|invitation|my-listings|sharing-rules|manage|profile|circle-transfer)(\/|$)/.test(
       url.pathname,
     )
   )
@@ -60,20 +65,9 @@ export function entryDestination(
   access: EntryAccess,
   destination: unknown,
 ): string | null {
-  if (access === "ready" || access === "loading") return null;
+  if (access !== "signed_out") return null;
   const target = safeReturnTo(destination);
-  // The tabs themselves explain bank setup. Only financial workflows redirect.
-  if (
-    access !== "signed_out" &&
-    (!financialArea(target) ||
-      ["/cards", "/bills"].includes(target.split("?")[0]))
-  )
-    return null;
-  return (
-    (access === "signed_out" ? "/sign-in" : "/connect-bank") +
-    "?returnTo=" +
-    encodeURIComponent(target)
-  );
+  return "/sign-in?returnTo=" + encodeURIComponent(target);
 }
 
 export function financialArea(path: string): "Cards" | "Bills" | null {
@@ -85,13 +79,20 @@ export function financialArea(path: string): "Cards" | "Bills" | null {
   return null;
 }
 
-/** Social reads do not depend on the bank provider. Unknown resources fail closed. */
+/** Organization never waits for banking. Provider-only and unknown reads stay gated. */
 export function canLoadResource(access: EntryAccess, path: string): boolean {
   if (access === "signed_out") return false;
   if (
     /^\/(circles|circle-transfers|invitations|brands|listings|my-listings|profiles|requests|conversations|saved|notifications)(\/|\?|$)/.test(
       path,
     )
+  )
+    return true;
+  if (
+    /^\/(cards|bills|agreements|circle-arrangements|goals)(\/[^/?]+)?(\?|$)/.test(
+      path,
+    ) ||
+    /^\/(bill-summary|people|settings)(\?|$)/.test(path)
   )
     return true;
   return access === "ready";

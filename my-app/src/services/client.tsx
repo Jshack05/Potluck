@@ -235,6 +235,10 @@ function useClientState() {
       },
     );
   };
+  const refreshProfile = async () => {
+    const result = await get<{ user: User }>("/me");
+    if (currentToken.current === token) setUser(result.user);
+  };
   return {
     user,
     ready,
@@ -246,6 +250,7 @@ function useClientState() {
     command,
     signIn,
     signOut,
+    refreshProfile,
   };
 }
 const Context = createContext<ReturnType<typeof useClientState> | null>(null);

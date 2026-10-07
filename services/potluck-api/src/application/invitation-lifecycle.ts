@@ -8,7 +8,7 @@ export async function expireInvitations(
   requestId: string,
 ) {
   const expired = await tx.query(
-    "UPDATE invitations SET status='expired',version=version+1 WHERE circle_id=$1 AND recipient_id=$2 AND status='pending' AND expires_at<=now() RETURNING id",
+    "UPDATE invitations SET status='expired',version=version+1 WHERE circle_id=$1 AND recipient_id=$2 AND status IN ('pending','awaiting_host_approval') AND expires_at<=now() RETURNING id",
     [circleId, recipientId],
   );
   for (const row of expired.rows)

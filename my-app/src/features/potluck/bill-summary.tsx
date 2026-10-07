@@ -3,7 +3,6 @@ import { View, Pressable } from "react-native";
 import {
   Label,
   Muted,
-  Title,
   ResourceState,
   Link,
   go,
@@ -13,16 +12,19 @@ import {
   theme,
 } from "@/design/system";
 import { useResource } from "@/services/client";
+type Occurrence = {
+  billId: string;
+  name: string;
+  date: string;
+  amountMinor: number;
+  estimated: boolean;
+  status: string;
+};
 type Summary = {
   totalMinor: number;
-  occurrences: {
-    billId: string;
-    name: string;
-    date: string;
-    amountMinor: number;
-    estimated: boolean;
-    status: string;
-  }[];
+  occurrences: Occurrence[];
+  planningTotalMinor?: number;
+  planningOccurrences?: Occurrence[];
 };
 export function BillSummary({ scope }: { scope: "shared" | "all" }) {
   const [month, setMonth] = useState(new Date().toISOString().slice(0, 7)),
@@ -37,15 +39,20 @@ export function BillSummary({ scope }: { scope: "shared" | "all" }) {
     );
   }
   const data = r.data,
-    next = data?.occurrences.find(
-      (x) => x.date >= new Date().toISOString().slice(0, 10),
-    );
+    personal = data?.planningOccurrences ?? [],
+    onlyPersonal = !data?.occurrences.length && personal.length > 0,
+    next = [...(data?.occurrences ?? []), ...personal]
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .find((x) => x.date >= new Date().toISOString().slice(0, 10));
   const weeks = Array.from({ length: 5 }, (_, i) => ({
     label: "Week " + (i + 1),
     amount:
       data?.occurrences
         .filter((x) => Math.floor((Number(x.date.slice(8)) - 1) / 7) === i)
         .reduce((s, x) => s + x.amountMinor, 0) ?? 0,
+    planned: personal
+      .filter((x) => Math.floor((Number(x.date.slice(8)) - 1) / 7) === i)
+      .reduce((sum, x) => sum + x.amountMinor, 0),
   }));
   return (
     <View
@@ -53,7 +60,7 @@ export function BillSummary({ scope }: { scope: "shared" | "all" }) {
         padding: 18,
         backgroundColor: "white",
         borderRadius: 24,
-        minHeight: 294,
+        minHeight: 248,
         gap: 10,
       }}
     >
@@ -66,7 +73,10 @@ export function BillSummary({ scope }: { scope: "shared" | "all" }) {
             aria-selected={view === x}
             onPress={() => setView(x)}
             style={{
-              paddingVertical: 10,
+              paddingVertical: 0,
+              paddingBottom: 10,
+              flex: 1,
+              alignItems: "center",
               borderBottomWidth: 2,
               borderColor: view === x ? theme.teal : "transparent",
             }}
@@ -83,6 +93,13 @@ export function BillSummary({ scope }: { scope: "shared" | "all" }) {
         ))}
       </View>
       <View style={[styles.row, { justifyContent: "space-between" }]}>
+        <Muted>
+          {new Date(month + "-01T12:00:00").toLocaleDateString("en-US", {
+            month: "long",
+            year: "numeric",
+          })}
+        </Muted>
+        <View style={{ flex: 1 }} />
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="Previous month"
@@ -91,12 +108,6 @@ export function BillSummary({ scope }: { scope: "shared" | "all" }) {
         >
           <Label>‹</Label>
         </Pressable>
-        <Title small>
-          {new Date(month + "-01T12:00:00").toLocaleDateString("en-US", {
-            month: "long",
-            year: "numeric",
-          })}
-        </Title>
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="Next month"
@@ -115,27 +126,49 @@ export function BillSummary({ scope }: { scope: "shared" | "all" }) {
         (view === "overview" ? (
           <>
             <Muted>
-              Your agreed shares
-              {data.occurrences.some((x) => x.estimated)
+              {onlyPersonal ? "Personal plans" : "Your agreed shares"}
+              {(onlyPersonal ? personal : data.occurrences).some(
+                (x) => x.estimated,
+              )
                 ? " · includes estimates"
                 : ""}
             </Muted>
             <Label
               style={{
-                fontSize: 34,
+                fontSize: 36,
                 lineHeight: 42,
                 fontFamily: "Inter_700Bold",
                 color: theme.teal,
               }}
             >
-              {money(data.totalMinor)}
+              {money(
+                onlyPersonal ? (data.planningTotalMinor ?? 0) : data.totalMinor,
+              )}
             </Label>
+            {!onlyPersonal && personal.length > 0 && (
+              <Muted>
+                Personal plans
+                {personal.some((x) => x.estimated) ? " (estimated)" : ""} ·{" "}
+                {money(data.planningTotalMinor ?? 0)}
+              </Muted>
+            )}
             {next ? (
-              <Link onPress={() => go("/bill/" + next.billId)}>
+              <Link
+                onPress={() =>
+                  go(
+                    "/bill/" +
+                      next.billId +
+                      (next.status === "draft"
+                        ? ""
+                        : "/payment?date=" + next.date),
+                  )
+                }
+              >
+                {next.status === "draft" ? "Planned · " : ""}
                 {next.name} · {money(next.amountMinor)} · {dateLabel(next.date)}
               </Link>
             ) : (
-              <Muted>No upcoming agreed shares in this month.</Muted>
+              <Muted>No upcoming bills in this month.</Muted>
             )}
             <Muted>Planning total · no funding authorized</Muted>
           </>
@@ -147,9 +180,26 @@ export function BillSummary({ scope }: { scope: "shared" | "all" }) {
                 style={[styles.row, { justifyContent: "space-between" }]}
               >
                 <Muted>{w.label}</Muted>
-                <Label>{money(w.amount)}</Label>
+                <View style={{ alignItems: "flex-end" }}>
+                  <Label>
+                    {onlyPersonal ? money(w.planned) : money(w.amount)}
+                  </Label>
+                  {!onlyPersonal && personal.length > 0 && (
+                    <Muted>Planned · {money(w.planned)}</Muted>
+                  )}
+                </View>
               </View>
             ))}
+            {personal.length > 0 && (
+              <Muted>
+                {onlyPersonal
+                  ? "Personal plans"
+                  : "Agreed shares and personal plans"}
+                {personal.some((x) => x.estimated)
+                  ? " · includes estimates"
+                  : ""}
+              </Muted>
+            )}
           </>
         ))}
     </View>

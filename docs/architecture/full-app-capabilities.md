@@ -1,6 +1,18 @@
 # Full-app capability register
 
-## October 5 revised access policy
+## October 7 restoration checkpoint
+
+Current entry policy: authentication is required; banking is optional for organization. Owned Card setups, personal manual Bill drafts, separately accepted Bill terms, Goal planning and Circle coordination are available before bank connection. Explicit provider routes remain gated and financial execution remains unavailable. The October 5 blanket Cards/Bills gate below is historical.
+
+Restored from existing Figma: shared creation menu; Circle create/people/invitation/admin/hosting/leave; Card create/appearance/connection/review and role-aware detail paths; Bill identity/calendar/people/allocation/connection/review, manual/import entry, agreements/changes/history/ending; Goal planning/detail/terms/list; and Settings navigation with profile-name editing. These are native components using downloaded Figma assets, not screenshots as UI. Main tab transitions no longer slide, and navigation sits outside keyboard avoidance.
+
+**Real local behavior:** records persist, recipient invitations require acceptance, host approvals are independent, private Bills do not create offers, Goal drafts do not create agreements/outbox records, and unknown-result creation retries retain the original request. Actor and resource checks remain enforced without requiring bank readiness for organization.
+
+**Unfinished:** account photos, username/contact changes, passkeys/MFA/recovery, account-wide privacy preferences, friend graph and notification/support delivery; native keyboard/device QA; issuer roles/credentials, banking/import suggestions, authorization/settlement, Goal invitations/acceptance/charging and transfers. Their UI paths show current availability rather than fabricated success or financial examples. Provider absence does not explain all local feature gaps.
+
+Dependency audits on October 7: backend zero; mobile 23 findings (19 high, 3 moderate, 1 critical). No new project dependencies were added for this recovery. The full release/security gate is still blocked; functional validation and browser evidence are recorded in the restoration plan/review document.
+
+## October 5 revised access policy (superseded above)
 
 Sign-in opens Circles and Splitfinder. Bank confirmation gates Cards and Bills only, including direct financial links and server mutations. Their tab prompts and the Circles empty home reuse the existing Lucky/table Figma assets; actions stay above navigation. Bank setup no longer traps users outside social features. There is no native dependency change, schema migration, bank simulation or financial activation. Earlier snapshots below are historical.
 

@@ -32,7 +32,7 @@ test("invalid account entries identify fields without echoing credentials or cre
   }
 });
 
-test("corrected registration and repeat sign-in open social access while financial access stays gated", async () => {
+test("corrected registration and repeat sign-in open planning while activation stays gated", async () => {
   const app = await createApp({ mode: "local", database: ":memory:" });
   try {
     const credentials = {
@@ -53,8 +53,14 @@ test("corrected registration and repeat sign-in open social access while financi
       200,
     );
     assert.equal(
-      (await app.inject({ method: "GET", url: "/v1/cards", headers })).json()
-        .error.code,
+      (
+        await app.inject({
+          method: "POST",
+          url: "/v1/cards/11111111-1111-4111-8111-111111111111/activate",
+          headers: { ...headers, "idempotency-key": "auth-no-activation" },
+          payload: {},
+        })
+      ).json().error.code,
       "BANK_CONNECTION_REQUIRED",
     );
     assert.equal(

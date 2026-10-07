@@ -1,6 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { AppError, demand } from "./lib.ts";
+import { accountPlanningRoute } from "./access-policy.ts";
 
 /** Read only: the future provider adapter must persist verified, actor-bound proof.
  * Neither a client callback nor an account flag is sufficient evidence. */
@@ -61,8 +62,10 @@ export function registerOnboarding(
     const path = req.routeOptions.url;
     if (!path || entryRoutes.has(path)) return;
     demand(req.actor, 401, "SIGN_IN_REQUIRED", "Sign in to continue.");
-    // Account-only social scopes. New or financial scopes retain the bank gate.
+    // Bank connection is not permission to view or organize an arrangement.
+    // New provider actions still fail closed unless independently authorized.
     if (
+      accountPlanningRoute(req.method, path) ||
       /^\/v1\/(circles|circle-transfers|invitations|brands|listings|my-listings|profiles|requests|conversations|blocks|saved|notifications)(\/|$)/.test(
         path,
       )
@@ -73,7 +76,7 @@ export function registerOnboarding(
       result.access === "ready",
       403,
       "BANK_CONNECTION_REQUIRED",
-      "Connect your bank account to use Cards and Bills.",
+      "Connect your bank account before continuing with this bank-powered action.",
     );
   });
   app.get("/v1/onboarding", async (req) => {

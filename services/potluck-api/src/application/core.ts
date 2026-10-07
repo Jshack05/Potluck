@@ -1,11 +1,4 @@
-import {
-  agreementAcceptance,
-  billInput,
-  cardInput,
-  circleInput,
-  versionInput,
-} from "@potluck/contracts";
-import { z } from "zod";
+import { agreementAcceptance, billInput, cardInput } from "@potluck/contracts";
 import { proposalShares } from "../domain/money.ts";
 import {
   api,
@@ -19,126 +12,13 @@ import {
   uuid,
   unblocked,
 } from "../lib.ts";
-import { expireInvitations } from "./invitation-lifecycle.ts";
 import type { CommandContext, Queryable, Row } from "./ports.ts";
 import { billView, ownedCard } from "./read-models.ts";
-export async function createCircle(
-  tx: Queryable,
-  user: string,
-  context: CommandContext,
-): Promise<Row> {
-  const input = circleInput.parse(context.body),
-    circleId = uuid();
-  const circle = await one(
-    tx,
-    "INSERT INTO circles(id,host_id,name,description,privacy) VALUES($1,$2,$3,$4,$5) RETURNING *",
-    [circleId, user, input.name, input.description, input.privacy],
-  );
-  await tx.query(
-    "INSERT INTO memberships(circle_id,user_id,status) VALUES($1,$2,'accepted')",
-    [circleId, user],
-  );
-  await audit(tx, user, "circle.created", circleId, context.requestId);
-  return api(circle);
-}
-export async function inviteToCircle(
-  tx: Queryable,
-  user: string,
-  context: CommandContext,
-): Promise<Row> {
-  const circle = await one(
-    tx,
-    "SELECT * FROM circles WHERE id=$1 AND host_id=$2 AND status='active' FOR UPDATE",
-    [context.resourceId, user],
-  );
-  const input = z
-    .strictObject({
-      email: z.email().transform((v) => v.toLowerCase().trim()),
-    })
-    .parse(context.body);
-  const recipient = await one(
-    tx,
-    "SELECT id FROM users WHERE email=$1 AND NOT disabled",
-    [input.email],
-  );
-  demand(
-    recipient.id !== user,
-    400,
-    "ALREADY_MEMBER",
-    "You already belong to this Circle.",
-  );
-  await unblocked(tx, user, recipient.id);
-  const existing = await tx.query(
-    "SELECT 1 FROM memberships WHERE circle_id=$1 AND user_id=$2 AND status='accepted'",
-    [circle.id, recipient.id],
-  );
-  demand(
-    !existing.rows.length,
-    409,
-    "ALREADY_MEMBER",
-    "This person already belongs to the Circle.",
-  );
-  await expireInvitations(tx, circle.id, recipient.id, user, context.requestId);
-  const invitation = await one(
-    tx,
-    "INSERT INTO invitations(id,circle_id,sender_id,recipient_id) VALUES($1,$2,$3,$4) RETURNING *",
-    [uuid(), circle.id, user, recipient.id],
-  );
-  await audit(tx, user, "invitation.created", invitation.id, context.requestId);
-  await notify(tx, recipient.id, "circle_invitation", invitation.id);
-  return api(invitation);
-}
-export async function respondToInvitation(
-  tx: Queryable,
-  user: string,
-  context: CommandContext,
-  action: "accept" | "decline" | "revoke",
-): Promise<Row> {
-  const { expectedVersion } = versionInput.parse(context.body);
-  const invitation = await one(
-    tx,
-    "SELECT * FROM invitations WHERE id=$1 AND " +
-      (action === "revoke" ? "sender_id" : "recipient_id") +
-      "=$2 FOR UPDATE",
-    [context.resourceId, user],
-  );
-  demand(
-    invitation.status === "pending" &&
-      invitation.version === expectedVersion &&
-      new Date(invitation.expires_at).getTime() > Date.now(),
-    409,
-    "INVITATION_CHANGED",
-    "This invitation is no longer available.",
-  );
-  await one(tx, "SELECT id FROM circles WHERE id=$1 AND status='active'", [
-    invitation.circle_id,
-  ]);
-  if (action === "accept")
-    await unblocked(tx, invitation.sender_id, invitation.recipient_id);
-  const status = {
-    accept: "accepted",
-    decline: "declined",
-    revoke: "revoked",
-  }[action];
-  const result = await one(
-    tx,
-    "UPDATE invitations SET status=$1,version=version+1 WHERE id=$2 RETURNING *",
-    [status, invitation.id],
-  );
-  if (action === "accept")
-    await tx.query(
-      "INSERT INTO memberships(circle_id,user_id,status) VALUES($1,$2,'accepted') ON CONFLICT(circle_id,user_id) DO UPDATE SET status='accepted',joined_at=now()",
-      [invitation.circle_id, user],
-    );
-  await audit(
-    tx,
-    user,
-    "invitation." + status,
-    invitation.id,
-    context.requestId,
-  );
-  return api(result);
-}
+export {
+  createCircle,
+  inviteToCircle,
+  respondToInvitation,
+} from "./circle-flows.ts";
 export async function createCard(
   tx: Queryable,
   user: string,
@@ -172,6 +52,13 @@ export async function createBill(
   context: CommandContext,
 ): Promise<Row> {
   const input = billInput.parse(context.body);
+  demand(
+    !input.planningOnly ||
+      (input.participants.length === 1 && input.participants[0] === user),
+    400,
+    "INVALID_PRIVATE_BILL",
+    "A personal Bill can only include you. Review a proposal to invite other people.",
+  );
   await attachable(tx, input.circleId, user);
   if (input.cardId) {
     const card = await one(
@@ -203,7 +90,7 @@ export async function createBill(
   const { allocation, caps, calculations } = proposal;
   const bill = await one(
     tx,
-    "INSERT INTO bills(id,host_id,circle_id,card_id,name,kind,amount_minor,maximum_minor,currency,frequency,first_due_date) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *",
+    "INSERT INTO bills(id,host_id,circle_id,card_id,name,kind,amount_minor,maximum_minor,currency,frequency,first_due_date,icon,color,status) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) RETURNING *",
     [
       uuid(),
       user,
@@ -216,8 +103,17 @@ export async function createBill(
       input.currency,
       input.frequency,
       input.firstDueDate,
+      input.icon,
+      input.color,
+      input.planningOnly ? "draft" : "proposed",
     ],
   );
+  if (input.planningOnly) {
+    await audit(tx, user, "bill.saved", bill.id, context.requestId, {
+      version: 1,
+    });
+    return billView(tx, bill.id, user);
+  }
   for (const person of input.participants) {
     const maximum = caps[person];
     const terms = {

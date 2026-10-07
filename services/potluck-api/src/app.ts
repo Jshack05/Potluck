@@ -11,6 +11,9 @@ import { AppError, demand, hash, uuid } from "./lib.ts";
 import { registerCircleAdministration } from "./modules/circle-administration.ts";
 import { registerDiscovery } from "./modules/discovery.ts";
 import { registerLifecycle } from "./modules/lifecycle.ts";
+import { registerGoals } from "./modules/goals.ts";
+import { registerPeople } from "./modules/people.ts";
+import { updateProfile } from "./application/account-profile.ts";
 import { registerOnboarding, type BankOnboardingReader } from "./onboarding.ts";
 
 export type Options = AuthOptions & {
@@ -313,5 +316,16 @@ export async function createApp(options: Options) {
   registerDiscovery({ app, db, actor, param, mutation });
   registerLifecycle({ app, db, actor, param, mutation });
   registerCircleAdministration({ app, db, actor, param, mutation });
+  registerGoals({ app, db, actor, param, mutation });
+  registerPeople({ app, db, actor, param, mutation });
+  app.post("/v1/settings/profile", (req, reply) =>
+    mutation(req, reply, 200, (tx, user) =>
+      updateProfile(tx, user, {
+        body: req.body,
+        resourceId: "",
+        requestId: req.id,
+      }),
+    ),
+  );
   return app;
 }
