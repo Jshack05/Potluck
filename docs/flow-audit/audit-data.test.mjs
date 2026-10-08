@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { flattenReactions, classifyTarget, coverage } from './audit-data.mjs';
+import { flattenReactions, classifyTarget, coverage, mapSourceStates } from './audit-data.mjs';
 
 test('preserves action order, nested conditions and hidden controls', () => {
   const screens = [{id:'1:1', name:'Source', controls:[{id:'1:2', name:'Hidden', visible:false, reactions:[{trigger:{type:'ON_CLICK'}, actions:[
@@ -38,4 +38,12 @@ test('coverage never upgrades extraction to visual or runtime verification', () 
   assert.deepEqual(result.remainingReactions,['b']);
   assert.equal(result.prototypeInteractions,0);
   assert.equal(result.appVisualComparisons,0);
+});
+
+test('source mapping keeps missing and implemented states distinct without inferring sibling coverage', () => {
+  const routes=[{route:'/agreement/[id]',sourceFile:'agreement.tsx',implementedStates:[{state:'Manual',designIds:['manual'],implementation:'manual terms'}],missingStates:[{state:'Automatic',designIds:['auto'],reason:'provider absent'}]}];
+  assert.equal(mapSourceStates('manual',routes)[0].status,'SOURCE_CORRESPONDENCE');
+  assert.equal(mapSourceStates('auto',routes)[0].status,'MISSING_IN_INSPECTED_UI');
+  assert.equal(mapSourceStates('auto',routes)[0].runtimeVerified,false);
+  assert.deepEqual(mapSourceStates('other',routes),[]);
 });

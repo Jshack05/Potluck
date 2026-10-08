@@ -8,6 +8,9 @@
 - [Raw captures](2026-10-08/) and [connection map](2026-10-08-connection-map.json)
 - [Transitions CSV](2026-10-08-connections.csv)
 - [App source inventory](2026-10-08-app-routes.json) and [sampled comparisons](2026-10-08-app-review.json)
+- [25-family graph findings](2026-10-08-graph-findings.md)
+- [Full route source findings](2026-10-08-source-findings.md) and [explicit state correspondence](2026-10-08-source-mapping.json)
+- [Annotation content draft — not yet in Figma](2026-10-08-annotation-draft.json)
 - [Historical October 2 explorer](2026-10-02-index.html)
 
 Build and check the latest checkpoint:

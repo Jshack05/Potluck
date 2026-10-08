@@ -10,7 +10,7 @@
 
 **Spec:** October 7 founder directions recorded in `docs/PRODUCT_CONTEXT.md` and `AGENTS.md`: inventory all existing designs, document connections, prevent unnecessary replacements, and design for the finished product assuming program availability.
 
-**Status (October 8):** Started but incomplete. 809 screen/state records, 724 raw reaction captures, 868 component/set records and 804 variables saved. Visual review covers 27 records; five app comparisons completed. Figma tool quota interrupted extraction and further visual work. Permanent annotations and full prototype/app verification remain outstanding. See `docs/flow-audit/2026-10-08-findings.md`; unchecked tasks remain unchecked.
+**Status (October 8 resumed):** Incomplete. All 809 reaction trees and 8,553 transition references captured; 25 families reconciled with product documents; 271 readable visual reviews; all 55 Expo route files read and 218 designs partially mapped to source states. Five app visual comparisons and zero live prototype journeys. Figma quota recurred during remaining visual work. Permanent notes are drafted locally but not created.
 
 **Planning verification:** The existing `validate-flow-audit.mjs` currently fails its documentation-link check because `docs/2026-09-20-launch-and-conversation-decisions.md` and `docs/2026-09-23-onboarding-research-and-decisions.md` are absent in this checkout. Both links also occur in the unchanged HEAD version of `APP_FLOW_MAP.md`; this is a pre-existing finding. Locate authoritative copies or explicitly reconcile the references during the audit; do not invent their contents or weaken the validator. New planning links and diff whitespace are checked separately.
 
@@ -44,31 +44,31 @@ Each connection record must identify the source control, trigger, ordered action
 
 ## Task 1 — Establish complete inventory coverage
 
-- [ ] Record repository branch/commit, dirty files, Figma pages and capture time. Read applicable instructions and identify current product decisions without changing scope.
-- [ ] Enumerate all screen containers recursively in bounded resumable batches. Separately record labels, illustrations and component libraries so they do not inflate screen counts.
-- [ ] Reconcile live IDs against October 2 snapshots and subsequent documented additions. Resolve apparently absent nodes directly before labeling them removed; retain provenance.
-- [ ] Record expected versus inspected containers and reasons for any gaps. Save checkpoints so a later session resumes rather than repeats extraction.
+- [x] Record repository branch/commit, dirty files, Figma pages and capture time. Read applicable instructions and identify current product decisions without changing scope.
+- [x] Enumerate all screen containers recursively in bounded resumable batches. Separately record labels, illustrations and component libraries so they do not inflate screen counts.
+- [x] Reconcile live IDs against October 2 snapshots and subsequent documented additions. Resolve apparently absent nodes directly before labeling them removed; retain provenance.
+- [x] Record expected versus inspected containers and reasons for any gaps. Save checkpoints so a later session resumes rather than repeats extraction.
 - [ ] Validate unique IDs, parent relationships, resolvable links and completeness of the enumerated containers. Visually inspect each actual screen/state at readable scale; record issues and render coverage without redesigning it.
 
 Deliverable: refreshed dated inventory with explicit coverage and a list of unresolved classifications. Inventory complete does not mean prototype or app verified.
 
 ## Task 2 — Reconstruct the flow graph from evidence
 
-- [ ] Capture reactions for every inventoried screen/state, including nested controls, component interactions, hidden controls, overlays, conditional branches and ordered actions.
-- [ ] Resolve referenced targets and variables; preserve unresolvable IDs as findings. Differentiate prototype wiring from documented intended behavior and visual inference.
-- [ ] Identify entry/exit points and actor-specific success, rejection, cancellation, retry and return paths. Record disconnected screens, dead ends and alternative generations without deleting or fixing them.
-- [ ] Reconcile canonical candidates against dated decisions. Mark uncertain choices for founder review rather than silently selecting one.
+- [x] Capture reactions for every inventoried screen/state, including nested controls, component interactions, hidden controls, overlays, conditional branches and ordered actions.
+- [x] Resolve referenced targets and variables; preserve unresolvable IDs as findings. Differentiate prototype wiring from documented intended behavior and visual inference.
+- [x] Identify entry/exit points and actor-specific success, rejection, cancellation, retry and return paths. Record disconnected screens, dead ends and alternative generations without deleting or fixing them.
+- [x] Reconcile canonical candidates against dated decisions. Mark uncertain choices for founder review rather than silently selecting one.
 - [ ] Extend the existing validator with representative nested, hidden, conditional, multiple-action and unresolved-target fixtures before changing its extraction assumptions. Validate the full graph; manually exercise critical prototype paths for each actor and record what was actually tested.
 
 Deliverable: searchable connection map with observed wiring, intended-but-unwired paths and unresolved decisions clearly separated.
 
 ## Task 3 — Map designs to the actual app
 
-- [ ] Enumerate current Expo routes, route aliases/redirects, shared components and conditional screen states. Read the implementation, not just route filenames.
+- [x] Enumerate current Expo routes, route aliases/redirects, shared components and conditional screen states. Read the implementation, not just route filenames.
 - [ ] Map every design to zero, one or multiple route/state combinations as appropriate; also list app screens with no verified Figma reference.
 - [ ] Compare each mapped screen visually and inspect key interactions. Use owned local QA fixtures; do not trigger real financial operations or infer backend capability from a screen.
-- [ ] Give separate statuses for designed, wired, implemented, visually verified and provider-integrated. Record generic replacements, partial flows and missing states with exact Figma links/code locations.
-- [ ] Prioritize findings by correctness/consent/security, broken navigation, design mismatch, then cosmetic issues. Propose restoration using existing designs; implementation is a separate task.
+- [x] Give separate statuses for designed, wired, implemented, visually verified and provider-integrated. Record generic replacements, partial flows and missing states with exact Figma links/code locations.
+- [x] Prioritize findings by correctness/consent/security, broken navigation, design mismatch, then cosmetic issues. Propose restoration using existing designs; implementation is a separate task.
 
 Deliverable: evidence-backed design-to-route matrix and prioritized restoration backlog. No app edits during the audit.
 

@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
-import {flattenReactions,classifyTarget,coverage} from './audit-data.mjs';
+import {flattenReactions,classifyTarget,coverage,mapSourceStates} from './audit-data.mjs';
 
 const here=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(here,'../..');
 const date='2026-10-08',read=n=>JSON.parse(fs.readFileSync(path.join(here,n),'utf8'));
@@ -12,6 +12,7 @@ const raw=fs.readdirSync(path.join(here,date)).filter(n=>/^raw-\d+\.json$/.test(
 const components=read(`${date}-components.json`).components;
 const variables=read(`${date}-variables.json`);
 const visual=read(`${date}-visual-review.json`),appReview=read(`${date}-app-review.json`),checkpoint=read(`${date}-checkpoint.json`);
+const families=read(`${date}-flow-families.json`),source=read(`${date}-source-mapping.json`);
 const figma=id=>`https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=${encodeURIComponent(id)}`;
 const ids=new Set(inventory.map(s=>s.id)),componentIds=new Set(components.map(s=>s.id)),rawById=new Map(raw.map(s=>[s.id,s]));
 if(ids.size!==inventory.length||rawById.size!==raw.length||raw.some(s=>!ids.has(s.id)))throw Error('Duplicate or unmatched capture');
@@ -27,6 +28,20 @@ function domain(name){const n=name.toLowerCase();if(/reference|review guide|star
 const familyRoutes={Circles:['/circles','/circle/[id]','/create/circle'],Cards:['/cards','/card/[id]','/create/card'],Bills:['/bills','/bill/[id]','/create/bill','/import-bills'],Goals:['/goals','/goal/[id]','/create/goal'],'Roles / access':['/card/[id]/people','/card/[id]/controls','/invitation/[id]','/agreement/[id]'],'Account / entry':['/sign-in','/you','/settings/[section]'],'Messaging / safety':['/inbox','/conversation/[id]'],Splitfinder:['/discover','/explore','/listing/[id]','/create/listing'],Reference:[]};
 const records=inventory.map(s=>{const a=rawById.get(s.id),area=domain(s.name),compared=appReview.visualComparisons.filter(v=>v.figmaIds.includes(s.id));return {...s,domain:area,figmaUrl:figma(s.id),evidence:a?'REACTIONS_CAPTURED':'INVENTORY_ONLY',text:a?.text.filter(t=>t.visible).map(t=>t.text)??null,controls:a?.controls??null,instances:a?.instances??null,fingerprint:a?.fingerprint??null,mentionedIn:[],purpose:s.name,actor:null,state:s.name.split(' / ').slice(1).join(' / '),canonicalStatus:'UNRESOLVED — preserve alternatives until reconciled with product decisions',visualStatus:visual.ids.includes(s.id)?'LAYOUT_REVIEWED':'NOT_REVIEWED',appStatus:compared.length?'SAMPLED_COMPARISON':'NOT_VERIFIED',appComparisons:compared,candidateRoutes:familyRoutes[area],mappingEvidence:compared.length?'Explicit sampled comparison; see app-review.json':'Family search aid only; not a verified screen-to-route mapping',captureDate:date,sourceCommit:checkpoint.baseCommit};});
 const historical=read('2026-10-02-screen-inventory.json');
+for(const record of records){
+  const assignment=families.screens.find(s=>s.id===record.id);
+  const family=families.families.find(f=>f.id===assignment.familyId);
+  record.familyId=family.id;record.family=family.name;record.actor=assignment.actor;
+  record.actorEvidence=assignment.actorEvidence;record.purpose=family.intendedSemantics;
+  record.canonicalStatus=assignment.canonicalStatus;record.canonicalDecision=family.canonicalDecision;
+  record.authority=family.authority;record.graphStatus=assignment.graphStatus;record.uncertainty=assignment.uncertainty;
+  record.sourceMappings=mapSourceStates(record.id,source.routes);
+  record.mappingEvidence=record.sourceMappings.length?'Explicit source-state correspondence; missing versus implemented labels retained. Not runtime or visual parity verification.':record.mappingEvidence;
+  record.appStatus=record.appComparisons.length?'SAMPLED_COMPARISON':record.sourceMappings.length?'SOURCE_STATE_REVIEWED':'UNMAPPED_STATE';
+}
+for(const row of routeRows)row.sourceInspection=source.routes.find(r=>r.sourceFile===row.file)??row.sourceInspection;
+summary.flowFamilies=families.families.length;summary.sourceRouteFilesRead=source.coverage.routeFilesRead;
+summary.sourceMappedDesignRecords=records.filter(r=>r.sourceMappings.length).length;
 const references=read(`${date}-reference-boards.json`);
 const reconciliation={addedToInventory:inventory.filter(s=>!historical.some(h=>h.id===s.id)).map(s=>({id:s.id,name:s.name})),classifiedSeparately:references,previouslyInventoriedNotFound:historical.filter(s=>!ids.has(s.id)&&!references.some(r=>r.id===s.id)).map(s=>({id:s.id,name:s.name,status:'NOT_IN_CURRENT_ENUMERATION — direct live lookup pending; not proof of deletion'}))};
 const variableIds=new Set(variables.variables.map(v=>v.id));
@@ -35,7 +50,7 @@ for(const s of raw)aliases(s.controls);
 const unresolvedVariables=[...refs].filter(id=>!variableIds.has(id));
 write(`${date}-coverage.json`,summary);
 write(`${date}-connection-map.json`,{summary,records,edges,referencedOutsideInventory:outside,unresolvedVariables,reconciliation});
-write(`${date}-app-routes.json`,{sourceCommit:checkpoint.baseCommit,routes:routeRows,classification:'Route-file inventory and sampled inspections only; not exhaustive implementation verification'});
+write(`${date}-app-routes.json`,{sourceCommit:checkpoint.baseCommit,routes:routeRows,classification:'All route files read; partial explicit state correspondences. Not exhaustive visual/runtime/provider verification.'});
 const columns=['source','sourceName','control','controlName','visibleAtCapture','type','to','targetStatus','conditions','actionPath'];
 const csv=value=>'"'+String(typeof value==='object'?JSON.stringify(value):value??'').replaceAll('"','""')+'"';
 fs.writeFileSync(path.join(here,`${date}-connections.csv`),[columns.join(','),...edges.map(e=>columns.map(k=>csv(e[k])).join(','))].join('\n')+'\n');

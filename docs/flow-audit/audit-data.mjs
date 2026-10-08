@@ -30,3 +30,9 @@ export function coverage(inventory,raw,visualIds) {
     remainingVisual:inventory.filter(s=>!visual.has(s.id)).map(s=>s.id),
     prototypeInteractions:0,appVisualComparisons:0};
 }
+export function mapSourceStates(id, routes) {
+  return routes.flatMap(route => [
+    ...(route.implementedStates ?? []).filter(s => s.designIds?.includes(id)).map(s => ({...s,status:'SOURCE_CORRESPONDENCE'})),
+    ...(route.missingStates ?? []).filter(s => s.designIds?.includes(id)).map(s => ({...s,status:'MISSING_IN_INSPECTED_UI'})),
+  ].map(s => ({...s,route:route.route,sourceFile:route.sourceFile,runtimeVerified:false,visualParityVerified:false})));
+}
