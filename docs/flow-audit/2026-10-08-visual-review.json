@@ -1,0 +1,78 @@
+{
+  "ids": [
+    "7:423",
+    "547:1625",
+    "714:2708",
+    "199:266",
+    "199:317",
+    "207:267",
+    "218:314",
+    "335:506",
+    "371:521",
+    "371:551",
+    "427:662",
+    "434:660",
+    "463:750",
+    "488:1134",
+    "488:1203",
+    "488:1272",
+    "488:1396",
+    "490:1331",
+    "490:1335",
+    "515:1456",
+    "542:1632",
+    "563:1705",
+    "570:1755",
+    "570:1824",
+    "570:1893",
+    "573:1920",
+    "573:1988"
+  ],
+  "method": "Original renders for home screens and first five records; read-only review of temporary clone contact sheet for inventory indices 6–25. Rows cropped to readable scale. This is layout/content review, not live interaction.",
+  "observations": [
+    {
+      "ids": [
+        "335:506",
+        "542:1632"
+      ],
+      "note": "Circle creation already has illustration, people picker and three distinct settings. Current app source preserves these concepts."
+    },
+    {
+      "ids": [
+        "199:266",
+        "207:267",
+        "488:1134",
+        "488:1396"
+      ],
+      "note": "Blank/transparent closed states are overlay animation states, not missing pages."
+    },
+    {
+      "ids": [
+        "371:521",
+        "218:314"
+      ],
+      "note": "Lower Card content reaches behind persistent navigation in captured viewport; verify scrolling and bottom inset in prototype before flagging as clipping."
+    },
+    {
+      "ids": [
+        "547:1625",
+        "563:1705",
+        "570:1755",
+        "570:1824",
+        "570:1893"
+      ],
+      "note": "Card stack expanded/selected states are distinct interactive states, not separate production routes."
+    },
+    {
+      "ids": [
+        "714:2708"
+      ],
+      "note": "Shared Bills has overview/week tabs, contribution summary, list, import action and global plus. Do not replace with a generic list."
+    }
+  ],
+  "temporaryBoard": {
+    "id": "2204:45190",
+    "removed": true,
+    "removalEvidence": "Browser UI Delete on exact selected temporary frame; subsequent AX tree removed its row and returned to page selection."
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-08",
+  "environment": "Local Expo web, 430 x 932 CSS pixels, owned QA fixture; not physical iPhone testing",
+  "sourceCommit": "39b92f50f5040253ac15efbb4dac05399620aaa1",
+  "visualComparisons": [
+    {"route":"/circles","figmaIds":["7:423","434:660"],"result":"Shared header, navigation and plus are present. Data-dependent fixture content differs; one QA Circle is not evidence of a missing design. No visual sign-off for all states."},
+    {"route":"/cards","figmaIds":["547:1625"],"result":"Original card artwork and setup row are represented. Only one unissued QA card tested; multi-card stack interactions and issued/spender states untested."},
+    {"route":"/bills","figmaIds":["714:2708"],"result":"Shared/All bills tabs, Overview/By week, monthly summary, import action, plus and shared navigation are present. Planning copy differs from intended funded design; provider completion remains separate."},
+    {"route":"shared creation menu","figmaIds":["199:317"],"result":"Four colored creation rows closely follow original. App adds an explicit close control. Menu dismissed after navigation transition; timing not measured."},
+    {"route":"/create/circle","figmaIds":["335:506","542:1632"],"result":"Artwork, people picker and three settings are implemented. App adds persistent bottom navigation absent from original frame; increased vertical spacing pushes anonymous setting below initial viewport. Resolve intended shell/insets before redesigning."}
+  ],
+  "sourceInspections": [
+    {"file":"my-app/src/app/sign-in.tsx","finding":"Sign-in/create-account switching and field errors exist; no reset-password action or recovery/verification states. Existing Figma alternatives need canonical reconciliation before implementation."},
+    {"file":"my-app/src/app/import-bills.tsx","finding":"Only source/account steps. Detection, review and selection are not implemented; explicit unconnected-build panels replace the rest of the intended flow."},
+    {"file":"my-app/src/app/connect-bank.tsx","finding":"Connect bank account is disabled; refresh rechecks entry status. This is a real integration gap, not a missing Figma design."},
+    {"file":"my-app/src/app/settings/[section].tsx","finding":"Several security/settings actions call an unavailable dialog. Existing Figma recovery and security states need explicit mapping rather than new generic screens."},
+    {"file":"my-app/src/app/card/[id]/fund.tsx","finding":"Amount/review planning is present, but review proceeds to bank setup; no transfer submission. Retain consent boundary while later restoring provider-backed flow."},
+    {"file":"my-app/src/app/bill/[id]/payment.tsx","finding":"Contribution review and own accepted agreement checks exist. Actual funding unavailable; screen does not implement settlement states."},
+    {"file":"my-app/src/app/create/circle.tsx","finding":"Substantive recovery already exists; do not rebuild it again. Appearance picker, people, settings and saved draft are implemented."},
+    {"file":"my-app/src/app/cards.tsx","finding":"Stack expansion exists, but Finish setup is always shown for the first card; provider-ready alternatives need review once integrated."},
+    {"file":"my-app/src/app/bills.tsx","finding":"Shared/All tabs, data-dependent empty states and original import asset are implemented."}
+  ],
+  "limits": ["This is a sample comparison, not exhaustive route/state verification.","No real financial actions or user-data changes were performed.","No app code was changed."]
+}

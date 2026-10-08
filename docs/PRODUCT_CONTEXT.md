@@ -1,5 +1,13 @@
 # Potluck Product Context
 
+## October 7, 2026 — Finished-product design and existing-screen traceability
+
+The founder directs app and Figma development toward the finished Potluck experience. Assume required programs are approved and available when designing intended flows; retain complete screens, interactions and production-facing language. An unfinished integration is implementation work, not justification for replacing the approved design with generic demo screens. Document actual integration/approval evidence separately; this instruction does not establish real approval, authorize transactions, remove consent or permit simulated success in the running product. Existing optional-bank entry, role separation and core-only scope remain in force.
+
+Before creating screens, inspect and reuse the existing Figma design and record its node-to-route mapping. A planned whole-file audit will inventory screens, variants, components and connections, with searchable notes outside phone frames. Captured prototype wiring, inferred intent, app implementation and visual verification must have separate evidence/status fields. Preserve existing designs during the inventory; uncertain duplicates or versions are findings, not deletion instructions. See the [audit plan](superpowers/plans/2026-10-07-figma-screen-audit.md). This entry records the direction and plan, not completion of the audit.
+
+Market purpose: serve hosts, contributors and spenders with one coherent finished experience; existing invitations support acquisition and recurring arrangements support retention. This is Free/core quality and development discipline, with paid conversion deferred. Measure flow completion, design-to-app mismatches and avoidable screen duplication; no new entitlement or competitive feature is introduced.
+
 ## October 7, 2026 — Blank-first loading (supersedes skeleton placeholders)
 
 Fast initial requests leave the content area blank on the existing canvas: beige for Potluck, pale blue for Splitfinder. Headers, navigation and applicable collection controls/actions stay in place. If a request is still unresolved after 500 ms, show minimal loading feedback; never delay ready content or impose a minimum display time. Session restoration follows the same rule. Do not predict data volume with skeleton cards, rows or avatars.

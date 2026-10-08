@@ -1,5 +1,9 @@
 # Potluck app flow map
 
+> **October 8 checkpoint:** Live inventory now contains 809 phone-sized screen/state records plus the separately verified older review guide. Reactions are captured for 724 records. Read the [current findings and coverage](flow-audit/2026-10-08-findings.md) and [current explorer](flow-audit/index.html). The full audit and permanent Figma annotations are still incomplete because of the tool quota. Everything below is the historical October 2 map; do not treat its scope or implementation statements as current.
+
+> **October 7, 2026:** This is a historical, partial audit. Its implementation and launch-scope statements may be superseded by newer entries in [PRODUCT_CONTEXT.md](PRODUCT_CONTEXT.md). Use the [new audit plan](superpowers/plans/2026-10-07-figma-screen-audit.md) to refresh the inventory, connections and app mappings. That audit had not yet been executed as of October 7; see the October 8 checkpoint above for subsequent verified coverage.
+
 **Audit date:** October 2, 2026. **Status: broad app map, partial connection verification.**
 
 This maps the existing design and documents for implementation planning. It does not authorize a new release scope, change Figma, implement a backend, or approve financial operations.
