@@ -68,10 +68,12 @@ export default function Bills() {
       footer={<ImportBillsButton />}
     >
       <AuthGate returnTo="/bills">
-        <BillScopeTabs
-          scope={scope}
-          onChange={(scope) => router.setParams({ scope })}
-        />
+        {phase !== "empty" && (
+          <BillScopeTabs
+            scope={scope}
+            onChange={(scope) => router.setParams({ scope })}
+          />
+        )}
         <ResourceState
           loading={phase === "loading" || resource.loading}
           data={resource.data}
@@ -126,6 +128,12 @@ export default function Bills() {
         {phase === "empty" && (
           <HomeEmptyState
             area="Bills"
+            leadingControls={
+              <BillScopeTabs
+                scope={scope}
+                onChange={(scope) => router.setParams({ scope })}
+              />
+            }
             sharedOnly={scope === "shared" && !!resource.data?.items.length}
           />
         )}

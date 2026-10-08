@@ -57,6 +57,8 @@ export function ImportBillsButton() {
         paddingHorizontal: 16,
         paddingVertical: 12,
         backgroundColor: "white",
+        borderWidth: 2,
+        borderColor: theme.teal,
         borderRadius: 12,
         flexDirection: "row",
         gap: 12,
