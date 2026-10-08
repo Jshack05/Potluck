@@ -1,5 +1,6 @@
 import { Image } from "expo-image";
-import { View } from "react-native";
+import { useState } from "react";
+import { Pressable, StyleSheet, View } from "react-native";
 import { Label, money } from "@/design/system";
 import type { Card } from "./types";
 export const cardLooks: Record<Card["design"], string> = {
@@ -30,6 +31,8 @@ export function CardPreview({
   role = "host",
   availableMinor = null,
   compact = false,
+  variant = "preview",
+  onEdit,
 }: {
   name: string;
   closed?: boolean;
@@ -37,15 +40,21 @@ export function CardPreview({
   role?: "host" | "trusted_spender" | null;
   availableMinor?: number | null;
   compact?: boolean;
+  variant?: "preview" | "detail";
+  onEdit?: () => void;
 }) {
+  const targetWidth = compact ? 176 : variant === "detail" ? 369.6 : 330;
+  const [width, setWidth] = useState(targetWidth);
+  const scale = width / 330;
   return (
     <View
+      onLayout={({ nativeEvent }) => setWidth(nativeEvent.layout.width)}
       style={{
-        width: "100%",
-        maxWidth: 330,
+        width: variant === "detail" ? "95%" : "100%",
+        maxWidth: targetWidth,
         alignSelf: "center",
-        height: compact ? 94 : 176,
-        borderRadius: compact ? 12 : 22,
+        aspectRatio: 330 / 176,
+        borderRadius: 22 * scale,
         backgroundColor:
           design === "teal"
             ? "#006D67"
@@ -57,8 +66,6 @@ export function CardPreview({
                   ? "#5B21A6"
                   : "#263433",
         overflow: "hidden",
-        padding: compact ? 12 : 22,
-        justifyContent: "space-between",
       }}
     >
       {(
@@ -75,13 +82,7 @@ export function CardPreview({
                   : require("../../../assets/potluck/card-aurora.png")
           }
           contentFit="cover"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-          }}
+          style={StyleSheet.absoluteFill}
         />
       )}
       {(["aurora_gradient", "sunset", "ocean", "berry"] as string[]).includes(
@@ -94,7 +95,7 @@ export function CardPreview({
             bottom: 0,
             left: "50%",
             right: 0,
-            borderRadius: compact ? 12 : 22,
+            borderRadius: 22 * scale,
             backgroundColor:
               design === "ocean"
                 ? "rgba(12,166,154,0.52)"
@@ -104,41 +105,79 @@ export function CardPreview({
           }}
         />
       )}
-      <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+      {/* Keep the artwork in the unpadded outer bounds on iOS and Android.
+          Text uses the source card's 330 × 176 coordinate system. */}
+      <View
+        style={{
+          position: "absolute",
+          top: 28 * scale,
+          left: 22 * scale,
+          right: 22 * scale,
+        }}
+      >
         <Label
-          numberOfLines={compact ? 1 : 2}
+          numberOfLines={1}
           style={{
             color: "white",
             fontFamily: "Inter_700Bold",
-            fontSize: compact ? 11 : 20,
-            lineHeight: compact ? 15 : 26,
-            flex: 1,
+            fontSize: 20 * scale,
+            lineHeight: 26 * scale,
+            maxWidth: role && !compact ? "72%" : "100%",
           }}
         >
           {name || "Your card"}
         </Label>
-        {!compact && role && (
-          <View
+      </View>
+      {!compact && role && (
+        <View
+          style={{
+            position: "absolute",
+            top: 18 * scale,
+            right: 22 * scale,
+            borderWidth: 1,
+            borderColor: "#FFFFFF4D",
+            backgroundColor: "#FFFFFF24",
+            borderRadius: 9 * scale,
+            paddingHorizontal: 8 * scale,
+          }}
+        >
+          <Label
             style={{
-              borderWidth: 1,
-              borderColor: "#FFFFFF88",
-              borderRadius: 12,
-              paddingHorizontal: 10,
+              color: "white",
+              fontSize: 9 * scale,
+              lineHeight: 16 * scale,
             }}
           >
-            <Label style={{ color: "white", fontSize: 9, lineHeight: 16 }}>
-              {role === "host" ? "HOST" : "TRUSTED SPENDER"}
-            </Label>
-          </View>
+            {role === "host" ? "HOST" : "TRUSTED SPENDER"}
+          </Label>
+        </View>
+      )}
+      <View
+        style={{
+          position: "absolute",
+          top: 76 * scale,
+          left: 22 * scale,
+          right: 22 * scale,
+          gap: 5 * scale,
+        }}
+      >
+        {availableMinor !== null && !closed && (
+          <Label
+            style={{
+              color: "white",
+              fontSize: 12 * scale,
+              lineHeight: 16 * scale,
+            }}
+          >
+            Available to spend
+          </Label>
         )}
-      </View>
-      <View style={{ gap: 5 }}>
         <Label
           style={{
             color: "white",
-            fontFamily: "Inter_600SemiBold",
-            fontSize: compact ? 12 : availableMinor !== null ? 28 : 18,
-            lineHeight: compact ? 16 : 32,
+            fontFamily: "Inter_700Bold",
+            fontSize: (availableMinor !== null ? 28 : 18) * scale,
+            lineHeight: 32 * scale,
           }}
         >
           {closed
@@ -147,20 +186,43 @@ export function CardPreview({
               ? money(availableMinor)
               : "Setup required"}
         </Label>
-        <Label
+        {availableMinor === null && (
+          <Label
+            style={{
+              color: "white",
+              fontSize: 12 * scale,
+              lineHeight: 18 * scale,
+            }}
+          >
+            {compact ? "Not issued" : "Not issued · no spending available"}
+          </Label>
+        )}
+      </View>
+      {onEdit && (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Edit card"
+          onPress={(event) => {
+            event.stopPropagation();
+            onEdit();
+          }}
           style={{
-            color: "white",
-            fontSize: compact ? 8 : 12,
-            lineHeight: compact ? 12 : 18,
+            position: "absolute",
+            right: 16,
+            bottom: 16,
+            width: 44,
+            height: 44,
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          {availableMinor !== null
-            ? "Available to spend"
-            : compact
-              ? "Not issued"
-              : "Not issued · no spending available"}
-        </Label>
-      </View>
+          <Image
+            source={require("../../../assets/potluck/card-flow/edit.svg")}
+            style={{ width: 26, height: 26 }}
+            contentFit="contain"
+          />
+        </Pressable>
+      )}
     </View>
   );
 }

@@ -1,5 +1,7 @@
 # Potluck app flow map
 
+> **October 8 Cards recovery:** [The focused source register and execution record](ui-concepts/2026-10-08-cards-recovery.md) supersede the older Cards implementation descriptions below. It distinguishes restored source-backed presentation and transitions from missing counterparts, provider integration gaps and outstanding native visual acceptance. The broad audit remains paused.
+
 > **October 8 app follow-up:** The broad audit is paused. [Home empty-state polish](ui-concepts/2026-10-08-home-empty-state-polish.md) records the subsequent Circles/Cards/Bills alignment, restored creation hints, and outlined Import bills action. Audit captures below remain dated evidence of the earlier source revision.
 
 > **October 8 resumed checkpoint:** All 809 reaction trees and 8,553 references captured. The [25-family directory](flow-audit/2026-10-08-graph-findings.md) and [55-route source audit](flow-audit/2026-10-08-source-findings.md) distinguish existing designs from app gaps. Read the [findings and coverage](flow-audit/2026-10-08-findings.md) and [explorer](flow-audit/index.html). 271/809 readable visual reviews and five app comparisons; permanent Figma notes and live prototype verification remain incomplete after quota recurred. Everything below is the historical October 2 map.

@@ -40,6 +40,7 @@ export function CardScene({
   return (
     <Shell
       title={title}
+      headerTitleSize={28}
       back
       active="Cards"
       footer={card.data && footer?.(card.data)}

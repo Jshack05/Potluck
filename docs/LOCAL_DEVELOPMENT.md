@@ -1,5 +1,9 @@
 # Full Potluck: local development
 
+## October 8 Cards recovery follow-up
+
+The [Cards source register and execution record](ui-concepts/2026-10-08-cards-recovery.md) describes the focused Figma recovery branch. Final validation passes formatting, lint, both strict type checks, **47 backend/domain and 56 mobile tests**, and iOS/Android/web exports. The full gate fails only the unchanged mobile dependency audit: **23 findings (3 moderate, 19 high, 1 critical)**; backend audit zero. Live browser and physical-phone visual acceptance remain outstanding after Expo startup was rejected by automatic approval review. No native build or OTA update was published. No database migration or provider integration was added.
+
 ## October 7 blank-first loading follow-up
 
 The approved follow-up removes skeletons in favor of blank initial content and minimal feedback only after 500 ms. Existing resource data stays visible during refresh; changed resource identities restart the delay. The shared session-restoration state uses the same timing. No native configuration, dependency, backend, provider or schema change is part of this follow-up, so an existing compatible development binary only needs a JavaScript reload.
