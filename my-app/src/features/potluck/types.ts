@@ -7,6 +7,7 @@ export type Item = {
 };
 export type Person = { id: string; name: string; joinedAt?: string };
 export type Circle = Item & {
+  memberCount: number;
   description: string;
   privacy: "normal" | "anonymous";
   hostId: string;

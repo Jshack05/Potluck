@@ -95,12 +95,15 @@ export function Link({
 export function Field({
   label,
   error,
+  hideLabel = false,
   ...props
-}: TextInputProps & { label: string; error?: string }) {
+}: TextInputProps & { label: string; error?: string; hideLabel?: boolean }) {
   const errorId = useId();
   return (
     <View style={{ gap: 8 }}>
-      <Label style={{ fontFamily: "Inter_600SemiBold" }}>{label}</Label>
+      {!hideLabel && (
+        <Label style={{ fontFamily: "Inter_600SemiBold" }}>{label}</Label>
+      )}
       <TextInput
         {...props}
         accessibilityLabel={label}
@@ -321,6 +324,8 @@ export function Shell({
   createMenu,
   continuation = false,
   headerAccessory,
+  headerTitleSize,
+  titlePlacement = "header",
 }: {
   title: string;
   children: ReactNode;
@@ -335,6 +340,8 @@ export function Shell({
   createMenu?: boolean;
   continuation?: boolean;
   headerAccessory?: ReactNode;
+  headerTitleSize?: number;
+  titlePlacement?: "header" | "content";
 }) {
   const inset = useSafeAreaInsets(),
     pathname = usePathname();
@@ -423,21 +430,26 @@ export function Shell({
                   </Label>
                 </Pressable>
               )}
-              <Label
-                accessibilityRole="header"
-                style={{
-                  fontFamily: "Inter_700Bold",
-                  fontSize: continuation ? 36 : back ? 25 : 28,
-                  lineHeight: continuation ? 44 : 38,
-                  color: continuation ? theme.teal : theme.ink,
-                  flex: 1,
-                }}
-              >
-                {title}
-              </Label>
+              {titlePlacement === "header" ? (
+                <Label
+                  accessibilityRole="header"
+                  style={{
+                    fontFamily: "Inter_700Bold",
+                    fontSize:
+                      headerTitleSize ?? (continuation ? 36 : back ? 25 : 28),
+                    lineHeight: continuation ? 44 : 38,
+                    color: continuation ? theme.teal : theme.ink,
+                    flex: 1,
+                  }}
+                >
+                  {title}
+                </Label>
+              ) : (
+                <View style={{ flex: 1 }} />
+              )}
+              {headerAccessory}
               {(!back || continuation) && (
                 <>
-                  {headerAccessory}
                   <HeaderActions blue={blue} />
                 </>
               )}
@@ -471,6 +483,18 @@ export function Shell({
                 flexGrow: 1,
               }}
             >
+              {titlePlacement === "content" && (
+                <Label
+                  accessibilityRole="header"
+                  style={{
+                    fontFamily: "Inter_700Bold",
+                    fontSize: 30,
+                    lineHeight: 34,
+                  }}
+                >
+                  {title}
+                </Label>
+              )}
               {children}
             </ScrollView>
             {(footer ||

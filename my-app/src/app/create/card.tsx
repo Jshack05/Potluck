@@ -1,17 +1,14 @@
 import { View, Pressable } from "react-native";
-import { router, useLocalSearchParams, type Href } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import {
   Shell,
   AuthGate,
-  Title,
-  Muted,
   Field,
   Action,
   ErrorText,
   Link,
   Label,
   ResourceState,
-  Row,
   go,
   theme,
 } from "@/design/system";
@@ -24,9 +21,13 @@ import {
 } from "@/services/client";
 import { CardPreview, cardLooks } from "@/features/potluck/card-preview";
 import {
-  PlanningChoice,
-  Selection,
-} from "@/features/potluck/planning-controls";
+  CardCircleChoice,
+  CardCreateCircle,
+  CardReviewRow,
+  CardSelection,
+  CardHeading,
+  CardHint,
+} from "@/features/potluck/card-ui";
 import type { Card, Circle, Collection } from "@/features/potluck/types";
 
 export default function CreateCard() {
@@ -72,11 +73,11 @@ function CardForm() {
     ) ?? [];
   async function save() {
     await action.run(async () => {
-      const card = await draft.submit(
+      await draft.submit(
         { name, design, circleId: selectedCircleId },
         (body, identity) => command<Card>("/cards", body, identity),
       );
-      router.replace(("/card/" + card.id) as Href);
+      router.replace("/cards");
       await draft.clear();
     });
   }
@@ -88,6 +89,7 @@ function CardForm() {
         ]
       }
       back
+      headerTitleSize={28}
       hideNavigation
       active="Cards"
       onBack={() => (step > 0 ? setStep(step - 1) : router.back())}
@@ -105,14 +107,15 @@ function CardForm() {
                   : step === 3
                     ? draft.resuming
                       ? "Finish Card setup"
-                      : "Create card setup"
+                      : "Create card"
                     : "Continue"
               }
               disabled={
                 action.busy ||
                 !draft.ready ||
                 !name.trim() ||
-                (step === 2 &&
+                (!draft.resuming &&
+                  step >= 2 &&
                   !!selectedCircleId &&
                   !editableCircles.some((c) => c.id === selectedCircleId))
               }
@@ -125,20 +128,24 @@ function CardForm() {
       <AuthGate returnTo="/create/card">
         {step === 0 && (
           <>
-            <Muted>
+            <CardHint>
               Give your card a name and choose a virtual card design.
-            </Muted>
-            <Field
-              label="Card name"
-              placeholder="e.g. Apartment card"
-              value={name}
-              editable={!draft.locked}
-              onChangeText={(value) => draft.update("name", value)}
-              maxLength={80}
-              style={{ borderRadius: 28 }}
-            />
+            </CardHint>
             <View style={{ marginTop: 12, gap: 12 }}>
-              <Title small>Your card</Title>
+              <CardHeading>Card name</CardHeading>
+              <Field
+                label="Card name"
+                placeholder="e.g. Apartment card"
+                value={name}
+                editable={!draft.locked}
+                onChangeText={(value) => draft.update("name", value)}
+                maxLength={80}
+                style={{ borderRadius: 28 }}
+                hideLabel
+              />
+            </View>
+            <View style={{ marginTop: 16, gap: 12 }}>
+              <CardHeading>Your card</CardHeading>
               <CardPreview name={name} design={design} />
               <Label
                 style={{
@@ -154,7 +161,7 @@ function CardForm() {
         )}
         {step === 1 && (
           <>
-            <Muted>Pick a look that feels like yours.</Muted>
+            <CardHint>Pick a look that feels like yours.</CardHint>
             <CardPreview name={name} design={design} />
             <Label
               style={{
@@ -171,12 +178,25 @@ function CardForm() {
                 ["Gradients", ["aurora_gradient", "sunset"]],
                 ["Solid colors", ["teal", "coral"]],
                 ["Potluck panels", ["ocean", "berry"]],
-                ["Artwork", ["aurora", "graphite"]],
               ] as [string, Card["design"][]][]
             ).map(([title, looks]) => (
               <View key={title} style={{ gap: 8 }}>
-                <Title small>{title}</Title>
-                <View style={{ flexDirection: "row", gap: 24 }}>
+                <Label
+                  style={{
+                    fontSize: 18,
+                    lineHeight: 22,
+                    fontFamily: "Inter_700Bold",
+                  }}
+                >
+                  {title}
+                </Label>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    gap: 20,
+                  }}
+                >
                   {looks.map((look) => (
                     <Pressable
                       key={look}
@@ -186,11 +206,11 @@ function CardForm() {
                       aria-checked={design === look}
                       disabled={draft.locked}
                       onPress={() => draft.update("design", look)}
-                      style={{ flex: 1 }}
+                      style={{ flex: 1, maxWidth: 176 }}
                     >
                       <CardPreview name={name} design={look} compact />
                       <View style={{ position: "absolute", top: 8, right: 8 }}>
-                        <Selection selected={design === look} />
+                        <CardSelection selected={design === look} light />
                       </View>
                     </Pressable>
                   ))}
@@ -201,8 +221,10 @@ function CardForm() {
         )}
         {step === 2 && (
           <>
-            <Muted>Choose the Circle this card belongs to.</Muted>
-            <Title small>Choose a Circle</Title>
+            <CardHint>Choose the Circle this card belongs to.</CardHint>
+            <View style={{ marginTop: 16, marginBottom: 4 }}>
+              <CardHeading>Choose a Circle</CardHeading>
+            </View>
             <ResourceState
               loading={circles.loading}
               data={circles.data}
@@ -210,60 +232,91 @@ function CardForm() {
               error={circles.error}
               retry={circles.reload}
             />
-            {editableCircles.map((circle) => (
-              <PlanningChoice
-                key={circle.id}
-                title={circle.name}
-                subtitle={
-                  circle.privacy === "anonymous"
-                    ? "Anonymous Circle"
-                    : "Accepted Circle"
-                }
-                name={circle.name}
-                selected={selectedCircleId === circle.id}
-                onPress={() => draft.update("circleId", circle.id)}
+            <View style={{ gap: 12 }}>
+              {editableCircles.map((circle) => (
+                <CardCircleChoice
+                  key={circle.id}
+                  title={circle.name}
+                  subtitle={`${circle.memberCount} ${circle.memberCount === 1 ? "member" : "members"}`}
+                  disabled={draft.locked}
+                  selected={selectedCircleId === circle.id}
+                  onPress={() => draft.update("circleId", circle.id)}
+                />
+              ))}
+              <CardCircleChoice
+                title="No Circle — just for me"
+                selected={!selectedCircleId}
+                disabled={draft.locked}
+                onPress={() => {
+                  draft.update("circleId", null);
+                  setStep(3);
+                }}
               />
-            ))}
-            <PlanningChoice
-              title="No Circle — just for me"
-              selected={!selectedCircleId}
-              onPress={() => draft.update("circleId", null)}
-            />
-            <Row
-              title="Create a new Circle"
-              icon="plus"
-              onPress={() => go("/create/circle")}
-            />
+              <CardCreateCircle
+                disabled={draft.locked}
+                onPress={() => go("/create/circle")}
+              />
+            </View>
           </>
         )}
         {step === 3 && (
           <>
-            <Muted>Confirm the card and Circle before you create it.</Muted>
-            <Title small>Your card</Title>
-            <CardPreview name={name} design={design} />
-            <Label
-              style={{ textAlign: "center", color: theme.muted, fontSize: 14 }}
-            >
-              {name} · host-controlled
-            </Label>
-            <View style={{ marginTop: 20, gap: 12 }}>
-              <Title small>Attached Circle</Title>
-              <Row
-                title={selectedCircle?.name ?? "No Circle — just for me"}
-                icon="circles"
-                onPress={draft.locked ? undefined : () => setStep(2)}
-              />
+            <CardHint>
+              {selectedCircleId
+                ? "Confirm the card and invitations before you create it."
+                : "Confirm this card will stay just for you."}
+            </CardHint>
+            <View style={{ marginTop: 16, gap: 16 }}>
+              <CardHeading>
+                {selectedCircleId ? "Your card" : "Card"}
+              </CardHeading>
+              <CardPreview name={name} design={design} />
+              <Label
+                style={{
+                  textAlign: "center",
+                  color: theme.muted,
+                  fontSize: 14,
+                  marginTop: 12,
+                }}
+              >
+                {selectedCircleId
+                  ? `${name} · host-controlled`
+                  : "Card shell — no shared access"}
+              </Label>
             </View>
-            <Title small>Trusted Spender invitations</Title>
-            <Row
-              title="No invitations sent"
-              subtitle="Card access needs a separate invitation and issuer approval."
-              onPress={() => go("/card/access-info")}
-            />
-            <Muted>
-              Your setup is saved without issuing a Card or moving money. Circle
-              membership does not grant card access.
-            </Muted>
+            {selectedCircleId ? (
+              <>
+                <View style={{ marginTop: 20, gap: 12 }}>
+                  <CardHeading>Attached Circle</CardHeading>
+                  <CardReviewRow
+                    title={selectedCircle?.name ?? "Circle unavailable"}
+                    circle
+                    onPress={draft.locked ? undefined : () => setStep(2)}
+                  />
+                </View>
+                <CardHeading>Trusted Spender invitations</CardHeading>
+                <CardReviewRow title="No invitations sent" />
+                <CardHint>
+                  Card access begins only after each person accepts their
+                  invitation.
+                </CardHint>
+              </>
+            ) : (
+              <>
+                <View style={{ marginTop: 20, gap: 12 }}>
+                  <CardHeading>Sharing</CardHeading>
+                  <CardReviewRow
+                    title="Just for you"
+                    subtitle="No Circle or invitations"
+                  />
+                </View>
+                <View style={{ marginTop: 12 }}>
+                  <CardHint>
+                    You can attach a Circle later to invite Trusted Spenders.
+                  </CardHint>
+                </View>
+              </>
+            )}
           </>
         )}
       </AuthGate>
