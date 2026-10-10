@@ -1,0 +1,80 @@
+flowchart LR
+subgraph j19 ["J19 | Failed transfer retry with changed funding account | PASS_WITH_FINDING"]
+  j19step1["Bill help / Transfer unsuccessful | 1375:11314"]
+  click j19step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1375%3A11314" "Open original screen"
+  j19step2["Bill payment / Review | 1348:10898"]
+  click j19step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1348%3A10898" "Open original screen"
+  j19step3["Bill agreement / Accounts | 1330:10825"]
+  click j19step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1330%3A10825" "Open original screen"
+  j19step4["Bill payment / Review | 1348:10898"]
+  click j19step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1348%3A10898" "Open original screen"
+  j19step5["Bill payment / Pending | 1348:10951"]
+  click j19step5 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1348%3A10951" "Open original screen"
+  j19step6["Bill payment / Pending details | 1348:11048"]
+  click j19step6 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1348%3A11048" "Open original screen"
+  j19step7["Bill Detail / Groceries | 714:3018"]
+  click j19step7 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=714%3A3018" "Open original screen"
+  j19step1 -->|"Recorded next state"| j19step2
+  j19step2 -->|"Recorded next state"| j19step3
+  j19step3 -->|"Recorded next state"| j19step4
+  j19step4 -->|"Recorded next state"| j19step5
+  j19step5 -->|"Recorded next state"| j19step6
+  j19step6 -->|"Recorded next state"| j19step7
+end
+subgraph j20 ["J20 | Above-maximum one-occurrence approval | PASS_WITH_FINDING"]
+  j20step1["Bill change / Above maximum | 1375:11740"]
+  click j20step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1375%3A11740" "Open original screen"
+  j20step2["Bill change / Updated terms | 1377:13017"]
+  click j20step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1377%3A13017" "Open original screen"
+  j20step3["Bill change / Result | 1377:13061"]
+  click j20step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1377%3A13061" "Open original screen"
+  j20step4["Bill help / Needs attention | 1375:11172"]
+  click j20step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1375%3A11172" "Open original screen"
+  j20step1 -->|"Recorded next state"| j20step2
+  j20step2 -->|"Recorded next state"| j20step3
+  j20step3 -->|"Recorded next state"| j20step4
+end
+subgraph j21 ["J21 | Disconnected funding account and alternate-account review | PASS_WITH_FINDING"]
+  j21step1["Bill help / Needs attention | 1375:11172"]
+  click j21step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1375%3A11172" "Open original screen"
+  j21step2["Bill help / Reconnect account | 1375:11413"]
+  click j21step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1375%3A11413" "Open original screen"
+  j21step3["Bill help / Secure bank connection | 1377:13092"]
+  click j21step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1377%3A13092" "Open original screen"
+  j21step4["Bill help / Choose eligible account | 1378:13204"]
+  click j21step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1378%3A13204" "Open original screen"
+  j21step5["Bill change / Updated terms | 1377:13017"]
+  click j21step5 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1377%3A13017" "Open original screen"
+  j21step6["Bill change / Result | 1377:13061"]
+  click j21step6 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1377%3A13061" "Open original screen"
+  j21step1 -->|"Recorded next state"| j21step2
+  j21step2 -->|"Recorded next state"| j21step3
+  j21step3 -->|"Recorded next state"| j21step4
+  j21step4 -->|"Recorded next state"| j21step5
+  j21step5 -->|"Recorded next state"| j21step6
+end
+subgraph j26 ["J26 | Weekly target Goal to proposal review | FAIL"]
+  j26step1["Create Goal / Details | 793:3211"]
+  click j26step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=793%3A3211" "Open original screen"
+  j26step2["Goal / Charge schedule | 801:3363"]
+  click j26step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=801%3A3363" "Open original screen"
+  j26step3["Goal / Charge schedule / Weekly | 812:3426"]
+  click j26step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=812%3A3426" "Open original screen"
+  j26step4["Goal / Attach Circle | 812:3466"]
+  click j26step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=812%3A3466" "Open original screen"
+  j26step5["Goal / Attach Card | 839:3372"]
+  click j26step5 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=839%3A3372" "Open original screen"
+  j26step6["Goal / Monthly contribution | 801:3313"]
+  click j26step6 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=801%3A3313" "Open original screen"
+  j26step7["Create Goal / Review | 793:3292"]
+  click j26step7 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=793%3A3292" "Open original screen"
+  j26step8["Circles / Home | 7:423"]
+  click j26step8 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=7%3A423" "Open original screen"
+  j26step1 -->|"Recorded next state"| j26step2
+  j26step2 -->|"Recorded next state"| j26step3
+  j26step3 -->|"Recorded next state"| j26step4
+  j26step4 -->|"Recorded next state"| j26step5
+  j26step5 -->|"Recorded next state"| j26step6
+  j26step6 -->|"Recorded next state"| j26step7
+  j26step7 -->|"Recorded next state"| j26step8
+end

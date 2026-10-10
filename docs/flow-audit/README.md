@@ -1,5 +1,7 @@
 # Potluck screen and flow audit
 
+**Shared flow map:** [Open FigJam](https://www.figma.com/board/dixKHtlmlibkxTYuEvIBW9) for the six navigable chapters and 26 sampled journeys. [Follow the complete captured graph](flow-map.html), [read its traversal/review guide](FLOW_GRAPH.md), or query [the structured graph](flow-graph.json) through `graph-query.mjs`. The graph derives from the same evidence below; it is not a competing screen register or proof of current app behavior.
+
 **October 10: 26 sampled live prototype journeys recorded, including 18 new checks.** All 809 captured source layouts were reviewed October 8–9 and the permanent directory exists. Read the [current findings and remaining execution matrix](2026-10-10-findings.md). Full prototype coverage and current app/native visual parity remain incomplete; Figma quota is no longer the active blocker.
 
 - [Open the removable Figma directory](https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2244-45190)
@@ -24,9 +26,14 @@ Build and check the latest checkpoint:
 node docs/flow-audit/build-flow-audit.mjs
 node --test docs/flow-audit/audit-data.test.mjs
 node docs/flow-audit/validate-flow-audit.mjs
+node docs/flow-audit/build-flow-graph.mjs
+node --test docs/flow-audit/flow-graph.test.mjs docs/flow-audit/flow-map.test.mjs
+node docs/flow-audit/validate-flow-graph.mjs
 ```
 
 Use `--historical` on the builder/validator for October 2. Historical generation writes its dated explorer, leaving the current entry point intact. Both renderers preserve raw conditions; neither executes the prototype.
+
+The graph commands above target the October 8 capture and October 9–10 sampled journeys only. [FigJam node manifest](figjam-map.json) records the separate board, original screen links and rollback. [Build and verification record](2026-10-10-flow-map-build.md) distinguishes structural/offline checks from browser verification. FigJam comments and repository evidence are not automatically synchronized; preserve dated user decisions separately and reconcile before building a flow.
 
 ---
 

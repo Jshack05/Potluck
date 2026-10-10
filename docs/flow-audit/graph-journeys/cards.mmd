@@ -1,0 +1,70 @@
+flowchart LR
+subgraph j01 ["J01 | Circles to Cards stack to Apartment detail | PASS"]
+  j01step1["Circles / Home | 7:423"]
+  click j01step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=7%3A423" "Open original screen"
+  j01step2["Cards / Home | 547:1625"]
+  click j01step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=547%3A1625" "Open original screen"
+  j01step3["Cards / Apartment Expanded | 570:1824"]
+  click j01step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=570%3A1824" "Open original screen"
+  j01step4["Card Detail / Apartment | 573:2058"]
+  click j01step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=573%3A2058" "Open original screen"
+  j01step1 -->|"Recorded next state"| j01step2
+  j01step2 -->|"Recorded next state"| j01step3
+  j01step3 -->|"Recorded next state"| j01step4
+end
+subgraph j02 ["J02 | Apartment Show and Hide details | PASS"]
+  j02step1["Card Detail / Apartment | 573:2058"]
+  click j02step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=573%3A2058" "Open original screen"
+end
+subgraph j03 ["J03 | Apartment Freeze | FAIL"]
+  j03step1["Card Detail / Apartment | 573:2058"]
+  click j03step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=573%3A2058" "Open original screen"
+end
+subgraph j04 ["J04 | Apartment funding selection to pending and return | PASS_WITH_FINDING"]
+  j04step1["Card Detail / Apartment | 573:2058"]
+  click j04step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=573%3A2058" "Open original screen"
+  j04step2["Card / Fund card | 1151:5189"]
+  click j04step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1151%3A5189" "Open original screen"
+  j04step3["Card / Review transfer | 1151:5263"]
+  click j04step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1151%3A5263" "Open original screen"
+  j04step4["Card / Transfer pending | 1151:5290"]
+  click j04step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1151%3A5290" "Open original screen"
+  j04step5["Card Detail / Apartment | 573:2058"]
+  click j04step5 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=573%3A2058" "Open original screen"
+  j04step1 -->|"Recorded next state"| j04step2
+  j04step2 -->|"Recorded next state"| j04step3
+  j04step3 -->|"Recorded next state"| j04step4
+  j04step4 -->|"Recorded next state"| j04step5
+end
+subgraph j22 ["J22 | Card appearance choice and standalone review | FAIL"]
+  j22step1["Create Card / Details | 854:3466"]
+  click j22step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=854%3A3466" "Open original screen"
+  j22step2["Create Card / Choose appearance | 928:4751"]
+  click j22step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=928%3A4751" "Open original screen"
+  j22step3["Create Card / Attach Circle | 854:3495"]
+  click j22step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=854%3A3495" "Open original screen"
+  j22step4["Create Card / Review / No Circle | 861:3572"]
+  click j22step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=861%3A3572" "Open original screen"
+  j22step5["Create Card / Attach Circle | 854:3495"]
+  click j22step5 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=854%3A3495" "Open original screen"
+  j22step1 -->|"Recorded next state"| j22step2
+  j22step2 -->|"Recorded next state"| j22step3
+  j22step3 -->|"Recorded next state"| j22step4
+  j22step4 -->|"Recorded next state"| j22step5
+end
+subgraph j23 ["J23 | Create Circle interruption within Card setup | FAIL"]
+  j23step1["Create Card / Attach Circle | 854:3495"]
+  click j23step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=854%3A3495" "Open original screen"
+  j23step2["Create Circle / New Circle | 335:506"]
+  click j23step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=335%3A506" "Open original screen"
+  j23step3["Add People Overlay - Closed | 488:1134"]
+  click j23step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=488%3A1134" "Open original screen"
+  j23step4["Create Circle / People Selected | 542:1632"]
+  click j23step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=542%3A1632" "Open original screen"
+  j23step5["Circles / Home | 7:423"]
+  click j23step5 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=7%3A423" "Open original screen"
+  j23step1 -->|"Recorded next state"| j23step2
+  j23step2 -->|"Recorded next state"| j23step3
+  j23step3 -->|"Recorded next state"| j23step4
+  j23step4 -->|"Recorded next state"| j23step5
+end

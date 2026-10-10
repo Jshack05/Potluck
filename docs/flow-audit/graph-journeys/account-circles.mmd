@@ -1,0 +1,67 @@
+flowchart LR
+subgraph j09 ["J09 | Email sign-in shortcut | FAIL"]
+  j09step1["Auth / Sign in | 940:4770"]
+  click j09step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=940%3A4770" "Open original screen"
+  j09step2["Circles / Home | 7:423"]
+  click j09step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=7%3A423" "Open original screen"
+  j09step1 -->|"Recorded next state"| j09step2
+end
+subgraph j10 ["J10 | Password recovery confirmation and return | PASS"]
+  j10step1["Auth / Enter password | 942:4800"]
+  click j10step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=942%3A4800" "Open original screen"
+  j10step2["Auth / Reset password | 944:4812"]
+  click j10step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=944%3A4812" "Open original screen"
+  j10step3["Auth / Check inbox | 944:4941"]
+  click j10step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=944%3A4941" "Open original screen"
+  j10step4["Auth / Sign in | 940:4770"]
+  click j10step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=940%3A4770" "Open original screen"
+  j10step1 -->|"Recorded next state"| j10step2
+  j10step2 -->|"Recorded next state"| j10step3
+  j10step3 -->|"Recorded next state"| j10step4
+end
+subgraph j11 ["J11 | Circle Host handover request and cancellation | PASS"]
+  j11step1["Continuation / handover / Choose the next Circle Host | 2019:38862"]
+  click j11step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2019%3A38862" "Open original screen"
+  j11step2["Continuation / handoverReview / Ask Jordan to become host? | 2019:38923"]
+  click j11step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2019%3A38923" "Open original screen"
+  j11step3["Continuation / handoverPending / Jordan is reviewing your request | 2019:38973"]
+  click j11step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2019%3A38973" "Open original screen"
+  j11step4["Continuation / circleAdmin / Movie night Circle | 2019:38309"]
+  click j11step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2019%3A38309" "Open original screen"
+  j11step1 -->|"Recorded next state"| j11step2
+  j11step2 -->|"Recorded next state"| j11step3
+  j11step3 -->|"Recorded next state"| j11step4
+end
+subgraph j12 ["J12 | Circle Host cannot leave before handover | PASS"]
+  j12step1["Continuation / circleAdmin / Movie night Circle | 2019:38309"]
+  click j12step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2019%3A38309" "Open original screen"
+  j12step2["Continuation / leaveCircle / Choose a host before leaving | 2019:39195"]
+  click j12step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2019%3A39195" "Open original screen"
+  j12step3["Continuation / handover / Choose the next Circle Host | 2019:38862"]
+  click j12step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2019%3A38862" "Open original screen"
+  j12step1 -->|"Recorded next state"| j12step2
+  j12step2 -->|"Recorded next state"| j12step3
+end
+subgraph j13 ["J13 | Jordan accepts Circle Host and retains actor context | PASS"]
+  j13step1["Continuation / handoverAccept / Become Circle Host? | 2019:39029"]
+  click j13step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2019%3A39029" "Open original screen"
+  j13step2["Continuation / recipientJordanHostConfirmed / You’re now the Circle Host | 2038:42969"]
+  click j13step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2038%3A42969" "Open original screen"
+  j13step3["Continuation / recipientJordanCircle / Movie night Circle | 2038:43023"]
+  click j13step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2038%3A43023" "Open original screen"
+  j13step4["Continuation / recipientJordanHome / Your Circles | 2038:43084"]
+  click j13step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2038%3A43084" "Open original screen"
+  j13step1 -->|"Recorded next state"| j13step2
+  j13step2 -->|"Recorded next state"| j13step3
+  j13step3 -->|"Recorded next state"| j13step4
+end
+subgraph j14 ["J14 | Maya declines handover and returns | FAIL"]
+  j14step1["Continuation / handoverMayaAccept / Become Circle Host? | 2023:40207"]
+  click j14step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2023%3A40207" "Open original screen"
+  j14step2["Continuation / handoverDeclined / Handover declined | 2019:39149"]
+  click j14step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2019%3A39149" "Open original screen"
+  j14step3["Continuation / circleAdmin / Movie night Circle | 2019:38309"]
+  click j14step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2019%3A38309" "Open original screen"
+  j14step1 -->|"Recorded next state"| j14step2
+  j14step2 -->|"Recorded next state"| j14step3
+end

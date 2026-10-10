@@ -30,6 +30,8 @@ Design the intended finished Potluck product, assuming required programs are app
 
 Audit annotations belong outside product frames in clearly identified, searchable reference areas. Preserve screen IDs, component instances, geometry and prototype wiring unless a separately authorized change requires editing them. Label inferred connections and uncertain canonical versions explicitly. The planned audit is documented in `docs/superpowers/plans/2026-10-07-figma-screen-audit.md`; do not claim it is complete merely because the plan exists.
 
+For graph-based navigation, start at `docs/flow-audit/FLOW_GRAPH.md`. Query `graph-query.mjs screen <node-id>` and the relevant journey before implementation; inspect the complete ordered reaction, conditions, actor and return context rather than infer behavior from a flattened arrow. The FigJam map and `flow-graph.json` are dated views over the same capture. They distinguish captured wiring, sampled execution, app verification and user approval. Recheck the live Figma counterpart, stop on missing or ambiguous elements, and preserve explicit user decisions separately from observed prototype behavior. Board comments are not automatically synchronized to the repository.
+
 Do not begin implementation until you can explain:
 
 - Which Potluck user or actor is affected
