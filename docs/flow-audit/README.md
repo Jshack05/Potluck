@@ -1,9 +1,10 @@
 # Potluck screen and flow audit
 
-**October 9: all 809 captured screen/state layouts reviewed; permanent directory created.** Read the [current findings and remaining work](2026-10-09-findings.md). Eight sampled prototype checks are recorded. Full prototype coverage and current app visual parity remain incomplete; Figma quota is no longer the active blocker.
+**October 10: 26 sampled live prototype journeys recorded, including 18 new checks.** All 809 captured source layouts were reviewed October 8–9 and the permanent directory exists. Read the [current findings and remaining execution matrix](2026-10-10-findings.md). Full prototype coverage and current app/native visual parity remain incomplete; Figma quota is no longer the active blocker.
 
 - [Open the removable Figma directory](https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2244-45190)
-- [Current checkpoint](2026-10-09-checkpoint.json), [visual review evidence](2026-10-09-visual-review.json), [prototype results](2026-10-09-prototype-review.json)
+- [Current checkpoint](2026-10-10-checkpoint.json), [visual review evidence](2026-10-09-visual-review.json), [October 10 prototype results](2026-10-10-prototype-review.json), [October 9 prototype results](2026-10-09-prototype-review.json)
+- [October 10 directory coverage update](2026-10-10-directory-update.json) and [header render](2026-10-10-directory-header.png)
 - [Created annotation manifest and rollback](2026-10-09-annotation-manifest.json)
 
 - [Current searchable explorer](index.html)

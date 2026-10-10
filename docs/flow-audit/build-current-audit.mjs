@@ -7,13 +7,14 @@ const here=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(here,'
 const date='2026-10-08',read=n=>JSON.parse(fs.readFileSync(path.join(here,n),'utf8'));
 const resumed=fs.existsSync(path.join(here,'2026-10-09-resume.json'));
 if(resumed)await import('./build-resume-checkpoint.mjs');
-const reviewDate=resumed?'2026-10-09':date;
+const visualReviewDate=resumed?'2026-10-09':date;
+const reviewDate=fs.existsSync(path.join(here,'2026-10-10-checkpoint.json'))?'2026-10-10':visualReviewDate;
 const write=(name,value)=>fs.writeFileSync(path.join(here,name),JSON.stringify(value)+'\n');
 const inventory=read(`${date}-screen-inventory.json`);
 const raw=fs.readdirSync(path.join(here,date)).filter(n=>/^raw-\d+\.json$/.test(n)).sort().flatMap(n=>read(`${date}/${n}`));
 const components=read(`${date}-components.json`).components;
 const variables=read(`${date}-variables.json`);
-const visual=read(`${reviewDate}-visual-review.json`),appReview=read(`${date}-app-review.json`),checkpoint=read(`${reviewDate}-checkpoint.json`);
+const visual=read(`${visualReviewDate}-visual-review.json`),appReview=read(`${date}-app-review.json`),checkpoint=read(`${reviewDate}-checkpoint.json`);
 const families=read(`${date}-flow-families.json`),source=read(`${date}-source-mapping.json`);
 const figma=id=>`https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=${encodeURIComponent(id)}`;
 const ids=new Set(inventory.map(s=>s.id)),componentIds=new Set(components.map(s=>s.id)),rawById=new Map(raw.map(s=>[s.id,s]));
@@ -23,7 +24,8 @@ const edges=allActions.filter(a=>a.to||['BACK','CLOSE','URL','OPEN_URL'].include
 const outside=[...new Set(edges.filter(e=>e.to&&!ids.has(e.to)).map(e=>e.to))].map(id=>({id,status:classifyTarget(id,ids,componentIds),name:components.find(c=>c.id===id)?.name??null,incoming:edges.filter(e=>e.to===id).length}));
 const counts=coverage(inventory,raw,visual.ids);
 const summary={...counts,capturedOn:date,fileKey:checkpoint.fileKey,pageId:checkpoint.pageId,sourceCommit:checkpoint.baseCommit,reactionAuditedRecords:raw.length,controls:raw.reduce((n,s)=>n+s.controls.length,0),actionLeaves:allActions.length,transitionReferences:edges.length,components:components.length,variables:variables.variables.length,collections:variables.collections.length,appVisualComparisons:appReview.visualComparisons.length,limitations:checkpoint.limitations,inventoryScope:'809 screen-sized frames/instances, including overlay states, references and alternatives. Recursively expanded every section; not 809 production routes.'};
-summary.visualReviewDate=reviewDate;
+summary.visualReviewDate=visualReviewDate;
+summary.prototypeReviewDate=reviewDate;
 summary.livePrototypeChecks=checkpoint.livePrototypeChecks??0;
 // Journeys are counted separately; this audit does not count every individual click.
 summary.prototypeInteractions=null;

@@ -89,12 +89,33 @@ if(reviewDate==='2026-10-09'){
   assert(board.links.every(link=>link.to.every(id=>inventory.some(s=>s.id===id))));
 }
 const html=fs.readFileSync(path.join(here,'index.html'),'utf8');
+if(fs.existsSync(path.join(here,'2026-10-10-checkpoint.json'))){
+  const checkpoint=read('2026-10-10-checkpoint.json');
+  const batches=checkpoint.prototypeEvidenceFiles.map(read);
+  const journeys=batches.flatMap(batch=>batch.journeys);
+  assert.equal(new Set(journeys.map(j=>j.name)).size,journeys.length,'Duplicate journey credit');
+  assert(journeys.every(j=>j.nodes.length>0&&j.observations.length>0));
+  assert(journeys.every(j=>j.nodes.every(id=>inventory.some(s=>s.id===id))));
+  assert(journeys.every(j=>['PASS','PASS_WITH_FINDING','FAIL','DESIGN_INCONSISTENCY'].includes(j.result)));
+  assert.equal(checkpoint.livePrototypeChecks,journeys.length);
+  assert.equal(map.summary.livePrototypeChecks,journeys.length,'Latest prototype batch must appear in current explorer coverage');
+  assert.equal(map.summary.visualReviewDate,'2026-10-09','Prototype resume must not redate old layout evidence');
+  assert.equal(map.summary.prototypeReviewDate,checkpoint.date);
+  assert.equal(map.summary.appVisualComparisons,5,'Prototype checks must not become app comparisons');
+  assert.equal(map.summary.prototypeInteractions,null,'Individual clicks were not counted');
+  const update=read('2026-10-10-directory-update.json');
+  assert.deepEqual(update.mutatedIds,['2244:45194']);
+  assert.equal(update.originalProductMutations,0);
+  assert.equal(update.before.parent,update.after.parent);
+  assert.equal(update.before.width,update.after.width);
+  assert.equal(update.before.height,update.after.height);
+}
 new vm.Script(html.match(/<script>([\s\S]*?)<\/script>/)[1]);
 const embedded=JSON.parse(html.match(/<script type="application\/json" id="data">([\s\S]*?)<\/script>/)[1]);
 assert.equal(embedded.records.length,inventory.length);assert.equal(embedded.edges.length,edges.length);
 assert(html.includes('Incomplete audit:'));assert(!html.includes('__AUDIT_'));
 assert(html.includes('Verification and app mapping'));
-for(const file of ['README.md','2026-10-08-findings.md','2026-10-08-graph-findings.md','2026-10-08-source-findings.md',...(reviewDate==='2026-10-09'?['2026-10-09-findings.md']:[])]) {
+for(const file of ['README.md','2026-10-08-findings.md','2026-10-08-graph-findings.md','2026-10-08-source-findings.md',...(reviewDate==='2026-10-09'?['2026-10-09-findings.md']:[]),...(fs.existsSync(path.join(here,'2026-10-10-checkpoint.json'))?['2026-10-10-findings.md']:[])]) {
   const text=fs.readFileSync(path.join(here,file),'utf8');
   for(const [,link] of text.matchAll(/\]\(([^)]+)\)/g))if(!/^(https?:|#)/.test(link))assert(fs.existsSync(path.resolve(here,link.split('#')[0])),`Broken link ${file}: ${link}`);
 }

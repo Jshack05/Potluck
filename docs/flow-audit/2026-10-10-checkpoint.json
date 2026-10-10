@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-10",
+  "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+  "pageId": "1:123",
+  "baseCommit": "39b92f50f5040253ac15efbb4dac05399620aaa1",
+  "branch": "codex/figma-screen-audit-2026-10-08",
+  "status": "INCOMPLETE — 26 sampled prototype checks recorded; current app parity and full branch coverage outstanding",
+  "capturedScreens": 809,
+  "nextInventoryIndex": null,
+  "nextNodeId": null,
+  "temporaryRenderBoard": {
+    "id": "2204:45190",
+    "removed": true
+  },
+  "annotationSection": "2244:45190",
+  "limitations": [
+    "All 809 source layouts reviewed on October 8–9; not re-reviewed wholesale on October 10.",
+    "26 live prototype checks: 8 on October 9 and 18 on October 10. This is sampled journey evidence, not complete branch coverage.",
+    "Five historical app visual comparisons; no new running-app or native-phone comparison. Local servers unavailable; prior startup and alternate browser review rejected.",
+    "All 55 baseline route files read and 218 partial state correspondences retained. Later Cards source revision c202144 remains separate and not runtime-verified.",
+    "All 809 originals matched before/after October 9 note creation. October 10 changed only isolated audit coverage text 2244:45194; no product-screen mutation."
+  ],
+  "resume": "Read 2026-10-10-findings.md and prototype-review.json. Resume the explicit remaining matrix; do not repeat the 809 reaction/layout captures or these 26 journeys unless verifying a change. Current app/native review remains outstanding.",
+  "nextVisualNodeId": null,
+  "nextVisualInventoryIndex": null,
+  "remainingVisualIds": [],
+  "temporaryRenderBoards": [
+    {
+      "id": "2204:45190",
+      "removed": true
+    },
+    {
+      "id": "2215:45190",
+      "removed": true
+    },
+    {
+      "id": "2216:46858",
+      "removed": true
+    }
+  ],
+  "inventoryCaptureDate": "2026-10-08",
+  "visualReviewCount": 809,
+  "livePrototypeChecks": 26,
+  "appComparisonRevision": "c202144b4f24c775d391f40a270d7474c88cc59e",
+  "prototypeEvidenceFiles": [
+    "2026-10-09-prototype-review.json",
+    "2026-10-10-prototype-review.json"
+  ],
+  "visualEvidenceFile": "2026-10-09-visual-review.json"
+}

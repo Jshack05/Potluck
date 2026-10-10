@@ -1,4 +1,4 @@
-# October 8 screen inventory — reviewed through 2026-10-09
+# October 8 screen inventory — reviewed through 2026-10-10
 
 **Incomplete runtime audit.** Readable layouts: 809/809. Prototype and app coverage are separate. Candidate routes are search aids; use the explorer and explicit comparisons.
 

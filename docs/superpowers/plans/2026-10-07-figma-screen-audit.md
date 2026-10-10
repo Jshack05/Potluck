@@ -58,7 +58,8 @@ Deliverable: refreshed dated inventory with explicit coverage and a list of unre
 - [x] Resolve referenced targets and variables; preserve unresolvable IDs as findings. Differentiate prototype wiring from documented intended behavior and visual inference.
 - [x] Identify entry/exit points and actor-specific success, rejection, cancellation, retry and return paths. Record disconnected screens, dead ends and alternative generations without deleting or fixing them.
 - [x] Reconcile canonical candidates against dated decisions. Mark uncertain choices for founder review rather than silently selecting one.
-- [ ] Extend the existing validator with representative nested, hidden, conditional, multiple-action and unresolved-target fixtures before changing its extraction assumptions. Validate the full graph; manually exercise critical prototype paths for each actor and record what was actually tested.
+- [x] Extend the existing validator with representative nested, hidden, conditional, multiple-action and unresolved-target fixtures before changing its extraction assumptions. Validate the full captured graph. Six audit tests cover these cases and source/state evidence separation.
+- [ ] Manually exercise critical prototype paths for each actor and record what was actually tested. October 10 checkpoint records 26 sampled journeys; the remaining matrix is in `docs/flow-audit/2026-10-10-findings.md`.
 
 Deliverable: searchable connection map with observed wiring, intended-but-unwired paths and unresolved decisions clearly separated.
 
