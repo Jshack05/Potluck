@@ -3,12 +3,16 @@ import path from 'node:path';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
+if (!process.argv.includes('--historical')) {
+  await import('./validate-current-audit.mjs');
+  process.exit(0);
+}
 const here=path.dirname(fileURLToPath(import.meta.url));
 const read=n=>fs.readFileSync(path.join(here,n),'utf8');
 const data=JSON.parse(read('2026-10-02-connection-map.json'));
 const raw=JSON.parse(read('2026-10-02-screen-reactions.json'));
 const inventory=JSON.parse(read('2026-10-02-screen-inventory.json'));
-const html=read('index.html');
+const html=read('2026-10-02-index.html');
 new vm.Script(html.match(/<script>([\s\S]*?)<\/script>/)[1]);
 const embedded=JSON.parse(html.match(/<script type="application\/json" id="data">([\s\S]*?)<\/script>/)[1]);
 assert.equal(embedded.records.length,inventory.length);

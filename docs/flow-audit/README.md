@@ -1,4 +1,37 @@
+# Potluck screen and flow audit
+
+**October 9: all 809 captured screen/state layouts reviewed; permanent directory created.** Read the [current findings and remaining work](2026-10-09-findings.md). Eight sampled prototype checks are recorded. Full prototype coverage and current app visual parity remain incomplete; Figma quota is no longer the active blocker.
+
+- [Open the removable Figma directory](https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2244-45190)
+- [Current checkpoint](2026-10-09-checkpoint.json), [visual review evidence](2026-10-09-visual-review.json), [prototype results](2026-10-09-prototype-review.json)
+- [Created annotation manifest and rollback](2026-10-09-annotation-manifest.json)
+
+- [Current searchable explorer](index.html)
+- [Current screen register](2026-10-08-screen-register.md)
+- [Current coverage](2026-10-08-coverage.json) and [historical October 8 checkpoint](2026-10-08-checkpoint.json)
+- [Raw captures](2026-10-08/) and [connection map](2026-10-08-connection-map.json)
+- [Transitions CSV](2026-10-08-connections.csv)
+- [App source inventory](2026-10-08-app-routes.json) and [sampled comparisons](2026-10-08-app-review.json)
+- [25-family graph findings](2026-10-08-graph-findings.md)
+- [Full route source findings](2026-10-08-source-findings.md) and [explicit state correspondence](2026-10-08-source-mapping.json)
+- [Historical annotation draft](2026-10-08-annotation-draft.json) — preserved as pre-creation evidence; use the October 9 manifest for created notes
+- [Historical October 2 explorer](2026-10-02-index.html)
+
+Build and check the latest checkpoint:
+
+```powershell
+node docs/flow-audit/build-flow-audit.mjs
+node --test docs/flow-audit/audit-data.test.mjs
+node docs/flow-audit/validate-flow-audit.mjs
+```
+
+Use `--historical` on the builder/validator for October 2. Historical generation writes its dated explorer, leaving the current entry point intact. Both renderers preserve raw conditions; neither executes the prototype.
+
+---
+
 # October 2 app flow audit evidence
+
+> **Refresh planned October 7:** Follow [the whole-file audit plan](../superpowers/plans/2026-10-07-figma-screen-audit.md). Preserve these dated snapshots, reconcile against the live file and current app, and extend the existing explorer/validation tooling rather than establish a competing register. No new complete inventory or Figma annotation pass is claimed by this documentation update.
 
 Start with [APP_FLOW_MAP.md](../APP_FLOW_MAP.md). This directory preserves a **partial** Figma inspection, not a completed implementation specification.
 

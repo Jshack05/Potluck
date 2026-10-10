@@ -1,5 +1,9 @@
 # Potluck app flow map
 
+> **October 9 checkpoint:** All 809 captured screen/state layouts are reviewed, with 8,553 captured transition references, 25 flow families and eight sampled live prototype checks. The [permanent Figma directory](https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2244-45190) links every original record from one removable section. Read the [new findings and remaining work](flow-audit/2026-10-09-findings.md), [55-route baseline source audit](flow-audit/2026-10-08-source-findings.md) and [explorer](flow-audit/index.html). Five historical app comparisons do not verify the later Cards recovery revision. Full prototype execution and current app parity remain outstanding. Everything below is the historical October 2 map.
+
+> **October 7, 2026:** This is a historical, partial audit. Its implementation and launch-scope statements may be superseded by newer entries in [PRODUCT_CONTEXT.md](PRODUCT_CONTEXT.md). Use the [new audit plan](superpowers/plans/2026-10-07-figma-screen-audit.md) to refresh the inventory, connections and app mappings. That audit had not yet been executed as of October 7; see the October 8 checkpoint above for subsequent verified coverage.
+
 **Audit date:** October 2, 2026. **Status: broad app map, partial connection verification.**
 
 This maps the existing design and documents for implementation planning. It does not authorize a new release scope, change Figma, implement a backend, or approve financial operations.
