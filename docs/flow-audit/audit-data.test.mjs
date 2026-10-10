@@ -1,6 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { flattenReactions, classifyTarget, coverage, mapSourceStates } from './audit-data.mjs';
+import { flattenReactions, classifyTarget, coverage, mapSourceStates, sourceHash } from './audit-data.mjs';
+
+test('source fingerprints ignore checkout line endings but detect real code changes', () => {
+  assert.equal(sourceHash('const value = 1;\n'), sourceHash('const value = 1;\r\n'));
+  assert.notEqual(sourceHash('const value = 1;\n'), sourceHash('const value = 2;\n'));
+  assert.notEqual(sourceHash('const value = 1;\n'), sourceHash('const value = 1;'));
+});
 
 test('preserves action order, nested conditions and hidden controls', () => {
   const screens = [{id:'1:1', name:'Source', controls:[{id:'1:2', name:'Hidden', visible:false, reactions:[{trigger:{type:'ON_CLICK'}, actions:[

@@ -10,7 +10,7 @@
 
 **Spec:** October 7 founder directions recorded in `docs/PRODUCT_CONTEXT.md` and `AGENTS.md`: inventory all existing designs, document connections, prevent unnecessary replacements, and design for the finished product assuming program availability.
 
-**Status (October 8 resumed):** Incomplete. All 809 reaction trees and 8,553 transition references captured; 25 families reconciled with product documents; 271 readable visual reviews; all 55 Expo route files read and 218 designs partially mapped to source states. Five app visual comparisons and zero live prototype journeys. Figma quota recurred during remaining visual work. Permanent notes are drafted locally but not created.
+**Status (October 9 resumed):** Incomplete overall. All 809 source layouts now reviewed; all reaction trees and 8,553 references captured; 25 families mapped; 55 baseline Expo routes read and 218 designs partially mapped. Permanent removable Figma directory created with 809 screen links and 118 note nodes. Eight sampled prototype checks include an unwired Freeze control and cross-conversation blocking inconsistency. Five historical app comparisons remain historical; later Cards changes received source-delta review only. See `docs/flow-audit/2026-10-09-findings.md` for exact limits and remaining work.
 
 **Planning verification:** The existing `validate-flow-audit.mjs` currently fails its documentation-link check because `docs/2026-09-20-launch-and-conversation-decisions.md` and `docs/2026-09-23-onboarding-research-and-decisions.md` are absent in this checkout. Both links also occur in the unchanged HEAD version of `APP_FLOW_MAP.md`; this is a pre-existing finding. Locate authoritative copies or explicitly reconcile the references during the audit; do not invent their contents or weaken the validator. New planning links and diff whitespace are checked separately.
 
@@ -48,7 +48,7 @@ Each connection record must identify the source control, trigger, ordered action
 - [x] Enumerate all screen containers recursively in bounded resumable batches. Separately record labels, illustrations and component libraries so they do not inflate screen counts.
 - [x] Reconcile live IDs against October 2 snapshots and subsequent documented additions. Resolve apparently absent nodes directly before labeling them removed; retain provenance.
 - [x] Record expected versus inspected containers and reasons for any gaps. Save checkpoints so a later session resumes rather than repeats extraction.
-- [ ] Validate unique IDs, parent relationships, resolvable links and completeness of the enumerated containers. Visually inspect each actual screen/state at readable scale; record issues and render coverage without redesigning it.
+- [x] Validate unique IDs, parent relationships, resolvable links and completeness of the enumerated containers. Visually inspect each actual screen/state at readable scale; record issues and render coverage without redesigning it.
 
 Deliverable: refreshed dated inventory with explicit coverage and a list of unresolved classifications. Inventory complete does not mean prototype or app verified.
 
@@ -74,20 +74,20 @@ Deliverable: evidence-backed design-to-route matrix and prioritized restoration 
 
 ## Task 4 — Add searchable Figma reference notes
 
-- [ ] Inspect free canvas space and create one clearly named audit/reference section outside original frames. Keep all new annotation nodes under this section and record their IDs.
-- [ ] Add a compact top-level directory by product area, with direct links to flow starts and the repository audit entry point. Use existing typography/tokens where practical; annotations must look distinct from app screens.
-- [ ] Add concise flow panels using consistent labels: Purpose, Actor, Entry, Screen IDs, Variants, Actual connections, Intended connections, App mapping, Open questions, Last verified.
-- [ ] Link to original frames without duplicating screenshots as substitute designs. Use readable flow summaries rather than hundreds of overlapping connector lines. Do not attach prototype actions to product controls for navigation of the audit.
-- [ ] Verify links, readable text, placement and section containment through metadata and renders. Confirm original screen bounds, source-instance links and reaction hashes are unchanged.
+- [x] Inspect free canvas space and create one clearly named audit/reference section outside original frames. Keep all new annotation nodes under this section and record their IDs.
+- [x] Add a compact top-level directory by product area, with direct links to flow starts and the repository audit entry point. Use existing typography/tokens where practical; annotations must look distinct from app screens.
+- [x] Add concise flow panels using consistent labels: Purpose, Actor, Entry, Screen IDs, Variants, Actual connections, Intended connections, App mapping, Open questions, Last verified.
+- [x] Link to original frames without duplicating screenshots as substitute designs. Use readable flow summaries rather than hundreds of overlapping connector lines. Do not attach prototype actions to product controls for navigation of the audit.
+- [x] Verify links, readable text, placement and section containment through metadata and renders. Confirm original screen bounds, source-instance links and reaction hashes are unchanged.
 
 Deliverable: a human- and agent-readable directory that can be deleted as one isolated section, with original screens untouched.
 
 ## Task 5 — Validate and hand off the living reference
 
-- [ ] Refresh `APP_FLOW_MAP.md` and the existing explorer's entry point to the new snapshot. Retain historical evidence and explicitly mark superseded assertions.
-- [ ] Validate schema/counts, IDs, local links, graph references, app source paths and annotation targets. Report visual/prototype/app verification coverage independently; do not call partial work complete.
+- [x] Refresh `APP_FLOW_MAP.md` and the existing explorer's entry point to the new snapshot. Retain historical evidence and explicitly mark superseded assertions.
+- [x] Validate schema/counts, IDs, local links, graph references, app source paths and annotation targets. Report visual/prototype/app verification coverage independently; do not call partial work complete.
 - [ ] Audit samples across all flow families for correct mapping; ensure every identified screen has a purpose/status or an explicit unresolved classification.
-- [ ] Report findings, canonical-version decisions requiring input, implementation gaps, annotation section link, source commit/date and rollback manifest.
+- [x] Report findings, canonical-version decisions requiring input, implementation gaps, annotation section link, source commit/date and rollback manifest.
 - [ ] Commit the coherent audit/documentation results on a focused branch, exclude secrets/test-user data, and include validation/rollback details in the review. Do not auto-merge.
 
 ## Ongoing maintenance rule

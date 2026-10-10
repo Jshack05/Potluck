@@ -1,16 +1,20 @@
 # Potluck screen and flow audit
 
-**October 8: audit in progress, blocked by Figma tool quota.** Read the [measured findings and resume instructions](2026-10-08-findings.md). The full audit is not complete.
+**October 9: all 809 captured screen/state layouts reviewed; permanent directory created.** Read the [current findings and remaining work](2026-10-09-findings.md). Eight sampled prototype checks are recorded. Full prototype coverage and current app visual parity remain incomplete; Figma quota is no longer the active blocker.
+
+- [Open the removable Figma directory](https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2244-45190)
+- [Current checkpoint](2026-10-09-checkpoint.json), [visual review evidence](2026-10-09-visual-review.json), [prototype results](2026-10-09-prototype-review.json)
+- [Created annotation manifest and rollback](2026-10-09-annotation-manifest.json)
 
 - [Current searchable explorer](index.html)
 - [Current screen register](2026-10-08-screen-register.md)
-- [Coverage](2026-10-08-coverage.json) and [checkpoint](2026-10-08-checkpoint.json)
+- [Current coverage](2026-10-08-coverage.json) and [historical October 8 checkpoint](2026-10-08-checkpoint.json)
 - [Raw captures](2026-10-08/) and [connection map](2026-10-08-connection-map.json)
 - [Transitions CSV](2026-10-08-connections.csv)
 - [App source inventory](2026-10-08-app-routes.json) and [sampled comparisons](2026-10-08-app-review.json)
 - [25-family graph findings](2026-10-08-graph-findings.md)
 - [Full route source findings](2026-10-08-source-findings.md) and [explicit state correspondence](2026-10-08-source-mapping.json)
-- [Annotation content draft — not yet in Figma](2026-10-08-annotation-draft.json)
+- [Historical annotation draft](2026-10-08-annotation-draft.json) — preserved as pre-creation evidence; use the October 9 manifest for created notes
 - [Historical October 2 explorer](2026-10-02-index.html)
 
 Build and check the latest checkpoint:

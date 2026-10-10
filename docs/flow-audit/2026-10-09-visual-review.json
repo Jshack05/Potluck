@@ -1,0 +1,2219 @@
+{
+  "date": "2026-10-09",
+  "inventoryCaptureDate": "2026-10-08",
+  "baselineEvidence": "2026-10-08-visual-review.json",
+  "ids": [
+    "7:423",
+    "547:1625",
+    "714:2708",
+    "199:266",
+    "199:317",
+    "207:267",
+    "218:314",
+    "335:506",
+    "371:521",
+    "371:551",
+    "427:662",
+    "434:660",
+    "463:750",
+    "488:1134",
+    "488:1203",
+    "488:1272",
+    "488:1396",
+    "490:1331",
+    "490:1335",
+    "515:1456",
+    "542:1632",
+    "563:1705",
+    "570:1755",
+    "570:1824",
+    "570:1893",
+    "573:1920",
+    "573:1988",
+    "573:2058",
+    "573:2126",
+    "622:2591",
+    "622:2671",
+    "622:2752",
+    "622:2832",
+    "652:2589",
+    "669:2591",
+    "669:2629",
+    "669:2664",
+    "669:2703",
+    "669:2734",
+    "669:2768",
+    "669:2798",
+    "669:2834",
+    "669:2864",
+    "700:2647",
+    "700:2670",
+    "714:2789",
+    "714:2847",
+    "714:2903",
+    "714:2960",
+    "714:3018",
+    "766:3012",
+    "766:3056",
+    "766:3098",
+    "793:3211",
+    "793:3256",
+    "793:3292",
+    "793:3345",
+    "793:3386",
+    "794:3257",
+    "801:3281",
+    "801:3313",
+    "801:3338",
+    "801:3363",
+    "812:3426",
+    "812:3466",
+    "833:3346",
+    "833:3393",
+    "839:3372",
+    "854:3466",
+    "854:3495",
+    "855:3408",
+    "859:3441",
+    "861:3572",
+    "861:3585",
+    "861:3598",
+    "881:3646",
+    "881:3751",
+    "928:4751",
+    "940:4770",
+    "941:4785",
+    "942:4800",
+    "944:4812",
+    "944:4941",
+    "999:4999",
+    "999:5045",
+    "999:5067",
+    "1052:5012",
+    "1052:5013",
+    "1052:5014",
+    "1052:5015",
+    "1056:5016",
+    "1056:5137",
+    "1056:5260",
+    "1056:5337",
+    "1056:5394",
+    "1056:5474",
+    "1151:5159",
+    "1151:5189",
+    "1151:5263",
+    "1151:5290",
+    "1166:5269",
+    "1209:6717",
+    "1209:6796",
+    "1209:6860",
+    "1209:6924",
+    "1209:6988",
+    "1209:7084",
+    "1209:7180",
+    "1209:7268",
+    "1209:7339",
+    "1209:7402",
+    "1209:7461",
+    "1209:7514",
+    "1209:7579",
+    "1209:7644",
+    "1209:7709",
+    "1209:7774",
+    "1209:7839",
+    "1209:7904",
+    "1209:7958",
+    "1209:8012",
+    "1209:8066",
+    "1209:8132",
+    "1209:8194",
+    "1209:8256",
+    "1209:8318",
+    "1212:8306",
+    "1212:8442",
+    "1212:8530",
+    "1224:8773",
+    "1246:7862",
+    "1246:7943",
+    "1246:8024",
+    "1246:8105",
+    "1246:8186",
+    "1246:8267",
+    "1246:8348",
+    "1246:8429",
+    "1246:8517",
+    "1246:8605",
+    "1246:8693",
+    "1246:8774",
+    "1246:8855",
+    "1246:8943",
+    "1246:9031",
+    "1246:9112",
+    "1246:9200",
+    "1246:9281",
+    "1246:9369",
+    "1246:9457",
+    "1246:9552",
+    "1246:9633",
+    "1246:9721",
+    "1246:9789",
+    "1246:9859",
+    "1246:9955",
+    "1246:10077",
+    "1246:10164",
+    "1246:10251",
+    "1246:10323",
+    "1246:10438",
+    "1246:10496",
+    "1246:10592",
+    "1330:10437",
+    "1330:10511",
+    "1330:10587",
+    "1330:10657",
+    "1330:10694",
+    "1330:10731",
+    "1330:10778",
+    "1330:10825",
+    "1330:10860",
+    "1330:10886",
+    "1330:10901",
+    "1348:10898",
+    "1348:10951",
+    "1348:11048",
+    "1348:11099",
+    "1375:11172",
+    "1375:11314",
+    "1375:11413",
+    "1375:11493",
+    "1375:11617",
+    "1375:11740",
+    "1377:13017",
+    "1377:13061",
+    "1377:13092",
+    "1377:13124",
+    "1377:13177",
+    "1377:13249",
+    "1378:13204",
+    "1378:13227",
+    "1408:12182",
+    "1408:12188",
+    "1408:12194",
+    "1408:12200",
+    "1408:12206",
+    "1408:12212",
+    "1420:13562",
+    "1428:13747",
+    "1428:13817",
+    "1428:13932",
+    "1428:14047",
+    "1428:14162",
+    "1430:13163",
+    "1430:13227",
+    "1833:24517",
+    "1833:24613",
+    "1880:24649",
+    "1880:24744",
+    "1880:24839",
+    "1889:24683",
+    "1889:24796",
+    "1889:24865",
+    "1889:24934",
+    "1894:24857",
+    "1894:24918",
+    "1894:25072",
+    "1894:25137",
+    "1894:25202",
+    "1894:25274",
+    "1894:25378",
+    "1894:25470",
+    "1894:25561",
+    "1894:25637",
+    "1894:25713",
+    "1894:25800",
+    "1894:25891",
+    "1894:25967",
+    "1894:26043",
+    "1894:26130",
+    "1894:26221",
+    "1894:26297",
+    "1894:26373",
+    "1894:26460",
+    "1894:26553",
+    "1894:26629",
+    "1894:26705",
+    "1894:26792",
+    "1894:26885",
+    "1894:26961",
+    "1448:14903",
+    "1462:15167",
+    "1462:15308",
+    "1462:15426",
+    "1462:15533",
+    "1462:15640",
+    "1462:15768",
+    "1462:15895",
+    "1462:16027",
+    "1462:16159",
+    "1462:16278",
+    "1462:16397",
+    "1462:16527",
+    "1462:16657",
+    "1464:16013",
+    "1464:16139",
+    "1480:16596",
+    "1480:16675",
+    "1480:16885",
+    "1480:16958",
+    "1480:17153",
+    "1480:17226",
+    "1480:17401",
+    "1480:17474",
+    "1480:17547",
+    "1480:17823",
+    "1480:17896",
+    "1480:17969",
+    "1480:18183",
+    "1480:18256",
+    "1480:18329",
+    "1489:17891",
+    "1489:17970",
+    "1489:18043",
+    "1489:18240",
+    "1489:18313",
+    "1489:18386",
+    "1489:18621",
+    "1490:18336",
+    "1490:18415",
+    "1490:18488",
+    "1525:18671",
+    "1525:18787",
+    "1525:18886",
+    "1528:18888",
+    "1528:19006",
+    "1528:19124",
+    "1528:19242",
+    "1540:19118",
+    "1540:19120",
+    "1540:19122",
+    "1555:19881",
+    "1606:18320",
+    "1606:18392",
+    "1606:18478",
+    "1606:18559",
+    "1606:18640",
+    "1606:18721",
+    "1606:18797",
+    "1606:18878",
+    "1606:18946",
+    "1606:19015",
+    "1606:19083",
+    "1606:19164",
+    "1606:19240",
+    "1606:19316",
+    "1606:19397",
+    "1606:19473",
+    "1606:19536",
+    "1606:19612",
+    "1606:19688",
+    "1606:19764",
+    "1606:19840",
+    "1606:19916",
+    "1606:19992",
+    "1606:20070",
+    "1606:20151",
+    "1606:20227",
+    "1606:20308",
+    "1606:20389",
+    "1606:20452",
+    "1606:20515",
+    "1606:20596",
+    "1606:20677",
+    "1606:20758",
+    "1606:20821",
+    "1606:20884",
+    "1606:20960",
+    "1606:21028",
+    "1606:21104",
+    "1606:21180",
+    "1606:21248",
+    "1606:21316",
+    "1606:21384",
+    "1606:21452",
+    "1606:21520",
+    "1606:21578",
+    "1606:21636",
+    "1606:21694",
+    "1606:21752",
+    "1608:20963",
+    "1608:21025",
+    "1608:21094",
+    "1608:21166",
+    "1608:21235",
+    "1608:21307",
+    "1608:21376",
+    "1608:21441",
+    "1608:21500",
+    "1608:21569",
+    "1608:21635",
+    "1608:21701",
+    "1608:21767",
+    "1608:21829",
+    "1608:21885",
+    "1608:21941",
+    "1608:22114",
+    "1608:22136",
+    "1608:22158",
+    "1608:22185",
+    "1609:21358",
+    "1609:21389",
+    "1609:21422",
+    "1609:21456",
+    "1609:21487",
+    "1609:21521",
+    "1609:21555",
+    "1609:21579",
+    "1609:21603",
+    "1609:21637",
+    "1609:21671",
+    "1609:21705",
+    "1609:21729",
+    "1609:21753",
+    "1609:21784",
+    "1609:21811",
+    "1609:21842",
+    "1609:21873",
+    "1609:21900",
+    "1609:21927",
+    "1609:21954",
+    "1609:21981",
+    "1611:21935",
+    "1611:22006",
+    "1611:22072",
+    "1611:22131",
+    "1611:22333",
+    "1662:22425",
+    "1662:22507",
+    "1662:22621",
+    "1662:22713",
+    "1662:22799",
+    "1662:22917",
+    "1662:23035",
+    "1662:23119",
+    "1662:23203",
+    "1662:23287",
+    "1662:23381",
+    "1662:23465",
+    "1662:23546",
+    "1662:23625",
+    "1662:23702",
+    "1662:23777",
+    "1662:23858",
+    "1662:23933",
+    "1666:23311",
+    "1666:23384",
+    "1666:23456",
+    "1678:22256",
+    "1678:22411",
+    "1678:22561",
+    "1686:23836",
+    "1686:23935",
+    "1686:24028",
+    "1688:22833",
+    "1688:22950",
+    "1688:23065",
+    "1720:22982",
+    "1720:23182",
+    "1720:23324",
+    "1720:23481",
+    "1720:24882",
+    "1720:25065",
+    "1720:25168",
+    "1720:25297",
+    "1720:25417",
+    "1720:25600",
+    "1720:25708",
+    "1720:25837",
+    "1763:24097",
+    "1782:24235",
+    "1784:24235",
+    "1816:24418",
+    "1833:24398",
+    "1833:24458",
+    "1894:27037",
+    "1894:27109",
+    "1894:27170",
+    "1894:27330",
+    "1894:27395",
+    "1894:27460",
+    "1894:27532",
+    "1894:27636",
+    "1894:27722",
+    "1894:27817",
+    "1894:27893",
+    "1894:27969",
+    "1894:28056",
+    "1894:28151",
+    "1894:28227",
+    "1894:28303",
+    "1894:28390",
+    "1894:28485",
+    "1894:28561",
+    "1894:28637",
+    "1894:28724",
+    "1894:28820",
+    "1894:28896",
+    "1894:28972",
+    "1894:29059",
+    "1894:29155",
+    "1894:29231",
+    "1894:29307",
+    "1902:27205",
+    "1902:27327",
+    "1902:27390",
+    "1902:27482",
+    "1902:27540",
+    "1902:27632",
+    "1902:27782",
+    "1902:27904",
+    "1902:27962",
+    "1902:28054",
+    "1902:28112",
+    "1902:28204",
+    "1913:27813",
+    "1913:27829",
+    "1913:27845",
+    "1913:28384",
+    "1913:28536",
+    "1913:28552",
+    "1913:28568",
+    "1913:29103",
+    "1913:29255",
+    "1913:29271",
+    "1913:29287",
+    "1913:29822",
+    "1918:29991",
+    "1918:30028",
+    "1918:30055",
+    "1918:30084",
+    "1918:30176",
+    "1918:30213",
+    "1918:30240",
+    "1918:30269",
+    "1918:30361",
+    "1918:30398",
+    "1918:30425",
+    "1918:30454",
+    "1921:30366",
+    "1921:30559",
+    "1921:30742",
+    "1921:30859",
+    "1958:30558",
+    "1958:30638",
+    "1958:30703",
+    "1958:30783",
+    "1959:32303",
+    "1963:33475",
+    "1963:33555",
+    "1970:31927",
+    "1970:31977",
+    "2012:31975",
+    "2012:32042",
+    "2012:32100",
+    "2012:32166",
+    "2012:32215",
+    "2012:32283",
+    "2012:32348",
+    "2012:32407",
+    "2012:32453",
+    "2012:32527",
+    "2012:32581",
+    "2012:32640",
+    "2012:32703",
+    "2012:32761",
+    "2012:32825",
+    "2012:32902",
+    "2012:32957",
+    "2012:33014",
+    "2012:33060",
+    "2014:32810",
+    "2014:32846",
+    "2014:32888",
+    "2014:32923",
+    "2014:32958",
+    "2014:32986",
+    "2014:33012",
+    "2014:33037",
+    "2014:33078",
+    "2014:33111",
+    "2014:33135",
+    "2014:33169",
+    "2014:33205",
+    "2014:33233",
+    "2014:33257",
+    "2014:33279",
+    "2014:33306",
+    "2014:33330",
+    "2014:33351",
+    "2015:33052",
+    "2015:33137",
+    "2015:33239",
+    "2015:33351",
+    "2015:33445",
+    "2015:33509",
+    "2015:33573",
+    "2015:33602",
+    "2015:33669",
+    "2015:33755",
+    "2015:33815",
+    "2015:33879",
+    "2015:33962",
+    "2015:34027",
+    "2015:34107",
+    "2015:34200",
+    "2015:34281",
+    "2015:34313",
+    "2015:34388",
+    "2015:34488",
+    "2015:34553",
+    "2015:34615",
+    "2015:34711",
+    "2015:34783",
+    "2015:34849",
+    "2015:34901",
+    "2015:34958",
+    "2015:35013",
+    "2015:35076",
+    "2015:35131",
+    "2015:35184",
+    "2015:35245",
+    "2015:35307",
+    "2015:35390",
+    "2015:35478",
+    "2015:35546",
+    "2015:35629",
+    "2016:34995",
+    "2016:35055",
+    "2016:35120",
+    "2016:35167",
+    "2016:35236",
+    "2016:35292",
+    "2016:35347",
+    "2016:35422",
+    "2016:35497",
+    "2016:35546",
+    "2016:35647",
+    "2016:35716",
+    "2016:35781",
+    "2016:35834",
+    "2016:35892",
+    "2016:35940",
+    "2016:36046",
+    "2016:36112",
+    "2016:36163",
+    "2016:36231",
+    "2016:36296",
+    "2016:36352",
+    "2016:36407",
+    "2016:36464",
+    "2016:36512",
+    "2016:36569",
+    "2016:36629",
+    "2017:36146",
+    "2017:36210",
+    "2017:36280",
+    "2017:36337",
+    "2017:36400",
+    "2017:36460",
+    "2017:36525",
+    "2017:36595",
+    "2017:36648",
+    "2017:36733",
+    "2017:36790",
+    "2017:36878",
+    "2017:36934",
+    "2017:36983",
+    "2017:37040",
+    "2017:37093",
+    "2017:37141",
+    "2017:37191",
+    "2017:37238",
+    "2017:37357",
+    "2017:37421",
+    "2017:37484",
+    "2017:37542",
+    "2017:37595",
+    "2017:37642",
+    "2017:37722",
+    "2017:37791",
+    "2017:37840",
+    "2017:37862",
+    "2018:37345",
+    "2018:37433",
+    "2018:37492",
+    "2018:37554",
+    "2018:37606",
+    "2018:37686",
+    "2018:37747",
+    "2018:37784",
+    "2018:37846",
+    "2018:37910",
+    "2018:37968",
+    "2018:38024",
+    "2018:38092",
+    "2018:38154",
+    "2018:38210",
+    "2018:38259",
+    "2018:38306",
+    "2018:38362",
+    "2018:38431",
+    "2018:38467",
+    "2018:38526",
+    "2018:38582",
+    "2018:38629",
+    "2018:38676",
+    "2019:38309",
+    "2019:38407",
+    "2019:38472",
+    "2019:38539",
+    "2019:38592",
+    "2019:38651",
+    "2019:38713",
+    "2019:38758",
+    "2019:38814",
+    "2019:38862",
+    "2019:38923",
+    "2019:38973",
+    "2019:39029",
+    "2019:39103",
+    "2019:39149",
+    "2019:39195",
+    "2019:39253",
+    "2019:39313",
+    "2019:39363",
+    "2019:39408",
+    "2020:39117",
+    "2020:39174",
+    "2020:39231",
+    "2020:39290",
+    "2020:39350",
+    "2020:39408",
+    "2020:39460",
+    "2020:39512",
+    "2020:39576",
+    "2020:39630",
+    "2020:39692",
+    "2020:39747",
+    "2020:39792",
+    "2020:39844",
+    "2020:39905",
+    "2020:39961",
+    "2020:40015",
+    "2020:40065",
+    "2020:40110",
+    "2020:40162",
+    "2020:40222",
+    "2020:40277",
+    "2020:40334",
+    "2020:40381",
+    "2020:40426",
+    "2023:40101",
+    "2023:40151",
+    "2023:40207",
+    "2023:40281",
+    "2023:40327",
+    "2023:40399",
+    "2023:40473",
+    "2025:40401",
+    "2025:40428",
+    "2025:40500",
+    "2025:40573",
+    "2025:40647",
+    "2028:42127",
+    "2028:42192",
+    "2028:42250",
+    "2028:42316",
+    "2028:42381",
+    "2028:42440",
+    "2028:42508",
+    "2028:42562",
+    "2028:42621",
+    "2028:42698",
+    "2028:42734",
+    "2028:42836",
+    "2028:42948",
+    "2028:43047",
+    "2028:43116",
+    "2028:43185",
+    "2028:43276",
+    "2028:43345",
+    "2028:43405",
+    "2028:43467",
+    "2028:43536",
+    "2028:43592",
+    "2028:43647",
+    "2028:43748",
+    "2028:43817",
+    "2028:43870",
+    "2028:43928",
+    "2028:43998",
+    "2028:44055",
+    "2028:44118",
+    "2028:44178",
+    "2028:44231",
+    "2028:44292",
+    "2028:46377",
+    "2028:46439",
+    "2028:46495",
+    "2028:46547",
+    "2028:46599",
+    "2028:46651",
+    "2028:46711",
+    "2028:49295",
+    "2028:49359",
+    "2028:49411",
+    "2028:49470",
+    "2028:49528",
+    "2031:42624",
+    "2031:42695",
+    "2031:42744",
+    "2031:42793",
+    "2031:42842",
+    "2031:42887",
+    "2038:42969",
+    "2038:43023",
+    "2038:43084",
+    "2038:43136",
+    "2038:43190",
+    "2038:43251",
+    "2060:43022",
+    "2060:43035",
+    "2060:43048",
+    "2093:43925",
+    "2093:44018",
+    "2093:44085",
+    "2093:44152",
+    "2093:44219",
+    "2093:44342",
+    "2093:44441",
+    "2094:44307",
+    "2094:44380",
+    "2094:44453",
+    "2094:44510",
+    "2094:44566",
+    "2094:44644",
+    "2100:44650",
+    "2100:44785",
+    "2100:44866",
+    "2100:44947",
+    "2100:45028",
+    "2182:44978",
+    "2182:45048",
+    "2182:45109",
+    "2187:46411",
+    "2187:46453",
+    "2187:46495"
+  ],
+  "newBatches": [
+    {
+      "ids": [
+        "1480:18329",
+        "1489:17891",
+        "1489:17970",
+        "1489:18043",
+        "1489:18240"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five images inspected",
+      "findings": [
+        "1489:18043 includes prototype-only provider-handoff copy, inconsistent with finished-product design direction. Other frames separate authorization, current-account selection, retained contributor history and one-time transfer consent."
+      ]
+    },
+    {
+      "ids": [
+        "1489:18313",
+        "1489:18386",
+        "1489:18621",
+        "1490:18336",
+        "1490:18415"
+      ],
+      "method": "Original Figma screenshots at scale 1; five returned images inspected",
+      "findings": [
+        "Pending is distinguished from received funds, ended agreement from retained amounts/history, and manual terms from payment initiation. No obvious clipping at source size."
+      ]
+    },
+    {
+      "date": "2026-10-09",
+      "ids": [
+        "1490:18488",
+        "1525:18671",
+        "1525:18787",
+        "1525:18886",
+        "1528:18888",
+        "1528:19006",
+        "1528:19124",
+        "1528:19242",
+        "1540:19118",
+        "1540:19120"
+      ],
+      "method": "Original screenshots at scale 1, five returned per call, individually read",
+      "findings": [
+        "Ending applies to future contributions; settled Bill payment records and per-contributor history remain separate. Figures reconcile: 32 + 32 + 28 = 92 per contributor.",
+        "Profile and contribution-track-record views distinguish recorded payment timing from member reviews and include an explanatory entry. No obvious source-size clipping."
+      ]
+    },
+    {
+      "date": "2026-10-09",
+      "ids": [
+        "1540:19122",
+        "1555:19881",
+        "1606:18320",
+        "1606:18392",
+        "1606:18478"
+      ],
+      "method": "Five original screenshots, scale 1, individually read",
+      "findings": [
+        "Spender-scoped Available to spend design exists at 1606:18478: assigned available amount, personal limit, explanation of reserved money, no host pool total. Distinct from host Balance details. Use this source for future spender implementation; do not mark the design missing.",
+        "1555:19881 retains existing terms while a share proposal awaits acceptance. Profile review and contribution timing remain separate."
+      ]
+    },
+    {
+      "ids": [
+        "1606:18559",
+        "1606:18640",
+        "1606:18721",
+        "1606:18797",
+        "1606:18878"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Trip Available to spend has its own limit and excludes reserved bill funds. Assigned-card purchases, refunds, declined purchases and released holds are visually and semantically differentiated; hold release is explicitly not a new deposit. No obvious clipping."
+      ]
+    },
+    {
+      "ids": [
+        "1606:18946",
+        "1606:19015",
+        "1606:19083",
+        "1606:19164",
+        "1606:19240"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "1606:19240 Required checks contains Prototype preview/no identity information copy and Preview pending review CTA; intended production counterpart needs copy review rather than a newly invented screen. Invitation and eligibility screens explicitly separate spending access from contribution enrollment and require own credentials. Released holds distinct from refunds."
+      ]
+    },
+    {
+      "ids": [
+        "1606:19316",
+        "1606:19397",
+        "1606:19473",
+        "1606:19536",
+        "1606:19612"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Pending, approved/ready, invitation declined, host-paused and access-ended states each exist. Copy preserves separate bill agreements and permitted past activity; no card access implied before approval. No obvious layout clipping."
+      ]
+    },
+    {
+      "ids": [
+        "1606:19688",
+        "1606:19764",
+        "1606:19840",
+        "1606:19916",
+        "1606:19992"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Closed and not-approved states retain appropriate history/privacy distinctions. Decline provides a next step without fabricating a provider reason. Host People and permissions differentiates active and pending access; Taylor permissions include personal credential, pause and removal."
+      ]
+    },
+    {
+      "ids": [
+        "1606:20070",
+        "1606:20151",
+        "1606:20227",
+        "1606:20308",
+        "1606:20389"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Host pending view hides private verification details. Existing member selection and separate Maya/Jordan review variants preserve $200 monthly utility permissions, acceptance and approval. Invitation sent is distinct from active access. Layouts have consistent bottom actions."
+      ]
+    },
+    {
+      "ids": [
+        "1606:20452",
+        "1606:20515",
+        "1606:20596",
+        "1606:20677",
+        "1606:20758"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Separate invitation-sent state for Jordan; explicit $150/$200/$250 permission choices with current and proposed limit review, future-authorization scope and confirmed result. No bank-transfer consent conflation or visible clipping."
+      ]
+    },
+    {
+      "ids": [
+        "1606:20821",
+        "1606:20884",
+        "1606:20960",
+        "1606:21028",
+        "1606:21104"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Pause, restore and remove have distinct confirmations, preserve separate bill agreements and past activity, and identify whose credential is affected. Restore shows $200; continuity after a $150/$250 edit needs prototype verification rather than assuming limits persist."
+      ]
+    },
+    {
+      "ids": [
+        "1606:21180",
+        "1606:21248",
+        "1606:21316",
+        "1606:21384",
+        "1606:21452"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Removal outcome preserves Circle/bill membership. Host activity distinguishes own payment, settled funding and Taylor assigned-card purchase; respective detail screens identify credential/user and settlement status. No obvious clipping."
+      ]
+    },
+    {
+      "ids": [
+        "1606:21520",
+        "1606:21578",
+        "1606:21636",
+        "1606:21694",
+        "1606:21752"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Card-specific Message host and sent outcomes exist for Grocery/Maya and Trip/Jordan, distinct from Splitfinder inbox UI. Card help has separate unrecognized purchase, permissions and verification paths. Privacy promise should be checked against production messaging access policy."
+      ]
+    },
+    {
+      "ids": [
+        "1608:20963",
+        "1608:21025",
+        "1608:21094",
+        "1608:21166",
+        "1608:21235"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Hosted and contributed Bills collections exist separately. Contributor Internet, Private Internet and manual Grocery detail variants focus own terms; private variant explicitly withholds other contributors. Manual bill has review-contribution CTA rather than implied auto-debit."
+      ]
+    },
+    {
+      "ids": [
+        "1608:21307",
+        "1608:21376",
+        "1608:21441",
+        "1608:21500",
+        "1608:21569"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Trip received contribution, manual grocery agreement/history, one-time review and pending outcomes exist and distinguish promised, initiated and received money. Review specifies selected account and exact $18 consent."
+      ]
+    },
+    {
+      "ids": [
+        "1608:21635",
+        "1608:21701",
+        "1608:21767",
+        "1608:21829",
+        "1608:21885"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Stopping future contributions preserves pending transfer status, history, Circle membership and separate card access. Trip received record and Bill-host message composition/success exist; success does not change agreement."
+      ]
+    },
+    {
+      "ids": [
+        "1608:21941",
+        "1608:22114",
+        "1608:22136",
+        "1608:22158",
+        "1608:22185"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Ended Bill retains pending status/history. Four explicitly named Reference before role update frames are visually intact but outdated: spender card settings expose host-like controls and Circle balance language; bill detail uses People charged and pooled participant display. Do not implement these as current spender/contributor authority; use updated Role counterparts."
+      ]
+    },
+    {
+      "ids": [
+        "1609:21358",
+        "1609:21389",
+        "1609:21422",
+        "1609:21456",
+        "1609:21487"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Family equivalents use Essentials rather than Apartment Utilities, preserve pending privacy and separate Circle membership from spending. Treat as intentional business-context variants, not deletion candidates. No obvious clipping."
+      ]
+    },
+    {
+      "ids": [
+        "1609:21521",
+        "1609:21555",
+        "1609:21579",
+        "1609:21603",
+        "1609:21637"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Family Jordan review, Maya/Jordan sent states, limit choices and $150 review use consistent actor/card/Essentials terms. Limit controls remain separate from funding or contribution consent."
+      ]
+    },
+    {
+      "ids": [
+        "1609:21671",
+        "1609:21705",
+        "1609:21729",
+        "1609:21753",
+        "1609:21784"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Family $250 review and $150/$250 outcomes are distinct, consistently Essentials-scoped. Pause review/outcome preserve other spenders and contributions. No obvious overlap."
+      ]
+    },
+    {
+      "ids": [
+        "1609:21811",
+        "1609:21842",
+        "1609:21873",
+        "1609:21900",
+        "1609:21927"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Family restore/removal preserve surrounding arrangements. Host activity includes distinct $17.99 streaming purchase, $80 settled funding and $16 Taylor purchase. Restore amount continuity remains a prototype-check item."
+      ]
+    },
+    {
+      "ids": [
+        "1609:21954",
+        "1609:21981",
+        "1611:21935",
+        "1611:22006",
+        "1611:22072"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Family funding/purchase details preserve actor/status. Role index is explicitly internal prototype navigation, not a missing customer screen. Assigned-cards and contributor-no-cards views exist; contributor empty state correctly explains contributions do not grant access."
+      ]
+    },
+    {
+      "ids": [
+        "1611:22131",
+        "1611:22333",
+        "1662:22425",
+        "1662:22507",
+        "1662:22621"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "1611:22333 contributor Circle correctly omits card access but has a faint empty rounded pill near lower-right content area (possible orphaned role badge); inspect ownership before any change.",
+        "1611:22131 is internal state-review navigation, not customer-facing screen.",
+        "Residential address/details/estimate have persistent footer and partially clipped next fields; verify scroll reachability and footer padding before labeling missing content. Rent estimate arithmetic $2400/3=$800 consistent."
+      ]
+    },
+    {
+      "ids": [
+        "1662:22713",
+        "1662:22799",
+        "1662:22917",
+        "1662:23035",
+        "1662:23119"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Housing review, second/third place forms and first/second public details exist; posts grouped by profile and individual price/date. Forms have lower fields under footer in initial viewport; require scrolling test. No need to invent extra listing review screens."
+      ]
+    },
+    {
+      "ids": [
+        "1662:23203",
+        "1662:23287",
+        "1662:23381",
+        "1662:23465",
+        "1662:23546"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Residential detail3/profile/browse/inquiry/chat exist, with conversation-only housing inquiry and no lease/payment commitment. Profile 1662:23287 bio line visually begins with a clipped/masked first letter near the avatar edge; investigate text/overlap geometry. Residential screens use multiple explanatory cards, unlike later card-removal refinements; source authority must be resolved before reuse."
+      ]
+    },
+    {
+      "ids": [
+        "1662:23625",
+        "1662:23702",
+        "1662:23777",
+        "1662:23858",
+        "1662:23933"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Housing identity requirement applies to posting, with draft persistence and pending state; browsing/messaging unaffected by ID check. Manage/take-down/result retain conversations and other listings. Generic stacked info cards remain a version/authority review concern rather than grounds for unrequested redesign."
+      ]
+    },
+    {
+      "ids": [
+        "1666:23311",
+        "1666:23384",
+        "1666:23456",
+        "1678:22256",
+        "1678:22411"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Saved-draft, photo, custom-estimate, filters and January calendar exist. Photo helper remains a white card in this original, so compare later housingPhotos continuation for approved refinement. Estimate override explicitly leaves total rent unchanged. Calendar date grid aligns January 1 2027 on Friday."
+      ]
+    },
+    {
+      "ids": [
+        "1678:22561",
+        "1686:23836",
+        "1686:23935",
+        "1686:24028",
+        "1688:22833"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "February grid starts Monday and has 28 days. Spaces/Experiences/Memberships search previews share image-led listing and stable nav; extra content below viewport needs scrolling. Search-filter preview includes Example search/Tap suggestion copy, so mark as preview authority rather than production instruction."
+      ]
+    },
+    {
+      "ids": [
+        "1688:22950",
+        "1688:23065",
+        "1720:22982",
+        "1720:23182",
+        "1720:23324"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Search-filter previews are distinct from later Approved image Spaces entry/filters/results. Approved entry includes keyboard and suggestions; filters use specific min/max, distance, move-in and lease criteria; results show active chips, sort, saved hearts and map. Use these concrete variants when resolving search authority."
+      ]
+    },
+    {
+      "ids": [
+        "1720:23481",
+        "1720:24882",
+        "1720:25065",
+        "1720:25168",
+        "1720:25297"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Approved Spaces and Experiences no-results states retain active query/filter chips and recovery actions plus opt-in new-match alert. Experiences has category-specific budget/date/status filters and create-experience alternative. No obvious clipping of main controls."
+      ]
+    },
+    {
+      "ids": [
+        "1720:25417",
+        "1720:25600",
+        "1720:25708",
+        "1720:25837",
+        "1763:24097"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Approved Membership search has recurring price, billing, access, location and availability controls with corresponding results/empty states. Later Subscriptions default uses brand logos and subscription-specific categories; these are separate source families, not interchangeable browse screens."
+      ]
+    },
+    {
+      "ids": [
+        "1782:24235",
+        "1784:24235",
+        "1816:24418",
+        "1833:24398",
+        "1833:24458"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Artwork reference, reconstructed Where would you like to save, and Minimal reference are separate onboarding alternatives. Plans and Memberships preference screens exist with illustrations and category choices; determine approved entry generation before app implementation, do not duplicate them. Original Back styling differs from later shared circular Back control."
+      ]
+    },
+    {
+      "ids": [
+        "1894:27037",
+        "1894:27109",
+        "1894:27170",
+        "1894:27330",
+        "1894:27395"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Request sent outcome remains waiting on host, not membership. Generic-icon subscription browse/search and Netflix/Spotify people-listings screens intentionally differ from logo variants. Search includes keyboard; older text-back pattern coexists with later shared Back component."
+      ]
+    },
+    {
+      "ids": [
+        "1894:27460",
+        "1894:27532",
+        "1894:27636",
+        "1894:27722",
+        "1894:27817"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Category-filter bottom sheet, sharing-rules page and listing/request variants exist. Older generic copy says Circle host and before you join, which can imply membership; reconcile with approved conversation-first acceptance flow and later continuation copy. Savings $30/month/$360/year matches displayed $40 minus $10 example, not verified provider pricing."
+      ]
+    },
+    {
+      "ids": [
+        "1894:27893",
+        "1894:27969",
+        "1894:28056",
+        "1894:28151",
+        "1894:28227"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Maya/Jordan unchecked versus checked consent is represented with disabled/enabled submission, and sent state remains pending. Jordan pricing arithmetic $16-$8=$8/month/$96/year is internally consistent. Older Circle/join wording still requires authority reconciliation."
+      ]
+    },
+    {
+      "ids": [
+        "1894:28303",
+        "1894:28390",
+        "1894:28485",
+        "1894:28561",
+        "1894:28637"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Jordan sent and Alex detail/unchecked/checked/sent variants retain correct host names, $11 share and $29 monthly/$348 yearly illustrative savings. Repeated layouts are intentional fixture states, not proof of redundant product routes."
+      ]
+    },
+    {
+      "ids": [
+        "1894:28724",
+        "1894:28820",
+        "1894:28896",
+        "1894:28972",
+        "1894:29059"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Spotify/Sam checked, unchecked and waiting states align with $6 monthly share; savings arithmetic $18/month/$216/year consistent within fixture. Dropbox/Casey detail uses storage icon and $10 share. No visible clipping of consent, host or actions."
+      ]
+    },
+    {
+      "ids": [
+        "1894:29155",
+        "1894:29231",
+        "1894:29307",
+        "1902:27205",
+        "1902:27327"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Casey unchecked/checked request consent states and sent confirmation exist. Netflix logo creation has four-step progress and draft-specific saved outcome; draft is explicitly not public. Earlier Request to join / Circle copy still needs authority reconciliation with conversation-first flow."
+      ]
+    },
+    {
+      "ids": [
+        "1902:27390",
+        "1902:27482",
+        "1902:27540",
+        "1902:27632",
+        "1902:27782"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Spotify and Dropbox logo listing creation and saved draft states use explicit service/title fields; generic Netflix substitutes service icon intentionally. No major visible overflow in these five originals; route authority between logo/generic families remains unresolved."
+      ]
+    },
+    {
+      "ids": [
+        "1902:27904",
+        "1902:27962",
+        "1902:28054",
+        "1902:28112",
+        "1902:28204"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Generic Netflix/Spotify/Dropbox draft outcomes mirror branded variants with category icons; draft remains unpublished and can continue editing. Inputs/progress/footer remain readable; no visible collision."
+      ]
+    },
+    {
+      "ids": [
+        "1913:27813",
+        "1913:27829",
+        "1913:27845",
+        "1913:28384",
+        "1913:28536"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Branded Netflix arrangement, Circle identity, preview and calendar plus Spotify arrangement reviewed. Four-step progression and edit-return links exist; screenshot calendar October 2026 weekday positions correct. Preview CTA only saves draft. Circle naming/host membership language predates conversation-first rule; do not infer listing publication creates membership."
+      ]
+    },
+    {
+      "ids": [
+        "1913:28552",
+        "1913:28568",
+        "1913:29103",
+        "1913:29255",
+        "1913:29271"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Spotify identity/preview/calendar and Dropbox arrangement/identity have complete readable form sections. Service amount carried consistently into preview. Separate category fixtures should not be deleted as duplicate routes; shared component reuse is the appropriate implementation boundary."
+      ]
+    },
+    {
+      "ids": [
+        "1913:29287",
+        "1913:29822",
+        "1918:29991",
+        "1918:30028",
+        "1918:30055"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Dropbox branded preview/calendar and generic Netflix arrangement/Circle/preview inspected. The generic copy is an alternate visual family, not a missing flow. Date sheet has close and no-specific-date exit, both visible; observed no text overlap."
+      ]
+    },
+    {
+      "ids": [
+        "1918:30084",
+        "1918:30176",
+        "1918:30213",
+        "1918:30240",
+        "1918:30269"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Generic Netflix calendar and Spotify arrangement/identity/preview/calendar reviewed at readable size. No new layout defects observed. Distinct no-date fallback and advertised-share controls already exist."
+      ]
+    },
+    {
+      "ids": [
+        "1918:30361",
+        "1918:30398",
+        "1918:30425",
+        "1918:30454",
+        "1921:30366"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Generic Dropbox creation/preview/calendar complete. Newer timing picker 1921:30366 has visibly uneven date columns (Wednesday/Thursday/Friday crowded compared with the first columns); dates themselves place Jan 1 2027 on Friday correctly. Record geometry issue without editing."
+      ]
+    },
+    {
+      "ids": [
+        "1921:30559",
+        "1921:30742",
+        "1921:30859",
+        "1958:30558",
+        "1958:30638"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "February timing picker 1921:30559 repeats uneven/crowded columns and mismatch with weekday header centers. Time and time-zone selection are separate existing sheets with readable selected states. $200 role review/saved variant exists; current and proposed default both $200 is a fixture state, live $150 persistence was verified separately."
+      ]
+    },
+    {
+      "ids": [
+        "1958:30703",
+        "1958:30783",
+        "1959:32303",
+        "1963:33475",
+        "1963:33555"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Family $200 review/saved preserves Essentials distinction. Grocery setup-saved, unavailable and Trip-help screens already provide resumable access and support states without creating contribution or bank-transfer obligations. No visible main-content clipping."
+      ]
+    },
+    {
+      "ids": [
+        "1970:31927",
+        "1970:31977",
+        "2012:31975",
+        "2012:32042",
+        "2012:32100"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Apartment and Family host-help routes differ from spender support appropriately. Continuation request 2012:31975/32042/32100 explicitly starts a conversation and includes editable introduction plus unchecked/checked consent; these provide the newer counterpart to older automatic-joining language."
+      ]
+    },
+    {
+      "ids": [
+        "2012:32166",
+        "2012:32215",
+        "2012:32283",
+        "2012:32348",
+        "2012:32407"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Continuation sending, sent, pending, withdrawal confirmation and withdrawn states are designed. Sent explicitly says accepted requests open conversation before joining; pending says no spot reserved and no Circle joined. Withdrawal has distinct safe/destructive controls and no payment authorization."
+      ]
+    },
+    {
+      "ids": [
+        "2012:32453",
+        "2012:32527",
+        "2012:32581",
+        "2012:32640",
+        "2012:32703"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Accepted, declined, unavailable, received and sent request lists are existing continuation screens. Accepted explicitly keeps Circle membership separate; unavailable retains conversations. States use distinct visual treatments rather than one generic outcome."
+      ]
+    },
+    {
+      "ids": [
+        "2012:32761",
+        "2012:32825",
+        "2012:32902",
+        "2012:32957",
+        "2012:33014"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Request empty, host review/withdrawn, decline confirmation and outcome reviewed. Layer names are stale: 2012:32825 named Meet Joseph renders Meet Alex; 2012:32902 named Meet Alex renders withdrawn Jordan. Directory should disambiguate by ID and actual visible role/state; do not assume frame name is canonical."
+      ]
+    },
+    {
+      "ids": [
+        "2012:33060",
+        "2014:32810",
+        "2014:32846",
+        "2014:32888",
+        "2014:32923"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Host acceptance opens conversation without closing listing or creating membership. Contextual account/publish gates, signup and inline email-error designs already exist. These older browse-first gates conflict with later full-app login-first policy and need authority labeling, not new invented screens. Signup error has red field border and specific inline text."
+      ]
+    },
+    {
+      "ids": [
+        "2014:32958",
+        "2014:32986",
+        "2014:33012",
+        "2014:33037",
+        "2014:33078"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Sign-in email, password, wrong-password, email confirmation and resend states all exist. Error screens show localized red feedback and recovery links. Social buttons and email delivery are design affordances only, not evidence providers are implemented."
+      ]
+    },
+    {
+      "ids": [
+        "2014:33111",
+        "2014:33135",
+        "2014:33169",
+        "2014:33205",
+        "2014:33233"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Expired email, profile introduction, resume, provider handoff and offline retry states reviewed. Resume already uses large standalone text (earlier unnecessary white card removed). Profile leaves bank details out; next-step state explicitly says nothing sent/published."
+      ]
+    },
+    {
+      "ids": [
+        "2014:33257",
+        "2014:33279",
+        "2014:33306",
+        "2014:33330",
+        "2014:33351"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Complete password-reset path exists: request, neutral inbox outcome, matching new passwords, updated and expired-link states. Neutral inbox language avoids confirming account existence; field-error/strength cases are not demonstrated by these five frames."
+      ]
+    },
+    {
+      "ids": [
+        "2015:33052",
+        "2015:33137",
+        "2015:33239",
+        "2015:33351",
+        "2015:33445"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Continuation entry reuses illustrated Plans/Memberships/Subscriptions/Spaces. Brand directory and keyboard search exist; keyboard reference hides bottom nav rather than floating it above keys. Netflix/Spotify result pages offer existing create-listing entry."
+      ]
+    },
+    {
+      "ids": [
+        "2015:33509",
+        "2015:33573",
+        "2015:33602",
+        "2015:33669",
+        "2015:33755"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Dropbox list/category sheet/sharing rules/current Netflix detail use existing references. Detail now says Introduce myself and includes green piggy-bank savings visual. Continuation profile reference 2015:33755 renders Jordan despite Maya being primary nearby listing; verify actual caller wiring before calling this identity bug. Profile includes contribution track record/reviews, which need data-source and visibility authority."
+      ]
+    },
+    {
+      "ids": [
+        "2015:33815",
+        "2015:33879",
+        "2015:33962",
+        "2015:34027",
+        "2015:34107"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Continuation creation now asks only Listing title after selected service, eliminating earlier duplicate service name field. Four steps and publishing continuation exist. Circle Setup wording still frames listing as Circle identity; needs scope reconciliation with separate membership. No visible field/footer collision."
+      ]
+    },
+    {
+      "ids": [
+        "2015:34200",
+        "2015:34281",
+        "2015:34313",
+        "2015:34388",
+        "2015:34488"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Continuation time/timezone sheets readable. Housing browse/filter/detail use photo-rich existing designs; fixed footer covers lower content in source-frame image (minimum beds/baths and remaining detail sections), requiring scroll/overflow verification rather than declaring content absent."
+      ]
+    },
+    {
+      "ids": [
+        "2015:34553",
+        "2015:34615",
+        "2015:34711",
+        "2015:34783",
+        "2015:34849"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Continuation housing creation/details/estimate/preview/photo inspected. Photo helper 2015:34849 is standalone text, unlike older 1666:23384 white helper card; this resolves which source contains requested refinement. Estimate divides $2400 among 3 at $800. Public neighborhood vs private address are explicitly distinguished."
+      ]
+    },
+    {
+      "ids": [
+        "2015:34901",
+        "2015:34958",
+        "2015:35013",
+        "2015:35076",
+        "2015:35131"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Housing identity check distinguishes person verification from property verification; pending retains draft. Manage, remove confirmation and removed outcome preserve conversations/agreements. Existing designs need reuse; no separate payment or lease commitment implied."
+      ]
+    },
+    {
+      "ids": [
+        "2015:35184",
+        "2015:35245",
+        "2015:35307",
+        "2015:35390",
+        "2015:35478"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Housing inquiry/chat retain selected property and explicitly no lease/payment commitment. No-results screen has adjustable/removable filters and opt-in alerts. Membership browse/filter use category-specific recurring-share/access/location fields; populated list is scrollable-looking fixture, not proof all five results exist."
+      ]
+    },
+    {
+      "ids": [
+        "2015:35546",
+        "2015:35629",
+        "2016:34995",
+        "2016:35055",
+        "2016:35120"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Membership empty state includes recovery and opt-in alerts. Saved reference 2015:35629 is sparse and has a top-right circular back button, inconsistent with continuation's usual left Back placement; inspect intended state before implementing. Publish checks separate accuracy/sharing consent, publishing state and draft preservation; no money/enrollment is promised."
+      ]
+    },
+    {
+      "ids": [
+        "2016:35167",
+        "2016:35236",
+        "2016:35292",
+        "2016:35347",
+        "2016:35422"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Published/failure/draft-saved and Live/Drafts lists provide full distinguishable outcomes. Copy consistently keeps drafts private and failures unpublished. Netflix list rows use a music icon unlike Netflix TV logo in detail; flag icon-family inconsistency pending source-component authority."
+      ]
+    },
+    {
+      "ids": [
+        "2016:35497",
+        "2016:35546",
+        "2016:35647",
+        "2016:35716",
+        "2016:35781"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Inactive/manage/own detail/edit/saved exist with host-only controls and preserved conversations. Edit 2016:35716 footer truncates Keep everyone informed paragraph in static source view; confirm scrolling/reading reachability. Own-detail heading repeats Netflix Premium immediately below; editorial redundancy, not missing content."
+      ]
+    },
+    {
+      "ids": [
+        "2016:35834",
+        "2016:35892",
+        "2016:35940",
+        "2016:36046",
+        "2016:36112"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Take-down preserves separate Circle membership/arrangements. Category choice and custom service refined: 2016:36046 shows chosen Membership with Change category, removing repeated mandatory category chips from earlier screenshot. 2016:36112 is explicit optional category selection, not necessarily sequential duplicate prompt; check wiring."
+      ]
+    },
+    {
+      "ids": [
+        "2016:36163",
+        "2016:36231",
+        "2016:36296",
+        "2016:36352",
+        "2016:36407"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Custom arrangement/preview/publish unchecked/ready/published already form a complete designed progression. Uses per-person proposed contribution without authorizing collection, independent-access copy, explicit sharing acknowledgement. No obvious clipping at source size."
+      ]
+    },
+    {
+      "ids": [
+        "2016:36464",
+        "2016:36512",
+        "2016:36569",
+        "2016:36629",
+        "2017:36146"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Custom draft and housing verified/retry/published outcomes exist and preserve draft vs public status. Inbox 2017:36146 shows two adjacent separators with an empty gap between Maya subscription and housing rows; probable leftover separator/layout artifact. Thread context distinguishes same-person conversations."
+      ]
+    },
+    {
+      "ids": [
+        "2017:36210",
+        "2017:36280",
+        "2017:36337",
+        "2017:36400",
+        "2017:36460"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Conversation/compose/sent/failed/host conversation reviewed. Failed 2017:36400 matches requested refinement: shifted bubble, red exclamation and no yellow warning card. Host conversation frame name says Joseph but renders Alex; another stale-name source of wrong counterpart selection. Host reply form differs from ongoing chat composer intentionally by state."
+      ]
+    },
+    {
+      "ids": [
+        "2017:36525",
+        "2017:36595",
+        "2017:36648",
+        "2017:36733",
+        "2017:36790"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Host reply outcome explicitly says conversation does not add Circle members. Empty inbox, conversation options, removed-listing chat and report reasons exist. Removed listing keeps reply available. Host reply frame 2017:36525 again has Joseph layer name but Alex content."
+      ]
+    },
+    {
+      "ids": [
+        "2017:36878",
+        "2017:36934",
+        "2017:36983",
+        "2017:37040",
+        "2017:37093"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Report detail/outcome and block confirmation/read-only/management states separate reporting from blocking and retain history. Blocking explicitly does not cancel agreements or remove Circle members. Blocked-people row lacks an explicit Unblock label in this view; inspect row navigation before deciding missing action."
+      ]
+    },
+    {
+      "ids": [
+        "2017:37141",
+        "2017:37191",
+        "2017:37238",
+        "2017:37357",
+        "2017:37421"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Unblock confirmation/outcome, account menu/edit profile/new public profile exist. NewProfile 2017:37421 named Joseph renders Alex and Back to request; it is another-person review state rather than own-profile saved result. Keep caller mapping explicit. Credentials/email stay out of public profile."
+      ]
+    },
+    {
+      "ids": [
+        "2017:37484",
+        "2017:37542",
+        "2017:37595",
+        "2017:37642",
+        "2017:37722"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Support forms/outcome and legal directory exist. DeleteAccount 2017:37722 already uses separator + prominent Handle active arrangements separately text rather than prior yellow warning card. Deletion does not resolve obligations; record retention note present. Support input credentials warning retained without generic warning card."
+      ]
+    },
+    {
+      "ids": [
+        "2017:37791",
+        "2017:37840",
+        "2017:37862",
+        "2018:37345",
+        "2018:37433"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Deletion has explicit typed confirmation, pending-not-complete and failure-unchanged outcomes. Phone provider browse/search exists for Verizon/T-Mobile/AT&T and custom listing fallback. Phone search focus reference has no keyboard, so not suitable evidence for keyboard navigation behavior."
+      ]
+    },
+    {
+      "ids": [
+        "2018:37492",
+        "2018:37554",
+        "2018:37606",
+        "2018:37686",
+        "2018:37747"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Phone listing/empty/detail/profile/account gate preserve Jordan and $35 monthly estimated share, disclose taxes/fees discussion and unaffiliated provider. Existing design family is distinct from subscription brand cards. No obvious content collisions."
+      ]
+    },
+    {
+      "ids": [
+        "2018:37784",
+        "2018:37846",
+        "2018:37910",
+        "2018:37968",
+        "2018:38024"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Phone introduction unchecked/ready/sent and host create/arrangement forms are designed; consent is explicit, moving a line is not automatic, and password sharing is discouraged. No extra card/payment flow should be inserted here."
+      ]
+    },
+    {
+      "ids": [
+        "2018:38092",
+        "2018:38154",
+        "2018:38210",
+        "2018:38259",
+        "2018:38306"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Phone preview/ready/published/draft and membership creation reviewed. Phone ready state 2018:38154 omits price and description shown in preview after consent; potential review-context loss to test. Membership form specifically distinguishes independent access from guest access."
+      ]
+    },
+    {
+      "ids": [
+        "2018:38362",
+        "2018:38431",
+        "2018:38467",
+        "2018:38526",
+        "2018:38582"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Membership detail/gate/request/ready/sent retain Casey, independent access and $25 monthly proposed share. Request checkbox refers to Sharing Rules but unlike phone/subscription screens has no visible Read rules link in these two states; possible consent-information access gap requiring wiring check."
+      ]
+    },
+    {
+      "ids": [
+        "2018:38629",
+        "2018:38676",
+        "2019:38309",
+        "2019:38407",
+        "2019:38472"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Discovery loading/error are explicit older status screens; fast-loading blank beige decision should supersede obsolete loading decoration in app. Continuation Circle home/admin/members use blue Splitfinder-derived shell and generic person art, materially different from original beige Circles core screens; treat as administrative continuation variants, not replacement home authority. Admin privacy row clips at footer."
+      ]
+    },
+    {
+      "ids": [
+        "2019:38539",
+        "2019:38592",
+        "2019:38651",
+        "2019:38713",
+        "2019:38758"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Circle invite/review/pending/canceled and member-removal confirmation distinguish explicit membership acceptance from contribution/spending consent. Removing a Circle member keeps separate Card/Bill agreements unchanged and directs their owners to manage them; no financial rights should be inferred from these designs."
+      ]
+    },
+    {
+      "ids": [
+        "2019:38814",
+        "2019:38862",
+        "2019:38923",
+        "2019:38973",
+        "2019:39029"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Member-removed and Circle Host handover choose/review/pending/accept designs preserve current host until acceptance. New host manages group only, not others' funds/cards/bills. Both accept and decline controls exist; candidate row touch targets need prototype testing beyond visible text."
+      ]
+    },
+    {
+      "ids": [
+        "2019:39103",
+        "2019:39149",
+        "2019:39195",
+        "2019:39253",
+        "2019:39313"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Handover complete/declined, host-leave gate, member view and leave confirmation all retain financial separation. Completion/decline outcomes show body explanations but no visible prominent result headline unlike other outcomes; record hierarchy inconsistency. Host cannot simply leave others without accepted handover in intended design."
+      ]
+    },
+    {
+      "ids": [
+        "2019:39363",
+        "2019:39408",
+        "2020:39117",
+        "2020:39174",
+        "2020:39231"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Circle left/privacy and member-after-removal states show clear separation from listing publication. Partial publish consent states (one box only) retain disabled Publish; both combinations already designed. Privacy state has informational visibility explanation but no visible switch in this variant; don't invent controls based solely on label."
+      ]
+    },
+    {
+      "ids": [
+        "2020:39290",
+        "2020:39350",
+        "2020:39408",
+        "2020:39460",
+        "2020:39512"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Post-cancel/leave/removal list states reflect actual changed memberships/listings. TermsDocument and PrivacyDocument frame names render document-load failures, not legal documents; these are error-state counterparts only. Legal content availability remains a separate gap rather than approved legal text."
+      ]
+    },
+    {
+      "ids": [
+        "2020:39576",
+        "2020:39630",
+        "2020:39692",
+        "2020:39747",
+        "2020:39792"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Inactive listing, phone pending/withdraw/withdrawn/accepted maintain state distinctions and correct Jordan identity. Pending states no spot reservation or line change; acceptance opens conversation. Withdrawn outcome uses smaller standalone body without prominent status heading, another hierarchy variation."
+      ]
+    },
+    {
+      "ids": [
+        "2020:39844",
+        "2020:39905",
+        "2020:39961",
+        "2020:40015",
+        "2020:40065"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Phone conversation then message-sent design drops received bubble/composer and only offers View listing; unlike subscription chat, ongoing conversation continuation is incomplete in this static family. Membership pending/withdraw/withdrawn maintain Casey identity and separate cancellation confirmation."
+      ]
+    },
+    {
+      "ids": [
+        "2020:40110",
+        "2020:40162",
+        "2020:40222",
+        "2020:40277",
+        "2020:40334"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Membership accepted/conversation/sent mirrors phone's limited post-send continuation, unlike fuller subscription composer. Circle invitation received/accepted explicitly creates only membership with separate contribution/Card consent. Designed flow exists; no new acceptance screen needed."
+      ]
+    },
+    {
+      "ids": [
+        "2020:40381",
+        "2020:40426",
+        "2023:40101",
+        "2023:40151",
+        "2023:40207"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Declined Circle invitation, accepted Alex member list and Maya handover review/pending/accept maintain actor differences. Maya/Jordan handover branches must not be collapsed into a hardcoded recipient. No visible content overflow in these five."
+      ]
+    },
+    {
+      "ids": [
+        "2023:40281",
+        "2023:40327",
+        "2023:40399",
+        "2023:40473",
+        "2025:40401"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Maya handover completion and Apartment membership preserve separate Card/Bill permissions. Housing publish disabled/ready states look otherwise identical (no visible checked/reviewed marker), making readiness trigger unclear without prototype test. Generic account-access gate is discovery-oriented and should not replace core Cards/Bills empty screens."
+      ]
+    },
+    {
+      "ids": [
+        "2025:40428",
+        "2025:40500",
+        "2025:40573",
+        "2025:40647",
+        "2028:42127"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Custom/phone listings and management variants already exist, with distinct membership/phone art. ManagePhone frame named T-Mobile renders Verizon, another stale label. Generic-icons request duplicates behavior with outlined TV asset, so component/icon family must be selected consistently rather than mixing source variants."
+      ]
+    },
+    {
+      "ids": [
+        "2028:42192",
+        "2028:42250",
+        "2028:42316",
+        "2028:42381",
+        "2028:42440"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Generic request-edit/ready/pending/withdraw/accepted retain conversation-first separation and same actor/context as branded family. Existing outlined-TV icon treatment is internally consistent in these five; consent/footer text remains readable."
+      ]
+    },
+    {
+      "ids": [
+        "2028:42508",
+        "2028:42562",
+        "2028:42621",
+        "2028:42698",
+        "2028:42734"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Generic decline/unavailable/host review/account gate/brand directory reviewed. Host review correctly names Alex and clarifies eligibility is a declaration, not independent verification. Brand directory mixes filled blue category symbols with outlined green service symbols; intentional family distinction must be chosen deliberately."
+      ]
+    },
+    {
+      "ids": [
+        "2028:42836",
+        "2028:42948",
+        "2028:43047",
+        "2028:43116",
+        "2028:43185"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Generic search and Netflix/Spotify/Dropbox lists/detail preserve service names/prices/slots and green savings graphic. Generic Netflix detail source already has Introduce myself CTA; don't recreate old Request to join interaction. No main controls clipped."
+      ]
+    },
+    {
+      "ids": [
+        "2028:43276",
+        "2028:43345",
+        "2028:43405",
+        "2028:43467",
+        "2028:43536"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Generic creation and publish checklist/ready/success/error mirror latest branded semantics and title-only creation. Publish check variants here have no Back row, unlike earlier branded versions; navigation consistency needs canonical selection. Error retains retryable draft."
+      ]
+    },
+    {
+      "ids": [
+        "2028:43592",
+        "2028:43647",
+        "2028:43748",
+        "2028:43817",
+        "2028:43870"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Generic draft/manage/own-detail/edit-saved/take-down maintain intended persistence. Own-detail repeats heading/service name as branded variant. Take-down preserves agreements and conversations with explicit confirmation; no new layout failure observed."
+      ]
+    },
+    {
+      "ids": [
+        "2028:43928",
+        "2028:43998",
+        "2028:44055",
+        "2028:44118",
+        "2028:44178"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Generic conversation/ready/sent/failed/support preserves current bubble layout and red exclamation failure affordance. Same-source messaging states are already available for reuse; no replacement yellow failure card required. Support listing retains thread/listing context."
+      ]
+    },
+    {
+      "ids": [
+        "2028:44231",
+        "2028:44292",
+        "2028:46377",
+        "2028:46439",
+        "2028:46495"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Generic partial-publish consent variants retain disabled CTA. BlockedInbox marks subscription thread read-only but still offers housing inquiry row; because earlier housing counterpart is also Maya, verify person-wide blocking across contexts. Removed-listing sent and withdrawn sent-request records preserve history."
+      ]
+    },
+    {
+      "ids": [
+        "2028:46547",
+        "2028:46599",
+        "2028:46651",
+        "2028:46711",
+        "2028:49295"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Phone/membership sent-request lists and Maya host-handover outcomes preserve correct actors and states. Circle home after Jordan handover updates host labels; source differs from original home styling, so state logic and visual authority must be distinguished."
+      ]
+    },
+    {
+      "ids": [
+        "2028:49359",
+        "2028:49411",
+        "2028:49470",
+        "2028:49528",
+        "2031:42624"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Circle homes after Maya handover/recipient acceptance and accepted/declined request lists reflect expected actor/state changes. Dedicated Maya profile 2031:42624 exists, resolving the apparent missing counterpart from earlier Jordan reference; caller wiring still determines whether used correctly."
+      ]
+    },
+    {
+      "ids": [
+        "2031:42695",
+        "2031:42744",
+        "2031:42793",
+        "2031:42842",
+        "2031:42887"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Recipient Alex/Jordan/Maya account variants correctly limit roles and clarify invitation acceptance. Phone/membership withdrawn request lists omit Received/Sent/Messages tabs shown on pending lists; navigation continuity differs between states and needs canonical reconciliation."
+      ]
+    },
+    {
+      "ids": [
+        "2038:42969",
+        "2038:43023",
+        "2038:43084",
+        "2038:43136",
+        "2038:43190"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Recipient Jordan/Maya host-confirmed and Circle/home variants display accepted role correctly, retaining independent Card/Bill ownership. These are not missing actor views. Host Circle variants show membership but no admin controls in this state; verify reachability back to full admin rather than inventing controls."
+      ]
+    },
+    {
+      "ids": [
+        "2038:43251",
+        "2060:43022",
+        "2060:43035",
+        "2060:43048",
+        "2093:43925"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Maya recipient home, message-action Closed/Open/Tap-catch overlay states and subscription service picker inspected. Blank closed/tap-catch nodes are intentional interaction infrastructure, not missing customer screens. Open message sheet offers retry/edit/cancel with separators, matching red failure icon design."
+      ]
+    },
+    {
+      "ids": [
+        "2093:44018",
+        "2093:44085",
+        "2093:44152",
+        "2093:44219",
+        "2093:44342"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "TV/Music/Software narrowed directories, all-opportunities and phone-provider picker exist. Provider choice explicitly persists into listing creation, addressing repeated prompts. All-opportunities promises memberships/housing but these are below initial frame; scrolling must expose them before completeness is claimed."
+      ]
+    },
+    {
+      "ids": [
+        "2093:44441",
+        "2094:44307",
+        "2094:44380",
+        "2094:44453",
+        "2094:44510"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "All-phone listings and edit phone/custom + saved outcomes reviewed. Open spots inputs are partly/fully below fixed footer in both edit frames, requiring scroll reachability test. Saved outcomes preserve conversations and provide Manage/View links; no need to invent separate confirmation."
+      ]
+    },
+    {
+      "ids": [
+        "2094:44566",
+        "2094:44644",
+        "2100:44650",
+        "2100:44785",
+        "2100:44866"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Own phone and custom listing details correctly identify You as listing organizer and use Edit listing. Their final About/What's included text falls below the fixed footer in the source frame; scrolling must be verified before considering that content reachable. Generic-icon brand picker and TV/music browse variants exist explicitly alongside logo-based versions, so icon authority must follow the chosen current flow rather than mixing variants."
+      ]
+    },
+    {
+      "ids": [
+        "2100:44947",
+        "2100:45028",
+        "2182:44978",
+        "2182:45048",
+        "2182:45109"
+      ],
+      "method": "Original Figma screenshots at scale 1; all five inspected",
+      "findings": [
+        "Software and All opportunities generic-icon variants are explicitly drawn; All opportunities has lower categories beyond the viewport, so scrolling remains relevant. New fast-loading Circles/Cards/Bills frames contain blank beige bodies and stable header, plus action, and tab chrome, superseding the older illustrated loading screens for this case. Bills loading retains All bills/Shared controls and Import bills, but the import control here lacks the later requested green outline."
+      ]
+    },
+    {
+      "ids": [
+        "2187:46411",
+        "2187:46453",
+        "2187:46495"
+      ],
+      "method": "Original Figma screenshots at scale 1; all three inspected",
+      "findings": [
+        "Delayed loading variants keep blank beige content with a small Loading indicator; header, plus, bottom navigation, and Bills filters/import action remain consistent with the respective fast-loading shell. These are loading states, not empty-result states; do not infer loaded content from them. Bills import here also lacks the requested later green outline."
+      ]
+    }
+  ],
+  "scope": "Readable source-frame layout review; not prototype or app parity verification."
+}

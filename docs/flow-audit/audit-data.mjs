@@ -1,3 +1,10 @@
+import crypto from 'node:crypto';
+
+// Git may check out text with CRLF on Windows. Preserve all other content.
+export function sourceHash(content) {
+  return crypto.createHash('sha256').update(String(content).replace(/\r\n/g, '\n')).digest('hex');
+}
+
 /** Preserve raw action trees separately; this projection is for searching, not execution. */
 export function flattenReactions(screens) {
   const rows=[];

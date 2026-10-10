@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-09",
+  "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+  "pageId": "1:123",
+  "baseCommit": "39b92f50f5040253ac15efbb4dac05399620aaa1",
+  "branch": "codex/figma-screen-audit-2026-10-08",
+  "status": "INCOMPLETE — all source layouts reviewed; directory created; sampled prototype checks complete; current app parity outstanding",
+  "capturedScreens": 809,
+  "nextInventoryIndex": null,
+  "nextNodeId": null,
+  "temporaryRenderBoard": {
+    "id": "2204:45190",
+    "removed": true
+  },
+  "annotationSection": "2244:45190",
+  "limitations": [
+    "0 screen/state records remain without readable visual review.",
+    "8 live prototype checks recorded, including failures; full journey coverage is not claimed.",
+    "Five historical app visual comparisons; no new live app comparison this resume. Local servers unavailable and prior start/browser review blocked.",
+    "All 55 route source files were inspected at the captured baseline; later Cards recovery is a separate revision and must not be reported as current runtime parity.",
+    "All 809 original screen subtree fingerprints match before/after note creation. Directory is removable through one section."
+  ],
+  "resume": "No source-layout batches remain. Follow 2026-10-09-findings.md for untested actor/return/error paths and current app visual comparison. Do not repeat the 809 reaction captures or visual passes. Rebuild with build-flow-audit.mjs.",
+  "nextVisualNodeId": null,
+  "nextVisualInventoryIndex": null,
+  "remainingVisualIds": [],
+  "temporaryRenderBoards": [
+    {
+      "id": "2204:45190",
+      "removed": true
+    },
+    {
+      "id": "2215:45190",
+      "removed": true
+    },
+    {
+      "id": "2216:46858",
+      "removed": true
+    }
+  ],
+  "inventoryCaptureDate": "2026-10-08",
+  "visualReviewCount": 809,
+  "livePrototypeChecks": 8,
+  "appComparisonRevision": "c202144b4f24c775d391f40a270d7474c88cc59e"
+}

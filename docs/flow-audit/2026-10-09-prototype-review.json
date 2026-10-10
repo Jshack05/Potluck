@@ -1,0 +1,117 @@
+{
+  "date": "2026-10-09",
+  "method": "Live Figma prototype browser interaction; no real financial actions",
+  "journeys": [
+    {
+      "name": "Circles to Cards stack to Apartment detail",
+      "nodes": [
+        "7:423",
+        "547:1625",
+        "570:1824",
+        "573:2058"
+      ],
+      "result": "PASS",
+      "observations": [
+        "Cards tab resolves existing stack; first Apartment tap expands stack, second opens detail."
+      ]
+    },
+    {
+      "name": "Apartment Show and Hide details",
+      "nodes": [
+        "573:2058"
+      ],
+      "result": "PASS",
+      "observations": [
+        "Show details reveals sample credential face and changes label to Hide details; hide reverses. No sample card data copied to audit."
+      ]
+    },
+    {
+      "name": "Apartment Freeze",
+      "nodes": [
+        "573:2058"
+      ],
+      "elementId": "583:2174",
+      "result": "FAIL",
+      "observations": [
+        "Click caused no visual or URL change. Fresh Plugin API inspection found no reaction on Freeze instance or descendants; other actions do have reactions."
+      ]
+    },
+    {
+      "name": "Apartment funding selection to pending and return",
+      "nodes": [
+        "573:2058",
+        "1151:5189",
+        "1151:5263",
+        "1151:5290",
+        "573:2058"
+      ],
+      "result": "PASS_WITH_FINDING",
+      "observations": [
+        "Selected $100 and Household checking; review preserved both and scoped one-time consent. Confirmation reached Pending, explicitly unavailable to spend, and Back to card returned Apartment.",
+        "On this browser viewport, review and pending inherited prior scroll position, initially hiding heading and amount. Verify reset-scroll behavior."
+      ]
+    },
+    {
+      "name": "Taylor limit change, return, pause and restore",
+      "nodes": [
+        "573:2058",
+        "622:2752",
+        "1606:19916",
+        "1606:19992",
+        "1606:20515",
+        "1606:20596",
+        "1606:20758",
+        "1606:20884",
+        "1606:20960",
+        "1606:21028"
+      ],
+      "result": "PASS_WITH_FINDING",
+      "observations": [
+        "Selected $150, review and success preserved it; returned through people list and reopened Taylor at $150. Pause and restore confirmation also retained $150 and Utilities; final permission screen was Active at $150.",
+        "Static default $200 screenshots were not evidence of a reset bug: live variables preserved the chosen amount.",
+        "Multiple transitions retained scroll position, hiding headings until scrolling up. Prototype behavior only; no real permissions changed."
+      ]
+    },
+    {
+      "name": "Introduction consent, sending, pending and withdrawal",
+      "nodes": [
+        "2012:31975",
+        "2012:32100",
+        "2012:32166",
+        "2012:32215",
+        "2012:32283",
+        "2012:32348",
+        "2012:32407"
+      ],
+      "result": "PASS",
+      "observations": [
+        "Consent enabled sending. Sending transitioned to pending confirmation; View request opened pending details; withdrawal opened confirmation and withdrawn outcome. No Circle membership or financial consent was represented.",
+        "Figma Fit width and height resolved earlier viewer clipping. This did not establish unreachable product controls."
+      ]
+    },
+    {
+      "name": "Host accepts Alex and opens conversation",
+      "nodes": [
+        "2012:32825",
+        "2012:33060",
+        "2017:36460"
+      ],
+      "result": "PASS",
+      "observations": [
+        "Accept & open conversation led to accepted outcome, then Message Alex opened Alex Rivera conversation. Listing stayed open; no Circle membership was created. Stale node names mention Joseph but rendered actor was Alex."
+      ]
+    },
+    {
+      "name": "Blocked Inbox to housing conversation",
+      "nodes": [
+        "2028:46377",
+        "2015:35245"
+      ],
+      "result": "DESIGN_INCONSISTENCY",
+      "observations": [
+        "Directly opened blocked Inbox fixture: Maya subscription marked Blocked / Read-only. Maple Street inquiry opened Maya Chen housing conversation with visible Write a message composer and no blocked label.",
+        "This is inconsistent visual blocking across fixtures. No message send or backend bypass is claimed; person-wide block behavior needs reconciliation."
+      ]
+    }
+  ]
+}
