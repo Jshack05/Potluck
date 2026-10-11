@@ -9,13 +9,14 @@ import { renderToStaticMarkup } from "react-dom/server";
 import ts from "typescript";
 
 const require = createRequire(import.meta.url);
-function preview(design) {
+function preview(design, props = {}) {
   const images = [],
     labels = [],
     frames = [];
   const node = ({ children }) => React.createElement("div", null, children);
   const imports = {
     "react-native": {
+      Pressable: node,
       View: (props) => {
         frames.push(props);
         return node(props);
@@ -55,7 +56,7 @@ function preview(design) {
     compileFunction(js, ["require", "module", "exports"])(
       (id) => {
         if (imports[id]) return imports[id];
-        if (/\.png$/.test(id)) return fileURLToPath(new URL(id, url));
+        if (/\.(png|svg)$/.test(id)) return fileURLToPath(new URL(id, url));
         if (id.startsWith(".")) return load(new URL(id + ".ts", url));
         return require(id);
       },
@@ -68,7 +69,11 @@ function preview(design) {
     new URL("../src/features/potluck/card-preview.tsx", import.meta.url),
   );
   const html = renderToStaticMarkup(
-    React.createElement(CardPreview, { name: "My household", design }),
+    React.createElement(CardPreview, {
+      name: "My household",
+      design,
+      ...props,
+    }),
   );
   return { images, labels, frames, html };
 }
@@ -130,4 +135,19 @@ test("unknown appearances remain readable without inventing a replacement saved 
 
 test("Coral retains the dark foreground specified by its Figma source", () => {
   assert.ok(preview("coral").labels.every((n) => n.style.color === "#273432"));
+});
+
+test("the edit affordance remains visible on both light and dark appearances", () => {
+  for (const [design, foreground] of [
+    ["brushed_silver", "#273232"],
+    ["frosted_glass", "#273232"],
+    ["champagne", "#273232"],
+    ["coral", "#273432"],
+    ["graphite", "#FFFFFF"],
+  ]) {
+    const { images } = preview(design, { onEdit: () => {} });
+    const edit = images.find((image) => image.source.endsWith("edit.svg"));
+    assert.ok(edit, design + " has the original edit icon");
+    assert.equal(edit.tintColor, foreground, design + " edit contrast");
+  }
 });

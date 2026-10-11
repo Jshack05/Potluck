@@ -178,6 +178,7 @@ export function CardPreview({
         >
           <Image
             source={require("../../../assets/potluck/card-flow/edit.svg")}
+            tintColor={foreground}
             style={{ width: 26, height: 26 }}
             contentFit="contain"
           />
