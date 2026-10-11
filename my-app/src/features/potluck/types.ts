@@ -28,7 +28,20 @@ export type Card = Item & {
     | "sunset"
     | "coral"
     | "ocean"
-    | "berry";
+    | "berry"
+    | "brushed_silver"
+    | "frosted_glass"
+    | "champagne"
+    | "satin_teal"
+    | "ocean_artwork"
+    | "sunset_artwork"
+    | "botanical"
+    | "midnight"
+    | "terracotta"
+    | "alpine"
+    | "prism"
+    | "orbit"
+    | "lagoon";
   bills: Bill[];
   availableMinor: number | null;
 };
