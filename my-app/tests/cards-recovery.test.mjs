@@ -38,11 +38,14 @@ function form({
   locked = false,
   resuming = false,
   circles = [],
+  fresh = false,
+  name = "My card",
+  design = "aurora",
 } = {}) {
   const visits = [],
     sends = [];
   const draft = {
-    fields: { name: "My card", design: "aurora", circleId, step },
+    fields: { name, design, circleId, step },
     ready: true,
     locked,
     resuming,
@@ -57,6 +60,8 @@ function form({
       visits.push("cleared");
     },
   };
+  let stateCursor = 0;
+  const state = [];
   const element = (name) =>
     function TestElement(props) {
       return React.createElement(name, props, props.children);
@@ -77,7 +82,24 @@ function form({
     ].map((name) => [name, element(name)]),
   );
   const imports = {
-    "react-native": { View: element("View"), Pressable: element("Pressable") },
+    react: {
+      ...React,
+      useState: (initial) => {
+        const i = stateCursor++;
+        if (!(i in state)) state[i] = initial;
+        return [
+          state[i],
+          (value) => {
+            state[i] = typeof value === "function" ? value(state[i]) : value;
+          },
+        ];
+      },
+    },
+    "react-native": {
+      View: element("View"),
+      Pressable: element("Pressable"),
+      Keyboard: { dismiss() {} },
+    },
     "expo-router": {
       router: {
         replace: (path) => visits.push(path),
@@ -90,7 +112,15 @@ function form({
       theme: {},
       go: (path) => visits.push(path),
     },
-    "@/services/creation-draft": { useCreationDraft: () => draft },
+    "@/services/creation-draft": {
+      useCreationDraft: (_key, seed) => {
+        if (fresh) {
+          draft.fields = { ...seed };
+          fresh = false;
+        }
+        return draft;
+      },
+    },
     "@/services/client": {
       useClient: () => ({ user: { id: "host" } }),
       useCommand: () => async () => ({ id: "saved-card" }),
@@ -124,6 +154,10 @@ function form({
       ].map((name) => [name, element(name)]),
     ),
   };
+  imports["./card-appearance-catalog"] = load(
+    "../src/features/potluck/card-appearance-catalog.ts",
+    imports,
+  );
   imports["./card-preview"] = imports["@/features/potluck/card-preview"];
   imports["./card-ui"] = imports["@/features/potluck/card-ui"];
   imports["@/features/potluck/card-creation-steps"] = load(
@@ -132,6 +166,7 @@ function form({
   );
   const { default: Form } = load("../src/app/create/card.tsx", imports);
   function tree() {
+    stateCursor = 0;
     const all = [];
     function visit(value) {
       if (!value || typeof value !== "object") return;
@@ -205,6 +240,21 @@ test("a Circle removed before review cannot be submitted as a fresh card", () =>
 
 test("every appearance choice survives Circle review, Back, a name edit and submission", async () => {
   const options = {
+    graphite: "Graphite",
+    brushed_silver: "Brushed Silver",
+    frosted_glass: "Frosted Glass",
+    champagne: "Champagne",
+    satin_teal: "Satin Teal",
+    aurora: "Northern lights",
+    ocean_artwork: "Ocean artwork",
+    sunset_artwork: "Sunset artwork",
+    botanical: "Botanical",
+    midnight: "Midnight",
+    terracotta: "Terracotta",
+    alpine: "Alpine",
+    prism: "Prism",
+    orbit: "Orbit",
+    lagoon: "Lagoon",
     aurora_gradient: "Aurora gradient",
     sunset: "Sunset gradient",
     teal: "Evergreen",
@@ -237,9 +287,13 @@ test("every appearance choice survives Circle review, Back, a name edit and subm
     const preview = () => f.tree().find((n) => n.type === "Preview");
     const choice = () =>
       f.tree().find((n) => n.props?.accessibilityLabel === label);
+    for (const category of ["Finishes", "Artwork"])
+      f.tree()
+        .find((n) => n.props?.accessibilityLabel === "See all " + category)
+        .props.onPress();
     assert.equal(
       f.tree().filter((n) => n.props?.accessibilityRole === "radio").length,
-      6,
+      21,
     );
     choice().props.onPress();
     assert.equal(choice().props.accessibilityState.checked, true);
@@ -254,12 +308,10 @@ test("every appearance choice survives Circle review, Back, a name edit and subm
     back();
     back();
     assert.equal(choice().props.accessibilityState.checked, true);
-    back();
     f.tree()
       .find((n) => n.type === "Field")
       .props.onChangeText("Renamed card");
     assert.equal(preview().props.name, "Renamed card");
-    advance();
     advance();
     advance();
     advance();
@@ -276,7 +328,7 @@ test("locked drafts disable every appearance and the review Circle action", () =
   const choices = appearance
     .tree()
     .filter((n) => n.props?.accessibilityRole === "radio");
-  assert.equal(choices.length, 6);
+  assert.equal(choices.length, 10);
   assert.ok(choices.every((n) => n.props.disabled));
   const review = form({
     step: 3,
@@ -318,8 +370,99 @@ test("Circle choices retain the privacy boundary and real member count", () => {
   assert.equal(f.find("Someone else's private Circle"), undefined);
 });
 
+test("new drafts combine name and appearance with Graphite, then go straight to Circle", () => {
+  const f = form({ fresh: true });
+  assert.equal(
+    f.tree().find((n) => n.type === "Preview").props.design,
+    "graphite",
+  );
+  assert.equal(f.tree().find((n) => n.type === "Action").props.disabled, true);
+  f.tree()
+    .find((n) => n.type === "Field")
+    .props.onChangeText("Apartment card");
+  const preview = f.tree().find((n) => n.type === "Preview");
+  assert.equal(preview.props.name, "Apartment card");
+  assert.equal(preview.props.design, "graphite");
+  assert.equal(
+    f.tree().find((n) => n.type === "Shell").props.avoidKeyboard,
+    false,
+  );
+  f.tree()
+    .find((n) => n.type === "Action")
+    .props.onPress();
+  assert.equal(f.draft.fields.step, 2);
+  assert.ok(f.find("No Circle — just for me"));
+});
+
+test("saved appearance-step drafts reopen the combined form without replacing Northern lights", () => {
+  for (const step of [0, 1]) {
+    const f = form({ step });
+    assert.equal(
+      f.tree().find((n) => n.type === "Shell").props.title,
+      "Create card",
+    );
+    assert.equal(
+      f.tree().find((n) => n.type === "Field").props.value,
+      "My card",
+    );
+    assert.equal(
+      f.tree().find((n) => n.type === "Preview").props.design,
+      "aurora",
+    );
+  }
+});
+
+test("independent categories keep hidden selection and expansion across Circle Back", () => {
+  const f = form({ step: 0 });
+  const button = (label) =>
+    f.tree().find((n) => n.props?.accessibilityLabel === label);
+  button("See all Artwork").props.onPress();
+  button("Lagoon").props.onPress();
+  assert.equal(f.draft.fields.design, "lagoon");
+  assert.equal(
+    button("See all Finishes").props.accessibilityState.expanded,
+    false,
+  );
+  button("See less Artwork").props.onPress();
+  assert.equal(button("Lagoon"), undefined);
+  assert.equal(f.draft.fields.design, "lagoon");
+  assert.ok(f.tree().some((n) => n.props?.children === "Lagoon selected"));
+  button("See all Finishes").props.onPress();
+  f.tree()
+    .find((n) => n.type === "Action")
+    .props.onPress();
+  f.tree()
+    .find((n) => n.type === "Shell")
+    .props.onBack();
+  assert.equal(
+    f.tree().find((n) => n.type === "Shell").props.title,
+    "Create card",
+  );
+  assert.ok(button("See less Finishes"));
+  assert.ok(button("See all Artwork"));
+  assert.equal(
+    f.tree().find((n) => n.type === "Preview").props.design,
+    "lagoon",
+  );
+});
+
+test("whitespace names block Continue and long names retain their exact draft value", () => {
+  const f = form({ step: 0, name: "  " });
+  assert.equal(f.tree().find((n) => n.type === "Action").props.disabled, true);
+  const name = "A".repeat(80);
+  f.tree()
+    .find((n) => n.type === "Field")
+    .props.onChangeText(name);
+  assert.equal(f.tree().find((n) => n.type === "Preview").props.name, name);
+  assert.equal(f.tree().find((n) => n.type === "Action").props.disabled, false);
+});
+
 test("confirmed zero is money, an unavailable balance is not, and the label precedes the amount", () => {
   const { CardPreview } = load("../src/features/potluck/card-preview.tsx", {
+    "./card-appearance-catalog": load(
+      "../src/features/potluck/card-appearance-catalog.ts",
+      {},
+    ),
     "react-native": { View: node, StyleSheet: { absoluteFillObject: {} } },
     "expo-image": { Image: () => null },
     "@/design/system": {

@@ -16,7 +16,7 @@ type CardAppearance = {
   category: CardAppearanceCategory;
   sourceNode: string;
   background: string;
-  foreground: "#FFFFFF" | "#273232";
+  foreground: "#FFFFFF" | "#273232" | "#273432";
   image?: ImageSource;
   panel?: string;
 };
@@ -94,7 +94,7 @@ export const cardAppearances: Record<Card["design"], CardAppearance> = {
     category: "solid",
     sourceNode: "916:4051",
     background: "#F36F55",
-    foreground: "#FFFFFF",
+    foreground: "#273432",
   },
   aurora_gradient: {
     id: "aurora_gradient",

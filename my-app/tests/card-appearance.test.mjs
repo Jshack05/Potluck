@@ -127,3 +127,7 @@ test("unknown appearances remain readable without inventing a replacement saved 
   assert.ok(result.html.includes("Not issued"));
   assert.equal(result.frames[0].style.backgroundColor, "#263433");
 });
+
+test("Coral retains the dark foreground specified by its Figma source", () => {
+  assert.ok(preview("coral").labels.every((n) => n.style.color === "#273432"));
+});

@@ -2,6 +2,11 @@ import { Pressable, View } from "react-native";
 import { Label, theme } from "@/design/system";
 import { CardPreview, cardLooks } from "./card-preview";
 import {
+  cardAppearances,
+  cardAppearanceCategories,
+  type CardAppearanceCategory,
+} from "./card-appearance-catalog";
+import {
   CardCircleChoice,
   CardCreateCircle,
   CardReviewRow,
@@ -11,7 +16,7 @@ import {
 } from "./card-ui";
 import type { Card, Circle } from "./types";
 
-// Existing creation frames: appearance 928:4751, Circle 854:3495,
+// Existing creation frames: combined details 854:3466, Circle 854:3495,
 // attached review 855:3408 and standalone review 861:3572.
 // Presentation only: the creation route owns draft state and navigation.
 export function CardAppearancePicker({
@@ -19,70 +24,129 @@ export function CardAppearancePicker({
   design,
   disabled,
   onSelect,
+  expandedCategories,
+  onToggleCategory,
 }: {
   name: string;
   design: Card["design"];
   disabled: boolean;
   onSelect: (design: Card["design"]) => void;
+  expandedCategories: readonly CardAppearanceCategory[];
+  onToggleCategory: (category: CardAppearanceCategory) => void;
 }) {
   return (
     <>
-      <CardHint>Pick a look that feels like yours.</CardHint>
       <CardPreview name={name} design={design} />
       <Label
         style={{
           textAlign: "center",
-          color: theme.teal,
-          fontFamily: "Inter_700Bold",
+          color: theme.muted,
           fontSize: 14,
         }}
       >
-        {cardLooks[design]}
+        {`${cardLooks[design] ?? "Saved appearance"} selected`}
       </Label>
-      {(
-        [
-          ["Gradients", ["aurora_gradient", "sunset"]],
-          ["Solid colors", ["teal", "coral"]],
-          ["Potluck panels", ["ocean", "berry"]],
-        ] as [string, Card["design"][]][]
-      ).map(([title, looks]) => (
-        <View key={title} style={{ gap: 8 }}>
-          <Label
-            style={{
-              fontSize: 18,
-              lineHeight: 22,
-              fontFamily: "Inter_700Bold",
-            }}
-          >
-            {title}
-          </Label>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              gap: 20,
-            }}
-          >
-            {looks.map((look) => (
-              <Pressable
-                key={look}
-                accessibilityLabel={cardLooks[look]}
-                accessibilityRole="radio"
-                accessibilityState={{ checked: design === look }}
-                aria-checked={design === look}
-                disabled={disabled}
-                onPress={() => onSelect(look)}
-                style={{ flex: 1, maxWidth: 176 }}
+      {cardAppearanceCategories.map((category) => {
+        const looks = Object.values(cardAppearances).filter(
+          (look) => look.category === category.id,
+        );
+        const expanded = expandedCategories.includes(category.id);
+        const visible = expanded ? looks : looks.slice(0, 2);
+        const hiddenSelection = looks.find(
+          (look) => look.id === design && !visible.includes(look),
+        );
+        return (
+          <View key={category.id} style={{ gap: 8 }}>
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 12 }}
+            >
+              <Label
+                accessibilityRole="header"
+                style={{
+                  flex: 1,
+                  fontSize: 18,
+                  lineHeight: 22,
+                  fontFamily: "Inter_700Bold",
+                }}
               >
-                <CardPreview name={name} design={look} compact />
-                <View style={{ position: "absolute", top: 8, right: 8 }}>
-                  <CardSelection selected={design === look} light />
-                </View>
-              </Pressable>
+                {category.label}
+              </Label>
+              {looks.length > 2 && (
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={`${expanded ? "See less" : "See all"} ${category.label}`}
+                  accessibilityState={{ expanded }}
+                  onPress={() => onToggleCategory(category.id)}
+                  style={{
+                    minHeight: 44,
+                    minWidth: 44,
+                    justifyContent: "center",
+                    alignItems: "flex-end",
+                  }}
+                >
+                  <Label
+                    style={{
+                      fontFamily: "Inter_500Medium",
+                      fontSize: 12,
+                      color: theme.muted,
+                    }}
+                  >
+                    {expanded ? "See less" : "See all"}
+                  </Label>
+                </Pressable>
+              )}
+            </View>
+            {hiddenSelection && (
+              <Label
+                style={{ fontSize: 13, color: theme.muted }}
+              >{`${hiddenSelection.label} selected`}</Label>
+            )}
+            {Array.from({ length: Math.ceil(visible.length / 2) }, (_, row) => (
+              <View
+                key={row}
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  gap: 20,
+                }}
+              >
+                {visible.slice(row * 2, row * 2 + 2).map((look) => (
+                  <Pressable
+                    key={look.id}
+                    accessibilityLabel={look.label}
+                    accessibilityRole="radio"
+                    accessibilityState={{
+                      checked: design === look.id,
+                      disabled,
+                    }}
+                    aria-checked={design === look.id}
+                    disabled={disabled}
+                    onPress={() => onSelect(look.id)}
+                    style={{ flex: 1, maxWidth: 176, gap: 6 }}
+                  >
+                    <CardPreview name={name} design={look.id} compact />
+                    <View style={{ position: "absolute", top: 8, right: 8 }}>
+                      <CardSelection selected={design === look.id} />
+                    </View>
+                    <Label
+                      style={{
+                        fontSize: 12,
+                        textAlign: "center",
+                        color: theme.muted,
+                      }}
+                    >
+                      {look.label}
+                    </Label>
+                  </Pressable>
+                ))}
+                {visible.slice(row * 2, row * 2 + 2).length === 1 && (
+                  <View style={{ flex: 1, maxWidth: 176 }} />
+                )}
+              </View>
             ))}
           </View>
-        </View>
-      ))}
+        );
+      })}
     </>
   );
 }

@@ -1,4 +1,5 @@
-import { View } from "react-native";
+import { useState } from "react";
+import { Keyboard, View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import {
   Shell,
@@ -7,10 +8,8 @@ import {
   Action,
   ErrorText,
   Link,
-  Label,
   ResourceState,
   go,
-  theme,
 } from "@/design/system";
 import { useCreationDraft } from "@/services/creation-draft";
 import {
@@ -19,7 +18,7 @@ import {
   useCommand,
   useResource,
 } from "@/services/client";
-import { CardPreview, cardLooks } from "@/features/potluck/card-preview";
+import type { CardAppearanceCategory } from "@/features/potluck/card-appearance-catalog";
 import { CardHeading, CardHint } from "@/features/potluck/card-ui";
 import {
   CardAppearancePicker,
@@ -48,7 +47,7 @@ function CardForm() {
     Card
   >(user ? "potluck.draft.card." + user.id + "." + (circleId ?? "new") : null, {
     name: "",
-    design: "aurora",
+    design: "graphite",
     circleId: circleId ?? null,
     step: 0,
   });
@@ -61,7 +60,12 @@ function CardForm() {
   const selectedCircle = circles.data?.items.find(
     (c) => c.id === selectedCircleId,
   );
-  const step = draft.resuming ? 3 : (draft.fields.step ?? 0);
+  // Keep persisted Circle/review step numbers and old appearance drafts compatible.
+  const storedStep = draft.fields.step ?? 0;
+  const step = draft.resuming ? 3 : storedStep === 1 ? 0 : storedStep;
+  const [expandedCategories, setExpandedCategories] = useState<
+    CardAppearanceCategory[]
+  >([]);
   function setStep(value: number) {
     draft.update("step", value);
   }
@@ -82,15 +86,16 @@ function CardForm() {
   return (
     <Shell
       title={
-        ["Create card", "Choose a card look", "Attach a Circle", "Review card"][
-          step
-        ]
+        ["Create card", "Create card", "Attach a Circle", "Review card"][step]
       }
       back
       headerTitleSize={28}
       hideNavigation
       active="Cards"
-      onBack={() => (step > 0 ? setStep(step - 1) : router.back())}
+      avoidKeyboard={step !== 0}
+      onBack={() =>
+        step === 3 ? setStep(2) : step === 2 ? setStep(0) : router.back()
+      }
       footer={
         user && (
           <>
@@ -117,7 +122,11 @@ function CardForm() {
                   !!selectedCircleId &&
                   !editableCircles.some((c) => c.id === selectedCircleId))
               }
-              onPress={() => (step === 3 ? void save() : setStep(step + 1))}
+              onPress={() => {
+                Keyboard.dismiss();
+                if (step === 3) void save();
+                else setStep(step === 0 ? 2 : 3);
+              }}
             />
           </>
         )
@@ -138,32 +147,30 @@ function CardForm() {
                 editable={!draft.locked}
                 onChangeText={(value) => draft.update("name", value)}
                 maxLength={80}
+                returnKeyType="done"
+                onSubmitEditing={Keyboard.dismiss}
                 style={{ borderRadius: 28 }}
                 hideLabel
               />
             </View>
             <View style={{ marginTop: 16, gap: 12 }}>
               <CardHeading>Your card</CardHeading>
-              <CardPreview name={name} design={design} />
-              <Label
-                style={{
-                  textAlign: "center",
-                  color: theme.muted,
-                  fontSize: 14,
-                }}
-              >
-                {cardLooks[design]} selected
-              </Label>
+              <CardAppearancePicker
+                name={name}
+                design={design}
+                disabled={draft.locked}
+                expandedCategories={expandedCategories}
+                onToggleCategory={(category) =>
+                  setExpandedCategories((current) =>
+                    current.includes(category)
+                      ? current.filter((id) => id !== category)
+                      : [...current, category],
+                  )
+                }
+                onSelect={(value) => draft.update("design", value)}
+              />
             </View>
           </>
-        )}
-        {step === 1 && (
-          <CardAppearancePicker
-            name={name}
-            design={design}
-            disabled={draft.locked}
-            onSelect={(value) => draft.update("design", value)}
-          />
         )}
         {step === 2 && (
           <>

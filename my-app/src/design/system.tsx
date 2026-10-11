@@ -327,6 +327,7 @@ export function Shell({
   headerTitleSize,
   headerVariant = "standard",
   titlePlacement = "header",
+  avoidKeyboard = true,
 }: {
   title: string;
   children: ReactNode;
@@ -344,6 +345,7 @@ export function Shell({
   headerTitleSize?: number;
   headerVariant?: "standard" | "centered";
   titlePlacement?: "header" | "content";
+  avoidKeyboard?: boolean;
 }) {
   const inset = useSafeAreaInsets(),
     pathname = usePathname();
@@ -387,6 +389,7 @@ export function Shell({
           }}
         >
           <KeyboardAvoidingView
+            enabled={avoidKeyboard}
             behavior={Platform.OS === "ios" ? "padding" : undefined}
             style={{ flex: 1 }}
           >

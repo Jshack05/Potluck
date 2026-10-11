@@ -152,7 +152,7 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
     moneyInput: (s) => Number(s) * 100,
   };
   const Page = load("../src/app/card/[id]/" + route + ".tsx").default;
-  function render() {
+  function render(root = React.createElement(Page)) {
     cursor = 0;
     const all = [];
     function visit(node, ancestors = []) {
@@ -164,7 +164,7 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
       all.push({ ...node, ancestors });
       visit(node.props.children, [...ancestors, node]);
     }
-    visit(React.createElement(Page));
+    visit(root);
     return all;
   }
   const text = (node) =>
@@ -177,6 +177,14 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
           : "";
   return {
     render,
+    renderShell: (props) =>
+      render(
+        React.createElement(common["@/design/system"].Shell, {
+          title: "Create card",
+          footer: React.createElement("Continue"),
+          ...props,
+        }),
+      ),
     visits,
     back: () =>
       render()
@@ -204,6 +212,26 @@ test("transfer-review header Back restores amount selection without leaving fund
   assert.ok(s.button("Review transfer"));
   s.back();
   assert.deepEqual(s.visits, ["back"]);
+});
+
+test("combined Card form disables keyboard-driven footer movement without changing other screens", () => {
+  const s = screen("fund");
+  const stationary = s.renderShell({
+    avoidKeyboard: false,
+    hideNavigation: true,
+  });
+  const footer = stationary.find((n) => n.type === "Continue");
+  assert.ok(footer);
+  assert.ok(
+    footer.ancestors
+      .filter((n) => n.type === "KeyboardAvoidingView")
+      .every((n) => n.props.enabled === false),
+  );
+  assert.equal(
+    s.renderShell({}).find((n) => n.type === "KeyboardAvoidingView").props
+      .enabled,
+    true,
+  );
 });
 
 test("direct-entry Card secondary Back returns to the affected Card", () => {
