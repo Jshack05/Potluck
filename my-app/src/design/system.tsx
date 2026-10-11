@@ -325,6 +325,7 @@ export function Shell({
   continuation = false,
   headerAccessory,
   headerTitleSize,
+  headerVariant = "standard",
   titlePlacement = "header",
 }: {
   title: string;
@@ -341,6 +342,7 @@ export function Shell({
   continuation?: boolean;
   headerAccessory?: ReactNode;
   headerTitleSize?: number;
+  headerVariant?: "standard" | "centered";
   titlePlacement?: "header" | "content";
 }) {
   const inset = useSafeAreaInsets(),
@@ -395,7 +397,7 @@ export function Shell({
                   paddingHorizontal: 20,
                   paddingTop: Math.max(inset.top + 12, 45),
                   paddingBottom: mainTab(pathname) ? 11 : 20,
-                  gap: 12,
+                  gap: headerVariant === "centered" ? 2 : 12,
                 },
               ]}
             >
@@ -434,10 +436,26 @@ export function Shell({
                 <Label
                   accessibilityRole="header"
                   style={{
-                    fontFamily: "Inter_700Bold",
+                    fontFamily:
+                      headerVariant === "centered"
+                        ? "Inter_600SemiBold"
+                        : "Inter_700Bold",
                     fontSize:
-                      headerTitleSize ?? (continuation ? 36 : back ? 25 : 28),
-                    lineHeight: continuation ? 44 : 38,
+                      headerTitleSize ??
+                      (headerVariant === "centered"
+                        ? 16
+                        : continuation
+                          ? 36
+                          : back
+                            ? 25
+                            : 28),
+                    lineHeight:
+                      headerVariant === "centered"
+                        ? 24
+                        : continuation
+                          ? 44
+                          : 38,
+                    textAlign: headerVariant === "centered" ? "center" : "left",
                     color: continuation ? theme.teal : theme.ink,
                     flex: 1,
                   }}
@@ -448,6 +466,10 @@ export function Shell({
                 <View style={{ flex: 1 }} />
               )}
               {headerAccessory}
+              {headerVariant === "centered" &&
+                back &&
+                !continuation &&
+                !headerAccessory && <View style={{ width: 44 }} />}
               {(!back || continuation) && (
                 <>
                   <HeaderActions blue={blue} />
@@ -504,7 +526,9 @@ export function Shell({
                 style={{
                   paddingHorizontal: 20,
                   paddingTop: 12,
-                  paddingBottom: 12,
+                  paddingBottom: hideNavigation
+                    ? Math.max(inset.bottom, 12)
+                    : 12,
                   gap: 10,
                   flexDirection: "row",
                   alignItems: mainTab(pathname) ? "center" : "flex-end",

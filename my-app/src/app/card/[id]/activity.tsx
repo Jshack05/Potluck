@@ -4,6 +4,8 @@ export default function CardActivity() {
   return (
     <CardScene
       title="Card activity"
+      hideNavigation
+      headerVariant="centered"
       footer={(card) => (
         <>
           <Action label="Back to card" onPress={() => go("/card/" + card.id)} />

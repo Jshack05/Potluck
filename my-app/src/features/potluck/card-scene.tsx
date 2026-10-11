@@ -31,17 +31,27 @@ export function CardScene({
   title,
   children,
   footer,
+  onBack,
+  hideNavigation = false,
+  headerVariant = "standard",
 }: {
   title: string;
   children: (card: CardDetail) => ReactNode;
   footer?: (card: CardDetail) => ReactNode;
+  onBack?: () => void;
+  hideNavigation?: boolean;
+  headerVariant?: "standard" | "centered";
 }) {
   const card = useCard();
   return (
     <Shell
       title={title}
-      headerTitleSize={28}
+      headerTitleSize={headerVariant === "standard" ? 28 : undefined}
+      headerVariant={headerVariant}
       back
+      returnTo={"/card/" + card.id}
+      onBack={onBack}
+      hideNavigation={hideNavigation}
       active="Cards"
       footer={card.data && footer?.(card.data)}
     >

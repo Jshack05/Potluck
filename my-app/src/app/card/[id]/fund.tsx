@@ -31,6 +31,8 @@ export default function FundCard() {
   return (
     <CardScene
       title={review ? "Review transfer" : "Fund card"}
+      hideNavigation
+      onBack={review ? () => setReview(false) : undefined}
       footer={(card) =>
         card.role === "host" && card.status !== "closed" ? (
           <>
@@ -46,13 +48,6 @@ export default function FundCard() {
                   : next()
               }
             />
-            {review && (
-              <Action
-                secondary
-                label="Change amount"
-                onPress={() => setReview(false)}
-              />
-            )}
           </>
         ) : null
       }
