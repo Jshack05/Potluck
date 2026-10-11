@@ -1,5 +1,7 @@
 # Cards flow fixes — October 10, 2026
 
+> October 11 follow-up: C05 is implemented by the [approved combined creation and full appearance catalog](2026-10-11-combined-card-creation.md). The findings below describe the October 10 checkpoint; C03, C04 and C06 remain unchanged.
+
 This implements the confirmed navigation findings from the October 10 Cards review, starting from recovery revision `c202144`. It does not certify the complete Cards flow. The existing Figma screens/elements remain authoritative; no Figma nodes, routes, artwork, dependencies, schema, provider contracts or financial states were created.
 
 ## Implemented

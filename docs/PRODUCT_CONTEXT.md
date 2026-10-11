@@ -1,5 +1,11 @@
 # Potluck Product Context
 
+## October 11, 2026 — Combined Card naming and appearance
+
+Card creation now begins with one screen for the name and appearance, followed by Circle attachment and review. New drafts start with the existing Graphite design; saved Cards, saved drafts and pending requests keep their selected appearance. The 21 verified Figma designs are grouped into Finishes, Solid colors, Gradients, Potluck panels and Artwork. Two choices are initially shown per category, with inline See all/See less where more exist. Selecting or collapsing a category must never erase the name or change the saved choice. Continue on this combined screen stays at its ordinary bottom position when the keyboard opens.
+
+This is Free/core quality for hosts: **name and recognize your Card without an extra setup step**. Circle invitations retain the acquisition mechanism; recognizing recurring shared arrangements supports retention. Paid conversion is deferred. Measure creation completion and abandonment. Optional bank setup, separate spending consent, provider truth and permissions are unchanged. See the [execution record](ui-concepts/2026-10-11-combined-card-creation.md) for sources, compatibility, migration and verification limits. This entry supersedes older descriptions of a required separate Card appearance step.
+
 ## October 7, 2026 — Finished-product design and existing-screen traceability
 
 The founder directs app and Figma development toward the finished Potluck experience. Assume required programs are approved and available when designing intended flows; retain complete screens, interactions and production-facing language. An unfinished integration is implementation work, not justification for replacing the approved design with generic demo screens. Document actual integration/approval evidence separately; this instruction does not establish real approval, authorize transactions, remove consent or permit simulated success in the running product. Existing optional-bank entry, role separation and core-only scope remain in force.

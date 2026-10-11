@@ -1,5 +1,7 @@
 # Potluck screen and flow audit
 
+**October 11 scoped update:** [Combined Card creation mapping](2026-10-11-card-creation-mapping.json) and [execution record](../ui-concepts/2026-10-11-combined-card-creation.md) supersede the older required name/appearance transition. This overlay records current evidence without altering historical captures or claiming a completed broad audit.
+
 **October 8: audit in progress, blocked by Figma tool quota.** Read the [measured findings and resume instructions](2026-10-08-findings.md). The full audit is not complete.
 
 - [Current searchable explorer](index.html)

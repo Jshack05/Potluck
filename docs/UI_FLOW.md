@@ -1,5 +1,7 @@
 # Potluck UI Flow
 
+> **October 11, 2026 Cards update:** **Create card (name + appearance) → Attach a Circle → Review card → Cards** replaces the required separate appearance step. Fresh drafts use Graphite; saved choices and pending submissions remain intact. See the [execution record](ui-concepts/2026-10-11-combined-card-creation.md) and [dated source mapping](flow-audit/2026-10-11-card-creation-mapping.json). Other flows and historical captures below remain unchanged.
+
 > **October 7, 2026 workflow:** Read the [whole-file audit plan](superpowers/plans/2026-10-07-figma-screen-audit.md) and latest product decisions before UI work. Reuse verified existing Figma screens; distinguish missing designs from missing app implementation. The intended experience is the finished product, assuming program availability for design, while actual integration status remains separately documented. The older baseline and October 2 inventory below are historical evidence, not a complete current screen map.
 
 > **October 2, 2026 audit:** See [APP_FLOW_MAP.md](APP_FLOW_MAP.md) for the newer screen inventory, captured prototype connections, app-code comparison, and conflicts with this older baseline. That audit is explicitly incomplete: Figma quota interrupted connection verification, and three nested sections still need inventory. Do not treat either document as proof that the entire app is wired or implemented.

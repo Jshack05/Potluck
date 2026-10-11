@@ -1,6 +1,6 @@
-# Combined Card creation and complete appearance catalog — proposed plan
+# Combined Card creation and complete appearance catalog — approved plan
 
-> **For agentic workers:** Use `superpowers:executing-plans` for implementation after Joseph approves this plan. This document is planning only; no application or Figma changes are authorized by its existence.
+> **Approved October 11, 2026:** Joseph instructed “Apply these changes. Go.” Implemented under `superpowers:executing-plans`; see the [execution record](../../ui-concepts/2026-10-11-combined-card-creation.md) for validation and remaining physical-device acceptance.
 
 **Goal:** Let a host name and personalize a Card on one screen using existing Figma designs, then continue to Circle attachment and review without losing their draft.
 
@@ -79,10 +79,10 @@ These category assignments and disambiguated artwork labels are proposed present
 
 **Files/objects:** Existing frames `854:3466`, `928:4751`; tile/picker `1075:5433`/`1081:6492`; `docs/UI_FLOW.md`, `docs/APP_FLOW_MAP.md`, and the active graph/source inventory. Intended mapping must remain distinct from older captured prototype evidence.
 
-- [ ] Refresh the source sets and compare duplicate/sample variants before export; expected: an explicit source node and unique stable identity for every included look, with missing/ambiguous entries stopped and recorded.
-- [ ] Compose the approved combined layout using the existing name field, preview, categories, selection controls, See all treatment and Continue. Preserve original source IDs/reference evidence and avoid deleting original components.
-- [ ] Wire Continue directly to the existing Attach a Circle frame. Back from attachment returns to the combined composition. Preserve existing standalone/attached review and completion destinations; this task does not resolve the separate nested Create Circle return gap.
-- [ ] Validate narrow/tall composition, all expanded categories and scroll bounds; expected: no clipped name field, stretched art, overlapping actions or additional invented route. Record the final mapping and screenshots.
+- [x] Refresh the source sets and compare duplicate/sample variants before export; expected: an explicit source node and unique stable identity for every included look, with missing/ambiguous entries stopped and recorded.
+- [x] Compose the approved combined layout using the existing name field, preview, categories, selection controls, See all treatment and Continue. Preserve original source IDs/reference evidence and avoid deleting original components.
+- [x] Wire Continue directly to the existing Attach a Circle frame. Back from attachment returns to the combined composition. Preserve existing standalone/attached review and completion destinations; this task does not resolve the separate nested Create Circle return gap.
+- [x] Validate narrow/tall composition, all expanded categories and scroll bounds; expected: no clipped name field, stretched art, overlapping actions or additional invented route. Record the final mapping and screenshots.
 
 ### Task 2 — Extend the shared appearance catalog and persistence contract
 
@@ -90,10 +90,10 @@ These category assignments and disambiguated artwork labels are proposed present
 
 **Interfaces:** Catalog entries contain stable `id`, `label`, `category`, source node and background/foreground rendering metadata. Export `cardAppearanceCategories` and `cardAppearances`; preserve the existing CardPreview props and its consumers. Use static asset references supported by Metro, with one rendering path across creation, collection, review, detail and settings.
 
-- [ ] Write regressions asserting every catalog ID is unique and accepted, the original eight retain their meanings, unknown IDs are rejected, every label/source/asset is present, and light/dark foreground metadata matches the source. Run focused tests; expected: new catalog acceptance fails before implementation.
-- [ ] Add the 13 missing values above through contracts/types and an additive forward constraint migration. Do not edit `0008_card_appearance.sql`. Export verified fills and render through catalog metadata. Preserve the historical API omitted-design default unless a separately approved compatibility decision changes it.
-- [ ] Exercise authenticated creation/read for all 21 IDs, invalid values, duplicate command identity and another user's denied access. Run `node --test tests/integration/card-appearance.test.ts` and the mobile appearance tests; expected: pass, no financial state created.
-- [ ] Commit the coherent catalog/contract change with migration and asset provenance.
+- [x] Write regressions asserting every catalog ID is unique and accepted, the original eight retain their meanings, unknown IDs are rejected, every label/source/asset is present, and light/dark foreground metadata matches the source. Run focused tests; expected: new catalog acceptance fails before implementation.
+- [x] Add the 13 missing values above through contracts/types and an additive forward constraint migration. Do not edit `0008_card_appearance.sql`. Export verified fills and render through catalog metadata. Preserve the historical API omitted-design default unless a separately approved compatibility decision changes it.
+- [x] Exercise authenticated creation/read for all 21 IDs, invalid values, duplicate command identity and another user's denied access. Run `node --test tests/integration/card-appearance.test.ts` and the mobile appearance tests; expected: pass, no financial state created.
+- [x] Commit the coherent catalog/contract change with migration and asset provenance.
 
 ### Task 3 — Combine the UI while preserving existing drafts
 
@@ -101,20 +101,20 @@ These category assignments and disambiguated artwork labels are proposed present
 
 **Interfaces:** `CardAppearancePicker({name, design, disabled, onSelect})` remains controlled. Category expansion belongs to presentation state in the mounted creation route, not a second draft owner. The route sends the existing `{name, design, circleId}` command.
 
-- [ ] Write failing behavior tests: fresh draft starts Graphite; saved Northern lights remains; name/selection update the same preview; there is no intermediate appearance screen; Continue goes to Circle; Back retains name/design/expansion and restores the combined screen.
-- [ ] Use a compatibility adapter for stored steps: **0 or 1 → combined; 2 → Circle; 3 → review**. Continue from combined goes to 2; Back from 2 goes to combined; review Back goes to 2. Do not renumber existing saved steps. Pending/result drafts still resume review using the existing identity and request.
-- [ ] Compose the existing controls into one scrollable body with one preview and one Continue. Use two-column tiles and inline See all/See less as specified. New drafts alone receive `graphite`.
-- [ ] Add locked-draft, hidden-selection, expansion/collapse, empty/long name, absent Circle, lost-response and saved-result regression cases. Run `node --test my-app/tests/cards-recovery.test.mjs my-app/tests/creation-draft.test.mjs my-app/tests/card-appearance.test.mjs`; expected: pass without weakened existing cases.
-- [ ] Commit the combined screen and draft compatibility separately from catalog/schema work.
+- [x] Write failing behavior tests: fresh draft starts Graphite; saved Northern lights remains; name/selection update the same preview; there is no intermediate appearance screen; Continue goes to Circle; Back retains name/design/expansion and restores the combined screen.
+- [x] Use a compatibility adapter for stored steps: **0 or 1 → combined; 2 → Circle; 3 → review**. Continue from combined goes to 2; Back from 2 goes to combined; review Back goes to 2. Do not renumber existing saved steps. Pending/result drafts still resume review using the existing identity and request.
+- [x] Compose the existing controls into one scrollable body with one preview and one Continue. Use two-column tiles and inline See all/See less as specified. New drafts alone receive `graphite`.
+- [x] Add locked-draft, hidden-selection, expansion/collapse, empty/long name, absent Circle, lost-response and saved-result regression cases. Run `node --test my-app/tests/cards-recovery.test.mjs my-app/tests/creation-draft.test.mjs my-app/tests/card-appearance.test.mjs`; expected: pass without weakened existing cases.
+- [x] Commit the combined screen and draft compatibility separately from catalog/schema work.
 
 ### Task 4 — Verify keyboard behavior, fidelity and safe rollout
 
 **Files:** Existing Shell/creation layout only where required for the approved footer behavior; focused navigation/creation tests; execution notes and durable UI/product context updates.
 
-- [ ] Test that the combined screen keeps Continue outside keyboard-driven upward translation while the active field remains reachable. Do not globally change unrelated screens as a side effect. Keep all existing navigation tests.
+- [x] Test that the combined screen keeps Continue outside keyboard-driven upward translation while the active field remains reachable. Do not globally change unrelated screens as a side effect. Keep all existing navigation tests.
 - [ ] Compare the real app with the approved combined frame at 390/430-point widths and a compact viewport; exercise keyboard open/close, expansion, long names, light/dark artwork, scroll, Back, reload and creation retry on the development build. Expected: consistent aspect ratios and selection with no layout jumps or data loss. Report phone checks separately from browser/component tests.
-- [ ] Run `node scripts/validate.mjs` with npm available, changed-file formatting and `git diff --check`. Expected: all functional checks/exports pass; report the existing dependency-audit failures separately rather than suppressing them.
-- [ ] Update the flow documentation and creation-step decision, preserving historical captures. Record any stopped/missing sources. Submit focused commits through a draft PR with validation and rollback instructions; do not merge automatically.
+- [x] Run `node scripts/validate.mjs` with npm available, changed-file formatting and `git diff --check`. Expected: all functional checks/exports pass; report the existing dependency-audit failures separately rather than suppressing them.
+- [x] Update the flow documentation and creation-step decision, preserving historical captures. Record any stopped/missing sources. Submit focused commits through a draft PR with validation and rollback instructions; do not merge automatically.
 
 ## Rollout and rollback
 
@@ -122,6 +122,6 @@ The server constraint expansion must ship before a client can submit the added d
 
 Only code/artwork changes are expected on mobile; no new native package or binary configuration is planned. Do not claim phone delivery until the running development server and affected device are verified. Back up/commit the existing work before implementation and retain saved drafts, Cards and audit records throughout rollback.
 
-## Planning-only outcome
+## Execution outcome
 
-This document records a proposed combination, default, catalog and implementation order. The read-only Figma inspection and existing-code review are complete for planning; catalog implementation, Figma composition, migrations, app changes and acceptance tests have not been performed.
+Figma composition, catalog, additive migration and the combined app flow are implemented. Browser checks and automated validation are recorded in the execution report. The unchecked acceptance item includes physical-phone keyboard and large-text checks, which remain outstanding. Dependency-audit failures remain explicitly reported.

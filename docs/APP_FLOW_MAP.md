@@ -1,5 +1,7 @@
 # Potluck app flow map
 
+> **October 11 combined Card creation:** Use the [dated mapping overlay](flow-audit/2026-10-11-card-creation-mapping.json) and [execution record](ui-concepts/2026-10-11-combined-card-creation.md) for the current combined name/appearance screen and direct Circle transition. Older captures below are not rewritten to imply they captured this later change.
+
 > **October 8 Cards recovery:** [The focused source register and execution record](ui-concepts/2026-10-08-cards-recovery.md) supersede the older Cards implementation descriptions below. It distinguishes restored source-backed presentation and transitions from missing counterparts, provider integration gaps and outstanding native visual acceptance. The broad audit remains paused.
 
 > **October 8 app follow-up:** The broad audit is paused. [Home empty-state polish](ui-concepts/2026-10-08-home-empty-state-polish.md) records the subsequent Circles/Cards/Bills alignment, restored creation hints, and outlined Import bills action. Audit captures below remain dated evidence of the earlier source revision.
