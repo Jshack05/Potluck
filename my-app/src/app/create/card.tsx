@@ -1,4 +1,4 @@
-import { View, Pressable } from "react-native";
+import { View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import {
   Shell,
@@ -20,14 +20,12 @@ import {
   useResource,
 } from "@/services/client";
 import { CardPreview, cardLooks } from "@/features/potluck/card-preview";
+import { CardHeading, CardHint } from "@/features/potluck/card-ui";
 import {
-  CardCircleChoice,
-  CardCreateCircle,
-  CardReviewRow,
-  CardSelection,
-  CardHeading,
-  CardHint,
-} from "@/features/potluck/card-ui";
+  CardAppearancePicker,
+  CardCirclePicker,
+  CardCreationReview,
+} from "@/features/potluck/card-creation-steps";
 import type { Card, Circle, Collection } from "@/features/potluck/types";
 
 export default function CreateCard() {
@@ -160,64 +158,12 @@ function CardForm() {
           </>
         )}
         {step === 1 && (
-          <>
-            <CardHint>Pick a look that feels like yours.</CardHint>
-            <CardPreview name={name} design={design} />
-            <Label
-              style={{
-                textAlign: "center",
-                color: theme.teal,
-                fontFamily: "Inter_700Bold",
-                fontSize: 14,
-              }}
-            >
-              {cardLooks[design]}
-            </Label>
-            {(
-              [
-                ["Gradients", ["aurora_gradient", "sunset"]],
-                ["Solid colors", ["teal", "coral"]],
-                ["Potluck panels", ["ocean", "berry"]],
-              ] as [string, Card["design"][]][]
-            ).map(([title, looks]) => (
-              <View key={title} style={{ gap: 8 }}>
-                <Label
-                  style={{
-                    fontSize: 18,
-                    lineHeight: 22,
-                    fontFamily: "Inter_700Bold",
-                  }}
-                >
-                  {title}
-                </Label>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    gap: 20,
-                  }}
-                >
-                  {looks.map((look) => (
-                    <Pressable
-                      key={look}
-                      accessibilityLabel={cardLooks[look]}
-                      accessibilityRole="radio"
-                      accessibilityState={{ checked: design === look }}
-                      aria-checked={design === look}
-                      disabled={draft.locked}
-                      onPress={() => draft.update("design", look)}
-                      style={{ flex: 1, maxWidth: 176 }}
-                    >
-                      <CardPreview name={name} design={look} compact />
-                      <View style={{ position: "absolute", top: 8, right: 8 }}>
-                        <CardSelection selected={design === look} light />
-                      </View>
-                    </Pressable>
-                  ))}
-                </View>
-              </View>
-            ))}
-          </>
+          <CardAppearancePicker
+            name={name}
+            design={design}
+            disabled={draft.locked}
+            onSelect={(value) => draft.update("design", value)}
+          />
         )}
         {step === 2 && (
           <>
@@ -232,92 +178,26 @@ function CardForm() {
               error={circles.error}
               retry={circles.reload}
             />
-            <View style={{ gap: 12 }}>
-              {editableCircles.map((circle) => (
-                <CardCircleChoice
-                  key={circle.id}
-                  title={circle.name}
-                  subtitle={`${circle.memberCount} ${circle.memberCount === 1 ? "member" : "members"}`}
-                  disabled={draft.locked}
-                  selected={selectedCircleId === circle.id}
-                  onPress={() => draft.update("circleId", circle.id)}
-                />
-              ))}
-              <CardCircleChoice
-                title="No Circle — just for me"
-                selected={!selectedCircleId}
-                disabled={draft.locked}
-                onPress={() => {
-                  draft.update("circleId", null);
-                  setStep(3);
-                }}
-              />
-              <CardCreateCircle
-                disabled={draft.locked}
-                onPress={() => go("/create/circle")}
-              />
-            </View>
+            <CardCirclePicker
+              circles={editableCircles}
+              selectedId={selectedCircleId}
+              disabled={draft.locked}
+              onSelect={(id) => {
+                draft.update("circleId", id);
+                if (id === null) setStep(3);
+              }}
+              onCreate={() => go("/create/circle")}
+            />
           </>
         )}
         {step === 3 && (
-          <>
-            <CardHint>
-              {selectedCircleId
-                ? "Confirm the card and invitations before you create it."
-                : "Confirm this card will stay just for you."}
-            </CardHint>
-            <View style={{ marginTop: 16, gap: 16 }}>
-              <CardHeading>
-                {selectedCircleId ? "Your card" : "Card"}
-              </CardHeading>
-              <CardPreview name={name} design={design} />
-              <Label
-                style={{
-                  textAlign: "center",
-                  color: theme.muted,
-                  fontSize: 14,
-                  marginTop: 12,
-                }}
-              >
-                {selectedCircleId
-                  ? `${name} · host-controlled`
-                  : "Card shell — no shared access"}
-              </Label>
-            </View>
-            {selectedCircleId ? (
-              <>
-                <View style={{ marginTop: 20, gap: 12 }}>
-                  <CardHeading>Attached Circle</CardHeading>
-                  <CardReviewRow
-                    title={selectedCircle?.name ?? "Circle unavailable"}
-                    circle
-                    onPress={draft.locked ? undefined : () => setStep(2)}
-                  />
-                </View>
-                <CardHeading>Trusted Spender invitations</CardHeading>
-                <CardReviewRow title="No invitations sent" />
-                <CardHint>
-                  Card access begins only after each person accepts their
-                  invitation.
-                </CardHint>
-              </>
-            ) : (
-              <>
-                <View style={{ marginTop: 20, gap: 12 }}>
-                  <CardHeading>Sharing</CardHeading>
-                  <CardReviewRow
-                    title="Just for you"
-                    subtitle="No Circle or invitations"
-                  />
-                </View>
-                <View style={{ marginTop: 12 }}>
-                  <CardHint>
-                    You can attach a Circle later to invite Trusted Spenders.
-                  </CardHint>
-                </View>
-              </>
-            )}
-          </>
+          <CardCreationReview
+            name={name}
+            design={design}
+            circleId={selectedCircleId}
+            circleName={selectedCircle?.name}
+            onChangeCircle={draft.locked ? undefined : () => setStep(2)}
+          />
         )}
       </AuthGate>
     </Shell>

@@ -76,7 +76,7 @@ function form({
       "Row",
     ].map((name) => [name, element(name)]),
   );
-  const { default: Form } = load("../src/app/create/card.tsx", {
+  const imports = {
     "react-native": { View: element("View"), Pressable: element("Pressable") },
     "expo-router": {
       router: {
@@ -99,7 +99,15 @@ function form({
     },
     "@/features/potluck/card-preview": {
       CardPreview: element("Preview"),
-      cardLooks: { aurora: "Northern lights" },
+      cardLooks: {
+        aurora: "Northern lights",
+        aurora_gradient: "Aurora gradient",
+        sunset: "Sunset gradient",
+        teal: "Evergreen",
+        coral: "Coral",
+        ocean: "Ocean",
+        berry: "Violet",
+      },
     },
     "@/features/potluck/planning-controls": {
       PlanningChoice: element("Choice"),
@@ -115,7 +123,14 @@ function form({
         "CardHint",
       ].map((name) => [name, element(name)]),
     ),
-  });
+  };
+  imports["./card-preview"] = imports["@/features/potluck/card-preview"];
+  imports["./card-ui"] = imports["@/features/potluck/card-ui"];
+  imports["@/features/potluck/card-creation-steps"] = load(
+    "../src/features/potluck/card-creation-steps.tsx",
+    imports,
+  );
+  const { default: Form } = load("../src/app/create/card.tsx", imports);
   function tree() {
     const all = [];
     function visit(value) {
@@ -186,6 +201,121 @@ test("a locked retry draft cannot change its Circle", () => {
 test("a Circle removed before review cannot be submitted as a fresh card", () => {
   const f = form({ circleId: "removed", step: 3 });
   assert.equal(f.tree().find((n) => n.type === "Action").props.disabled, true);
+});
+
+test("every appearance choice survives Circle review, Back, a name edit and submission", async () => {
+  const options = {
+    aurora_gradient: "Aurora gradient",
+    sunset: "Sunset gradient",
+    teal: "Evergreen",
+    coral: "Coral",
+    ocean: "Ocean",
+    berry: "Violet",
+  };
+  for (const [design, label] of Object.entries(options)) {
+    const f = form({
+      step: 1,
+      circles: [
+        {
+          id: "crew",
+          name: "Apartment crew",
+          memberCount: 3,
+          privacy: "normal",
+        },
+      ],
+    });
+    const back = () =>
+      f
+        .tree()
+        .find((n) => n.type === "Shell")
+        .props.onBack();
+    const advance = () =>
+      f
+        .tree()
+        .find((n) => n.type === "Action")
+        .props.onPress();
+    const preview = () => f.tree().find((n) => n.type === "Preview");
+    const choice = () =>
+      f.tree().find((n) => n.props?.accessibilityLabel === label);
+    assert.equal(
+      f.tree().filter((n) => n.props?.accessibilityRole === "radio").length,
+      6,
+    );
+    choice().props.onPress();
+    assert.equal(choice().props.accessibilityState.checked, true);
+    assert.equal(preview().props.design, design);
+    advance();
+    f.find("Apartment crew").props.onPress();
+    assert.equal(f.find("Apartment crew").props.selected, true);
+    advance();
+    assert.equal(preview().props.design, design);
+    assert.equal(f.find("Apartment crew").type, "CardReviewRow");
+    assert.ok(f.find("No invitations sent"));
+    back();
+    back();
+    assert.equal(choice().props.accessibilityState.checked, true);
+    back();
+    f.tree()
+      .find((n) => n.type === "Field")
+      .props.onChangeText("Renamed card");
+    assert.equal(preview().props.name, "Renamed card");
+    advance();
+    advance();
+    advance();
+    advance();
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.deepEqual(f.sends, [
+      { name: "Renamed card", design, circleId: "crew" },
+    ]);
+    assert.deepEqual(f.visits, ["/cards", "cleared"]);
+  }
+});
+
+test("locked drafts disable every appearance and the review Circle action", () => {
+  const appearance = form({ step: 1, locked: true });
+  const choices = appearance
+    .tree()
+    .filter((n) => n.props?.accessibilityRole === "radio");
+  assert.equal(choices.length, 6);
+  assert.ok(choices.every((n) => n.props.disabled));
+  const review = form({
+    step: 3,
+    circleId: "crew",
+    locked: true,
+    circles: [{ id: "crew", name: "Apartment crew", privacy: "normal" }],
+  });
+  assert.equal(review.find("Apartment crew").props.onPress, undefined);
+});
+
+test("Circle choices retain the privacy boundary and real member count", () => {
+  const f = form({
+    circles: [
+      {
+        id: "mine",
+        name: "My private Circle",
+        hostId: "host",
+        privacy: "private",
+        memberCount: 1,
+      },
+      {
+        id: "normal",
+        name: "Shared Circle",
+        hostId: "another",
+        privacy: "normal",
+        memberCount: 3,
+      },
+      {
+        id: "private",
+        name: "Someone else's private Circle",
+        hostId: "another",
+        privacy: "private",
+        memberCount: 8,
+      },
+    ],
+  });
+  assert.equal(f.find("My private Circle").props.subtitle, "1 member");
+  assert.equal(f.find("Shared Circle").props.subtitle, "3 members");
+  assert.equal(f.find("Someone else's private Circle"), undefined);
 });
 
 test("confirmed zero is money, an unavailable balance is not, and the label precedes the amount", () => {
