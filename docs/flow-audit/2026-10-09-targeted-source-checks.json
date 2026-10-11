@@ -1,0 +1,569 @@
+[
+  {
+    "id": "2018:38467",
+    "name": "Continuation / membershipRequest / Say hello to Casey",
+    "overflow": "NONE",
+    "clips": true,
+    "items": [
+      {
+        "id": "2018:38470",
+        "name": "Go / requests",
+        "overflow": "NONE",
+        "y": 35,
+        "h": 54,
+        "to": [
+          "2028:46377",
+          "2017:36146",
+          "2025:40401"
+        ]
+      },
+      {
+        "id": "2018:38474",
+        "name": "Go / account",
+        "overflow": "NONE",
+        "y": 35,
+        "h": 54,
+        "to": [
+          "2017:37238",
+          "2025:40401"
+        ]
+      },
+      {
+        "id": "2018:38476",
+        "name": "Vertical scroll viewport",
+        "overflow": "VERTICAL",
+        "y": 174,
+        "h": 570,
+        "to": []
+      },
+      {
+        "id": "2018:38493",
+        "name": "Go / membershipRequestReady",
+        "overflow": "NONE",
+        "y": 288,
+        "h": 74,
+        "to": [
+          "2018:38526"
+        ]
+      },
+      {
+        "id": "I2018:38493;2009:33351",
+        "name": "Label",
+        "text": "I agree to the Sharing Rules and meet this plan’s eligibility requirements.",
+        "y": 12,
+        "h": 40,
+        "to": []
+      },
+      {
+        "id": "I2018:38498;1207:6432",
+        "name": "Go / brands",
+        "overflow": "NONE",
+        "y": 6,
+        "h": 60,
+        "to": [
+          "2028:42734",
+          "2015:33137"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2018:38526",
+    "name": "Continuation / membershipRequestReady / Ready to say hello",
+    "overflow": "NONE",
+    "clips": true,
+    "items": [
+      {
+        "id": "2018:38529",
+        "name": "Go / requests",
+        "overflow": "NONE",
+        "y": 35,
+        "h": 54,
+        "to": [
+          "2028:46377",
+          "2017:36146",
+          "2025:40401"
+        ]
+      },
+      {
+        "id": "2018:38533",
+        "name": "Go / account",
+        "overflow": "NONE",
+        "y": 35,
+        "h": 54,
+        "to": [
+          "2017:37238",
+          "2025:40401"
+        ]
+      },
+      {
+        "id": "2018:38535",
+        "name": "Vertical scroll viewport",
+        "overflow": "VERTICAL",
+        "y": 174,
+        "h": 570,
+        "to": []
+      },
+      {
+        "id": "2028:40735",
+        "name": "Go / membershipRequest",
+        "overflow": "NONE",
+        "y": 288,
+        "h": 74,
+        "to": [
+          "2018:38467"
+        ]
+      },
+      {
+        "id": "I2028:40735;2009:33355",
+        "name": "Label",
+        "text": "I agree to the Sharing Rules and meet this plan’s eligibility requirements.",
+        "y": 12,
+        "h": 40,
+        "to": []
+      },
+      {
+        "id": "2018:38552",
+        "name": "Go / membershipRequestSent",
+        "overflow": "NONE",
+        "y": 760,
+        "h": 56,
+        "to": [
+          "2018:38582"
+        ]
+      },
+      {
+        "id": "I2018:38554;1207:6432",
+        "name": "Go / brands",
+        "overflow": "NONE",
+        "y": 6,
+        "h": 60,
+        "to": [
+          "2028:42734",
+          "2015:33137"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2028:46377",
+    "name": "Continuation / blockedInbox / Conversations",
+    "overflow": "NONE",
+    "clips": true,
+    "items": [
+      {
+        "id": "2028:46380",
+        "name": "Go / requests",
+        "overflow": "NONE",
+        "y": 35,
+        "h": 54,
+        "to": [
+          "2017:36146",
+          "2025:40401"
+        ]
+      },
+      {
+        "id": "2028:46384",
+        "name": "Go / account",
+        "overflow": "NONE",
+        "y": 35,
+        "h": 54,
+        "to": [
+          "2017:37238",
+          "2025:40401"
+        ]
+      },
+      {
+        "id": "2028:46386",
+        "name": "Vertical scroll viewport",
+        "overflow": "VERTICAL",
+        "y": 118,
+        "h": 626,
+        "to": []
+      },
+      {
+        "id": "2028:46392",
+        "name": "Go / sentRequests",
+        "overflow": "NONE",
+        "y": 0,
+        "h": 44,
+        "to": [
+          "2028:46495",
+          "2028:46547",
+          "2028:46599",
+          "2031:42842",
+          "2031:42887",
+          "2012:32703"
+        ]
+      },
+      {
+        "id": "2028:46394",
+        "name": "Go / blocked",
+        "overflow": "NONE",
+        "y": 119,
+        "h": 90,
+        "to": [
+          "2017:37040"
+        ]
+      },
+      {
+        "id": "I2028:46394;2009:33347",
+        "name": "Name",
+        "text": "Maya Chen",
+        "y": 0,
+        "h": 25,
+        "to": []
+      },
+      {
+        "id": "2028:46400",
+        "name": "Go / housingChat",
+        "overflow": "NONE",
+        "y": 227,
+        "h": 65,
+        "to": [
+          "2015:35245"
+        ]
+      },
+      {
+        "id": "2028:46407",
+        "name": "Housing conversation",
+        "text": "Housing conversation",
+        "y": 25,
+        "h": 20,
+        "to": []
+      },
+      {
+        "id": "2028:46412",
+        "name": "Go / brands",
+        "overflow": "NONE",
+        "y": 760,
+        "h": 56,
+        "to": [
+          "2028:42734",
+          "2015:33137"
+        ]
+      },
+      {
+        "id": "I2028:46414;1207:6432",
+        "name": "Go / brands",
+        "overflow": "NONE",
+        "y": 6,
+        "h": 60,
+        "to": [
+          "2028:42734",
+          "2015:33137"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2015:34488",
+    "name": "Continuation / housingDetail / Existing design reference",
+    "overflow": "NONE",
+    "clips": true,
+    "items": [
+      {
+        "id": "2015:34491",
+        "name": "Housing",
+        "text": "Housing",
+        "y": 53,
+        "h": 35,
+        "to": []
+      },
+      {
+        "id": "2015:34494",
+        "name": "Scrollable form",
+        "overflow": "VERTICAL",
+        "y": 174,
+        "h": 498,
+        "to": []
+      },
+      {
+        "id": "I2015:34495;1662:22213",
+        "name": "View poster profile",
+        "overflow": "NONE",
+        "y": 630,
+        "h": 56,
+        "to": [
+          "1662:23287"
+        ]
+      },
+      {
+        "id": "I2015:34495;1662:22213;1273:11390",
+        "name": "Hosted by Maya Chen",
+        "text": "Posted by Maya Chen · ID verified",
+        "y": 19.5,
+        "h": 17,
+        "to": []
+      },
+      {
+        "id": "I2015:34495;1662:22219",
+        "name": "A place Maya is considering. Message to discuss timing and whether it’s a good fit.",
+        "text": "A place Maya is considering. Message to discuss timing and whether it’s a good fit.",
+        "y": 4,
+        "h": 44,
+        "to": []
+      },
+      {
+        "id": "2015:34497",
+        "name": "Continue step",
+        "overflow": "NONE",
+        "y": 752,
+        "h": 56,
+        "to": [
+          "2015:35184"
+        ]
+      },
+      {
+        "id": "I2015:34497;1207:6319",
+        "name": "Continue",
+        "text": "Message Maya",
+        "y": 17,
+        "h": 22,
+        "to": []
+      },
+      {
+        "id": "2015:34498",
+        "name": "Save and exit",
+        "overflow": "NONE",
+        "y": 688,
+        "h": 56,
+        "to": [
+          "1662:23287"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2094:44307",
+    "name": "Continuation / editPhone / Edit your phone listing",
+    "overflow": "NONE",
+    "clips": true,
+    "items": [
+      {
+        "id": "2094:44310",
+        "name": "Go / requests",
+        "overflow": "NONE",
+        "y": 35,
+        "h": 54,
+        "to": [
+          "2028:46377",
+          "2017:36146",
+          "2025:40401"
+        ]
+      },
+      {
+        "id": "2094:44314",
+        "name": "Go / account",
+        "overflow": "NONE",
+        "y": 35,
+        "h": 54,
+        "to": [
+          "2017:37238",
+          "2025:40401"
+        ]
+      },
+      {
+        "id": "2094:44316",
+        "name": "Vertical scroll viewport",
+        "overflow": "VERTICAL",
+        "y": 174,
+        "h": 506,
+        "to": []
+      },
+      {
+        "id": "I2094:44341;2009:33328",
+        "name": "Label",
+        "text": "Open spots",
+        "y": 0,
+        "h": 20,
+        "to": []
+      },
+      {
+        "id": "2094:44351",
+        "name": "Go / phoneEditSaved",
+        "overflow": "NONE",
+        "y": 760,
+        "h": 56,
+        "to": [
+          "2094:44453"
+        ]
+      },
+      {
+        "id": "2094:44353",
+        "name": "Go / managePhone",
+        "overflow": "NONE",
+        "y": 696,
+        "h": 56,
+        "to": [
+          "2025:40647"
+        ]
+      },
+      {
+        "id": "I2094:44355;1207:6432",
+        "name": "Go / brands",
+        "overflow": "NONE",
+        "y": 6,
+        "h": 60,
+        "to": [
+          "2028:42734",
+          "2015:33137"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2019:38309",
+    "name": "Continuation / circleAdmin / Movie night Circle",
+    "overflow": "NONE",
+    "clips": true,
+    "items": [
+      {
+        "id": "2019:38312",
+        "name": "Go / requests",
+        "overflow": "NONE",
+        "y": 35,
+        "h": 54,
+        "to": [
+          "2028:46377",
+          "2017:36146",
+          "2025:40401"
+        ]
+      },
+      {
+        "id": "2019:38316",
+        "name": "Go / account",
+        "overflow": "NONE",
+        "y": 35,
+        "h": 54,
+        "to": [
+          "2017:37238",
+          "2025:40401"
+        ]
+      },
+      {
+        "id": "2019:38318",
+        "name": "Vertical scroll viewport",
+        "overflow": "VERTICAL",
+        "y": 174,
+        "h": 506,
+        "to": []
+      },
+      {
+        "id": "2019:38332",
+        "name": "Go / circleMembers",
+        "overflow": "NONE",
+        "y": 304,
+        "h": 65,
+        "to": [
+          "2020:39231",
+          "2019:38472"
+        ]
+      },
+      {
+        "id": "2019:38345",
+        "name": "Go / handover",
+        "overflow": "NONE",
+        "y": 387,
+        "h": 65,
+        "to": [
+          "2019:38862"
+        ]
+      },
+      {
+        "id": "2019:38358",
+        "name": "Go / circlePrivacy",
+        "overflow": "NONE",
+        "y": 470,
+        "h": 65,
+        "to": [
+          "2019:39408"
+        ]
+      },
+      {
+        "id": "2019:38378",
+        "name": "Go / circleInvite",
+        "overflow": "NONE",
+        "y": 760,
+        "h": 56,
+        "to": [
+          "2019:38539"
+        ]
+      },
+      {
+        "id": "2019:38380",
+        "name": "Go / leaveCircle",
+        "overflow": "NONE",
+        "y": 696,
+        "h": 56,
+        "to": [
+          "2019:39195"
+        ]
+      },
+      {
+        "id": "I2019:38382;1207:6357",
+        "name": "Go / brands",
+        "overflow": "NONE",
+        "y": 6,
+        "h": 60,
+        "to": [
+          "2028:42734",
+          "2015:33137"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2015:33669",
+    "name": "Continuation / detail / Existing design reference",
+    "overflow": "NONE",
+    "clips": true,
+    "items": [
+      {
+        "id": "2015:33673",
+        "name": "Scrollable content",
+        "overflow": "VERTICAL",
+        "y": 174,
+        "h": 558,
+        "to": []
+      },
+      {
+        "id": "2015:33680",
+        "name": "Circle name",
+        "text": "Maya’s movie circle",
+        "y": 35,
+        "h": 20,
+        "to": []
+      },
+      {
+        "id": "2015:33685",
+        "name": "Host",
+        "text": "Maya Chen",
+        "y": 0,
+        "h": 23,
+        "to": []
+      },
+      {
+        "id": "2015:33700",
+        "name": "About",
+        "text": "A shared streaming arrangement hosted by Maya. Check the plan requirements and agree on the details before joining.",
+        "y": 496,
+        "h": 60,
+        "to": []
+      },
+      {
+        "id": "2015:33704",
+        "name": "Primary screen action",
+        "overflow": "NONE",
+        "y": 0,
+        "h": 56,
+        "to": [
+          "2028:42127",
+          "2012:31975",
+          "2028:42698",
+          "2014:32810"
+        ]
+      }
+    ]
+  }
+]

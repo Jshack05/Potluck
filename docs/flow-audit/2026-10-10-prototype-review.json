@@ -1,0 +1,273 @@
+{
+  "date": "2026-10-10",
+  "method": "Live Figma browser prototype interactions with targeted read-only Plugin API checks. Direct fixture entries are identified in observations; no real messages, credentials or transactions.",
+  "baseCheckpoint": "2026-10-09-checkpoint.json",
+  "status": "RECORDED_PARTIAL_COVERAGE",
+  "journeys": [
+    {
+      "name": "Email sign-in shortcut",
+      "nodes": [
+        "940:4770",
+        "7:423"
+      ],
+      "result": "FAIL",
+      "observations": [
+        "Live Continue with the email field untouched navigated directly to populated Circles. Fresh Figma reactions target 7:423, bypassing the existing password screen 942:4800. This is prototype wiring only; not a demonstrated application authentication bypass."
+      ]
+    },
+    {
+      "name": "Password recovery confirmation and return",
+      "nodes": [
+        "942:4800",
+        "944:4812",
+        "944:4941",
+        "940:4770"
+      ],
+      "result": "PASS",
+      "observations": [
+        "Forgot password opened reset; Continue opened Check your inbox with conditional account-existence-neutral copy. The settled screen displayed Back and Back to sign in, and the latter returned correctly. An early transition screenshot omitted these controls transiently; no missing-exit defect remains. No credentials entered or email sent."
+      ]
+    },
+    {
+      "name": "Circle Host handover request and cancellation",
+      "nodes": [
+        "2019:38862",
+        "2019:38923",
+        "2019:38973",
+        "2019:38309"
+      ],
+      "result": "PASS",
+      "observations": [
+        "Selecting Jordan opened named review, request produced pending state explicitly retaining current host, cancellation returned to administration displaying You as Circle Host."
+      ]
+    },
+    {
+      "name": "Circle Host cannot leave before handover",
+      "nodes": [
+        "2019:38309",
+        "2019:39195",
+        "2019:38862"
+      ],
+      "result": "PASS",
+      "observations": [
+        "Leave Circle routed to Choose a host before leaving, explained separate financial arrangements remain, and Choose next host opened existing selector."
+      ]
+    },
+    {
+      "name": "Jordan accepts Circle Host and retains actor context",
+      "nodes": [
+        "2019:39029",
+        "2038:42969",
+        "2038:43023",
+        "2038:43084"
+      ],
+      "result": "PASS",
+      "observations": [
+        "Recipient acceptance led to Jordan-specific confirmation, Circle and home; Jordan was You / Circle Host, Joseph remained a member. Copy retained separate Card/Bill ownership and accepted terms. Direct recipient fixture was used; no real invitation or permission was changed."
+      ]
+    },
+    {
+      "name": "Maya declines handover and returns",
+      "nodes": [
+        "2023:40207",
+        "2019:39149",
+        "2019:38309"
+      ],
+      "result": "FAIL",
+      "observations": [
+        "Decline from Maya's recipient invitation opened shared decline outcome, then Back to Circle opened Joseph's host administration screen showing You're the Circle Host and host actions. Fresh source confirms the return is unconditional, rather than a missing deep-link actor initialization. This is prototype actor-context loss, not a backend authorization finding."
+      ]
+    },
+    {
+      "name": "Manual bill agreement, terms and bill return",
+      "nodes": [
+        "1330:10437",
+        "1330:10511",
+        "1330:10731",
+        "1330:10511",
+        "1330:10657",
+        "714:3018"
+      ],
+      "result": "PASS_WITH_FINDING",
+      "observations": [
+        "Review retained $18/week, Thursday, September 17, 2026 start and until-canceled duration. Manual selected by default; full terms require confirming every payment, separate material-change acceptance and no Circle/Card/spending grant. Accepted outcome explicitly says nothing paid yet; bill remains Manual.",
+        "Identity inconsistency: invitation describes Apartment crew, but View bill opens Groceries under Family circle. Amount, host Maya and schedule match."
+      ]
+    },
+    {
+      "name": "Groceries manual contribution review to pending",
+      "nodes": [
+        "714:3018",
+        "1608:21500",
+        "1608:21569",
+        "1608:21376"
+      ],
+      "result": "PASS_WITH_FINDING",
+      "observations": [
+        "Review scoped one-time $18 transfer from selected checking to Groceries. Pending explicitly said not yet received and excluded settlement. Back to agreement retained $18 Manual.",
+        "The return still offers Review contribution with no pending occurrence marker; duplicate-attempt prevention is not modeled by this fixture. No backend transfer or idempotency result is claimed."
+      ]
+    },
+    {
+      "name": "Stop future grocery contributions and revisit through history",
+      "nodes": [
+        "1608:21376",
+        "1608:21635",
+        "1608:21701",
+        "1608:21441",
+        "1608:21376"
+      ],
+      "result": "FAIL",
+      "observations": [
+        "Review and stopped outcome correctly preserve past payments, pending transfers and separate Circle/Card access. History remains reachable.",
+        "View agreement from history returned to original ongoing agreement with Next due September 17, Stop future contributions and Review contribution, without ended status. History showed only older received rows and omitted the pending transfer just created in this prototype path. State continuity is incomplete; not a real transfer or data-loss finding."
+      ]
+    },
+    {
+      "name": "Automatic agreement source selection, terms and bill return",
+      "nodes": [
+        "1330:10511",
+        "1330:10587",
+        "1330:10825",
+        "1330:10587",
+        "1330:10778",
+        "1330:10587",
+        "1330:10694",
+        "714:3018"
+      ],
+      "result": "FAIL",
+      "observations": [
+        "Automatic was an explicit choice. Household checking selected in Accounts persisted in full recurring terms and the scheduled result; fixed amount/frequency/start/cancel terms were present and nothing was marked paid.",
+        "View bill then opened 714:3018, which says Manual and You initiate each weekly contribution. The scheduled-versus-manual choice is lost in the return presentation. No live debit mandate was created."
+      ]
+    },
+    {
+      "name": "Failed transfer retry with changed funding account",
+      "nodes": [
+        "1375:11314",
+        "1348:10898",
+        "1330:10825",
+        "1348:10898",
+        "1348:10951",
+        "1348:11048",
+        "714:3018"
+      ],
+      "result": "PASS_WITH_FINDING",
+      "observations": [
+        "An unsuccessful transfer leads to a fresh one-time $18 review, not an immediate retry. Choosing Household checking returns to the correct review and persists through the pending outcome and contribution details. Pending screens explicitly distinguish initiated from received and discourage another payment.",
+        "Back to bill loses the pending occurrence and changes Apartment crew to Family circle; the bill again offers Review contribution. Same shared static-bill destination issue as the earlier agreement checks. No real transfer or backend duplicate-payment behavior was tested."
+      ]
+    },
+    {
+      "name": "Above-maximum one-occurrence approval",
+      "nodes": [
+        "1375:11740",
+        "1377:13017",
+        "1377:13061",
+        "1375:11172"
+      ],
+      "result": "PASS_WITH_FINDING",
+      "observations": [
+        "Electric proposes $29 versus an accepted $25 maximum. Terms and outcome preserve a one-occurrence exception, manual payment and the ongoing $25 maximum. Acceptance does not claim payment.",
+        "Needs attention still shows the same unapproved Electric task after approval. Static attention fixture does not reflect completed actions; also retains the preceding unsuccessful-transfer task after a simulated pending retry."
+      ]
+    },
+    {
+      "name": "Disconnected funding account and alternate-account review",
+      "nodes": [
+        "1375:11172",
+        "1375:11413",
+        "1377:13092",
+        "1378:13204",
+        "1377:13017",
+        "1377:13061"
+      ],
+      "result": "PASS_WITH_FINDING",
+      "observations": [
+        "Reconnection is explicitly separate from payment. The secure-bank handoff frame is a prototype boundary, not a functioning provider flow. Choosing Household checking from eligible accounts changes the shared terms frame to the correct Phone plan ($32 monthly), preserves the account and requires explicit acceptance. Outcome says funding account updated and nothing paid.",
+        "The secure-bank frame contains implementation/prototype explanatory copy in the user screen. Reconcile this against the user's final-product UI direction before implementation; do not fabricate a real bank connection."
+      ]
+    },
+    {
+      "name": "Card appearance choice and standalone review",
+      "nodes": [
+        "854:3466",
+        "928:4751",
+        "854:3495",
+        "861:3572",
+        "854:3495"
+      ],
+      "result": "FAIL",
+      "observations": [
+        "The picker visibly changes to Evergreen solid, but No Circle review returns to the Northern lights Apartment card. The picker also displays Trip card and a different example balance instead of the creation screen's Apartment card. Fresh source confirms the appearance tile sets VariableID:1081:5549; review does not visibly preserve it.",
+        "No Circle correctly opens the dedicated standalone review immediately. Back then shows Apartment crew selected again. Treat these as prototype draft-state discontinuities; do not substitute invented screens or fabricate balances in the app."
+      ]
+    },
+    {
+      "name": "Create Circle interruption within Card setup",
+      "nodes": [
+        "854:3495",
+        "335:506",
+        "488:1134",
+        "542:1632",
+        "7:423"
+      ],
+      "result": "FAIL",
+      "observations": [
+        "Create a new Circle opens the existing Circle form and Add people overlay. Clicking Maya Add changes the fixture to three invited people (Jordan, Maya, Taylor), rather than just Maya.",
+        "The enabled-looking Create Circle action has no effect. Fresh source confirms I542:1632;542:1565 and its label have no reaction; only Back, Add person and switches are wired on this screen.",
+        "Back navigates to Circles home instead of returning to the interrupted Card draft. The name remained a placeholder, so no claim is made that a valid completed form was accepted. The intended embedded return and validation path are not executable in this prototype."
+      ]
+    },
+    {
+      "name": "Known category retained with optional category editing",
+      "nodes": [
+        "2016:35940",
+        "2093:44342",
+        "2016:36046",
+        "2016:36112",
+        "2016:36046",
+        "2016:36163"
+      ],
+      "result": "PASS_WITH_FINDING",
+      "observations": [
+        "Phone plans > Another provider opens Make it yours with Phone plan already chosen. Change category is optional; choosing Membership updates the category and preserves existing service text. Continue goes directly to arrangement with no mandatory second category prompt.",
+        "The selected Phone plan initially uses the membership/basket icon rather than the phone icon on the picker. Existing service text staying intact after an explicit category edit is not itself a defect. No app behavior was tested."
+      ]
+    },
+    {
+      "name": "Failed-message edit and resend",
+      "nodes": [
+        "2017:36400",
+        "2060:43022",
+        "2060:43035",
+        "2017:36280",
+        "2017:36337"
+      ],
+      "result": "PASS",
+      "observations": [
+        "The red ! beside the failed bubble opens Message not sent actions. Edit message restores the same text in the composer; simulated send displays it once as Delivered and clears the composer. All activity stayed in the Figma prototype, not a real conversation.",
+        "Direct Try again, Cancel, outside dismissal and generic-icon variant were not exercised in this check."
+      ]
+    },
+    {
+      "name": "Weekly target Goal to proposal review",
+      "nodes": [
+        "793:3211",
+        "801:3363",
+        "812:3426",
+        "812:3466",
+        "839:3372",
+        "801:3313",
+        "793:3292",
+        "7:423"
+      ],
+      "result": "FAIL",
+      "observations": [
+        "The target-$1200 flow permits selecting Weekly/Monday, then proceeds through Circle and Card attachment. Allocation and review instead say monthly, with September 1 first charge; the selected frequency is lost. Review still correctly labels the arrangement Draft and says each person accepts their own contribution.",
+        "Create goal returns to the fixed Circles home without showing the new goal or proposal outcome. Attach to card is not itself a confirmed authority conflict: PRODUCT_CONTEXT preserves existing Goal planning and the Circle-then-Card attachment model while deferring Goals workspace relocation.",
+        "A temporarily missing footer reappeared after scrolling/repaint; it was not recorded as an absent-screen defect. No actual recurring contribution was created."
+      ]
+    }
+  ]
+}

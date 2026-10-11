@@ -1,0 +1,190 @@
+{
+  "date": "2026-10-10",
+  "method": "Read-only targeted Figma source; control IDs support live prototype observations.",
+  "controls": [
+    {
+      "id": "940:4805",
+      "name": "Email continue CTA",
+      "type": "INSTANCE",
+      "parent": "940:4801",
+      "reactions": [
+        {
+          "action": {
+            "type": "NODE",
+            "destinationId": "7:423",
+            "navigation": "NAVIGATE",
+            "transition": null,
+            "resetVideoPosition": false,
+            "resetScrollPosition": false
+          },
+          "actions": [
+            {
+              "type": "NODE",
+              "destinationId": "7:423",
+              "navigation": "NAVIGATE",
+              "transition": null,
+              "resetVideoPosition": false,
+              "resetScrollPosition": false
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ],
+      "descendantReactions": []
+    },
+    {
+      "id": "2023:40254",
+      "name": "Go / handoverDeclined",
+      "type": "INSTANCE",
+      "parent": "2023:40207",
+      "reactions": [
+        {
+          "action": {
+            "type": "NODE",
+            "destinationId": "2019:39149",
+            "navigation": "NAVIGATE",
+            "transition": null,
+            "resetVideoPosition": false,
+            "resetScrollPosition": true
+          },
+          "actions": [
+            {
+              "type": "NODE",
+              "destinationId": "2019:39149",
+              "navigation": "NAVIGATE",
+              "transition": null,
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ],
+      "descendantReactions": []
+    },
+    {
+      "id": "2019:39168",
+      "name": "Go / circleAdmin",
+      "type": "INSTANCE",
+      "parent": "2019:39149",
+      "reactions": [
+        {
+          "action": {
+            "type": "NODE",
+            "destinationId": "2019:38309",
+            "navigation": "NAVIGATE",
+            "transition": null,
+            "resetVideoPosition": false,
+            "resetScrollPosition": true
+          },
+          "actions": [
+            {
+              "type": "NODE",
+              "destinationId": "2019:38309",
+              "navigation": "NAVIGATE",
+              "transition": null,
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ],
+      "descendantReactions": []
+    },
+    {
+      "id": "I542:1632;542:1565",
+      "name": "Create Circle primary action",
+      "type": "INSTANCE",
+      "parent": "542:1632",
+      "reactions": [],
+      "descendantReactions": []
+    },
+    {
+      "id": "I542:1632;542:1543",
+      "name": "Back button",
+      "type": "INSTANCE",
+      "parent": "542:1632",
+      "reactions": [
+        {
+          "action": {
+            "type": "NODE",
+            "destinationId": "7:423",
+            "navigation": "NAVIGATE",
+            "transition": {
+              "type": "MOVE_OUT",
+              "direction": "RIGHT",
+              "matchLayers": false,
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "duration": 0.18000000715255737
+            },
+            "resetVideoPosition": false
+          },
+          "actions": [
+            {
+              "type": "NODE",
+              "destinationId": "7:423",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "MOVE_OUT",
+                "direction": "RIGHT",
+                "matchLayers": false,
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ],
+      "descendantReactions": []
+    },
+    {
+      "id": "I1081:6493;1081:5562",
+      "name": "Appearance tile / Evergreen",
+      "type": "INSTANCE",
+      "parent": "I1081:6493;1081:5561",
+      "reactions": [
+        {
+          "action": {
+            "type": "SET_VARIABLE",
+            "variableId": "VariableID:1081:5549",
+            "variableValue": {
+              "value": "Evergreen",
+              "type": "STRING",
+              "resolvedType": "STRING"
+            }
+          },
+          "actions": [
+            {
+              "type": "SET_VARIABLE",
+              "variableId": "VariableID:1081:5549",
+              "variableValue": {
+                "value": "Evergreen",
+                "type": "STRING",
+                "resolvedType": "STRING"
+              }
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ],
+      "descendantReactions": []
+    }
+  ]
+}

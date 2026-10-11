@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-09",
+  "inventoryCaptureDate": "2026-10-08",
+  "status": "SOURCE_LAYOUTS_COMPLETE_RUNTIME_AUDIT_INCOMPLETE",
+  "branch": "codex/figma-screen-audit-2026-10-08",
+  "appComparisonRevision": "c202144b4f24c775d391f40a270d7474c88cc59e",
+  "visualBatches": [
+    {"ids": ["1480:18329", "1489:17891", "1489:17970", "1489:18043", "1489:18240"], "method": "Original Figma screenshots at scale 1; all five images inspected", "findings": ["1489:18043 includes prototype-only provider-handoff copy, inconsistent with finished-product design direction. Other frames separate authorization, current-account selection, retained contributor history and one-time transfer consent."]},
+    {"ids": ["1489:18313", "1489:18386", "1489:18621", "1490:18336", "1490:18415"], "method": "Original Figma screenshots at scale 1; five returned images inspected", "findings": ["Pending is distinguished from received funds, ended agreement from retained amounts/history, and manual terms from payment initiation. No obvious clipping at source size."]}
+  ],
+  "notes": ["Figma access resumed successfully. All three pages resolve through the Plugin API; metadata page listing omitted Foundations, so it is not classified as deleted.", "Baseline five audit tests passed. Artifact validator initially failed solely on raw source hashes affected by CRLF checkout conversion; canonical LF content and Git objects matched captured hashes. Hashing now normalizes only CRLF, with regression coverage for equivalence, real content changes and trailing-newline changes.", "All 809 source layouts reviewed; 8 live prototype samples. Directory has 25 panels and 809 original-screen links, contained in one removable section. Final original subtree fingerprints still match all 809 before snapshots. Current app runtime parity remains unverified."]
+}

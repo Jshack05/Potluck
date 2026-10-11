@@ -20,6 +20,17 @@ Before planning, changing, or reviewing code, read:
 4. The relevant source files and tests
 5. Any package-level `AGENTS.md`
 6. Relevant architecture decision records, API specifications, database schemas, and provider documentation
+7. For Figma or app UI work: `docs/UI_FLOW.md`, `docs/APP_FLOW_MAP.md`, and `docs/flow-audit/README.md`. Check their capture dates and coverage; an old inventory is not proof of the current file.
+
+### Existing-design reuse and final-product presentation
+
+Before creating or implementing a screen, locate its existing Figma frame, variants, reusable components and connected flow. Record the node links and app route/source mapping in the flow inventory. Search nested sections and component states before declaring a design missing. Distinguish not designed, not implemented, not wired, and not verified; these are separate findings. Do not replace an existing flow with a generic screen because it is easier to implement. Compare the resulting app against the exact Figma references and maintain the mapping when either changes.
+
+Design the intended finished Potluck product, assuming required programs are approved and available for design purposes. Use complete flows and production-facing copy, not demo framing or simplified replacement screens. Track integration gaps separately from the intended design. This design assumption is not factual legal/provider approval: runtime financial status, credentials, balances and successful operations still require real provider evidence and server authorization. Never fabricate success or bypass consent to make the presentation appear complete. Existing core-only scope and deferred features remain deferred unless explicitly reopened.
+
+Audit annotations belong outside product frames in clearly identified, searchable reference areas. Preserve screen IDs, component instances, geometry and prototype wiring unless a separately authorized change requires editing them. Label inferred connections and uncertain canonical versions explicitly. The planned audit is documented in `docs/superpowers/plans/2026-10-07-figma-screen-audit.md`; do not claim it is complete merely because the plan exists.
+
+For graph-based navigation, start at `docs/flow-audit/FLOW_GRAPH.md`. Query `graph-query.mjs screen <node-id>` and the relevant journey before implementation; inspect the complete ordered reaction, conditions, actor and return context rather than infer behavior from a flattened arrow. The FigJam map and `flow-graph.json` are dated views over the same capture. They distinguish captured wiring, sampled execution, app verification and user approval. Recheck the live Figma counterpart, stop on missing or ambiguous elements, and preserve explicit user decisions separately from observed prototype behavior. Board comments are not automatically synchronized to the repository.
 
 Do not begin implementation until you can explain:
 

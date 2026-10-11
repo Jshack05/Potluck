@@ -1,0 +1,115 @@
+{
+  "captureDate": "2026-10-08",
+  "assignedRange": {
+    "start": 206,
+    "endInclusive": 400
+  },
+  "reviewedRange": {
+    "start": 206,
+    "endInclusive": 235
+  },
+  "ids": [
+    "1448:14903",
+    "1462:15167",
+    "1462:15308",
+    "1462:15426",
+    "1462:15533",
+    "1462:15640",
+    "1462:15768",
+    "1462:15895",
+    "1462:16027",
+    "1462:16159",
+    "1462:16278",
+    "1462:16397",
+    "1462:16527",
+    "1462:16657",
+    "1464:16013",
+    "1464:16139",
+    "1480:16596",
+    "1480:16675",
+    "1480:16885",
+    "1480:16958",
+    "1480:17153",
+    "1480:17226",
+    "1480:17401",
+    "1480:17474",
+    "1480:17547",
+    "1480:17823",
+    "1480:17896",
+    "1480:17969",
+    "1480:18183",
+    "1480:18256"
+  ],
+  "method": "Viewed every original isolated Figma screenshot at maxDimension 1000, composed five phone frames per row; no clones. All six rows were visually inspected.",
+  "observations": [
+    {
+      "ids": [
+        "1448:14903"
+      ],
+      "note": "Long 12-contributor response list is visibly clipped by the fixed bottom action area; requires scrolling verification, not evidence of lost content."
+    },
+    {
+      "ids": [
+        "1462:15426",
+        "1462:15533"
+      ],
+      "note": "Bill-resolution messaging is separately contextualized and says it does not change terms or authorize payments. Sent screen still visibly says 'Sent · prototype preview', conflicting with final-product copy guidance."
+    },
+    {
+      "ids": [
+        "1462:15640",
+        "1462:15768",
+        "1462:15895",
+        "1462:16027",
+        "1462:16159",
+        "1462:16278",
+        "1462:16397",
+        "1462:16527",
+        "1462:16657",
+        "1464:16013",
+        "1464:16139",
+        "1480:16596",
+        "1480:16675",
+        "1480:16885",
+        "1480:16958"
+      ],
+      "note": "Distinct removal, keep-current-share, cancel-proposal, revised-share, accepted, scheduled and active states explicitly distinguish acceptance from payment and Circle membership from bill participation. Bottom actions are consistently anchored."
+    },
+    {
+      "ids": [
+        "1480:17153",
+        "1480:17226",
+        "1480:17401"
+      ],
+      "note": "Confirmation, completed removal, and declined-revision views preserve prior activity and distinguish removal from the bill from Circle membership. No automatic redistribution is promised."
+    },
+    {
+      "ids": [
+        "1480:17474",
+        "1480:17547",
+        "1480:17823",
+        "1480:17896",
+        "1480:17969",
+        "1480:18256"
+      ],
+      "note": "Contributor agreement, funding-account selection/review, cancellation and history are distinct views. Review names exact monthly amount, source, schedule and until-canceled authorization; cancellation preserves pending transfers and history. These states must not collapse into a generic account-setting screen."
+    },
+    {
+      "ids": [
+        "1480:18183"
+      ],
+      "note": "Original isolated render visibly contains an unusually large blank card region between the Internet bill header and bank-account/continues rows; contribution amount and several agreement rows visible on Your agreement are absent. The bank-account value is cut off at the right edge. Check conditional visibility and original prototype state before treating this as an unconditional layout defect."
+    }
+  ],
+  "limitations": [
+    "Static rendering does not prove clickability, scrolling, state transitions, authorization, payment execution, or runtime app behavior.",
+    "Isolated screenshot results may reflect conditional visibility and default variables. Suspicious missing labels require prototype-state/original-file confirmation.",
+    "Figma MCP quota returned at inventory index236, node1480:18329. Batch236–240 had been requested concurrently; no further Figma calls were made. Inventory236–400 is not credited as visually reviewed."
+  ],
+  "quotaError": {
+    "index": 236,
+    "nodeId": "1480:18329",
+    "message": "You've reached the Figma MCP tool call limit for your Full seat on the Professional plan. Upgrade your seat or plan for more tool calls.",
+    "errorCode": "INVALID_ARGUMENT"
+  }
+}

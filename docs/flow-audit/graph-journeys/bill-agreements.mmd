@@ -1,0 +1,74 @@
+flowchart LR
+subgraph j15 ["J15 | Manual bill agreement, terms and bill return | PASS_WITH_FINDING"]
+  j15step1["Bill agreement / Review | 1330:10437"]
+  click j15step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1330%3A10437" "Open original screen"
+  j15step2["Bill agreement / Manual | 1330:10511"]
+  click j15step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1330%3A10511" "Open original screen"
+  j15step3["Bill agreement / Terms manual | 1330:10731"]
+  click j15step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1330%3A10731" "Open original screen"
+  j15step4["Bill agreement / Manual | 1330:10511"]
+  click j15step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1330%3A10511" "Open original screen"
+  j15step5["Bill agreement / Ready manual | 1330:10657"]
+  click j15step5 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1330%3A10657" "Open original screen"
+  j15step6["Bill Detail / Groceries | 714:3018"]
+  click j15step6 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=714%3A3018" "Open original screen"
+  j15step1 -->|"Recorded next state"| j15step2
+  j15step2 -->|"Recorded next state"| j15step3
+  j15step3 -->|"Recorded next state"| j15step4
+  j15step4 -->|"Recorded next state"| j15step5
+  j15step5 -->|"Recorded next state"| j15step6
+end
+subgraph j16 ["J16 | Groceries manual contribution review to pending | PASS_WITH_FINDING"]
+  j16step1["Bill Detail / Groceries | 714:3018"]
+  click j16step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=714%3A3018" "Open original screen"
+  j16step2["Role / gPay / Review contribution | 1608:21500"]
+  click j16step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1608%3A21500" "Open original screen"
+  j16step3["Role / gPending / Contribution pending | 1608:21569"]
+  click j16step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1608%3A21569" "Open original screen"
+  j16step4["Role / gAgreement / Your agreement | 1608:21376"]
+  click j16step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1608%3A21376" "Open original screen"
+  j16step1 -->|"Recorded next state"| j16step2
+  j16step2 -->|"Recorded next state"| j16step3
+  j16step3 -->|"Recorded next state"| j16step4
+end
+subgraph j17 ["J17 | Stop future grocery contributions and revisit through history | FAIL"]
+  j17step1["Role / gAgreement / Your agreement | 1608:21376"]
+  click j17step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1608%3A21376" "Open original screen"
+  j17step2["Role / gStop / Stop contributions | 1608:21635"]
+  click j17step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1608%3A21635" "Open original screen"
+  j17step3["Role / gStopped / Contributions stopped | 1608:21701"]
+  click j17step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1608%3A21701" "Open original screen"
+  j17step4["Role / gHistory / Contribution history | 1608:21441"]
+  click j17step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1608%3A21441" "Open original screen"
+  j17step5["Role / gAgreement / Your agreement | 1608:21376"]
+  click j17step5 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1608%3A21376" "Open original screen"
+  j17step1 -->|"Recorded next state"| j17step2
+  j17step2 -->|"Recorded next state"| j17step3
+  j17step3 -->|"Recorded next state"| j17step4
+  j17step4 -->|"Recorded next state"| j17step5
+end
+subgraph j18 ["J18 | Automatic agreement source selection, terms and bill return | FAIL"]
+  j18step1["Bill agreement / Manual | 1330:10511"]
+  click j18step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1330%3A10511" "Open original screen"
+  j18step2["Bill agreement / Automatic | 1330:10587"]
+  click j18step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1330%3A10587" "Open original screen"
+  j18step3["Bill agreement / Accounts | 1330:10825"]
+  click j18step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1330%3A10825" "Open original screen"
+  j18step4["Bill agreement / Automatic | 1330:10587"]
+  click j18step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1330%3A10587" "Open original screen"
+  j18step5["Bill agreement / Terms automatic | 1330:10778"]
+  click j18step5 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1330%3A10778" "Open original screen"
+  j18step6["Bill agreement / Automatic | 1330:10587"]
+  click j18step6 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1330%3A10587" "Open original screen"
+  j18step7["Bill agreement / Ready automatic | 1330:10694"]
+  click j18step7 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=1330%3A10694" "Open original screen"
+  j18step8["Bill Detail / Groceries | 714:3018"]
+  click j18step8 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=714%3A3018" "Open original screen"
+  j18step1 -->|"Recorded next state"| j18step2
+  j18step2 -->|"Recorded next state"| j18step3
+  j18step3 -->|"Recorded next state"| j18step4
+  j18step4 -->|"Recorded next state"| j18step5
+  j18step5 -->|"Recorded next state"| j18step6
+  j18step6 -->|"Recorded next state"| j18step7
+  j18step7 -->|"Recorded next state"| j18step8
+end

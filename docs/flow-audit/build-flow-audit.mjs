@@ -3,6 +3,11 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
+if (!process.argv.includes('--historical')) {
+  await import('./build-current-audit.mjs');
+  process.exit(0);
+}
+
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '../..');
 const read = name => JSON.parse(fs.readFileSync(path.join(here, name), 'utf8'));
@@ -89,5 +94,5 @@ function edgeTable(rows,incoming){if(!rows.length)return '<p class="muted">None 
 function detail(){const s=byId.get(selected);if(!s){$('detail').innerHTML='<h2>Screen not in captured inventory</h2><p>Select a captured screen from the list.</p>';return}const outgoing=data.edges.filter(e=>e.source===s.id), incoming=data.edges.filter(e=>e.to===s.id);$('detail').innerHTML='<span class="pill '+(s.controls?'':'pending')+'">'+esc(s.evidence)+'</span><h2>'+esc(s.name)+'</h2><p class="muted">'+esc(s.id)+' · '+s.w+' × '+s.h+' · '+esc(s.type)+'</p><p><a target="_blank" rel="noopener" href="'+s.figmaUrl+'">Open this node in Figma ↗</a></p>'+(!s.controls?'<p class="notice">Name and ID captured; this screen’s controls and destinations have not been audited. Do not infer a working connection from its title.</p>':'<p>Prototype reactions captured. Branches are recorded, not executed. Multiple text/icon hotspots may represent the same user action.</p>')+'<h3>Outgoing transitions</h3>'+edgeTable(outgoing,false)+'<h3>Incoming transitions from audited screens</h3>'+edgeTable(incoming,true)+'<details><summary>Visible text at capture</summary><pre>'+esc(s.text?.join('\n')||'Not captured')+'</pre></details><details><summary>Raw controls, variable writes, and action order</summary><pre>'+esc(JSON.stringify(s.controls,null,2)||'Not captured')+'</pre></details><details><summary>Repository documents mentioning this exact ID</summary><ul>'+s.mentionedIn.map(p=>'<li><a href="../../'+encodeURI(p)+'">'+esc(p)+'</a></li>').join('')+'</ul><p class="muted">A document reference is supporting context, not current connection verification.</p></details>'}
 $('list').addEventListener('click',e=>{const b=e.target.closest('[data-id]');if(b)location.hash=encodeURIComponent(b.dataset.id)});for(const id of ['search','domain','evidence'])$(id).addEventListener('input',list);window.addEventListener('hashchange',()=>{selected=decodeURIComponent(location.hash.slice(1));list();detail()});list();detail();
 </script></html>`;
-fs.writeFileSync(path.join(here,'index.html'),html);
+fs.writeFileSync(path.join(here,'2026-10-02-index.html'),html);
 console.log(JSON.stringify({records:records.length,audited:audit.length,controls:summary.controls,edges:edges.length,outside:unresolved.length,htmlBytes:Buffer.byteLength(html)},null,2));

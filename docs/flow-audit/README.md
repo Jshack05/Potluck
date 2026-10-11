@@ -1,4 +1,45 @@
+# Potluck screen and flow audit
+
+**Shared flow map:** [Open FigJam](https://www.figma.com/board/dixKHtlmlibkxTYuEvIBW9) for the six navigable chapters and 26 sampled journeys. [Follow the complete captured graph](flow-map.html), [read its traversal/review guide](FLOW_GRAPH.md), or query [the structured graph](flow-graph.json) through `graph-query.mjs`. The graph derives from the same evidence below; it is not a competing screen register or proof of current app behavior.
+
+**October 10: 26 sampled live prototype journeys recorded, including 18 new checks.** All 809 captured source layouts were reviewed October 8–9 and the permanent directory exists. Read the [current findings and remaining execution matrix](2026-10-10-findings.md). Full prototype coverage and current app/native visual parity remain incomplete; Figma quota is no longer the active blocker.
+
+- [Open the removable Figma directory](https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2244-45190)
+- [Current checkpoint](2026-10-10-checkpoint.json), [visual review evidence](2026-10-09-visual-review.json), [October 10 prototype results](2026-10-10-prototype-review.json), [October 9 prototype results](2026-10-09-prototype-review.json)
+- [October 10 directory coverage update](2026-10-10-directory-update.json) and [header render](2026-10-10-directory-header.png)
+- [Created annotation manifest and rollback](2026-10-09-annotation-manifest.json)
+
+- [Current searchable explorer](index.html)
+- [Current screen register](2026-10-08-screen-register.md)
+- [Current coverage](2026-10-08-coverage.json) and [historical October 8 checkpoint](2026-10-08-checkpoint.json)
+- [Raw captures](2026-10-08/) and [connection map](2026-10-08-connection-map.json)
+- [Transitions CSV](2026-10-08-connections.csv)
+- [App source inventory](2026-10-08-app-routes.json) and [sampled comparisons](2026-10-08-app-review.json)
+- [25-family graph findings](2026-10-08-graph-findings.md)
+- [Full route source findings](2026-10-08-source-findings.md) and [explicit state correspondence](2026-10-08-source-mapping.json)
+- [Historical annotation draft](2026-10-08-annotation-draft.json) — preserved as pre-creation evidence; use the October 9 manifest for created notes
+- [Historical October 2 explorer](2026-10-02-index.html)
+
+Build and check the latest checkpoint:
+
+```powershell
+node docs/flow-audit/build-flow-audit.mjs
+node --test docs/flow-audit/audit-data.test.mjs
+node docs/flow-audit/validate-flow-audit.mjs
+node docs/flow-audit/build-flow-graph.mjs
+node --test docs/flow-audit/flow-graph.test.mjs docs/flow-audit/flow-map.test.mjs
+node docs/flow-audit/validate-flow-graph.mjs
+```
+
+Use `--historical` on the builder/validator for October 2. Historical generation writes its dated explorer, leaving the current entry point intact. Both renderers preserve raw conditions; neither executes the prototype.
+
+The graph commands above target the October 8 capture and October 9–10 sampled journeys only. [FigJam node manifest](figjam-map.json) records the separate board, original screen links and rollback. [Build and verification record](2026-10-10-flow-map-build.md) distinguishes structural/offline checks from browser verification. FigJam comments and repository evidence are not automatically synchronized; preserve dated user decisions separately and reconcile before building a flow.
+
+---
+
 # October 2 app flow audit evidence
+
+> **Refresh planned October 7:** Follow [the whole-file audit plan](../superpowers/plans/2026-10-07-figma-screen-audit.md). Preserve these dated snapshots, reconcile against the live file and current app, and extend the existing explorer/validation tooling rather than establish a competing register. No new complete inventory or Figma annotation pass is claimed by this documentation update.
 
 Start with [APP_FLOW_MAP.md](../APP_FLOW_MAP.md). This directory preserves a **partial** Figma inspection, not a completed implementation specification.
 

@@ -1,0 +1,380 @@
+{
+  "id": "2034:44493",
+  "name": "START HERE — Continuation review guide",
+  "text": [
+    {
+      "id": "2034:44494",
+      "text": "Potluck + Splitfinder\nComplete the journey"
+    },
+    {
+      "id": "2034:44495",
+      "text": "CONTINUATION · OCTOBER 02 · REVIEW BUILD"
+    },
+    {
+      "id": "2034:44496",
+      "text": "This section completes missing steps around the existing screens. The original designs and their components remain unchanged. Branded screens are on the left; matching generic-icon variants are to their right."
+    },
+    {
+      "id": "2034:44497",
+      "text": "Try a journey"
+    },
+    {
+      "id": "2034:44499",
+      "text": "01 · Guest discovery → account → introduction  →"
+    },
+    {
+      "id": "2034:44500",
+      "text": "Browse first. Registration starts only when you pursue a listing."
+    },
+    {
+      "id": "2034:44503",
+      "text": "02 · Generic-icon discovery  →"
+    },
+    {
+      "id": "2034:44504",
+      "text": "Same layouts and copy; native Potluck category icons replace logos."
+    },
+    {
+      "id": "2034:44507",
+      "text": "03 · Host a listing  →"
+    },
+    {
+      "id": "2034:44508",
+      "text": "Choose a service, set the arrangement, preview and publish."
+    },
+    {
+      "id": "2034:44511",
+      "text": "04 · Hosting: incoming requests  →"
+    },
+    {
+      "id": "2034:44512",
+      "text": "Joseph is the host; Alex is the interested applicant."
+    },
+    {
+      "id": "2034:44515",
+      "text": "05 · Applicant: accepted response  →"
+    },
+    {
+      "id": "2034:44516",
+      "text": "Joseph receives Maya’s acceptance. It opens a conversation."
+    },
+    {
+      "id": "2034:44519",
+      "text": "06 · Applicant: declined / unavailable  →"
+    },
+    {
+      "id": "2034:44520",
+      "text": "Review the alternative outcome and continue browsing."
+    },
+    {
+      "id": "2034:44523",
+      "text": "07 · Phone-plan discovery  →"
+    },
+    {
+      "id": "2034:44524",
+      "text": "Provider directory, individual listings, introduction and publication."
+    },
+    {
+      "id": "2034:44527",
+      "text": "08 · Membership introduction  →"
+    },
+    {
+      "id": "2034:44528",
+      "text": "A member-created service with explicit eligibility."
+    },
+    {
+      "id": "2034:44531",
+      "text": "09 · Housing continuation  →"
+    },
+    {
+      "id": "2034:44532",
+      "text": "Existing housing design, contextual registration and verification states."
+    },
+    {
+      "id": "2034:44535",
+      "text": "10 · Circle host administration  →"
+    },
+    {
+      "id": "2034:44536",
+      "text": "Joseph manages people, invitations, handover and leaving."
+    },
+    {
+      "id": "2034:44539",
+      "text": "11 · Alex receives a Circle invitation  →"
+    },
+    {
+      "id": "2034:44540",
+      "text": "Recipient view. Joining a Circle does not accept financial terms."
+    },
+    {
+      "id": "2034:44543",
+      "text": "12 · Jordan receives a host handover  →"
+    },
+    {
+      "id": "2034:44544",
+      "text": "Recipient view of the proposed Circle Host role."
+    },
+    {
+      "id": "2034:44547",
+      "text": "13 · Maya receives a host handover  →"
+    },
+    {
+      "id": "2034:44548",
+      "text": "Recipient view of the proposed Circle Host role."
+    },
+    {
+      "id": "2034:44551",
+      "text": "14 · Account recovery  →"
+    },
+    {
+      "id": "2034:44552",
+      "text": "Reset-link delivery, expired-link and updated-password states."
+    },
+    {
+      "id": "2034:44555",
+      "text": "15 · Connection failure  →"
+    },
+    {
+      "id": "2034:44556",
+      "text": "Retry without losing the sign-in destination."
+    },
+    {
+      "id": "2034:44559",
+      "text": "16 · Publication failed  →"
+    },
+    {
+      "id": "2034:44560",
+      "text": "A saved draft with a clear retry action."
+    },
+    {
+      "id": "2034:44563",
+      "text": "17 · Message not sent  →"
+    },
+    {
+      "id": "2034:44564",
+      "text": "Retry or edit your unsent message."
+    },
+    {
+      "id": "2034:44567",
+      "text": "18 · Housing ID check: complete  →"
+    },
+    {
+      "id": "2034:44568",
+      "text": "External verification callback represented as a design state."
+    },
+    {
+      "id": "2034:44571",
+      "text": "19 · Housing ID check: retry  →"
+    },
+    {
+      "id": "2034:44572",
+      "text": "Recover without losing the property draft."
+    },
+    {
+      "id": "2034:44575",
+      "text": "20 · Phone request accepted  →"
+    },
+    {
+      "id": "2034:44576",
+      "text": "Jordan responds; continue the conversation."
+    },
+    {
+      "id": "2034:44579",
+      "text": "21 · Membership request accepted  →"
+    },
+    {
+      "id": "2034:44580",
+      "text": "Casey responds; continue the conversation."
+    },
+    {
+      "id": "2034:44583",
+      "text": "22 · Account and safety  →"
+    },
+    {
+      "id": "2034:44584",
+      "text": "Profile, support, reporting, blocking and deletion states."
+    },
+    {
+      "id": "2034:44586",
+      "text": "What this prototype demonstrates"
+    },
+    {
+      "id": "2034:44587",
+      "text": "Editable Figma screens, reusable components, selection states, navigation, consent checks and recovery outcomes. Forms use illustrative example content. Email, provider sign-in, identity verification, notifications and incoming responses are simulated states—not connected services. Listing names, prices, dates and availability are fixtures."
+    },
+    {
+      "id": "2034:44588",
+      "text": "Content still needed before launch"
+    },
+    {
+      "id": "2034:44589",
+      "text": "Approved application Terms and Privacy copy. Their unavailable/loading outcomes are designed here; website-only legal copy was not substituted. The existing Sharing Rules are linked where relevant."
+    },
+    {
+      "id": "2034:44590",
+      "text": "Remove this continuation"
+    },
+    {
+      "id": "2034:44591",
+      "text": "Delete this Screens section and “CONTINUATION — Potluck & Splitfinder — Components — Oct 02” on 02 Components. Remove the separate “CONTINUATION / Prototype state / Oct 02” variable collection. Original screens do not depend on these additions."
+    }
+  ],
+  "links": [
+    {
+      "id": "2034:44498",
+      "name": "Review journey / entry",
+      "to": [
+        "2015:33052"
+      ]
+    },
+    {
+      "id": "2034:44502",
+      "name": "Review journey / brands",
+      "to": [
+        "2028:42734"
+      ]
+    },
+    {
+      "id": "2034:44506",
+      "name": "Review journey / chooseService",
+      "to": [
+        "2016:35940"
+      ]
+    },
+    {
+      "id": "2034:44510",
+      "name": "Review journey / requests",
+      "to": [
+        "2012:32640"
+      ]
+    },
+    {
+      "id": "2034:44514",
+      "name": "Review journey / accepted",
+      "to": [
+        "2012:32453"
+      ]
+    },
+    {
+      "id": "2034:44518",
+      "name": "Review journey / declined",
+      "to": [
+        "2012:32527"
+      ]
+    },
+    {
+      "id": "2034:44522",
+      "name": "Review journey / plans",
+      "to": [
+        "2018:37345"
+      ]
+    },
+    {
+      "id": "2034:44526",
+      "name": "Review journey / membershipDetail",
+      "to": [
+        "2018:38362"
+      ]
+    },
+    {
+      "id": "2034:44530",
+      "name": "Review journey / housingBrowse",
+      "to": [
+        "2015:34313"
+      ]
+    },
+    {
+      "id": "2034:44534",
+      "name": "Review journey / circleAdmin",
+      "to": [
+        "2019:38309"
+      ]
+    },
+    {
+      "id": "2034:44538",
+      "name": "Review journey / circleInviteReceived",
+      "to": [
+        "2020:40277"
+      ]
+    },
+    {
+      "id": "2034:44542",
+      "name": "Review journey / handoverAccept",
+      "to": [
+        "2019:39029"
+      ]
+    },
+    {
+      "id": "2034:44546",
+      "name": "Review journey / handoverMayaAccept",
+      "to": [
+        "2023:40207"
+      ]
+    },
+    {
+      "id": "2034:44550",
+      "name": "Review journey / reset",
+      "to": [
+        "2014:33257"
+      ]
+    },
+    {
+      "id": "2034:44554",
+      "name": "Review journey / authOffline",
+      "to": [
+        "2014:33233"
+      ]
+    },
+    {
+      "id": "2034:44558",
+      "name": "Review journey / publishError",
+      "to": [
+        "2016:35236"
+      ]
+    },
+    {
+      "id": "2034:44562",
+      "name": "Review journey / messageFailed",
+      "to": [
+        "2017:36400"
+      ]
+    },
+    {
+      "id": "2034:44566",
+      "name": "Review journey / housingVerified",
+      "to": [
+        "2016:36512"
+      ]
+    },
+    {
+      "id": "2034:44570",
+      "name": "Review journey / housingRetry",
+      "to": [
+        "2016:36569"
+      ]
+    },
+    {
+      "id": "2034:44574",
+      "name": "Review journey / phoneAccepted",
+      "to": [
+        "2020:39792"
+      ]
+    },
+    {
+      "id": "2034:44578",
+      "name": "Review journey / membershipAccepted",
+      "to": [
+        "2020:40110"
+      ]
+    },
+    {
+      "id": "2034:44582",
+      "name": "Review journey / account",
+      "to": [
+        "2017:37238"
+      ]
+    }
+  ],
+  "date": "2026-10-09",
+  "review": "Complete text, all 22 links and full board render reviewed. Guest-first entry is an October 2 review scenario superseded for current combined-app authentication; this guide does not approve fixtures as live financial state or select branded over generic icons."
+}

@@ -1,0 +1,21 @@
+flowchart LR
+  step1["Continuation / request / Start with a conversation | 2012:31975"]
+  click step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A31975" "Open original screen"
+  step2["Continuation / requestReady / Ready to say hello | 2012:32100"]
+  click step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A32100" "Open original screen"
+  step3["Continuation / requestSending / Sending your request | 2012:32166"]
+  click step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A32166" "Open original screen"
+  step4["Continuation / requestSent / Request sent | 2012:32215"]
+  click step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A32215" "Open original screen"
+  step5["Continuation / pending / Waiting for Maya | 2012:32283"]
+  click step5 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A32283" "Open original screen"
+  step6["Continuation / withdraw / Withdraw this request? | 2012:32348"]
+  click step6 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A32348" "Open original screen"
+  step7["Continuation / withdrawn / Request withdrawn | 2012:32407"]
+  click step7 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A32407" "Open original screen"
+  step1 -->|"Recorded next state"| step2
+  step2 -->|"Recorded next state"| step3
+  step3 -->|"Recorded next state"| step4
+  step4 -->|"Recorded next state"| step5
+  step5 -->|"Recorded next state"| step6
+  step6 -->|"Recorded next state"| step7

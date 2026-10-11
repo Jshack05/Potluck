@@ -1,5 +1,7 @@
 # Potluck UI Flow
 
+> **October 7, 2026 workflow:** Read the [whole-file audit plan](superpowers/plans/2026-10-07-figma-screen-audit.md) and latest product decisions before UI work. Reuse verified existing Figma screens; distinguish missing designs from missing app implementation. The intended experience is the finished product, assuming program availability for design, while actual integration status remains separately documented. The older baseline and October 2 inventory below are historical evidence, not a complete current screen map.
+
 > **October 2, 2026 audit:** See [APP_FLOW_MAP.md](APP_FLOW_MAP.md) for the newer screen inventory, captured prototype connections, app-code comparison, and conflicts with this older baseline. That audit is explicitly incomplete: Figma quota interrupted connection verification, and three nested sections still need inventory. Do not treat either document as proof that the entire app is wired or implemented.
 
 **Status:** Living product-flow source of truth

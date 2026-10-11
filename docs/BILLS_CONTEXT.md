@@ -1,5 +1,9 @@
 # Potluck Bills Context
 
+## October 7, 2026 — Finished-product design target
+
+Bills screens should implement the existing intended final-product flow, including its full consent, processing, failure and recovery states. Assume program availability for design purposes. Current local/provider limitations remain engineering status and must not cause a generic replacement flow. Runtime totals, payment results and bank connection states remain evidence-based; this instruction does not enable payments or change contribution rules. See the latest design direction in [PRODUCT_CONTEXT.md](PRODUCT_CONTEXT.md) and the [audit plan](superpowers/plans/2026-10-07-figma-screen-audit.md).
+
 ## October 7, 2026 — Collection states and controls
 
 All bills (left) and Shared (right, default) remain present while loading and when empty. Both scopes reuse the established No bills yet artwork; a Shared-only empty result can direct users to All bills when personal bills exist. The Import bills action follows its existing Figma design at approximately 1.5 times its prior dimensions, alongside the creation + above navigation. It opens the existing bank-import/manual-entry flow.

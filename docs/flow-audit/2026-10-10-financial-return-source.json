@@ -1,0 +1,471 @@
+{
+  "date": "2026-10-10",
+  "method": "Read-only targeted live Figma Plugin API source; no changes",
+  "evidence": [
+    {
+      "id": "1330:10694",
+      "name": "Bill agreement / Ready automatic",
+      "terms": [
+        {
+          "id": "I1330:10705;1327:11703",
+          "text": "Thursday, September 17",
+          "boundVariables": {
+            "fills": [
+              {
+                "type": "VARIABLE_ALIAS",
+                "id": "VariableID:1:7"
+              }
+            ]
+          }
+        },
+        {
+          "id": "I1330:10705;1327:11710",
+          "text": "Automatic · Starts Sep 17",
+          "boundVariables": {
+            "fills": [
+              {
+                "type": "VARIABLE_ALIAS",
+                "id": "VariableID:1:5"
+              }
+            ]
+          }
+        }
+      ],
+      "controls": [
+        {
+          "id": "1330:10695",
+          "name": "Back",
+          "actions": [
+            [
+              {
+                "type": "BACK"
+              }
+            ]
+          ]
+        },
+        {
+          "id": "I1330:10705;1327:11712",
+          "name": "Full terms",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "1330:10778",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        },
+        {
+          "id": "1330:10728",
+          "name": "Primary action",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "714:3018",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "714:3018",
+      "name": "Bill Detail / Groceries",
+      "terms": [
+        {
+          "id": "I1608:22177;1608:20746",
+          "text": "Family circle · Hosted by Maya",
+          "boundVariables": {
+            "fills": [
+              {
+                "type": "VARIABLE_ALIAS",
+                "id": "VariableID:1:6"
+              }
+            ]
+          }
+        },
+        {
+          "id": "I1608:22177;1959:32493;1950:30777",
+          "text": "per week · Manual",
+          "boundVariables": {
+            "fills": [
+              {
+                "type": "VARIABLE_ALIAS",
+                "id": "VariableID:1:6"
+              }
+            ]
+          }
+        },
+        {
+          "id": "I1608:22177;1608:20751;1604:19307",
+          "text": "Next due · September 17",
+          "boundVariables": {
+            "fills": [
+              {
+                "type": "VARIABLE_ALIAS",
+                "id": "VariableID:1:7"
+              }
+            ]
+          }
+        }
+      ],
+      "controls": [
+        {
+          "id": "1608:22172",
+          "name": "Back",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "1608:21025",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        },
+        {
+          "id": "I1608:22177;1608:20754",
+          "name": "Go / gAgreement",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "1608:21376",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        },
+        {
+          "id": "I1608:22177;1608:20757",
+          "name": "Go / gHistory",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "1608:21441",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        },
+        {
+          "id": "I1608:22178;1495:18436",
+          "name": "Primary / gPay",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "1608:21500",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        },
+        {
+          "id": "I1608:22178;1495:18437",
+          "name": "Secondary / gAgreement",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "1608:21376",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1608:21701",
+      "name": "Role / gStopped / Contributions stopped",
+      "terms": [
+        {
+          "id": "1608:21703",
+          "text": "Contributions stopped",
+          "boundVariables": {
+            "fills": [
+              {
+                "type": "VARIABLE_ALIAS",
+                "id": "VariableID:1:7"
+              }
+            ]
+          }
+        },
+        {
+          "id": "I1608:21749;1608:20899",
+          "text": "Future contributions stopped",
+          "boundVariables": {
+            "fills": [
+              {
+                "type": "VARIABLE_ALIAS",
+                "id": "VariableID:1:7"
+              }
+            ]
+          }
+        }
+      ],
+      "controls": [
+        {
+          "id": "1608:21702",
+          "name": "Back",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "714:2708",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        },
+        {
+          "id": "I1608:21749;1608:20905",
+          "name": "Go / gHistory",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "1608:21441",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        },
+        {
+          "id": "I1608:21706;1495:18436",
+          "name": "Primary / gHistory",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "1608:21441",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        },
+        {
+          "id": "I1608:21706;1495:18437",
+          "name": "Secondary / 714:2708",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "714:2708",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1608:21441",
+      "name": "Role / gHistory / Contribution history",
+      "terms": [
+        {
+          "id": "I1608:21489;1608:20810;1604:19308",
+          "text": "September 10, 2026",
+          "boundVariables": {
+            "fills": [
+              {
+                "type": "VARIABLE_ALIAS",
+                "id": "VariableID:1:6"
+              }
+            ]
+          }
+        },
+        {
+          "id": "I1608:21489;1608:20813;1604:19308",
+          "text": "September 3, 2026",
+          "boundVariables": {
+            "fills": [
+              {
+                "type": "VARIABLE_ALIAS",
+                "id": "VariableID:1:6"
+              }
+            ]
+          }
+        }
+      ],
+      "controls": [
+        {
+          "id": "1608:21442",
+          "name": "Back",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "714:3018",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        },
+        {
+          "id": "I1608:21446;1495:18436",
+          "name": "Primary / 714:3018",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "714:3018",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        },
+        {
+          "id": "I1608:21446;1495:18437",
+          "name": "Secondary / gAgreement",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "1608:21376",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1608:21376",
+      "name": "Role / gAgreement / Your agreement",
+      "terms": [
+        {
+          "id": "I1608:21424;1608:20796;1604:19307",
+          "text": "Manual contribution",
+          "boundVariables": {
+            "fills": [
+              {
+                "type": "VARIABLE_ALIAS",
+                "id": "VariableID:1:7"
+              }
+            ]
+          }
+        },
+        {
+          "id": "I1608:21424;1608:20799;1604:19307",
+          "text": "Next due",
+          "boundVariables": {
+            "fills": [
+              {
+                "type": "VARIABLE_ALIAS",
+                "id": "VariableID:1:7"
+              }
+            ]
+          }
+        },
+        {
+          "id": "I1608:21424;1608:20799;1604:19308",
+          "text": "September 17, 2026",
+          "boundVariables": {
+            "fills": [
+              {
+                "type": "VARIABLE_ALIAS",
+                "id": "VariableID:1:6"
+              }
+            ]
+          }
+        }
+      ],
+      "controls": [
+        {
+          "id": "1608:21377",
+          "name": "Back",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "714:3018",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        },
+        {
+          "id": "I1608:21424;1608:20802",
+          "name": "Go / gStop",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "1608:21635",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        },
+        {
+          "id": "I1608:21381;1495:18436",
+          "name": "Primary / gPay",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "1608:21500",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        },
+        {
+          "id": "I1608:21381;1495:18437",
+          "name": "Secondary / 714:3018",
+          "actions": [
+            [
+              {
+                "type": "NODE",
+                "destinationId": "714:3018",
+                "navigation": "NAVIGATE",
+                "transition": null,
+                "resetVideoPosition": false
+              }
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

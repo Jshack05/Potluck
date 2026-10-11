@@ -1,0 +1,75 @@
+flowchart LR
+subgraph j06 ["J06 | Introduction consent, sending, pending and withdrawal | PASS"]
+  j06step1["Continuation / request / Start with a conversation | 2012:31975"]
+  click j06step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A31975" "Open original screen"
+  j06step2["Continuation / requestReady / Ready to say hello | 2012:32100"]
+  click j06step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A32100" "Open original screen"
+  j06step3["Continuation / requestSending / Sending your request | 2012:32166"]
+  click j06step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A32166" "Open original screen"
+  j06step4["Continuation / requestSent / Request sent | 2012:32215"]
+  click j06step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A32215" "Open original screen"
+  j06step5["Continuation / pending / Waiting for Maya | 2012:32283"]
+  click j06step5 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A32283" "Open original screen"
+  j06step6["Continuation / withdraw / Withdraw this request? | 2012:32348"]
+  click j06step6 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A32348" "Open original screen"
+  j06step7["Continuation / withdrawn / Request withdrawn | 2012:32407"]
+  click j06step7 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A32407" "Open original screen"
+  j06step1 -->|"Recorded next state"| j06step2
+  j06step2 -->|"Recorded next state"| j06step3
+  j06step3 -->|"Recorded next state"| j06step4
+  j06step4 -->|"Recorded next state"| j06step5
+  j06step5 -->|"Recorded next state"| j06step6
+  j06step6 -->|"Recorded next state"| j06step7
+end
+subgraph j07 ["J07 | Host accepts Alex and opens conversation | PASS"]
+  j07step1["Continuation / hostReview / Meet Joseph | 2012:32825"]
+  click j07step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A32825" "Open original screen"
+  j07step2["Continuation / hostAccepted / You’re ready to talk | 2012:33060"]
+  click j07step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2012%3A33060" "Open original screen"
+  j07step3["Continuation / hostConversation / Joseph Shackelford | 2017:36460"]
+  click j07step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2017%3A36460" "Open original screen"
+  j07step1 -->|"Recorded next state"| j07step2
+  j07step2 -->|"Recorded next state"| j07step3
+end
+subgraph j08 ["J08 | Blocked Inbox to housing conversation | DESIGN_INCONSISTENCY"]
+  j08step1["Continuation / blockedInbox / Conversations | 2028:46377"]
+  click j08step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2028%3A46377" "Open original screen"
+  j08step2["Continuation / housingChat / Existing design reference | 2015:35245"]
+  click j08step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2015%3A35245" "Open original screen"
+  j08step1 -->|"Recorded next state"| j08step2
+end
+subgraph j24 ["J24 | Known category retained with optional category editing | PASS_WITH_FINDING"]
+  j24step1["Continuation / chooseService / What would you like to share? | 2016:35940"]
+  click j24step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2016%3A35940" "Open original screen"
+  j24step2["Continuation / phoneProviderPicker / Which provider? | 2093:44342"]
+  click j24step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2093%3A44342" "Open original screen"
+  j24step3["Continuation / customService / Make it yours | 2016:36046"]
+  click j24step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2016%3A36046" "Open original screen"
+  j24step4["Continuation / customOther / Choose a category | 2016:36112"]
+  click j24step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2016%3A36112" "Open original screen"
+  j24step5["Continuation / customService / Make it yours | 2016:36046"]
+  click j24step5 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2016%3A36046" "Open original screen"
+  j24step6["Continuation / customArrangement / Set clear expectations | 2016:36163"]
+  click j24step6 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2016%3A36163" "Open original screen"
+  j24step1 -->|"Recorded next state"| j24step2
+  j24step2 -->|"Recorded next state"| j24step3
+  j24step3 -->|"Recorded next state"| j24step4
+  j24step4 -->|"Recorded next state"| j24step5
+  j24step5 -->|"Recorded next state"| j24step6
+end
+subgraph j25 ["J25 | Failed-message edit and resend | PASS"]
+  j25step1["Continuation / messageFailed / Maya Chen | 2017:36400"]
+  click j25step1 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2017%3A36400" "Open original screen"
+  j25step2["Continuation / Overlay / Message actions / Closed | 2060:43022"]
+  click j25step2 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2060%3A43022" "Open original screen"
+  j25step3["Continuation / Overlay / Message actions / Open | 2060:43035"]
+  click j25step3 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2060%3A43035" "Open original screen"
+  j25step4["Continuation / messageReady / Message Maya | 2017:36280"]
+  click j25step4 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2017%3A36280" "Open original screen"
+  j25step5["Continuation / messageSent / Maya Chen | 2017:36337"]
+  click j25step5 "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD?node-id=2017%3A36337" "Open original screen"
+  j25step1 -->|"Recorded next state"| j25step2
+  j25step2 -->|"Recorded next state"| j25step3
+  j25step3 -->|"Recorded next state"| j25step4
+  j25step4 -->|"Recorded next state"| j25step5
+end

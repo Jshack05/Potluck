@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-10",
+  "sectionId": "2244:45190",
+  "mutatedIds": [
+    "2244:45194"
+  ],
+  "before": {
+    "id": "2244:45194",
+    "text": "VISUAL PASS COMPLETE · 809/809 screen and state records · 25 flow families · 8 sampled live prototype checks, including failures · 809 linked directory entries · 5 historical app comparisons. End-to-end prototype and current app parity are still incomplete.",
+    "width": 4464,
+    "height": 31,
+    "parent": "2244:45191"
+  },
+  "after": {
+    "id": "2244:45194",
+    "text": "OCT 10 · 809/809 source layouts reviewed · 25 flow families · 26 sampled live prototype checks, including failures · 809 directory links · 5 historical app comparisons. Current app/native parity and full branch coverage remain incomplete. Latest: docs/flow-audit/2026-10-10-findings.md",
+    "width": 4464,
+    "height": 31,
+    "parent": "2244:45191"
+  },
+  "originalProductMutations": 0,
+  "scope": "Only existing coverage text updated. Other flow notes remain explicitly dated October 9; consult October 10 findings for subsequent live checks."
+}
