@@ -43,6 +43,14 @@ test("all approved appearances persist without issuance, duplicate Cards or wide
       "prism",
       "orbit",
       "lagoon",
+      "cobalt_gradient",
+      "tidal_gradient",
+      "ember_gradient",
+      "iris_gradient",
+      "evergreen_twotone",
+      "clay_twotone",
+      "indigo_twotone",
+      "slate_twotone",
     ];
     for (const design of designs) {
       const request = {
@@ -67,16 +75,25 @@ test("all approved appearances persist without issuance, duplicate Cards or wide
         (
           await app.inject({
             url: "/v1/cards/" + card.id,
+            remoteAddress: "127.0.0.2",
             headers: { authorization: "Bearer " + stranger.token },
           })
         ).statusCode,
         404,
       );
-      assert.equal((await app.inject("/v1/cards/" + card.id)).statusCode, 401);
+      assert.equal(
+        (
+          await app.inject({
+            url: "/v1/cards/" + card.id,
+            remoteAddress: "127.0.0.3",
+          })
+        ).statusCode,
+        401,
+      );
     }
     assert.equal(
       (await app.inject({ url: "/v1/cards", headers })).json().items.length,
-      21,
+      29,
     );
     const invalid = await app.inject({
       method: "POST",

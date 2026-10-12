@@ -5,7 +5,7 @@ export const cardAppearanceCategories = [
   { id: "finishes", label: "Finishes" },
   { id: "solid", label: "Solid colors" },
   { id: "gradients", label: "Gradients" },
-  { id: "panels", label: "Potluck panels" },
+  { id: "panels", label: "Two tone" },
   { id: "artwork", label: "Artwork" },
 ] as const;
 export type CardAppearanceCategory =
@@ -21,7 +21,7 @@ type CardAppearance = {
   panel?: string;
 };
 
-// Editable gradient fills from Figma 915:4016 and 915:4033.
+// Shared geometry from the six approved Figma gradient sources (October 11).
 function gradient(colors: string[]): ImageSource {
   return {
     uri:
@@ -103,8 +103,7 @@ export const cardAppearances: Record<Card["design"], CardAppearance> = {
     sourceNode: "915:4016",
     background: "#263433",
     foreground: "#FFFFFF",
-    image: gradient(["#006D67", "#2663CB", "#8E52B6"]),
-    panel: "rgba(255,255,255,0.22)",
+    image: gradient(["#004F59", "#1554D1", "#7E2FD0"]),
   },
   sunset: {
     id: "sunset",
@@ -113,8 +112,43 @@ export const cardAppearances: Record<Card["design"], CardAppearance> = {
     sourceNode: "915:4033",
     background: "#263433",
     foreground: "#FFFFFF",
-    image: gradient(["#F76F55", "#E0418F", "#5A3CAE"]),
-    panel: "rgba(255,255,255,0.22)",
+    image: gradient(["#B64222", "#B8206A", "#5824B7"]),
+  },
+  cobalt_gradient: {
+    id: "cobalt_gradient",
+    label: "Cobalt",
+    category: "gradients",
+    sourceNode: "2315:46752",
+    background: "#10266A",
+    foreground: "#FFFFFF",
+    image: gradient(["#10266A", "#1754D9", "#006FAD"]),
+  },
+  tidal_gradient: {
+    id: "tidal_gradient",
+    label: "Tidal",
+    category: "gradients",
+    sourceNode: "2315:46773",
+    background: "#083F40",
+    foreground: "#FFFFFF",
+    image: gradient(["#083F40", "#006B64", "#0D7B74"]),
+  },
+  ember_gradient: {
+    id: "ember_gradient",
+    label: "Ember",
+    category: "gradients",
+    sourceNode: "2315:46794",
+    background: "#5F1741",
+    foreground: "#FFFFFF",
+    image: gradient(["#5F1741", "#A12B35", "#BA4C14"]),
+  },
+  iris_gradient: {
+    id: "iris_gradient",
+    label: "Iris",
+    category: "gradients",
+    sourceNode: "2315:46815",
+    background: "#251B76",
+    foreground: "#FFFFFF",
+    image: gradient(["#251B76", "#6632C4", "#A32683"]),
   },
   ocean: {
     id: "ocean",
@@ -133,6 +167,42 @@ export const cardAppearances: Record<Card["design"], CardAppearance> = {
     background: "#5B21A6",
     foreground: "#FFFFFF",
     panel: "rgba(243,111,85,0.52)",
+  },
+  evergreen_twotone: {
+    id: "evergreen_twotone",
+    label: "Evergreen",
+    category: "panels",
+    sourceNode: "2315:46836",
+    background: "#073F39",
+    foreground: "#FFFFFF",
+    panel: "#00786B",
+  },
+  clay_twotone: {
+    id: "clay_twotone",
+    label: "Clay",
+    category: "panels",
+    sourceNode: "2315:46855",
+    background: "#5C2B33",
+    foreground: "#FFFFFF",
+    panel: "#A44C32",
+  },
+  indigo_twotone: {
+    id: "indigo_twotone",
+    label: "Indigo",
+    category: "panels",
+    sourceNode: "2315:46874",
+    background: "#282C69",
+    foreground: "#FFFFFF",
+    panel: "#64609E",
+  },
+  slate_twotone: {
+    id: "slate_twotone",
+    label: "Slate",
+    category: "panels",
+    sourceNode: "2315:46893",
+    background: "#283D4A",
+    foreground: "#FFFFFF",
+    panel: "#547486",
   },
   aurora: {
     id: "aurora",

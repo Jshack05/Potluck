@@ -53,6 +53,9 @@ function CardForm() {
   });
   const circles = useResource<Collection<Circle>>(user ? "/circles" : null);
   const { name, design } = draft.fields;
+  // A new Card is owned by its creator. Display identity comes from the session,
+  // never from a persisted draft or a user-selectable permission field.
+  const identity = { fullName: user?.name ?? "", role: "host" as const };
   const selectedCircleId =
     draft.fields.circleId === undefined
       ? (circleId ?? null)
@@ -157,6 +160,7 @@ function CardForm() {
               <CardHeading>Your card</CardHeading>
               <CardAppearancePicker
                 name={name}
+                identity={identity}
                 design={design}
                 disabled={draft.locked}
                 expandedCategories={expandedCategories}
@@ -200,6 +204,7 @@ function CardForm() {
         {step === 3 && (
           <CardCreationReview
             name={name}
+            identity={identity}
             design={design}
             circleId={selectedCircleId}
             circleName={selectedCircle?.name}

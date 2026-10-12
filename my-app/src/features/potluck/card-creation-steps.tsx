@@ -1,6 +1,10 @@
 import { Pressable, View } from "react-native";
 import { Label, theme } from "@/design/system";
-import { CardPreview, cardLooks } from "./card-preview";
+import {
+  CardPreview,
+  cardLooks,
+  type CardCreationIdentity,
+} from "./card-preview";
 import {
   cardAppearances,
   cardAppearanceCategories,
@@ -21,6 +25,7 @@ import type { Card, Circle } from "./types";
 // Presentation only: the creation route owns draft state and navigation.
 export function CardAppearancePicker({
   name,
+  identity,
   design,
   disabled,
   onSelect,
@@ -28,6 +33,7 @@ export function CardAppearancePicker({
   onToggleCategory,
 }: {
   name: string;
+  identity: CardCreationIdentity;
   design: Card["design"];
   disabled: boolean;
   onSelect: (design: Card["design"]) => void;
@@ -36,7 +42,7 @@ export function CardAppearancePicker({
 }) {
   return (
     <>
-      <CardPreview name={name} design={design} />
+      <CardPreview name={name} design={design} creationIdentity={identity} />
       <Label
         style={{
           textAlign: "center",
@@ -88,7 +94,7 @@ export function CardAppearancePicker({
                     style={{
                       fontFamily: "Inter_500Medium",
                       fontSize: 12,
-                      color: theme.muted,
+                      color: theme.teal,
                     }}
                   >
                     {expanded ? "See less" : "See all"}
@@ -124,7 +130,12 @@ export function CardAppearancePicker({
                     onPress={() => onSelect(look.id)}
                     style={{ flex: 1, maxWidth: 176, gap: 6 }}
                   >
-                    <CardPreview name={name} design={look.id} compact />
+                    <CardPreview
+                      name={name}
+                      design={look.id}
+                      creationIdentity={identity}
+                      compact
+                    />
                     <View style={{ position: "absolute", top: 8, right: 8 }}>
                       <CardSelection selected={design === look.id} />
                     </View>
@@ -189,12 +200,14 @@ export function CardCirclePicker({
 
 export function CardCreationReview({
   name,
+  identity,
   design,
   circleId,
   circleName,
   onChangeCircle,
 }: {
   name: string;
+  identity: CardCreationIdentity;
   design: Card["design"];
   circleId: string | null;
   circleName?: string;
@@ -209,7 +222,7 @@ export function CardCreationReview({
       </CardHint>
       <View style={{ marginTop: 16, gap: 16 }}>
         <CardHeading>{circleId ? "Your card" : "Card"}</CardHeading>
-        <CardPreview name={name} design={design} />
+        <CardPreview name={name} design={design} creationIdentity={identity} />
         <Label
           style={{
             textAlign: "center",

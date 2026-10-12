@@ -151,3 +151,77 @@ test("the edit affordance remains visible on both light and dark appearances", (
     assert.equal(edit.tintColor, foreground, design + " edit contrast");
   }
 });
+
+test("creation faces show only the card name, full user name and explicit product role", () => {
+  for (const role of ["host", "contributor"]) {
+    const fullName = "Alexandra María van der Linden";
+    const result = preview("graphite", {
+      creationIdentity: { fullName, role },
+      availableMinor: 12345,
+      onEdit: () => {},
+    });
+    assert.deepEqual(
+      result.labels.map((label) => label.children),
+      ["My household", role.toUpperCase(), fullName],
+    );
+    assert.ok(!result.html.includes("Setup required"));
+    assert.ok(!result.html.includes("Not issued"));
+    assert.ok(!result.html.includes("Available to spend"));
+    assert.equal(
+      result.images.length,
+      1,
+      "creation has artwork, no edit action",
+    );
+  }
+});
+
+test("creation thumbnails use the same full name without financial placeholder text", () => {
+  const result = preview("coral", {
+    compact: true,
+    creationIdentity: { fullName: "Morgan Lee", role: "host" },
+  });
+  assert.deepEqual(
+    result.labels.map((label) => label.children),
+    ["My household", "Morgan Lee"],
+  );
+  assert.ok(result.labels.every((label) => label.style.color === "#273432"));
+});
+
+test("approved gradients have their exact saturated fills and no Two tone panel", () => {
+  const palettes = {
+    aurora_gradient: ["#004F59", "#1554D1", "#7E2FD0"],
+    sunset: ["#B64222", "#B8206A", "#5824B7"],
+    cobalt_gradient: ["#10266A", "#1754D9", "#006FAD"],
+    tidal_gradient: ["#083F40", "#006B64", "#0D7B74"],
+    ember_gradient: ["#5F1741", "#A12B35", "#BA4C14"],
+    iris_gradient: ["#251B76", "#6632C4", "#A32683"],
+  };
+  for (const [design, colors] of Object.entries(palettes)) {
+    const { images, frames } = preview(design);
+    assert.equal(images.length, 1, design + " has a gradient");
+    const svg = decodeURIComponent(images[0].source.uri);
+    for (const color of colors)
+      assert.ok(svg.includes(color), design + " " + color);
+    assert.ok(
+      !frames.some((frame) => frame.style?.left === "50%"),
+      design + " has no panel",
+    );
+  }
+});
+
+test("new Two tone looks retain the approved separate base and accent fills", () => {
+  for (const [design, base, accent] of [
+    ["evergreen_twotone", "#073F39", "#00786B"],
+    ["clay_twotone", "#5C2B33", "#A44C32"],
+    ["indigo_twotone", "#282C69", "#64609E"],
+    ["slate_twotone", "#283D4A", "#547486"],
+  ]) {
+    const { frames } = preview(design);
+    assert.equal(frames[0].style.backgroundColor, base);
+    assert.equal(
+      frames.find((frame) => frame.style?.left === "50%")?.style
+        .backgroundColor,
+      accent,
+    );
+  }
+});

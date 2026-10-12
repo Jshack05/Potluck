@@ -109,7 +109,7 @@ function form({
     },
     "@/design/system": {
       ...system,
-      theme: {},
+      theme: { teal: "#006D67", muted: "#697472" },
       go: (path) => visits.push(path),
     },
     "@/services/creation-draft": {
@@ -122,7 +122,9 @@ function form({
       },
     },
     "@/services/client": {
-      useClient: () => ({ user: { id: "host" } }),
+      useClient: () => ({
+        user: { id: "host", name: "Alexandra María van der Linden" },
+      }),
       useCommand: () => async () => ({ id: "saved-card" }),
       useAction: () => ({ run: async (fn) => fn(), busy: false }),
       useResource: () => ({ data: { items: circles }, loading: false }),
@@ -261,6 +263,14 @@ test("every appearance choice survives Circle review, Back, a name edit and subm
     coral: "Coral",
     ocean: "Ocean",
     berry: "Violet",
+    cobalt_gradient: "Cobalt",
+    tidal_gradient: "Tidal",
+    ember_gradient: "Ember",
+    iris_gradient: "Iris",
+    evergreen_twotone: "Evergreen",
+    clay_twotone: "Clay",
+    indigo_twotone: "Indigo",
+    slate_twotone: "Slate",
   };
   for (const [design, label] of Object.entries(options)) {
     const f = form({
@@ -286,14 +296,20 @@ test("every appearance choice survives Circle review, Back, a name edit and subm
         .props.onPress();
     const preview = () => f.tree().find((n) => n.type === "Preview");
     const choice = () =>
-      f.tree().find((n) => n.props?.accessibilityLabel === label);
-    for (const category of ["Finishes", "Artwork"])
+      f
+        .tree()
+        .find(
+          (n) =>
+            n.props?.accessibilityLabel === label &&
+            n.props?.children?.[0]?.props?.design === design,
+        );
+    for (const category of ["Finishes", "Artwork", "Gradients", "Two tone"])
       f.tree()
         .find((n) => n.props?.accessibilityLabel === "See all " + category)
         .props.onPress();
     assert.equal(
       f.tree().filter((n) => n.props?.accessibilityRole === "radio").length,
-      21,
+      29,
     );
     choice().props.onPress();
     assert.equal(choice().props.accessibilityState.checked, true);
@@ -320,6 +336,36 @@ test("every appearance choice survives Circle review, Back, a name edit and subm
       { name: "Renamed card", design, circleId: "crew" },
     ]);
     assert.deepEqual(f.visits, ["/cards", "cleared"]);
+  }
+});
+
+test("creation and review get the signed-in full name and host role without storing identity in the draft", () => {
+  for (const step of [0, 3]) {
+    const f = form({ step });
+    const previews = f.tree().filter((n) => n.type === "Preview");
+    assert.ok(previews.length > 0);
+    for (const p of previews)
+      assert.deepEqual(p.props.creationIdentity, {
+        fullName: "Alexandra María van der Linden",
+        role: "host",
+      });
+    assert.equal(f.draft.fields.creationIdentity, undefined);
+  }
+});
+
+test("all category expansion links use the approved dark green and preserve selection", () => {
+  const f = form({ step: 0 });
+  const button = (label) =>
+    f.tree().find((n) => n.props?.accessibilityLabel === label);
+  for (const category of ["Finishes", "Gradients", "Two tone", "Artwork"]) {
+    const expand = button("See all " + category);
+    assert.ok(expand, category);
+    assert.equal(expand.props.children.props.style.color, "#006D67");
+    expand.props.onPress();
+    const collapse = button("See less " + category);
+    assert.equal(collapse.props.children.props.style.color, "#006D67");
+    collapse.props.onPress();
+    assert.equal(f.draft.fields.design, "aurora");
   }
 });
 

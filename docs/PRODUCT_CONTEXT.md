@@ -1,5 +1,13 @@
 # Potluck Product Context
 
+## October 11, 2026 — Card appearance category refinement
+
+The approved category name is **Two tone**, replacing Potluck panels (and superseding the intermediate Duotone suggestion). Gradients use continuous, stronger color blends without a contrasting panel; Two tone uses distinct areas of color. Both categories have six approved choices, taking the catalog to 29. The app now uses these Figma sources and the existing deep-teal action token for Create card's See all / See less controls. Saved design IDs and Graphite's fresh-draft default are preserved. See the [source and verification record](ui-concepts/2026-10-11-card-palette-refresh.md).
+
+During creation and review, the Card face shows only the Card name, the signed-in user's full profile name and the applicable Host/Contributor tag. New Card creators are Hosts; this label never grants spending rights or creates a contribution agreement. Compact appearance swatches retain their existing selection indicator instead of a role badge. This explicit presentation change replaces setup/issuance placeholders on creation previews; saved Card financial/status presentation and provider-dependent actions are unchanged.
+
+This refines the existing Free/core promise for hosts to name and recognize their Cards. Acquisition, conversion, retention and the creation-completion metric remain as described below; no new entitlement, financial capability or permission is introduced.
+
 ## October 11, 2026 — Combined Card naming and appearance
 
 Card creation now begins with one screen for the name and appearance, followed by Circle attachment and review. New drafts start with the existing Graphite design; saved Cards, saved drafts and pending requests keep their selected appearance. The 21 verified Figma designs are grouped into Finishes, Solid colors, Gradients, Potluck panels and Artwork. Two choices are initially shown per category, with inline See all/See less where more exist. Selecting or collapsing a category must never erase the name or change the saved choice. Continue on this combined screen stays at its ordinary bottom position when the keyboard opens.

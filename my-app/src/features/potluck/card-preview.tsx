@@ -4,6 +4,10 @@ import { Pressable, StyleSheet, View } from "react-native";
 import { Label, money } from "@/design/system";
 import type { Card } from "./types";
 import { cardAppearances } from "./card-appearance-catalog";
+export type CardCreationIdentity = {
+  fullName: string;
+  role: "host" | "contributor";
+};
 export const cardLooks = Object.fromEntries(
   Object.values(cardAppearances).map((look) => [look.id, look.label]),
 ) as Record<Card["design"], string>;
@@ -15,6 +19,7 @@ export function CardPreview({
   availableMinor = null,
   compact = false,
   variant = "preview",
+  creationIdentity,
   onEdit,
 }: {
   name: string;
@@ -24,6 +29,7 @@ export function CardPreview({
   availableMinor?: number | null;
   compact?: boolean;
   variant?: "preview" | "detail";
+  creationIdentity?: CardCreationIdentity;
   onEdit?: () => void;
 }) {
   const targetWidth = compact ? 176 : variant === "detail" ? 369.6 : 330;
@@ -32,6 +38,13 @@ export function CardPreview({
   // Unknown future IDs keep a neutral preview; never rewrite the saved choice.
   const look = cardAppearances[design];
   const foreground = look?.foreground ?? "#FFFFFF";
+  const displayedRole = creationIdentity?.role ?? role;
+  const roleLabel =
+    displayedRole === "host"
+      ? "HOST"
+      : displayedRole === "contributor"
+        ? "CONTRIBUTOR"
+        : "TRUSTED SPENDER";
   return (
     <View
       onLayout={({ nativeEvent }) => setWidth(nativeEvent.layout.width)}
@@ -82,13 +95,13 @@ export function CardPreview({
             fontFamily: "Inter_700Bold",
             fontSize: 20 * scale,
             lineHeight: 26 * scale,
-            maxWidth: role && !compact ? "72%" : "100%",
+            maxWidth: displayedRole && !compact ? "72%" : "100%",
           }}
         >
           {name || "Your card"}
         </Label>
       </View>
-      {!compact && role && (
+      {!compact && displayedRole && (
         <View
           style={{
             position: "absolute",
@@ -108,57 +121,81 @@ export function CardPreview({
               lineHeight: 16 * scale,
             }}
           >
-            {role === "host" ? "HOST" : "TRUSTED SPENDER"}
+            {roleLabel}
           </Label>
         </View>
       )}
-      <View
-        style={{
-          position: "absolute",
-          top: 76 * scale,
-          left: 22 * scale,
-          right: 22 * scale,
-          gap: 5 * scale,
-        }}
-      >
-        {availableMinor !== null && !closed && (
-          <Label
-            style={{
-              color: foreground,
-              fontSize: 12 * scale,
-              lineHeight: 16 * scale,
-            }}
-          >
-            Available to spend
-          </Label>
-        )}
-        <Label
+      {creationIdentity ? (
+        <View
           style={{
-            color: foreground,
-            fontFamily: "Inter_700Bold",
-            fontSize: (availableMinor !== null ? 28 : 18) * scale,
-            lineHeight: 32 * scale,
+            position: "absolute",
+            bottom: 22 * scale,
+            left: 22 * scale,
+            right: 22 * scale,
           }}
         >
-          {closed
-            ? "Setup closed"
-            : availableMinor !== null
-              ? money(availableMinor)
-              : "Setup required"}
-        </Label>
-        {availableMinor === null && (
           <Label
+            numberOfLines={3}
+            adjustsFontSizeToFit
+            minimumFontScale={0.8}
             style={{
               color: foreground,
-              fontSize: 12 * scale,
+              fontSize: 14 * scale,
               lineHeight: 18 * scale,
             }}
           >
-            {compact ? "Not issued" : "Not issued · no spending available"}
+            {creationIdentity.fullName}
           </Label>
-        )}
-      </View>
-      {onEdit && (
+        </View>
+      ) : (
+        <View
+          style={{
+            position: "absolute",
+            top: 76 * scale,
+            left: 22 * scale,
+            right: 22 * scale,
+            gap: 5 * scale,
+          }}
+        >
+          {availableMinor !== null && !closed && (
+            <Label
+              style={{
+                color: foreground,
+                fontSize: 12 * scale,
+                lineHeight: 16 * scale,
+              }}
+            >
+              Available to spend
+            </Label>
+          )}
+          <Label
+            style={{
+              color: foreground,
+              fontFamily: "Inter_700Bold",
+              fontSize: (availableMinor !== null ? 28 : 18) * scale,
+              lineHeight: 32 * scale,
+            }}
+          >
+            {closed
+              ? "Setup closed"
+              : availableMinor !== null
+                ? money(availableMinor)
+                : "Setup required"}
+          </Label>
+          {availableMinor === null && (
+            <Label
+              style={{
+                color: foreground,
+                fontSize: 12 * scale,
+                lineHeight: 18 * scale,
+              }}
+            >
+              {compact ? "Not issued" : "Not issued · no spending available"}
+            </Label>
+          )}
+        </View>
+      )}
+      {!creationIdentity && onEdit && (
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="Edit card"

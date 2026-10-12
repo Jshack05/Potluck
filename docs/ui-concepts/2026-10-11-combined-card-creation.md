@@ -1,5 +1,7 @@
 # Combined Card creation — October 11, 2026
 
+> Later refinement: [Card palette refresh](2026-10-11-card-palette-refresh.md) records the approved **Two tone** name, stronger gradients, eight additional designs, deep-teal expansion controls and subsequent app synchronization with identity-only creation faces. The 21-design implementation and validation below are the historical record of the earlier combined-screen change.
+
 Joseph approved combining naming and appearance selection. The app now uses **Create card (name and appearance) → Attach a Circle → Review card → Cards**. This replaces the separate appearance step; it does not change permissions, bank setup, issuance, funding or invitations.
 
 ## Source and composition
