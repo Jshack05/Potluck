@@ -1,5 +1,7 @@
 # Potluck app flow map
 
+> **October 12 Merchant controls:** The [new Figma mapping overlay](flow-audit/2026-10-12-merchant-controls-mapping.json) records the Maximum, Range and Choose industries frames, reusable component sources, and connections from active Family/Apartment Card settings. This is a focused design addition, not app implementation or completion of the broad audit. See the [execution record](ui-concepts/2026-10-12-merchant-controls-figma.md).
+
 > **October 12 Cards interactions:** The [focused mapping overlay](flow-audit/2026-10-12-card-interactions-mapping.json) and [execution record](ui-concepts/2026-10-12-card-interactions.md) document updated review summaries, edit returns, stack motion, draggable Add people and shared floating-action clearance. This does not resume or declare completion of the broad audit.
 
 > **October 11 combined Card creation:** Use the [dated mapping overlay](flow-audit/2026-10-11-card-creation-mapping.json) and [execution record](ui-concepts/2026-10-11-combined-card-creation.md) for the current combined name/appearance screen and direct Circle transition. Older captures below are not rewritten to imply they captured this later change.

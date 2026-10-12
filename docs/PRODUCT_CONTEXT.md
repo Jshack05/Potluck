@@ -1,5 +1,9 @@
 # Potluck Product Context
 
+## October 12, 2026 — Merchant controls design
+
+The approved Figma flow lets a Card Host choose a maximum amount or inclusive range **per purchase**, combined with an allowlist of industries based on merchant category codes. This is separate from monthly spending limits and individual Trusted Spender permissions. The editor preserves Card identity, supports canceling draft edits, and returns to the originating Card settings after Save. The current task creates Figma screens and prototype interactions only; exact processor MCC groupings, supported amount rules, server enforcement, authorization precedence and audit behavior still require implementation verification. No provider state or program approval is established by this design. It is core/free usability; paid entitlements remain deferred. See the [source, marketability and verification record](ui-concepts/2026-10-12-merchant-controls-figma.md).
+
 ## October 12, 2026 — Review adjustments and Card interactions
 
 Before submitting Card creation, the whole appearance preview, sharing summary and bank-account summary reopen their existing step. Continue returns directly to review; Back cancels that edit and restores the prior choices. The bank summary has its own row with the approved bank icon; Just for you uses the existing single-person icon. Submitted commands remain locked with their original retry identity. This changes presentation and draft editing only, not account ownership, consent, financial readiness or provider state.
