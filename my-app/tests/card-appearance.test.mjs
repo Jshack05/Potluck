@@ -57,7 +57,12 @@ function preview(design, props = {}) {
       (id) => {
         if (imports[id]) return imports[id];
         if (/\.(png|svg)$/.test(id)) return fileURLToPath(new URL(id, url));
-        if (id.startsWith(".")) return load(new URL(id + ".ts", url));
+        if (id.startsWith(".")) {
+          const source = [".ts", ".tsx"]
+            .map((suffix) => new URL(id + suffix, url))
+            .find((file) => existsSync(file));
+          return load(source);
+        }
         return require(id);
       },
       module,

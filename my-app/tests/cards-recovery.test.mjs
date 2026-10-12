@@ -881,7 +881,16 @@ test("whitespace names block Continue and long names retain their exact draft va
 });
 
 test("confirmed zero is money, an unavailable balance is not, and the label precedes the amount", () => {
+  const catalog = load(
+    "../src/features/potluck/card-appearance-catalog.ts",
+    {},
+  );
   const { CardPreview } = load("../src/features/potluck/card-preview.tsx", {
+    "./card-artwork": load("../src/features/potluck/card-artwork.tsx", {
+      "./card-appearance-catalog": catalog,
+      "react-native": { View: node, StyleSheet: { absoluteFill: {} } },
+      "expo-image": { Image: () => null },
+    }),
     "./card-appearance-catalog": load(
       "../src/features/potluck/card-appearance-catalog.ts",
       {},

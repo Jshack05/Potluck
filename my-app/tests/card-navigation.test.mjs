@@ -5,6 +5,7 @@ import { createRequire } from "node:module";
 import { compileFunction } from "node:vm";
 import React from "react";
 import ts from "typescript";
+import { merchantControlsSummary } from "../src/features/potluck/merchant-controls-model.ts";
 
 const require = createRequire(import.meta.url);
 
@@ -92,7 +93,11 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
         access: "bank_required",
       }),
       useResource: (path) => ({
-        data: path?.startsWith("/cards/") ? card : null,
+        data: path?.endsWith("/merchant-controls")
+          ? { settings: { industries: ["groceries"] } }
+          : path?.startsWith("/cards/")
+            ? card
+            : null,
         error: "",
         loading: false,
       }),
@@ -116,6 +121,7 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
     },
     "./loading": { LoadingFeedback: () => null },
     "@/features/potluck/card-preview": { CardPreview: () => null },
+    "@/features/potluck/merchant-controls-model": { merchantControlsSummary },
     "@/features/potluck/card-ui": Object.fromEntries(
       ["CardHeading", "CardSettingsGroup", "CardSetting"].map((n) => [
         n,
@@ -316,6 +322,51 @@ test("account-entry fields can avoid the keyboard without moving footer actions 
     footer.ancestors.some((n) => n.type === "ScrollView"),
     false,
   );
+});
+
+test("content-only keyboard adjustment leaves Merchant controls actions and navigation stationary", () => {
+  const nodes = screen("fund").renderShell({
+    keyboardContentOnly: true,
+    subtitle: "Choose where this card can be used.",
+  });
+  assert.equal(
+    nodes.find((n) => n.type === "KeyboardAvoidingView").props.enabled,
+    false,
+  );
+  assert.equal(
+    nodes.find((n) => n.type === "ScrollView").props
+      .automaticallyAdjustKeyboardInsets,
+    true,
+  );
+  const subtitle = nodes.find(
+    (n) =>
+      n.type === "Text" &&
+      n.props.children === "Choose where this card can be used.",
+  );
+  assert.ok(subtitle);
+  assert.equal(
+    subtitle.ancestors.some((n) => n.type === "ScrollView"),
+    false,
+  );
+  for (const type of ["Continue", "Navigation"]) {
+    assert.ok(
+      nodes
+        .find((n) => n.type === type)
+        .ancestors.every((n) => n.type !== "ScrollView"),
+    );
+  }
+});
+
+test("Card settings opens Merchant controls for its own Card with the saved summary", () => {
+  const s = screen("setup");
+  const row = s
+    .render()
+    .find(
+      (n) => n.type === "CardSetting" && n.props.title === "Merchant controls",
+    );
+  assert.equal(row.props.value, "1 industry");
+  row.props.onPress();
+  assert.deepEqual(s.visits, ["/card/card-1/merchant-controls"]);
 });
 
 test("direct-entry Card secondary Back returns to the affected Card", () => {
