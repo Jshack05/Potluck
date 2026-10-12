@@ -63,6 +63,7 @@ function sheet(platform = "ios") {
   }
   const animation = (value, options) => ({
     start(fn) {
+      value.driver = options.useNativeDriver ? "native" : "js";
       value.setValue(options.toValue);
       fn?.({ finished: true });
     },
@@ -163,6 +164,39 @@ function sheet(platform = "ios") {
   }
   render();
   return {
+    translations() {
+      const values = [];
+      function visit(node) {
+        if (!node || typeof node !== "object") return;
+        node.props?.style?.transform?.forEach((t) =>
+          values.push(t.translateY.value),
+        );
+        [node.props?.children].flat(Infinity).forEach(visit);
+      }
+      visit(tree);
+      return values;
+    },
+    driverViolations() {
+      const violations = [];
+      function visit(node) {
+        if (!node || typeof node !== "object") return;
+        if (node.type === "AnimatedView") {
+          const style = node.props.style;
+          const values = Object.entries(style).filter(
+            ([, value]) => value instanceof Value,
+          );
+          const nativeTransform = style.transform?.some((t) =>
+            Object.values(t).some(
+              (v) => v instanceof Value && v.driver === "native",
+            ),
+          );
+          if (nativeTransform) values.forEach(([key]) => violations.push(key));
+        }
+        [node.props?.children].flat(Infinity).forEach(visit);
+      }
+      visit(tree);
+      return violations;
+    },
     render,
     scrollOffset,
     pan: () => pan,
@@ -187,6 +221,21 @@ function sheet(platform = "ios") {
   };
 }
 
+test("native translation never shares an animated style node with JS layout", () => {
+  const s = sheet();
+  assert.deepEqual(s.driverViolations(), []);
+  s.drag(-250);
+  assert.deepEqual(s.driverViolations(), []);
+  s.keyboard(350);
+  assert.deepEqual(s.driverViolations(), []);
+  s.pan().onPanResponderTerminate();
+  s.render();
+  assert.deepEqual(s.driverViolations(), []);
+  s.drag(500);
+  s.open();
+  assert.deepEqual(s.driverViolations(), []);
+});
+
 test("drag dismissal preserves content height and reopening restores the compact sheet", () => {
   const s = sheet();
   assert.equal(
@@ -209,7 +258,8 @@ test("drag dismissal preserves content height and reopening restores the compact
   s.open();
   assert.equal(s.surface().props.style.height.value, 380);
   assert.ok(
-    s.surface().props.style.transform.every((t) => t.translateY.value === 0),
+    s.translations().length === 2 &&
+      s.translations().every((value) => value === 0),
   );
 });
 

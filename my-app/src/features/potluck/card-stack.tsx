@@ -38,6 +38,7 @@ function StackCard({
   }, [position, y, reduced]);
   return (
     <Animated.View
+      pointerEvents="box-none"
       style={{
         position: "absolute",
         left: 0,
@@ -48,6 +49,7 @@ function StackCard({
       }}
     >
       <Pressable
+        style={{ width: "100%", maxWidth: 330, alignSelf: "center" }}
         accessibilityRole="button"
         accessibilityLabel={`${expanded || single ? "Open" : "Expand"} ${card.name}`}
         accessibilityState={{ expanded }}
@@ -97,10 +99,11 @@ export function CardStack({
   }, [extent, layout.height, reduced]);
   return (
     <View
+      pointerEvents="box-none"
       onLayout={(e) => setWidth(e.nativeEvent.layout.width)}
       style={{ paddingTop: 20 }}
     >
-      <Animated.View style={{ height: extent }}>
+      <Animated.View pointerEvents="box-none" style={{ height: extent }}>
         {selectedId && (
           <Pressable
             accessibilityRole="button"

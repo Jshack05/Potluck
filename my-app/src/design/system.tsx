@@ -334,6 +334,8 @@ export function Shell({
   headerVariant = "standard",
   titlePlacement = "header",
   avoidKeyboard = true,
+  onBackgroundPress,
+  backgroundAccessibilityLabel,
 }: {
   title: string;
   children: ReactNode;
@@ -352,6 +354,8 @@ export function Shell({
   headerVariant?: "standard" | "centered";
   titlePlacement?: "header" | "content";
   avoidKeyboard?: boolean;
+  onBackgroundPress?: () => void;
+  backgroundAccessibilityLabel?: string;
 }) {
   const inset = useSafeAreaInsets(),
     pathname = usePathname();
@@ -518,6 +522,21 @@ export function Shell({
                 flexGrow: 1,
               }}
             >
+              {onBackgroundPress && (
+                <Pressable
+                  testID="screen-background-action"
+                  accessibilityRole="button"
+                  accessibilityLabel={backgroundAccessibilityLabel}
+                  onPress={onBackgroundPress}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                  }}
+                />
+              )}
               {titlePlacement === "content" && (
                 <Label
                   accessibilityRole="header"

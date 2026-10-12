@@ -269,46 +269,56 @@ export function SheetSurface({
           }}
         >
           <Animated.View
-            accessibilityViewIsModal
-            {...(drag ? pan.panHandlers : {})}
+            pointerEvents="box-none"
             style={{
-              backgroundColor: "white",
-              borderRadius: 32,
               width: "100%",
               maxWidth: 430,
               alignSelf: "center",
-              maxHeight: drag ? undefined : "85%",
-              height: drag ? sheetHeight : height,
-              marginBottom: drag ? sheetBottom : 0,
-              overflow: drag ? "hidden" : undefined,
-              padding: 20,
-              gap: 12,
               transform: [{ translateY: offset }, { translateY: dragOffset }],
             }}
           >
-            {/* Pointer gestures belong to the sheet; the child also supports keyboard/accessibility activation. */}
-            {drag && (
-              <View
-                pointerEvents="box-only"
-                style={{ alignItems: "center", paddingVertical: 2 }}
-              >
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel={
-                    drag.expanded ? "Collapse people" : "Expand people"
-                  }
-                  onPress={() => drag.onExpandedChange(!drag.expanded)}
-                  hitSlop={12}
-                  style={{
-                    width: 58,
-                    height: 5,
-                    borderRadius: 3,
-                    backgroundColor: "#D8E2DE",
-                  }}
-                />
-              </View>
-            )}
-            {children}
+            {/* Keep JS layout on a different animated style node from native transforms. */}
+            <Animated.View
+              accessibilityViewIsModal
+              {...(drag ? pan.panHandlers : {})}
+              style={{
+                backgroundColor: "white",
+                borderRadius: 32,
+                width: "100%",
+                maxWidth: 430,
+                alignSelf: "center",
+                maxHeight: drag ? undefined : "85%",
+                height: drag ? sheetHeight : height,
+                marginBottom: drag ? sheetBottom : 0,
+                overflow: drag ? "hidden" : undefined,
+                padding: 20,
+                gap: 12,
+              }}
+            >
+              {/* Pointer gestures belong to the sheet; the child also supports keyboard/accessibility activation. */}
+              {drag && (
+                <View
+                  pointerEvents="box-only"
+                  style={{ alignItems: "center", paddingVertical: 2 }}
+                >
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel={
+                      drag.expanded ? "Collapse people" : "Expand people"
+                    }
+                    onPress={() => drag.onExpandedChange(!drag.expanded)}
+                    hitSlop={12}
+                    style={{
+                      width: 58,
+                      height: 5,
+                      borderRadius: 3,
+                      backgroundColor: "#D8E2DE",
+                    }}
+                  />
+                </View>
+              )}
+              {children}
+            </Animated.View>
           </Animated.View>
         </KeyboardAvoidingView>
       </View>

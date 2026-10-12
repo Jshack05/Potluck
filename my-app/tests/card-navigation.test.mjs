@@ -211,6 +211,43 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
   };
 }
 
+test("background dismissal is opt-in and sits behind scroll content, without owning child presses", () => {
+  const s = screen("fund");
+  let dismissed = 0,
+    childPresses = 0;
+  const props = {
+    onBackgroundPress: () => dismissed++,
+    backgroundAccessibilityLabel: "Reset card arrangement",
+    children: React.createElement("Pressable", {
+      onPress: () => childPresses++,
+      testID: "child-control",
+    }),
+  };
+  assert.equal(
+    s
+      .renderShell({})
+      .some((n) => n.props.testID === "screen-background-action"),
+    false,
+  );
+  const nodes = s.renderShell(props);
+  const background = nodes.find(
+    (n) => n.props.testID === "screen-background-action",
+  );
+  assert.ok(background);
+  assert.ok(background.ancestors.some((n) => n.type === "ScrollView"));
+  assert.equal(background.props.style.position, "absolute");
+  const child = nodes.find((n) => n.props.testID === "child-control");
+  assert.ok(nodes.indexOf(background) < nodes.indexOf(child));
+  assert.ok(
+    child.ancestors.every((n) => n.props.testID !== "screen-background-action"),
+  );
+  child.props.onPress();
+  assert.equal(dismissed, 0);
+  background.props.onPress();
+  assert.equal(dismissed, 1);
+  assert.equal(childPresses, 1);
+});
+
 test("transfer-review header Back restores amount selection without leaving funding", () => {
   const s = screen("fund", { history: true });
   s.input().props.onChangeText("50.25");

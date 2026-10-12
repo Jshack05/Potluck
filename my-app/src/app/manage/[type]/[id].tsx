@@ -115,7 +115,7 @@ export default function Manage() {
                     icon="bills"
                     onPress={() => go("/create/bill?id=" + id)}
                   />
-                )}{" "}
+                )}
                 {owned && type !== "circles" && (
                   <Row
                     title="Change connection"
@@ -123,7 +123,7 @@ export default function Manage() {
                     icon="circles"
                     onPress={() => setIntent("connect")}
                   />
-                )}{" "}
+                )}
                 {type === "circles" ? (
                   !owned ? (
                     <Link danger onPress={() => setIntent("leave")}>
