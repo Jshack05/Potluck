@@ -90,7 +90,7 @@ export async function getCardsDetail(db: Queryable, context: QueryContext) {
     card = await ownedCard(db, context.resourceId, user);
   const bills = (
     await db.query(
-      "SELECT id,name,amount_minor,status FROM bills WHERE card_id=$1 AND host_id=$2",
+      "SELECT id,name,amount_minor,status,icon,color FROM bills WHERE card_id=$1 AND host_id=$2",
       [card.id, user],
     )
   ).rows.map(api);

@@ -6,6 +6,7 @@ export default function BalanceDetails() {
   return (
     <CardScene
       title="Balance details"
+      hideNavigation
       footer={(card) =>
         card.role === "host" && card.status !== "closed" ? (
           <Action

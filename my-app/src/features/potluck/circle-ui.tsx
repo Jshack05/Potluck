@@ -1,5 +1,5 @@
-import { useEffect, useState, type ReactNode } from "react";
-import { SheetSurface } from "@/design/sheet";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { SheetSurface, type SheetDrag } from "@/design/sheet";
 import { Image } from "expo-image";
 import {
   Pressable,
@@ -306,29 +306,40 @@ export function CircleSheet({
   children,
   height,
   onExpand,
+  drag,
 }: {
   visible: boolean;
   onClose: () => void;
   children: ReactNode;
   height?: number;
   onExpand?: () => void;
+  drag?: SheetDrag;
 }) {
   return (
-    <SheetSurface visible={visible} onClose={onClose} height={height}>
-      <Pressable
-        hitSlop={12}
-        accessibilityRole={onExpand ? "button" : undefined}
-        accessibilityLabel={onExpand ? "Expand or collapse people" : undefined}
-        onPress={onExpand}
-        style={{
-          height: 5,
-          width: 58,
-          borderRadius: 3,
-          backgroundColor: "#D8E2DE",
-          alignSelf: "center",
-          marginBottom: 6,
-        }}
-      />
+    <SheetSurface
+      visible={visible}
+      onClose={onClose}
+      height={height}
+      drag={drag}
+    >
+      {!drag && (
+        <Pressable
+          hitSlop={12}
+          accessibilityRole={onExpand ? "button" : undefined}
+          accessibilityLabel={
+            onExpand ? "Expand or collapse people" : undefined
+          }
+          onPress={onExpand}
+          style={{
+            height: 5,
+            width: 58,
+            borderRadius: 3,
+            backgroundColor: "#D8E2DE",
+            alignSelf: "center",
+            marginBottom: 6,
+          }}
+        />
+      )}
       {children}
     </SheetSurface>
   );
@@ -348,6 +359,12 @@ export function AddCirclePeople({
     [search, setSearch] = useState(""),
     [query, setQuery] = useState(""),
     [expanded, setExpanded] = useState(false);
+  const scrollOffset = useRef(0);
+  function closePeople() {
+    setExpanded(false);
+    scrollOffset.current = 0;
+    onClose();
+  }
   useEffect(() => {
     const timer = setTimeout(() => setQuery(search.trim()), 250);
     return () => clearTimeout(timer);
@@ -364,11 +381,18 @@ export function AddCirclePeople({
   return (
     <CircleSheet
       visible={visible}
-      onClose={onClose}
-      height={expanded ? 700 : 380}
-      onExpand={() => setExpanded(!expanded)}
+      onClose={closePeople}
+      drag={{ expanded, onExpandedChange: setExpanded, scrollOffset }}
     >
-      <View style={{ flex: 1, gap: 12 }}>
+      <ScrollView
+        onScroll={(event) => {
+          scrollOffset.current = Math.max(0, event.nativeEvent.contentOffset.y);
+        }}
+        scrollEventThrottle={16}
+        keyboardShouldPersistTaps="handled"
+        style={{ flex: 1, minHeight: 0 }}
+        contentContainerStyle={{ gap: 12 }}
+      >
         <View style={{ gap: 3 }}>
           <Label
             style={{
@@ -421,11 +445,7 @@ export function AddCirclePeople({
         <Label style={{ fontFamily: "Inter_700Bold", fontSize: 15 }}>
           People you know
         </Label>
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          style={{ flex: 1 }}
-          contentContainerStyle={{ gap: 8 }}
-        >
+        <View style={{ gap: 8 }}>
           <ResourceState {...contacts} retry={contacts.reload} />
           {contacts.data?.items
             .filter((p) => p.id !== user?.id)
@@ -493,8 +513,8 @@ export function AddCirclePeople({
               <Label style={{ color: theme.teal }}>Add {email}</Label>
             </Pressable>
           )}
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     </CircleSheet>
   );
 }

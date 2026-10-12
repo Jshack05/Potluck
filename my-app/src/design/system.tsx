@@ -6,7 +6,13 @@ import {
   useLocalSearchParams,
   type Href,
 } from "expo-router";
-import { type ReactNode, createContext, useContext, useId } from "react";
+import {
+  type ReactNode,
+  createContext,
+  useContext,
+  useId,
+  useState,
+} from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -95,12 +101,15 @@ export function Link({
 export function Field({
   label,
   error,
+  hideLabel = false,
   ...props
-}: TextInputProps & { label: string; error?: string }) {
+}: TextInputProps & { label: string; error?: string; hideLabel?: boolean }) {
   const errorId = useId();
   return (
     <View style={{ gap: 8 }}>
-      <Label style={{ fontFamily: "Inter_600SemiBold" }}>{label}</Label>
+      {!hideLabel && (
+        <Label style={{ fontFamily: "Inter_600SemiBold" }}>{label}</Label>
+      )}
       <TextInput
         {...props}
         accessibilityLabel={label}
@@ -321,6 +330,10 @@ export function Shell({
   createMenu,
   continuation = false,
   headerAccessory,
+  headerTitleSize,
+  headerVariant = "standard",
+  titlePlacement = "header",
+  avoidKeyboard = true,
 }: {
   title: string;
   children: ReactNode;
@@ -335,9 +348,17 @@ export function Shell({
   createMenu?: boolean;
   continuation?: boolean;
   headerAccessory?: ReactNode;
+  headerTitleSize?: number;
+  headerVariant?: "standard" | "centered";
+  titlePlacement?: "header" | "content";
+  avoidKeyboard?: boolean;
 }) {
   const inset = useSafeAreaInsets(),
     pathname = usePathname();
+  const [actionHeight, setActionHeight] = useState(0);
+  const showCreate =
+    createMenu ?? ["/circles", "/cards", "/bills"].includes(pathname);
+  const floatingActions = showCreate && !back;
   const params = useLocalSearchParams(),
     client = useClient();
   const query = new URLSearchParams(
@@ -378,6 +399,7 @@ export function Shell({
           }}
         >
           <KeyboardAvoidingView
+            enabled={avoidKeyboard && !mainTab(pathname)}
             behavior={Platform.OS === "ios" ? "padding" : undefined}
             style={{ flex: 1 }}
           >
@@ -388,7 +410,7 @@ export function Shell({
                   paddingHorizontal: 20,
                   paddingTop: Math.max(inset.top + 12, 45),
                   paddingBottom: mainTab(pathname) ? 11 : 20,
-                  gap: 12,
+                  gap: headerVariant === "centered" ? 2 : 12,
                 },
               ]}
             >
@@ -423,21 +445,46 @@ export function Shell({
                   </Label>
                 </Pressable>
               )}
-              <Label
-                accessibilityRole="header"
-                style={{
-                  fontFamily: "Inter_700Bold",
-                  fontSize: continuation ? 36 : back ? 25 : 28,
-                  lineHeight: continuation ? 44 : 38,
-                  color: continuation ? theme.teal : theme.ink,
-                  flex: 1,
-                }}
-              >
-                {title}
-              </Label>
+              {titlePlacement === "header" ? (
+                <Label
+                  accessibilityRole="header"
+                  style={{
+                    fontFamily:
+                      headerVariant === "centered"
+                        ? "Inter_600SemiBold"
+                        : "Inter_700Bold",
+                    fontSize:
+                      headerTitleSize ??
+                      (headerVariant === "centered"
+                        ? 16
+                        : continuation
+                          ? 36
+                          : back
+                            ? 25
+                            : 28),
+                    lineHeight:
+                      headerVariant === "centered"
+                        ? 24
+                        : continuation
+                          ? 44
+                          : 38,
+                    textAlign: headerVariant === "centered" ? "center" : "left",
+                    color: continuation ? theme.teal : theme.ink,
+                    flex: 1,
+                  }}
+                >
+                  {title}
+                </Label>
+              ) : (
+                <View style={{ flex: 1 }} />
+              )}
+              {headerAccessory}
+              {headerVariant === "centered" &&
+                back &&
+                !continuation &&
+                !headerAccessory && <View style={{ width: 44 }} />}
               {(!back || continuation) && (
                 <>
-                  {headerAccessory}
                   <HeaderActions blue={blue} />
                 </>
               )}
@@ -466,27 +513,60 @@ export function Shell({
               keyboardShouldPersistTaps="handled"
               contentContainerStyle={{
                 paddingHorizontal: 20,
-                paddingBottom: 24,
+                paddingBottom: 24 + (floatingActions ? actionHeight : 0),
                 gap: 16,
                 flexGrow: 1,
               }}
             >
+              {titlePlacement === "content" && (
+                <Label
+                  accessibilityRole="header"
+                  style={{
+                    fontFamily: "Inter_700Bold",
+                    fontSize: 30,
+                    lineHeight: 34,
+                  }}
+                >
+                  {title}
+                </Label>
+              )}
               {children}
             </ScrollView>
             {(footer ||
               (createMenu ??
                 ["/circles", "/cards", "/bills"].includes(pathname))) && (
               <View
+                testID={
+                  floatingActions ? "floating-screen-actions" : "screen-footer"
+                }
+                pointerEvents="box-none"
+                onLayout={
+                  floatingActions
+                    ? (e) => setActionHeight(e.nativeEvent.layout.height)
+                    : undefined
+                }
                 style={{
+                  ...(floatingActions
+                    ? {
+                        position: "absolute" as const,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                      }
+                    : {}),
                   paddingHorizontal: 20,
                   paddingTop: 12,
-                  paddingBottom: 12,
+                  paddingBottom: hideNavigation
+                    ? Math.max(inset.bottom, 12)
+                    : 12,
                   gap: 10,
                   flexDirection: "row",
                   alignItems: mainTab(pathname) ? "center" : "flex-end",
                 }}
               >
-                <View style={{ flex: 1, gap: 10 }}>{footer}</View>
+                <View pointerEvents="box-none" style={{ flex: 1, gap: 10 }}>
+                  {footer}
+                </View>
                 {(createMenu ??
                   ["/circles", "/cards", "/bills"].includes(pathname)) && (
                   <CreationMenu
@@ -541,7 +621,7 @@ export function EntryLoading() {
   );
 }
 
-/** Content scrolls; entry actions stay at the lower safe area, above the keyboard. */
+/** Only fields avoid the keyboard; entry actions stay at the lower safe area. */
 export function EntryShell({
   children,
   footer,
@@ -554,47 +634,50 @@ export function EntryShell({
   const inset = useSafeAreaInsets();
   return (
     <Accent.Provider value={theme.teal}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        style={{ flex: 1, backgroundColor: theme.canvas }}
-      >
+      <View style={{ flex: 1, backgroundColor: theme.canvas }}>
         <View
           style={{ flex: 1, width: "100%", maxWidth: 430, alignSelf: "center" }}
         >
-          <ScrollView
-            keyboardShouldPersistTaps="handled"
-            contentContainerStyle={{
-              paddingHorizontal: 20,
-              paddingTop: Math.max(inset.top, 24) + 28,
-              paddingBottom: 24,
-              gap: 20,
-              flexGrow: 1,
-            }}
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
+            style={{ flex: 1 }}
           >
-            {brand && (
-              <View
-                style={{
-                  height: 88,
-                  alignItems: "center",
-                  gap: 12,
-                  marginBottom: 16,
-                }}
-              >
-                <Icon name="authLucky" size={44} />
-                <Label
+            <ScrollView
+              keyboardDismissMode="interactive"
+              keyboardShouldPersistTaps="handled"
+              contentContainerStyle={{
+                paddingHorizontal: 20,
+                paddingTop: Math.max(inset.top, 24) + 28,
+                paddingBottom: 24,
+                gap: 20,
+                flexGrow: 1,
+              }}
+            >
+              {brand && (
+                <View
                   style={{
-                    fontFamily: "Inter_700Bold",
-                    fontSize: 22,
-                    lineHeight: 28,
-                    color: theme.teal,
+                    height: 88,
+                    alignItems: "center",
+                    gap: 12,
+                    marginBottom: 16,
                   }}
                 >
-                  Potluck
-                </Label>
-              </View>
-            )}
-            {children}
-          </ScrollView>
+                  <Icon name="authLucky" size={44} />
+                  <Label
+                    style={{
+                      fontFamily: "Inter_700Bold",
+                      fontSize: 22,
+                      lineHeight: 28,
+                      color: theme.teal,
+                    }}
+                  >
+                    Potluck
+                  </Label>
+                </View>
+              )}
+              {children}
+            </ScrollView>
+          </KeyboardAvoidingView>
           <View
             style={{
               paddingHorizontal: 20,
@@ -606,7 +689,7 @@ export function EntryShell({
             {footer}
           </View>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     </Accent.Provider>
   );
 }

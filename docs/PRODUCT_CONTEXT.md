@@ -1,5 +1,35 @@
 # Potluck Product Context
 
+## October 12, 2026 — Review adjustments and Card interactions
+
+Before submitting Card creation, the whole appearance preview, sharing summary and bank-account summary reopen their existing step. Continue returns directly to review; Back cancels that edit and restores the prior choices. The bank summary has its own row with the approved bank icon; Just for you uses the existing single-person icon. Submitted commands remain locked with their original retry identity. This changes presentation and draft editing only, not account ownership, consent, financial readiness or provider state.
+
+Cards use the approved 58-point collapsed stack and animated expansion. Add people supports dragging between compact and expanded states and dismissal, with scrollable content inside the available keyboard/safe-area bounds. Shared home actions float over the scroll viewport with measured end clearance; bottom navigation remains stationary. This is Free/core usability, with no entitlement or backend change. See the [source and validation record](ui-concepts/2026-10-12-card-interactions.md).
+
+## October 12, 2026 — Card account selection and entry keyboard behavior
+
+Card creation in the local beta is **name/appearance → Circle (or just for me) → bank account → review → Cards**. The new bank step uses the existing account-row components: connect to obtain clearly labeled sample accounts, or choose an account already connected in the beta. Selection persists with Card setup. This is an explicit founder-authorized exception to earlier no-simulation wording, limited to local beta account selection. Synthetic accounts are private, auditable records, separate from real funding sources and provider-confirmed onboarding. They do not activate a Card, grant spending rights, authorize a debit, or unlock financial actions. Production rejects beta account mutations and associations; actual provider integration remains required. Interrupted submissions retain their original payload and retry identity.
+
+The catalog now contains 33 looks, including the new Navy, Plum, Sage and Sand solids authored in Figma. The order is **Finishes, Artwork, Gradients, Two tone, Solid colors**; solids remain last because the requested sequence omitted them. Artwork labels are **Ocean** and **Sunset**, without changing saved IDs. Graphite remains the fresh-draft default. Creation/review identity and dark-green category actions remain as approved October 11.
+
+Sign in, Create account and comparable entry screens keep footer actions and account-switch links at their normal bottom position under the keyboard. Only input content may adjust/scroll to keep fields accessible. Bottom navigation remains stationary.
+
+Target: Hosts setting up recognizable Cards with an intended account. Free/core promise: choose a look and account without losing progress. Invitations remain acquisition; recurring arrangements support retention; paid conversion stays deferred. Measure creation completion and account-step abandonment. See the [plan and execution record](ui-concepts/2026-10-12-card-bank-step.md) for Figma sources, migration and verification.
+
+## October 11, 2026 — Card appearance category refinement
+
+The approved category name is **Two tone**, replacing Potluck panels (and superseding the intermediate Duotone suggestion). Gradients use continuous, stronger color blends without a contrasting panel; Two tone uses distinct areas of color. Both categories have six approved choices, taking the catalog to 29. The app now uses these Figma sources and the existing deep-teal action token for Create card's See all / See less controls. Saved design IDs and Graphite's fresh-draft default are preserved. See the [source and verification record](ui-concepts/2026-10-11-card-palette-refresh.md).
+
+During creation and review, the Card face shows only the Card name, the signed-in user's full profile name and the applicable Host/Contributor tag. New Card creators are Hosts; this label never grants spending rights or creates a contribution agreement. Compact appearance swatches retain their existing selection indicator instead of a role badge. This explicit presentation change replaces setup/issuance placeholders on creation previews; saved Card financial/status presentation and provider-dependent actions are unchanged.
+
+This refines the existing Free/core promise for hosts to name and recognize their Cards. Acquisition, conversion, retention and the creation-completion metric remain as described below; no new entitlement, financial capability or permission is introduced.
+
+## October 11, 2026 — Combined Card naming and appearance
+
+Card creation now begins with one screen for the name and appearance, followed by Circle attachment and review. New drafts start with the existing Graphite design; saved Cards, saved drafts and pending requests keep their selected appearance. The 21 verified Figma designs are grouped into Finishes, Solid colors, Gradients, Potluck panels and Artwork. Two choices are initially shown per category, with inline See all/See less where more exist. Selecting or collapsing a category must never erase the name or change the saved choice. Continue on this combined screen stays at its ordinary bottom position when the keyboard opens.
+
+This is Free/core quality for hosts: **name and recognize your Card without an extra setup step**. Circle invitations retain the acquisition mechanism; recognizing recurring shared arrangements supports retention. Paid conversion is deferred. Measure creation completion and abandonment. Optional bank setup, separate spending consent, provider truth and permissions are unchanged. See the [execution record](ui-concepts/2026-10-11-combined-card-creation.md) for sources, compatibility, migration and verification limits. This entry supersedes older descriptions of a required separate Card appearance step.
+
 ## October 7, 2026 — Finished-product design and existing-screen traceability
 
 The founder directs app and Figma development toward the finished Potluck experience. Assume required programs are approved and available when designing intended flows; retain complete screens, interactions and production-facing language. An unfinished integration is implementation work, not justification for replacing the approved design with generic demo screens. Document actual integration/approval evidence separately; this instruction does not establish real approval, authorize transactions, remove consent or permit simulated success in the running product. Existing optional-bank entry, role separation and core-only scope remain in force.

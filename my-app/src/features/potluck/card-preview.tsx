@@ -1,28 +1,16 @@
 import { Image } from "expo-image";
-import { View } from "react-native";
+import { useState } from "react";
+import { Pressable, StyleSheet, View } from "react-native";
 import { Label, money } from "@/design/system";
 import type { Card } from "./types";
-export const cardLooks: Record<Card["design"], string> = {
-  aurora: "Northern lights",
-  graphite: "Graphite",
-  teal: "Evergreen",
-  aurora_gradient: "Aurora gradient",
-  sunset: "Sunset gradient",
-  coral: "Coral",
-  ocean: "Ocean",
-  berry: "Violet",
+import { cardAppearances } from "./card-appearance-catalog";
+export type CardCreationIdentity = {
+  fullName: string;
+  role: "host" | "contributor";
 };
-
-// Native equivalent of the editable gradient fill in Figma 928:4751.
-function gradient(colors: string[]) {
-  return {
-    uri:
-      "data:image/svg+xml," +
-      encodeURIComponent(
-        `<svg xmlns="http://www.w3.org/2000/svg" width="330" height="176" viewBox="0 0 330 176"><defs><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="19.21" y1="-24.56" x2="310.79" y2="200.56"><stop offset="6.6667%" stop-color="${colors[0]}"/><stop offset="48.333%" stop-color="${colors[1]}"/><stop offset="90%" stop-color="${colors[2]}"/></linearGradient></defs><rect width="330" height="176" fill="url(#g)"/></svg>`,
-      ),
-  };
-}
+export const cardLooks = Object.fromEntries(
+  Object.values(cardAppearances).map((look) => [look.id, look.label]),
+) as Record<Card["design"], string>;
 export function CardPreview({
   name,
   design = "aurora",
@@ -30,6 +18,9 @@ export function CardPreview({
   role = "host",
   availableMinor = null,
   compact = false,
+  variant = "preview",
+  creationIdentity,
+  onEdit,
 }: {
   name: string;
   closed?: boolean;
@@ -37,56 +28,44 @@ export function CardPreview({
   role?: "host" | "trusted_spender" | null;
   availableMinor?: number | null;
   compact?: boolean;
+  variant?: "preview" | "detail";
+  creationIdentity?: CardCreationIdentity;
+  onEdit?: () => void;
 }) {
+  const targetWidth = compact ? 176 : variant === "detail" ? 369.6 : 330;
+  const [width, setWidth] = useState(targetWidth);
+  const scale = width / 330;
+  // Unknown future IDs keep a neutral preview; never rewrite the saved choice.
+  const look = cardAppearances[design];
+  const foreground = look?.foreground ?? "#FFFFFF";
+  const displayedRole = creationIdentity?.role ?? role;
+  const roleLabel =
+    displayedRole === "host"
+      ? "HOST"
+      : displayedRole === "contributor"
+        ? "CONTRIBUTOR"
+        : "TRUSTED SPENDER";
   return (
     <View
+      onLayout={({ nativeEvent }) => setWidth(nativeEvent.layout.width)}
       style={{
-        width: "100%",
-        maxWidth: 330,
+        width: variant === "detail" ? "95%" : "100%",
+        maxWidth: targetWidth,
         alignSelf: "center",
-        height: compact ? 94 : 176,
-        borderRadius: compact ? 12 : 22,
-        backgroundColor:
-          design === "teal"
-            ? "#006D67"
-            : design === "coral"
-              ? "#F36F55"
-              : design === "ocean"
-                ? "#1C3F98"
-                : design === "berry"
-                  ? "#5B21A6"
-                  : "#263433",
+        aspectRatio: 330 / 176,
+        borderRadius: 22 * scale,
+        backgroundColor: look?.background ?? "#263433",
         overflow: "hidden",
-        padding: compact ? 12 : 22,
-        justifyContent: "space-between",
       }}
     >
-      {(
-        ["aurora", "graphite", "aurora_gradient", "sunset"] as string[]
-      ).includes(design) && (
+      {look?.image && (
         <Image
-          source={
-            design === "aurora_gradient"
-              ? gradient(["#006D67", "#2663CB", "#8E52B6"])
-              : design === "sunset"
-                ? gradient(["#F76F55", "#E0418F", "#5A3CAE"])
-                : design === "graphite"
-                  ? require("../../../assets/potluck/card-graphite.png")
-                  : require("../../../assets/potluck/card-aurora.png")
-          }
+          source={look.image}
           contentFit="cover"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-          }}
+          style={StyleSheet.absoluteFill}
         />
       )}
-      {(["aurora_gradient", "sunset", "ocean", "berry"] as string[]).includes(
-        design,
-      ) && (
+      {look?.panel && (
         <View
           style={{
             position: "absolute",
@@ -94,73 +73,154 @@ export function CardPreview({
             bottom: 0,
             left: "50%",
             right: 0,
-            borderRadius: compact ? 12 : 22,
-            backgroundColor:
-              design === "ocean"
-                ? "rgba(12,166,154,0.52)"
-                : design === "berry"
-                  ? "rgba(243,111,85,0.52)"
-                  : "rgba(255,255,255,0.22)",
+            borderRadius: 22 * scale,
+            backgroundColor: look.panel,
           }}
         />
       )}
-      <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+      {/* Keep the artwork in the unpadded outer bounds on iOS and Android.
+          Text uses the source card's 330 × 176 coordinate system. */}
+      <View
+        style={{
+          position: "absolute",
+          top: 28 * scale,
+          left: 22 * scale,
+          right: 22 * scale,
+        }}
+      >
         <Label
-          numberOfLines={compact ? 1 : 2}
+          numberOfLines={1}
           style={{
-            color: "white",
+            color: foreground,
             fontFamily: "Inter_700Bold",
-            fontSize: compact ? 11 : 20,
-            lineHeight: compact ? 15 : 26,
-            flex: 1,
+            fontSize: 20 * scale,
+            lineHeight: 26 * scale,
+            maxWidth: displayedRole && !compact ? "72%" : "100%",
           }}
         >
           {name || "Your card"}
         </Label>
-        {!compact && role && (
-          <View
+      </View>
+      {!compact && displayedRole && (
+        <View
+          style={{
+            position: "absolute",
+            top: 18 * scale,
+            right: 22 * scale,
+            borderWidth: 1,
+            borderColor: foreground + "4D",
+            backgroundColor: foreground + "24",
+            borderRadius: 9 * scale,
+            paddingHorizontal: 8 * scale,
+          }}
+        >
+          <Label
             style={{
-              borderWidth: 1,
-              borderColor: "#FFFFFF88",
-              borderRadius: 12,
-              paddingHorizontal: 10,
+              color: foreground,
+              fontSize: 9 * scale,
+              lineHeight: 16 * scale,
             }}
           >
-            <Label style={{ color: "white", fontSize: 9, lineHeight: 16 }}>
-              {role === "host" ? "HOST" : "TRUSTED SPENDER"}
+            {roleLabel}
+          </Label>
+        </View>
+      )}
+      {creationIdentity ? (
+        <View
+          style={{
+            position: "absolute",
+            bottom: 22 * scale,
+            left: 22 * scale,
+            right: 22 * scale,
+          }}
+        >
+          <Label
+            numberOfLines={3}
+            adjustsFontSizeToFit
+            minimumFontScale={0.8}
+            style={{
+              color: foreground,
+              fontSize: 14 * scale,
+              lineHeight: 18 * scale,
+            }}
+          >
+            {creationIdentity.fullName}
+          </Label>
+        </View>
+      ) : (
+        <View
+          style={{
+            position: "absolute",
+            top: 76 * scale,
+            left: 22 * scale,
+            right: 22 * scale,
+            gap: 5 * scale,
+          }}
+        >
+          {availableMinor !== null && !closed && (
+            <Label
+              style={{
+                color: foreground,
+                fontSize: 12 * scale,
+                lineHeight: 16 * scale,
+              }}
+            >
+              Available to spend
             </Label>
-          </View>
-        )}
-      </View>
-      <View style={{ gap: 5 }}>
-        <Label
+          )}
+          <Label
+            style={{
+              color: foreground,
+              fontFamily: "Inter_700Bold",
+              fontSize: (availableMinor !== null ? 28 : 18) * scale,
+              lineHeight: 32 * scale,
+            }}
+          >
+            {closed
+              ? "Setup closed"
+              : availableMinor !== null
+                ? money(availableMinor)
+                : "Setup required"}
+          </Label>
+          {availableMinor === null && (
+            <Label
+              style={{
+                color: foreground,
+                fontSize: 12 * scale,
+                lineHeight: 18 * scale,
+              }}
+            >
+              {compact ? "Not issued" : "Not issued · no spending available"}
+            </Label>
+          )}
+        </View>
+      )}
+      {!creationIdentity && onEdit && (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Edit card"
+          onPress={(event) => {
+            event.stopPropagation();
+            onEdit();
+          }}
           style={{
-            color: "white",
-            fontFamily: "Inter_600SemiBold",
-            fontSize: compact ? 12 : availableMinor !== null ? 28 : 18,
-            lineHeight: compact ? 16 : 32,
+            position: "absolute",
+            right: 16,
+            bottom: 16,
+            width: 44,
+            height: 44,
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          {closed
-            ? "Setup closed"
-            : availableMinor !== null
-              ? money(availableMinor)
-              : "Setup required"}
-        </Label>
-        <Label
-          style={{
-            color: "white",
-            fontSize: compact ? 8 : 12,
-            lineHeight: compact ? 12 : 18,
-          }}
-        >
-          {availableMinor !== null
-            ? "Available to spend"
-            : compact
-              ? "Not issued"
-              : "Not issued · no spending available"}
-        </Label>
-      </View>
+          <Image
+            source={require("../../../assets/potluck/card-flow/edit.svg")}
+            tintColor={foreground}
+            style={{ width: 26, height: 26 }}
+            contentFit="contain"
+          />
+        </Pressable>
+      )}
     </View>
   );
 }

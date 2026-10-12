@@ -1,19 +1,15 @@
-import { View, Pressable } from "react-native";
-import { router, useLocalSearchParams, type Href } from "expo-router";
+import { useState } from "react";
+import { Keyboard, View } from "react-native";
+import { router, useLocalSearchParams } from "expo-router";
 import {
   Shell,
   AuthGate,
-  Title,
-  Muted,
   Field,
   Action,
   ErrorText,
   Link,
-  Label,
   ResourceState,
-  Row,
   go,
-  theme,
 } from "@/design/system";
 import { useCreationDraft } from "@/services/creation-draft";
 import {
@@ -22,11 +18,22 @@ import {
   useCommand,
   useResource,
 } from "@/services/client";
-import { CardPreview, cardLooks } from "@/features/potluck/card-preview";
+import type { CardAppearanceCategory } from "@/features/potluck/card-appearance-catalog";
 import {
-  PlanningChoice,
-  Selection,
-} from "@/features/potluck/planning-controls";
+  CardHeading,
+  CardHint,
+  CardReviewRow,
+} from "@/features/potluck/card-ui";
+import {
+  CardBankStep,
+  betaBankNotice,
+  type BetaBankAccount,
+} from "@/features/potluck/card-bank-step";
+import {
+  CardAppearancePicker,
+  CardCirclePicker,
+  CardCreationReview,
+} from "@/features/potluck/card-creation-steps";
 import type { Card, Circle, Collection } from "@/features/potluck/types";
 
 export default function CreateCard() {
@@ -45,16 +52,40 @@ function CardForm() {
       design: Card["design"];
       circleId: string | null;
       step: number;
+      betaAccountId?: string;
+      reviewEdit?: {
+        name: string;
+        design: Card["design"];
+        circleId: string | null;
+        betaAccountId?: string;
+      };
     },
     Card
   >(user ? "potluck.draft.card." + user.id + "." + (circleId ?? "new") : null, {
     name: "",
-    design: "aurora",
+    design: "graphite",
     circleId: circleId ?? null,
     step: 0,
   });
   const circles = useResource<Collection<Circle>>(user ? "/circles" : null);
+  const capabilities = useResource<{ betaBankLinking: boolean }>(
+    user ? "/capabilities" : null,
+  );
+  const betaBankLinking = capabilities.data?.betaBankLinking === true;
+  const accounts = useResource<Collection<BetaBankAccount>>(
+    user && betaBankLinking ? "/beta/bank-accounts" : null,
+  );
+  const selectedAccount = accounts.data?.items.find(
+    (account) => account.id === draft.fields.betaAccountId,
+  );
+  const bankReady = !!accounts.data && !accounts.loading && !accounts.error;
+  const capabilityReady =
+    !!capabilities.data && !capabilities.loading && !capabilities.error;
+  const needsConnection = bankReady && accounts.data!.items.length === 0;
   const { name, design } = draft.fields;
+  // A new Card is owned by its creator. Display identity comes from the session,
+  // never from a persisted draft or a user-selectable permission field.
+  const identity = { fullName: user?.name ?? "", role: "host" as const };
   const selectedCircleId =
     draft.fields.circleId === undefined
       ? (circleId ?? null)
@@ -62,9 +93,47 @@ function CardForm() {
   const selectedCircle = circles.data?.items.find(
     (c) => c.id === selectedCircleId,
   );
-  const step = draft.resuming ? 3 : (draft.fields.step ?? 0);
+  // Keep persisted Circle/review step numbers and old appearance drafts compatible.
+  const storedStep = draft.fields.step ?? 0;
+  // Step 4 is additive: older saved step 3 and pending submissions retain meaning.
+  const step = draft.resuming
+    ? 3
+    : storedStep === 1
+      ? 0
+      : storedStep === 3 && betaBankLinking && !selectedAccount
+        ? 4
+        : storedStep === 4 && capabilityReady && !betaBankLinking
+          ? 3
+          : storedStep;
+  const afterCircle = betaBankLinking ? 4 : 3;
+  const [expandedCategories, setExpandedCategories] = useState<
+    CardAppearanceCategory[]
+  >([]);
   function setStep(value: number) {
     draft.update("step", value);
+  }
+  const canEdit = !draft.locked && !action.busy;
+  function editReview(value: number) {
+    if (!canEdit) return;
+    draft.update("reviewEdit", {
+      name,
+      design,
+      circleId: selectedCircleId,
+      betaAccountId: draft.fields.betaAccountId,
+    });
+    setStep(value);
+  }
+  function returnToReview(cancel = false) {
+    if (!canEdit) return;
+    const previous = draft.fields.reviewEdit;
+    if (cancel && previous) {
+      draft.update("name", previous.name);
+      draft.update("design", previous.design);
+      draft.update("circleId", previous.circleId);
+      draft.update("betaAccountId", previous.betaAccountId);
+    }
+    draft.update("reviewEdit", undefined);
+    setStep(3);
   }
   const editableCircles =
     circles.data?.items.filter(
@@ -72,25 +141,60 @@ function CardForm() {
     ) ?? [];
   async function save() {
     await action.run(async () => {
-      const card = await draft.submit(
-        { name, design, circleId: selectedCircleId },
+      await draft.submit(
+        {
+          name,
+          design,
+          circleId: selectedCircleId,
+          ...(betaBankLinking && selectedAccount
+            ? { betaAccountId: selectedAccount.id }
+            : {}),
+        },
         (body, identity) => command<Card>("/cards", body, identity),
       );
-      router.replace(("/card/" + card.id) as Href);
+      router.replace("/cards");
       await draft.clear();
+    });
+  }
+  async function connect() {
+    await action.run(async () => {
+      const result = await command<Collection<BetaBankAccount>>(
+        "/beta/bank-accounts/connect",
+        {},
+      );
+      // Remain on the selection step so the user can review or change the default.
+      draft.update("betaAccountId", result.items[0]?.id);
+      setStep(4);
+      await accounts.reload();
     });
   }
   return (
     <Shell
       title={
-        ["Create card", "Choose a card look", "Attach a Circle", "Review card"][
-          step
-        ]
+        [
+          "Create card",
+          "Create card",
+          "Attach a Circle",
+          "Review card",
+          "Bank account",
+        ][step]
       }
       back
+      headerTitleSize={28}
       hideNavigation
       active="Cards"
-      onBack={() => (step > 0 ? setStep(step - 1) : router.back())}
+      avoidKeyboard={step !== 0}
+      onBack={() =>
+        draft.fields.reviewEdit
+          ? returnToReview(true)
+          : step === 3
+            ? setStep(betaBankLinking ? 4 : 2)
+            : step === 4
+              ? setStep(2)
+              : step === 2
+                ? setStep(0)
+                : router.back()
+      }
       footer={
         user && (
           <>
@@ -105,104 +209,95 @@ function CardForm() {
                   : step === 3
                     ? draft.resuming
                       ? "Finish Card setup"
-                      : "Create card setup"
-                    : "Continue"
+                      : "Create card"
+                    : step === 4 && needsConnection
+                      ? "Connect bank account"
+                      : "Continue"
               }
               disabled={
                 action.busy ||
                 !draft.ready ||
                 !name.trim() ||
-                (step === 2 &&
+                (!draft.resuming &&
+                  step >= 2 &&
+                  (!capabilityReady ||
+                    (betaBankLinking &&
+                      step !== 2 &&
+                      (!bankReady ||
+                        (!needsConnection && !selectedAccount))))) ||
+                (!draft.resuming &&
+                  step >= 2 &&
                   !!selectedCircleId &&
                   !editableCircles.some((c) => c.id === selectedCircleId))
               }
-              onPress={() => (step === 3 ? void save() : setStep(step + 1))}
+              onPress={() => {
+                Keyboard.dismiss();
+                if (step === 3) void save();
+                else if (step === 4 && needsConnection) void connect();
+                else if (draft.fields.reviewEdit) returnToReview();
+                else setStep(step === 0 ? 2 : step === 2 ? afterCircle : 3);
+              }}
             />
           </>
         )
       }
     >
       <AuthGate returnTo="/create/card">
+        {step >= 2 && !draft.resuming && (
+          <ResourceState
+            loading={capabilities.loading}
+            data={capabilities.data}
+            loadingKey={capabilities.loadingKey}
+            error={capabilities.error}
+            retry={capabilities.reload}
+          />
+        )}
         {step === 0 && (
           <>
-            <Muted>
+            <CardHint>
               Give your card a name and choose a virtual card design.
-            </Muted>
-            <Field
-              label="Card name"
-              placeholder="e.g. Apartment card"
-              value={name}
-              editable={!draft.locked}
-              onChangeText={(value) => draft.update("name", value)}
-              maxLength={80}
-              style={{ borderRadius: 28 }}
-            />
+            </CardHint>
             <View style={{ marginTop: 12, gap: 12 }}>
-              <Title small>Your card</Title>
-              <CardPreview name={name} design={design} />
-              <Label
-                style={{
-                  textAlign: "center",
-                  color: theme.muted,
-                  fontSize: 14,
-                }}
-              >
-                {cardLooks[design]} selected
-              </Label>
+              <CardHeading>Card name</CardHeading>
+              <Field
+                label="Card name"
+                placeholder="e.g. Apartment card"
+                value={name}
+                editable={!draft.locked}
+                onChangeText={(value) => draft.update("name", value)}
+                maxLength={80}
+                returnKeyType="done"
+                onSubmitEditing={Keyboard.dismiss}
+                style={{ borderRadius: 28 }}
+                hideLabel
+              />
             </View>
-          </>
-        )}
-        {step === 1 && (
-          <>
-            <Muted>Pick a look that feels like yours.</Muted>
-            <CardPreview name={name} design={design} />
-            <Label
-              style={{
-                textAlign: "center",
-                color: theme.teal,
-                fontFamily: "Inter_700Bold",
-                fontSize: 14,
-              }}
-            >
-              {cardLooks[design]}
-            </Label>
-            {(
-              [
-                ["Gradients", ["aurora_gradient", "sunset"]],
-                ["Solid colors", ["teal", "coral"]],
-                ["Potluck panels", ["ocean", "berry"]],
-                ["Artwork", ["aurora", "graphite"]],
-              ] as [string, Card["design"][]][]
-            ).map(([title, looks]) => (
-              <View key={title} style={{ gap: 8 }}>
-                <Title small>{title}</Title>
-                <View style={{ flexDirection: "row", gap: 24 }}>
-                  {looks.map((look) => (
-                    <Pressable
-                      key={look}
-                      accessibilityLabel={cardLooks[look]}
-                      accessibilityRole="radio"
-                      accessibilityState={{ checked: design === look }}
-                      aria-checked={design === look}
-                      disabled={draft.locked}
-                      onPress={() => draft.update("design", look)}
-                      style={{ flex: 1 }}
-                    >
-                      <CardPreview name={name} design={look} compact />
-                      <View style={{ position: "absolute", top: 8, right: 8 }}>
-                        <Selection selected={design === look} />
-                      </View>
-                    </Pressable>
-                  ))}
-                </View>
-              </View>
-            ))}
+            <View style={{ marginTop: 16, gap: 12 }}>
+              <CardHeading>Your card</CardHeading>
+              <CardAppearancePicker
+                name={name}
+                identity={identity}
+                design={design}
+                disabled={draft.locked}
+                expandedCategories={expandedCategories}
+                onToggleCategory={(category) =>
+                  setExpandedCategories((current) =>
+                    current.includes(category)
+                      ? current.filter((id) => id !== category)
+                      : [...current, category],
+                  )
+                }
+                onSelect={(value) => draft.update("design", value)}
+              />
+            </View>
           </>
         )}
         {step === 2 && (
           <>
-            <Muted>Choose the Circle this card belongs to.</Muted>
-            <Title small>Choose a Circle</Title>
+            <CardHint>Choose the Circle this card belongs to.</CardHint>
+            <View style={{ marginTop: 16, marginBottom: 4 }}>
+              <CardHeading>Choose a Circle</CardHeading>
+            </View>
             <ResourceState
               loading={circles.loading}
               data={circles.data}
@@ -210,60 +305,74 @@ function CardForm() {
               error={circles.error}
               retry={circles.reload}
             />
-            {editableCircles.map((circle) => (
-              <PlanningChoice
-                key={circle.id}
-                title={circle.name}
-                subtitle={
-                  circle.privacy === "anonymous"
-                    ? "Anonymous Circle"
-                    : "Accepted Circle"
-                }
-                name={circle.name}
-                selected={selectedCircleId === circle.id}
-                onPress={() => draft.update("circleId", circle.id)}
+            <CardCirclePicker
+              circles={editableCircles}
+              selectedId={selectedCircleId}
+              disabled={draft.locked || !capabilityReady || action.busy}
+              onSelect={(id) => {
+                draft.update("circleId", id);
+                if (id === null && !draft.fields.reviewEdit)
+                  setStep(afterCircle);
+              }}
+              onCreate={() => go("/create/circle")}
+            />
+          </>
+        )}
+        {step === 4 && (
+          <>
+            <ResourceState
+              loading={accounts.loading}
+              data={accounts.data}
+              loadingKey={accounts.loadingKey}
+              error={accounts.error}
+              retry={accounts.reload}
+            />
+            {bankReady && (
+              <CardBankStep
+                accounts={accounts.data!.items}
+                selectedId={draft.fields.betaAccountId}
+                disabled={draft.locked || action.busy}
+                onSelect={(id) => {
+                  draft.update("betaAccountId", id);
+                  setStep(4);
+                }}
               />
-            ))}
-            <PlanningChoice
-              title="No Circle — just for me"
-              selected={!selectedCircleId}
-              onPress={() => draft.update("circleId", null)}
-            />
-            <Row
-              title="Create a new Circle"
-              icon="plus"
-              onPress={() => go("/create/circle")}
-            />
+            )}
           </>
         )}
         {step === 3 && (
           <>
-            <Muted>Confirm the card and Circle before you create it.</Muted>
-            <Title small>Your card</Title>
-            <CardPreview name={name} design={design} />
-            <Label
-              style={{ textAlign: "center", color: theme.muted, fontSize: 14 }}
-            >
-              {name} · host-controlled
-            </Label>
-            <View style={{ marginTop: 20, gap: 12 }}>
-              <Title small>Attached Circle</Title>
-              <Row
-                title={selectedCircle?.name ?? "No Circle — just for me"}
-                icon="circles"
-                onPress={draft.locked ? undefined : () => setStep(2)}
-              />
-            </View>
-            <Title small>Trusted Spender invitations</Title>
-            <Row
-              title="No invitations sent"
-              subtitle="Card access needs a separate invitation and issuer approval."
-              onPress={() => go("/card/access-info")}
+            <CardCreationReview
+              name={name}
+              identity={identity}
+              design={design}
+              circleId={selectedCircleId}
+              circleName={selectedCircle?.name}
+              onChangeCircle={canEdit ? () => editReview(2) : undefined}
+              onChangeAppearance={canEdit ? () => editReview(0) : undefined}
+              bankSummary={
+                draft.fields.betaAccountId ? (
+                  <View style={{ marginTop: 20, gap: 12 }}>
+                    <CardHeading>Bank account</CardHeading>
+                    <CardReviewRow
+                      icon="bank"
+                      title={selectedAccount?.name ?? "Saved sample account"}
+                      subtitle={
+                        selectedAccount
+                          ? `•• ${selectedAccount.last4}`
+                          : "Details unavailable"
+                      }
+                      onPress={
+                        canEdit && betaBankLinking
+                          ? () => editReview(4)
+                          : undefined
+                      }
+                    />
+                    <CardHint>{betaBankNotice}</CardHint>
+                  </View>
+                ) : undefined
+              }
             />
-            <Muted>
-              Your setup is saved without issuing a Card or moving money. Circle
-              membership does not grant card access.
-            </Muted>
           </>
         )}
       </AuthGate>

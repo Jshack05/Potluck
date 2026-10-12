@@ -93,6 +93,8 @@ test("two local accounts connect Circle, Bill and Card without implied financial
     );
     const billResponse = await call(host.token, "POST", "/v1/bills", {
       name: "Internet",
+      icon: "internet",
+      color: "teal",
       circleId: circle.id,
       cardId: card.id,
       amountMinor: 8400,
@@ -101,6 +103,18 @@ test("two local accounts connect Circle, Bill and Card without implied financial
     });
     assert.equal(billResponse.statusCode, 201, billResponse.body);
     const bill = billResponse.json();
+    const cardDetail = (
+      await call(host.token, "GET", "/v1/cards/" + card.id)
+    ).json();
+    assert.equal(cardDetail.bills[0].icon, "internet");
+    assert.equal(cardDetail.bills[0].color, "teal");
+    assert.equal(cardDetail.availableMinor, null);
+    assert.equal(cardDetail.reservedMinor, null);
+    assert.deepEqual(cardDetail.spenders, []);
+    assert.equal(
+      (await call(member.token, "GET", "/v1/cards/" + card.id)).statusCode,
+      404,
+    );
     const memberBill = (
       await call(member.token, "GET", "/v1/bills/" + bill.id)
     ).json();

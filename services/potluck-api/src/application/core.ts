@@ -14,6 +14,7 @@ import {
 } from "../lib.ts";
 import type { CommandContext, Queryable, Row } from "./ports.ts";
 import { billView, ownedCard } from "./read-models.ts";
+import { requireOwnedBetaAccount } from "./beta-bank-accounts.ts";
 export {
   createCircle,
   inviteToCircle,
@@ -23,15 +24,40 @@ export async function createCard(
   tx: Queryable,
   user: string,
   context: CommandContext,
+  betaBankLinking = false,
 ): Promise<Row> {
   const input = cardInput.parse(context.body);
+  if (input.betaAccountId)
+    await requireOwnedBetaAccount(
+      tx,
+      user,
+      input.betaAccountId,
+      betaBankLinking,
+    );
   await attachable(tx, input.circleId, user);
   const card = await one(
     tx,
-    "INSERT INTO cards(id,host_id,circle_id,name,description,design) VALUES($1,$2,$3,$4,$5,$6) RETURNING *",
-    [uuid(), user, input.circleId, input.name, input.description, input.design],
+    "INSERT INTO cards(id,host_id,circle_id,name,description,design,beta_account_id) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *",
+    [
+      uuid(),
+      user,
+      input.circleId,
+      input.name,
+      input.description,
+      input.design,
+      input.betaAccountId ?? null,
+    ],
   );
   await audit(tx, user, "card.shell_created", card.id, context.requestId);
+  if (input.betaAccountId)
+    await audit(
+      tx,
+      user,
+      "card.beta_account_selected",
+      card.id,
+      context.requestId,
+      { betaAccountId: input.betaAccountId, simulated: true },
+    );
   return api(card);
 }
 export async function activateCard(

@@ -39,6 +39,8 @@ export default function InviteSpender() {
             : "Invite trusted spender"
       }
       back
+      hideNavigation
+      headerVariant="centered"
       active="Cards"
       onBack={() =>
         review

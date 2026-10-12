@@ -1,5 +1,17 @@
 # Full Potluck: local development
 
+## October 12 Card setup and entry keyboard follow-up
+
+Card creation now offers 33 Figma-backed looks, with Finishes → Artwork → Gradients → Two tone → Solid colors and simple Ocean/Sunset artwork labels. The local beta adds a bank step after Circle selection. Connect yields three explicitly simulated, user-scoped account choices; selection persists with Card setup. It never changes provider onboarding or unlocks issuance/funding/spending. Production rejects beta account commands and associations. Forward migrations 0012–0013 must precede the client update; keep their records and constraints on rollback. The complete stopped local database was backed up before migration. See the [source, verification and rollback record](ui-concepts/2026-10-12-card-bank-step.md) and [flow mapping](flow-audit/2026-10-12-card-bank-step-mapping.json).
+
+Sign in/Create account now keep footer actions outside keyboard avoidance; only input content adjusts. The API is running on the previously authorized LAN interface, port 4100; Expo is on 8083. Reload the existing compatible development app to fetch JavaScript changes; no new native dependency/configuration or signed build was introduced.
+
+Final full validation passed **51 backend/domain and 86 mobile tests**, formatting, lint, strict types and all-platform exports. Backend audit: zero. The full release gate fails only the existing **23 mobile dependency findings (3 moderate, 19 high, 1 critical)**. Browser checks covered sample connection, existing-account selection, back/review/save, persistent Sage/account association and narrow entry layout. Physical-device keyboard and accessibility verification remain outstanding.
+
+## October 8 Cards recovery follow-up
+
+The [Cards source register and execution record](ui-concepts/2026-10-08-cards-recovery.md) describes the focused Figma recovery branch. Final validation passes formatting, lint, both strict type checks, **47 backend/domain and 56 mobile tests**, and iOS/Android/web exports. The full gate fails only the unchanged mobile dependency audit: **23 findings (3 moderate, 19 high, 1 critical)**; backend audit zero. Live browser and physical-phone visual acceptance remain outstanding after Expo startup was rejected by automatic approval review. No native build or OTA update was published. No database migration or provider integration was added.
+
 ## October 7 blank-first loading follow-up
 
 The approved follow-up removes skeletons in favor of blank initial content and minimal feedback only after 500 ms. Existing resource data stays visible during refresh; changed resource identities restart the delay. The shared session-restoration state uses the same timing. No native configuration, dependency, backend, provider or schema change is part of this follow-up, so an existing compatible development binary only needs a JavaScript reload.

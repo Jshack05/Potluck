@@ -7,6 +7,7 @@ export type Item = {
 };
 export type Person = { id: string; name: string; joinedAt?: string };
 export type Circle = Item & {
+  memberCount: number;
   description: string;
   privacy: "normal" | "anonymous";
   hostId: string;
@@ -16,6 +17,7 @@ export type Circle = Item & {
   cards: Card[];
 };
 export type Card = Item & {
+  betaAccountId?: string | null;
   hostId: string;
   circleId: string | null;
   description: string;
@@ -27,7 +29,32 @@ export type Card = Item & {
     | "sunset"
     | "coral"
     | "ocean"
-    | "berry";
+    | "berry"
+    | "brushed_silver"
+    | "frosted_glass"
+    | "champagne"
+    | "satin_teal"
+    | "ocean_artwork"
+    | "sunset_artwork"
+    | "botanical"
+    | "midnight"
+    | "terracotta"
+    | "alpine"
+    | "prism"
+    | "orbit"
+    | "lagoon"
+    | "cobalt_gradient"
+    | "tidal_gradient"
+    | "ember_gradient"
+    | "iris_gradient"
+    | "evergreen_twotone"
+    | "clay_twotone"
+    | "indigo_twotone"
+    | "slate_twotone"
+    | "navy_solid"
+    | "plum_solid"
+    | "sage_solid"
+    | "sand_solid";
   bills: Bill[];
   availableMinor: number | null;
 };

@@ -1,0 +1,9 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Core Icon / Eye">
+<mask id="stroke0_0_164" fill="white">
+<path d="M20 12C20 14.7614 16.4183 17 12 17C7.58172 17 4 14.7614 4 12C4 9.23858 7.58172 7 12 7C16.4183 7 20 9.23858 20 12Z"/>
+</mask>
+<path id="Eye outline" d="M20 12C20 14.7614 16.4183 17 12 17C7.58172 17 4 14.7614 4 12C4 9.23858 7.58172 7 12 7C16.4183 7 20 9.23858 20 12Z" stroke-width="4" stroke="#006D69" mask="url(#stroke0_0_164)"/>
+<circle id="Eye pupil" cx="12" cy="12" r="2" fill="#006D69"/>
+</g>
+</svg>

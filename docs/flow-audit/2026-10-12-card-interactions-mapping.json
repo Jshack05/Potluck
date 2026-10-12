@@ -1,0 +1,38 @@
+{
+  "capturedAt": "2026-10-12",
+  "scope": "Approved Card review, stack and shared interaction repair; overlay on historical captures",
+  "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+  "routes": {
+    "/create/card": {
+      "review": ["855:3408", "861:3572"],
+      "rows": {
+        "person": "2335:47482",
+        "bank": ["2335:47463", "2335:47496"]
+      },
+      "component": "2335:47450",
+      "editTargets": {
+        "appearance": "854:3466",
+        "sharing": "854:3495",
+        "bank": "2326:45900"
+      },
+      "appEditBehavior": "Persist snapshot; Continue returns to review; Back restores snapshot; pending submission locked"
+    },
+    "/cards": {
+      "collapsed": "547:1625",
+      "expanded": ["570:1755", "563:1705", "570:1824", "570:1893"],
+      "spacing": 58,
+      "durationMs": 240,
+      "easing": "ease-out"
+    },
+    "/create/circle": {
+      "people": ["488:1203", "488:1272", "488:1396"],
+      "behavior": "380/700 reference heights, viewport-clamped; draggable, whole-body scroll, keyboard-aware"
+    }
+  },
+  "shared": "Shell floating home actions use measured scroll clearance; actual flow footers stay in normal layout; stationary bottom navigation",
+  "limits": [
+    "Native device gesture and keyboard feel require physical verification",
+    "Historical prototype balances are not live financial state",
+    "Figma summary entry links are wired; dynamic edit/cancel return is implemented and tested in the app"
+  ]
+}

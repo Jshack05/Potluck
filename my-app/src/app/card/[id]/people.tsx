@@ -5,6 +5,8 @@ export default function CardPeople() {
   return (
     <CardScene
       title="Trusted Spenders"
+      hideNavigation
+      headerVariant="centered"
       footer={(card) => (
         <>
           {card.role === "host" && card.status !== "closed" && (

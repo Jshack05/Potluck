@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-12",
+  "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+  "route": "/create/card",
+  "scope": "Current Card creation follow-up; not a whole-file audit",
+  "categoryOrder": [
+    "Finishes",
+    "Artwork",
+    "Gradients",
+    "Two tone",
+    "Solid colors"
+  ],
+  "catalogCount": 33,
+  "nodes": [
+    { "id": "854:3466", "name": "Create card", "appStep": 0 },
+    { "id": "854:3495", "name": "Attach a Circle", "appStep": 2 },
+    { "id": "2326:45885", "name": "Bank account - connect", "appStep": 4 },
+    { "id": "2326:45900", "name": "Bank account - choose", "appStep": 4 },
+    { "id": "855:3408", "name": "Review with Circle", "appStep": 3 },
+    { "id": "861:3572", "name": "Review just for me", "appStep": 3 }
+  ],
+  "edges": [
+    { "from": "854:3466", "action": "Continue", "to": "854:3495" },
+    {
+      "from": "854:3495",
+      "action": "Continue or No Circle",
+      "to": "2326:45885",
+      "condition": "no sample accounts"
+    },
+    {
+      "from": "854:3495",
+      "action": "Continue or No Circle",
+      "to": "2326:45900",
+      "condition": "sample accounts exist"
+    },
+    {
+      "from": "2326:45885",
+      "action": "Connect bank account",
+      "to": "2326:45900",
+      "effect": "local beta fixtures only"
+    },
+    {
+      "from": "2326:45900",
+      "action": "Continue",
+      "to": "855:3408",
+      "condition": "account selected and Circle attached"
+    },
+    {
+      "from": "2326:45900",
+      "action": "Continue",
+      "to": "861:3572",
+      "condition": "account selected and No Circle"
+    },
+    { "from": "2326:45885", "action": "Back", "to": "854:3495" },
+    { "from": "2326:45900", "action": "Back", "to": "854:3495" },
+    { "from": "855:3408", "action": "Back", "to": "2326:45900" },
+    { "from": "861:3572", "action": "Back", "to": "2326:45900" }
+  ],
+  "newSolidSources": {
+    "navy_solid": "2323:47176",
+    "plum_solid": "2323:47194",
+    "sage_solid": "2323:47212",
+    "sand_solid": "2323:47230"
+  },
+  "compatibility": "Non-beta creation retains Circle to review; pending submissions retain exact original command. Sample accounts never confirm onboarding.",
+  "evidence": {
+    "figmaStructure": "inspected",
+    "figmaRenders": "inspected",
+    "prototypeActions": "inspected and wired",
+    "appBrowser": "verified",
+    "nativeDevice": "outstanding"
+  },
+  "record": "../ui-concepts/2026-10-12-card-bank-step.md"
+}

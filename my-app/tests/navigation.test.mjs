@@ -46,6 +46,8 @@ test("bank status checks do not suppress planning data, while provider and unkno
     "/goals",
     "/goals/a",
     "/people?q=Example",
+    "/capabilities",
+    "/beta/bank-accounts",
   ]) {
     for (const status of ["loading", "bank_required", "error", "ready"])
       assert.equal(canLoadResource(status, path), true, status + " " + path);
@@ -53,6 +55,7 @@ test("bank status checks do not suppress planning data, while provider and unkno
   }
   for (const path of [
     "/cards/a/credentials",
+    "/beta/bank-accounts/private",
     "/cards/a/transactions",
     "/bank-accounts",
     "/future-financial-resource",

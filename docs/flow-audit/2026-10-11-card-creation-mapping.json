@@ -1,0 +1,44 @@
+{
+  "capturedAt": "2026-10-11",
+  "scope": "Approved combined Card naming and appearance; overlay on historical captures",
+  "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+  "route": "/create/card",
+  "sourceFrame": "854:3466",
+  "preservedReferenceFrame": "2306:45190",
+  "supersededRequiredStep": "928:4751",
+  "appSteps": {
+    "0": "combined",
+    "1": "legacy appearance maps to combined",
+    "2": "attach Circle",
+    "3": "review"
+  },
+  "capturedReactions": [
+    {
+      "from": "854:3466",
+      "control": "854:3471",
+      "action": "Continue",
+      "to": "854:3495",
+      "evidence": "live Figma reaction read"
+    },
+    {
+      "from": "854:3495",
+      "control": "I1078:6169;1078:6040",
+      "action": "Back",
+      "to": "854:3466",
+      "evidence": "live Figma reaction read"
+    }
+  ],
+  "appEvidence": [
+    "component behavior tests",
+    "catalog API integration tests",
+    "browser creation and saved Card read"
+  ],
+  "appearanceCatalog": "../../my-app/src/features/potluck/card-appearance-catalog.ts",
+  "appearanceCount": 21,
+  "newDraftDefault": "graphite",
+  "legacyApiDefault": "teal",
+  "prototypeClickThroughVerified": false,
+  "physicalPhoneVerified": false,
+  "unchangedGap": "Nested Create Circle return is outside this change",
+  "executionRecord": "../ui-concepts/2026-10-11-combined-card-creation.md"
+}

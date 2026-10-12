@@ -13,6 +13,8 @@ import { registerDiscovery } from "./modules/discovery.ts";
 import { registerLifecycle } from "./modules/lifecycle.ts";
 import { registerGoals } from "./modules/goals.ts";
 import { registerPeople } from "./modules/people.ts";
+import { registerBetaBankAccounts } from "./modules/beta-bank-accounts.ts";
+import { requireBetaBankMode } from "./application/beta-bank-accounts.ts";
 import { updateProfile } from "./application/account-profile.ts";
 import { registerOnboarding, type BankOnboardingReader } from "./onboarding.ts";
 
@@ -183,6 +185,7 @@ export async function createApp(options: Options) {
     mode: options.mode,
     financial: { issuance: false, funding: false, spending: false },
     housingVerification: false,
+    betaBankLinking: options.mode === "local",
   }));
   app.get("/v1/circles", (req) =>
     queries.getCircles(db, {
@@ -249,15 +252,22 @@ export async function createApp(options: Options) {
       resourceId: "",
     }),
   );
-  app.post("/v1/cards", async (req, reply) =>
-    mutation(req, reply, 201, (tx, user) =>
-      commands.createCard(tx, user, {
-        body: req.body,
-        resourceId: "",
-        requestId: req.id,
-      }),
-    ),
-  );
+  app.post("/v1/cards", async (req, reply) => {
+    if (req.body && typeof req.body === "object" && "betaAccountId" in req.body)
+      requireBetaBankMode(options.mode === "local");
+    return mutation(req, reply, 201, (tx, user) =>
+      commands.createCard(
+        tx,
+        user,
+        {
+          body: req.body,
+          resourceId: "",
+          requestId: req.id,
+        },
+        options.mode === "local",
+      ),
+    );
+  });
   app.get("/v1/cards/:id", (req) =>
     queries.getCardsDetail(db, {
       actor: req.actor ?? null,
@@ -318,6 +328,10 @@ export async function createApp(options: Options) {
   registerCircleAdministration({ app, db, actor, param, mutation });
   registerGoals({ app, db, actor, param, mutation });
   registerPeople({ app, db, actor, param, mutation });
+  registerBetaBankAccounts(
+    { app, db, actor, param, mutation },
+    options.mode === "local",
+  );
   app.post("/v1/settings/profile", (req, reply) =>
     mutation(req, reply, 200, (tx, user) =>
       updateProfile(tx, user, {
