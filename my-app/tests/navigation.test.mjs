@@ -39,6 +39,7 @@ test("bank status checks do not suppress planning data, while provider and unkno
     "/notifications",
     "/invitations",
     "/cards",
+    "/cards/a/merchant-controls",
     "/bills",
     "/bill-summary?scope=all",
     "/agreements/a",
@@ -55,6 +56,7 @@ test("bank status checks do not suppress planning data, while provider and unkno
   }
   for (const path of [
     "/cards/a/credentials",
+    "/cards/a/merchant-controls/activate",
     "/beta/bank-accounts/private",
     "/cards/a/transactions",
     "/bank-accounts",

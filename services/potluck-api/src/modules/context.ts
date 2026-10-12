@@ -10,5 +10,6 @@ export type ModuleContext = {
     reply: FastifyReply,
     status: number,
     fn: (tx: Queryable, actor: string) => Promise<Row>,
+    authorize?: (tx: Queryable, actor: string) => Promise<void>,
   ) => Promise<unknown>;
 };

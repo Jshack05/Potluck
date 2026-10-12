@@ -4,6 +4,54 @@ export const id = z.uuid();
 export const name = z.string().trim().min(1).max(80);
 export const minor = z.number().int().min(0).max(100_000_000);
 export const currency = z.literal("USD");
+// Product group identifiers, not a processor MCC mapping or active authorization policy.
+export const merchantIndustries = [
+  "groceries",
+  "utilities",
+  "internet",
+  "dining",
+  "fuel",
+  "transport",
+  "travel",
+  "shopping",
+  "health",
+  "entertainment",
+] as const;
+export type MerchantIndustry = (typeof merchantIndustries)[number];
+export const merchantControlsSettings = z
+  .strictObject({
+    mode: z.enum(["maximum", "range"]),
+    currency,
+    minimumMinor: minor.nullable(),
+    maximumMinor: minor.min(1),
+    industries: z
+      .array(z.enum(merchantIndustries))
+      .max(10)
+      .refine(
+        (values) => new Set(values).size === values.length,
+        "Choose each industry once.",
+      ),
+  })
+  .refine(
+    (value) =>
+      value.mode === "maximum"
+        ? value.minimumMinor === null
+        : value.minimumMinor !== null &&
+          value.minimumMinor <= value.maximumMinor,
+    { message: "Choose a valid purchase range.", path: ["minimumMinor"] },
+  );
+export const merchantControlsInput = z.strictObject({
+  expectedVersion: z.number().int().min(0).max(2147483646),
+  settings: merchantControlsSettings,
+});
+export const merchantControlsState = z.strictObject({
+  cardId: id,
+  version: z.number().int().min(0),
+  settings: merchantControlsSettings.nullable(),
+  enforcement: z.literal("not_active"),
+});
+export type MerchantControlsSettings = z.infer<typeof merchantControlsSettings>;
+export type MerchantControlsState = z.infer<typeof merchantControlsState>;
 export const calendarDate = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/)
