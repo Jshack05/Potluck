@@ -1,17 +1,16 @@
 import { useState } from "react";
-import { Pressable, View } from "react-native";
+import { View } from "react-native";
 import {
   Shell,
   AuthGate,
   Title,
   Muted,
   Row,
-  Link,
   ResourceState,
   go,
 } from "@/design/system";
 import { useClient, useResource } from "@/services/client";
-import { CardPreview } from "@/features/potluck/card-preview";
+import { CardStack } from "@/features/potluck/card-stack";
 import type { Card, Collection } from "@/features/potluck/types";
 import { HomeEmptyState } from "@/features/potluck/home-empty-state";
 export default function Cards() {
@@ -40,44 +39,13 @@ export default function Cards() {
           retry={resource.reload}
         />
         {!!resource.data?.items.length && (
-          <View
-            style={{ gap: 0, paddingTop: resource.data?.items.length ? 8 : 0 }}
-          >
-            {resource.data?.items.map((card, index, cards) => (
-              <Pressable
-                key={card.id}
-                accessibilityRole="button"
-                accessibilityLabel={
-                  (expanded === card.id || cards.length === 1
-                    ? "Open "
-                    : "Expand ") + card.name
-                }
-                onPress={() =>
-                  expanded === card.id || cards.length === 1
-                    ? go("/card/" + card.id)
-                    : setExpanded(card.id)
-                }
-                style={{
-                  marginTop:
-                    index === 0
-                      ? 0
-                      : expanded === cards[index - 1].id
-                        ? 12
-                        : -118,
-                  zIndex: index,
-                }}
-              >
-                <CardPreview
-                  name={card.name}
-                  design={card.design}
-                  role={card.hostId === user?.id ? "host" : null}
-                />
-              </Pressable>
-            ))}
-          </View>
-        )}
-        {expanded && (
-          <Link onPress={() => setExpanded(null)}>Collapse cards</Link>
+          <CardStack
+            cards={resource.data.items}
+            hostId={user?.id}
+            selectedId={expanded}
+            onSelect={setExpanded}
+            onOpen={(id) => go("/card/" + id)}
+          />
         )}
         {!!resource.data?.items.length && (
           <View style={{ marginTop: 24, gap: 12 }}>

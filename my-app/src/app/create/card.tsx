@@ -19,7 +19,11 @@ import {
   useResource,
 } from "@/services/client";
 import type { CardAppearanceCategory } from "@/features/potluck/card-appearance-catalog";
-import { CardHeading, CardHint } from "@/features/potluck/card-ui";
+import {
+  CardHeading,
+  CardHint,
+  CardReviewRow,
+} from "@/features/potluck/card-ui";
 import {
   CardBankStep,
   betaBankNotice,
@@ -49,6 +53,12 @@ function CardForm() {
       circleId: string | null;
       step: number;
       betaAccountId?: string;
+      reviewEdit?: {
+        name: string;
+        design: Card["design"];
+        circleId: string | null;
+        betaAccountId?: string;
+      };
     },
     Card
   >(user ? "potluck.draft.card." + user.id + "." + (circleId ?? "new") : null, {
@@ -102,6 +112,29 @@ function CardForm() {
   function setStep(value: number) {
     draft.update("step", value);
   }
+  const canEdit = !draft.locked && !action.busy;
+  function editReview(value: number) {
+    if (!canEdit) return;
+    draft.update("reviewEdit", {
+      name,
+      design,
+      circleId: selectedCircleId,
+      betaAccountId: draft.fields.betaAccountId,
+    });
+    setStep(value);
+  }
+  function returnToReview(cancel = false) {
+    if (!canEdit) return;
+    const previous = draft.fields.reviewEdit;
+    if (cancel && previous) {
+      draft.update("name", previous.name);
+      draft.update("design", previous.design);
+      draft.update("circleId", previous.circleId);
+      draft.update("betaAccountId", previous.betaAccountId);
+    }
+    draft.update("reviewEdit", undefined);
+    setStep(3);
+  }
   const editableCircles =
     circles.data?.items.filter(
       (circle) => circle.privacy === "normal" || circle.hostId === user?.id,
@@ -152,13 +185,15 @@ function CardForm() {
       active="Cards"
       avoidKeyboard={step !== 0}
       onBack={() =>
-        step === 3
-          ? setStep(betaBankLinking ? 4 : 2)
-          : step === 4
-            ? setStep(2)
-            : step === 2
-              ? setStep(0)
-              : router.back()
+        draft.fields.reviewEdit
+          ? returnToReview(true)
+          : step === 3
+            ? setStep(betaBankLinking ? 4 : 2)
+            : step === 4
+              ? setStep(2)
+              : step === 2
+                ? setStep(0)
+                : router.back()
       }
       footer={
         user && (
@@ -199,6 +234,7 @@ function CardForm() {
                 Keyboard.dismiss();
                 if (step === 3) void save();
                 else if (step === 4 && needsConnection) void connect();
+                else if (draft.fields.reviewEdit) returnToReview();
                 else setStep(step === 0 ? 2 : step === 2 ? afterCircle : 3);
               }}
             />
@@ -275,7 +311,8 @@ function CardForm() {
               disabled={draft.locked || !capabilityReady || action.busy}
               onSelect={(id) => {
                 draft.update("circleId", id);
-                if (id === null) setStep(afterCircle);
+                if (id === null && !draft.fields.reviewEdit)
+                  setStep(afterCircle);
               }}
               onCreate={() => go("/create/circle")}
             />
@@ -311,18 +348,31 @@ function CardForm() {
               design={design}
               circleId={selectedCircleId}
               circleName={selectedCircle?.name}
-              onChangeCircle={draft.locked ? undefined : () => setStep(2)}
+              onChangeCircle={canEdit ? () => editReview(2) : undefined}
+              onChangeAppearance={canEdit ? () => editReview(0) : undefined}
+              bankSummary={
+                draft.fields.betaAccountId ? (
+                  <View style={{ marginTop: 20, gap: 12 }}>
+                    <CardHeading>Bank account</CardHeading>
+                    <CardReviewRow
+                      icon="bank"
+                      title={selectedAccount?.name ?? "Saved sample account"}
+                      subtitle={
+                        selectedAccount
+                          ? `•• ${selectedAccount.last4}`
+                          : "Details unavailable"
+                      }
+                      onPress={
+                        canEdit && betaBankLinking
+                          ? () => editReview(4)
+                          : undefined
+                      }
+                    />
+                    <CardHint>{betaBankNotice}</CardHint>
+                  </View>
+                ) : undefined
+              }
             />
-            {draft.fields.betaAccountId && (
-              <View style={{ marginTop: 20, gap: 12 }}>
-                <CardHint>
-                  {selectedAccount
-                    ? `${selectedAccount.name} ··${selectedAccount.last4}`
-                    : "Saved sample account · details unavailable"}
-                </CardHint>
-                <CardHint>{betaBankNotice}</CardHint>
-              </View>
-            )}
           </>
         )}
       </AuthGate>

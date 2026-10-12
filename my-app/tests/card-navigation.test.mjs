@@ -224,6 +224,27 @@ test("transfer-review header Back restores amount selection without leaving fund
   assert.deepEqual(s.visits, ["back"]);
 });
 
+test("floating creation controls do not reserve an opaque full-width footer and reserve measured scroll clearance", () => {
+  const s = screen("fund");
+  const tree = s.renderShell({ createMenu: true });
+  const dock = tree.find((n) => n.props.testID === "floating-screen-actions");
+  assert.ok(dock);
+  assert.equal(dock.props.pointerEvents, "box-none");
+  assert.equal(dock.props.style.position, "absolute");
+  dock.props.onLayout({ nativeEvent: { layout: { height: 96 } } });
+  const updated = s.renderShell({ createMenu: true });
+  assert.equal(
+    updated.find((n) => n.type === "ScrollView").props.contentContainerStyle
+      .paddingBottom,
+    120,
+  );
+  assert.ok(
+    updated
+      .find((n) => n.type === "ScrollView")
+      .ancestors.every((n) => n.props.testID !== "floating-screen-actions"),
+  );
+});
+
 test("combined Card form disables keyboard-driven footer movement without changing other screens", () => {
   const s = screen("fund");
   const stationary = s.renderShell({

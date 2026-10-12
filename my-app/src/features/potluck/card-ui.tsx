@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import { Image } from "expo-image";
 import { Pressable, StyleSheet, View } from "react-native";
-import { Label, theme } from "@/design/system";
-import { CircleAvatar } from "./circle-ui";
+import { Icon, Label, theme } from "@/design/system";
+import { CircleAvatar, CircleGlyph } from "./circle-ui";
 
 // Sources: 1077:5751, 859:3437, 854:3515, 756:3028, 793:3176.
 // These variants belong to Cards; generic planning rows retain their own layout.
@@ -141,16 +141,27 @@ export function CardReviewRow({
   title,
   subtitle,
   circle,
+  icon,
   onPress,
 }: {
   title: string;
   subtitle?: string;
   circle?: boolean;
+  icon?: "person" | "bank";
   onPress?: () => void;
 }) {
   const content = (
     <>
       {circle && <CircleAvatar name={title} size={38} />}
+      {icon && (
+        <View style={{ width: 32, alignItems: "center" }}>
+          {icon === "person" ? (
+            <CircleGlyph name="person" />
+          ) : (
+            <Icon name="bank" size={32} />
+          )}
+        </View>
+      )}
       <View style={{ flex: 1, gap: 2 }}>
         <Label
           style={[

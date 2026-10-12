@@ -6,7 +6,13 @@ import {
   useLocalSearchParams,
   type Href,
 } from "expo-router";
-import { type ReactNode, createContext, useContext, useId } from "react";
+import {
+  type ReactNode,
+  createContext,
+  useContext,
+  useId,
+  useState,
+} from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -349,6 +355,10 @@ export function Shell({
 }) {
   const inset = useSafeAreaInsets(),
     pathname = usePathname();
+  const [actionHeight, setActionHeight] = useState(0);
+  const showCreate =
+    createMenu ?? ["/circles", "/cards", "/bills"].includes(pathname);
+  const floatingActions = showCreate && !back;
   const params = useLocalSearchParams(),
     client = useClient();
   const query = new URLSearchParams(
@@ -389,7 +399,7 @@ export function Shell({
           }}
         >
           <KeyboardAvoidingView
-            enabled={avoidKeyboard}
+            enabled={avoidKeyboard && !mainTab(pathname)}
             behavior={Platform.OS === "ios" ? "padding" : undefined}
             style={{ flex: 1 }}
           >
@@ -503,7 +513,7 @@ export function Shell({
               keyboardShouldPersistTaps="handled"
               contentContainerStyle={{
                 paddingHorizontal: 20,
-                paddingBottom: 24,
+                paddingBottom: 24 + (floatingActions ? actionHeight : 0),
                 gap: 16,
                 flexGrow: 1,
               }}
@@ -526,7 +536,24 @@ export function Shell({
               (createMenu ??
                 ["/circles", "/cards", "/bills"].includes(pathname))) && (
               <View
+                testID={
+                  floatingActions ? "floating-screen-actions" : "screen-footer"
+                }
+                pointerEvents="box-none"
+                onLayout={
+                  floatingActions
+                    ? (e) => setActionHeight(e.nativeEvent.layout.height)
+                    : undefined
+                }
                 style={{
+                  ...(floatingActions
+                    ? {
+                        position: "absolute" as const,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                      }
+                    : {}),
                   paddingHorizontal: 20,
                   paddingTop: 12,
                   paddingBottom: hideNavigation
@@ -537,7 +564,9 @@ export function Shell({
                   alignItems: mainTab(pathname) ? "center" : "flex-end",
                 }}
               >
-                <View style={{ flex: 1, gap: 10 }}>{footer}</View>
+                <View pointerEvents="box-none" style={{ flex: 1, gap: 10 }}>
+                  {footer}
+                </View>
                 {(createMenu ??
                   ["/circles", "/cards", "/bills"].includes(pathname)) && (
                   <CreationMenu

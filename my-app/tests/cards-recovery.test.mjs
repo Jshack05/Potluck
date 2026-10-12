@@ -32,6 +32,121 @@ function load(file, imports) {
   return module.exports;
 }
 const node = ({ children }) => React.createElement("div", null, children);
+
+test("people search and results share the constrained scroll body and selection still works", () => {
+  let selected;
+  const { AddCirclePeople } = load("../src/features/potluck/circle-ui.tsx", {
+    react: {
+      ...React,
+      useState: (value) => [value, () => {}],
+      useRef: (value) => ({ current: value }),
+      useEffect() {},
+    },
+    "react-native": {
+      ScrollView: "ScrollView",
+      TextInput: "TextInput",
+      View: "View",
+      Pressable: "Pressable",
+      StyleSheet: { create: (value) => value },
+    },
+    "expo-image": { Image: "Image" },
+    "@/design/sheet": { SheetSurface: "SheetSurface" },
+    "@/design/system": {
+      Label: "Label",
+      Muted: "Muted",
+      ResourceState: "ResourceState",
+      theme: {},
+    },
+    "@/services/client": {
+      useClient: () => ({ user: { id: "host" } }),
+      useResource: () => ({
+        data: { items: [{ id: "friend", name: "Maya" }] },
+        loading: false,
+      }),
+    },
+    "./circle-model": load("../src/features/potluck/circle-model.ts", {}),
+  });
+  const tree = AddCirclePeople({
+    visible: true,
+    people: [],
+    onChange: (value) => {
+      selected = value;
+    },
+    onClose() {},
+  });
+  const body = tree.props.children;
+  assert.equal(
+    body.type,
+    "ScrollView",
+    "fixed headings must not crowd out results in a short keyboard viewport",
+  );
+  const descendants = [];
+  function visit(value) {
+    if (!value || typeof value !== "object") return;
+    descendants.push(value);
+    [value.props?.children].flat(Infinity).forEach(visit);
+  }
+  visit(body);
+  assert.ok(descendants.some((item) => item.type === "TextInput"));
+  descendants
+    .find((item) => item.props?.accessibilityLabel === "Add Maya")
+    .props.onPress();
+  assert.deepEqual(selected, [{ id: "friend", name: "Maya" }]);
+});
+
+test("review edits return directly to review, retain other choices, and cancel restores the prior selection", () => {
+  const accounts = [
+    { id: "one", name: "Personal checking", last4: "4821", state: "simulated" },
+  ];
+  const f = form({ step: 3, beta: true, betaAccountId: "one", accounts });
+  const action = () => f.tree().find((n) => n.type === "Action");
+  assert.equal(f.find("Just for you").props.icon, "person");
+  assert.equal(typeof f.find("Just for you").props.onPress, "function");
+  f.find("Just for you").props.onPress();
+  assert.equal(f.draft.fields.step, 2);
+  action().props.onPress();
+  assert.equal(f.draft.fields.step, 3);
+  f.find("Personal checking").props.onPress();
+  assert.equal(f.draft.fields.step, 4);
+  action().props.onPress();
+  assert.equal(f.draft.fields.step, 3);
+  f.tree()
+    .find(
+      (n) => n.props?.accessibilityLabel === "Edit card name and appearance",
+    )
+    .props.onPress();
+  assert.equal(f.draft.fields.step, 0);
+  f.tree()
+    .find((n) => n.type === "Field")
+    .props.onChangeText("Changed name");
+  f.tree()
+    .find((n) => n.type === "Shell")
+    .props.onBack();
+  assert.equal(f.draft.fields.name, "My card");
+  assert.equal(f.draft.fields.step, 3);
+  assert.equal(f.draft.fields.betaAccountId, "one");
+  assert.equal(f.draft.fields.design, "aurora");
+});
+
+test("pending submission review cannot edit sharing, appearance or banking", () => {
+  const f = form({
+    step: 3,
+    locked: true,
+    resuming: true,
+    beta: true,
+    betaAccountId: "one",
+    accounts: [{ id: "one", name: "Personal checking", last4: "4821" }],
+  });
+  assert.equal(f.find("Just for you").props.onPress, undefined);
+  assert.equal(f.find("Personal checking").props.onPress, undefined);
+  assert.ok(
+    !f
+      .tree()
+      .some(
+        (n) => n.props?.accessibilityLabel === "Edit card name and appearance",
+      ),
+  );
+});
 function form({
   circleId = null,
   step = 2,
@@ -363,7 +478,10 @@ test("pending beta submissions retain their disclosure when account or capabilit
         "Beta · Simulated accounts only. No bank login or money movement.",
       ),
     );
-    assert.ok(hints.includes("Saved sample account · details unavailable"));
+    assert.equal(
+      f.find("Saved sample account").props.subtitle,
+      "Details unavailable",
+    );
     assert.equal(
       f.tree().find((n) => n.type === "Action").props.disabled,
       false,

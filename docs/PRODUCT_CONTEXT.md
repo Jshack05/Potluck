@@ -1,5 +1,11 @@
 # Potluck Product Context
 
+## October 12, 2026 — Review adjustments and Card interactions
+
+Before submitting Card creation, the whole appearance preview, sharing summary and bank-account summary reopen their existing step. Continue returns directly to review; Back cancels that edit and restores the prior choices. The bank summary has its own row with the approved bank icon; Just for you uses the existing single-person icon. Submitted commands remain locked with their original retry identity. This changes presentation and draft editing only, not account ownership, consent, financial readiness or provider state.
+
+Cards use the approved 58-point collapsed stack and animated expansion. Add people supports dragging between compact and expanded states and dismissal, with scrollable content inside the available keyboard/safe-area bounds. Shared home actions float over the scroll viewport with measured end clearance; bottom navigation remains stationary. This is Free/core usability, with no entitlement or backend change. See the [source and validation record](ui-concepts/2026-10-12-card-interactions.md).
+
 ## October 12, 2026 — Card account selection and entry keyboard behavior
 
 Card creation in the local beta is **name/appearance → Circle (or just for me) → bank account → review → Cards**. The new bank step uses the existing account-row components: connect to obtain clearly labeled sample accounts, or choose an account already connected in the beta. Selection persists with Card setup. This is an explicit founder-authorized exception to earlier no-simulation wording, limited to local beta account selection. Synthetic accounts are private, auditable records, separate from real funding sources and provider-confirmed onboarding. They do not activate a Card, grant spending rights, authorize a debit, or unlock financial actions. Production rejects beta account mutations and associations; actual provider integration remains required. Interrupted submissions retain their original payload and retry identity.

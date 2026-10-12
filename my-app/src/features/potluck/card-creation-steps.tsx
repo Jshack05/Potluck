@@ -205,6 +205,8 @@ export function CardCreationReview({
   circleId,
   circleName,
   onChangeCircle,
+  onChangeAppearance,
+  bankSummary,
 }: {
   name: string;
   identity: CardCreationIdentity;
@@ -212,6 +214,8 @@ export function CardCreationReview({
   circleId: string | null;
   circleName?: string;
   onChangeCircle?: () => void;
+  onChangeAppearance?: () => void;
+  bankSummary?: React.ReactNode;
 }) {
   return (
     <>
@@ -222,7 +226,26 @@ export function CardCreationReview({
       </CardHint>
       <View style={{ marginTop: 16, gap: 16 }}>
         <CardHeading>{circleId ? "Your card" : "Card"}</CardHeading>
-        <CardPreview name={name} design={design} creationIdentity={identity} />
+        {onChangeAppearance ? (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Edit card name and appearance"
+            onPress={onChangeAppearance}
+            style={{ width: "100%" }}
+          >
+            <CardPreview
+              name={name}
+              design={design}
+              creationIdentity={identity}
+            />
+          </Pressable>
+        ) : (
+          <CardPreview
+            name={name}
+            design={design}
+            creationIdentity={identity}
+          />
+        )}
         <Label
           style={{
             textAlign: "center",
@@ -246,6 +269,7 @@ export function CardCreationReview({
               onPress={onChangeCircle}
             />
           </View>
+          {bankSummary}
           <CardHeading>Trusted Spender invitations</CardHeading>
           <CardReviewRow title="No invitations sent" />
           <CardHint>
@@ -259,6 +283,8 @@ export function CardCreationReview({
             <CardReviewRow
               title="Just for you"
               subtitle="No Circle or invitations"
+              icon="person"
+              onPress={onChangeCircle}
             />
           </View>
           <View style={{ marginTop: 12 }}>
@@ -266,6 +292,7 @@ export function CardCreationReview({
               You can attach a Circle later to invite Trusted Spenders.
             </CardHint>
           </View>
+          {bankSummary}
         </>
       )}
     </>
