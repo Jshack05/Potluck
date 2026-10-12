@@ -592,7 +592,7 @@ export function EntryLoading() {
   );
 }
 
-/** Content scrolls; entry actions stay at the lower safe area, above the keyboard. */
+/** Only fields avoid the keyboard; entry actions stay at the lower safe area. */
 export function EntryShell({
   children,
   footer,
@@ -605,47 +605,50 @@ export function EntryShell({
   const inset = useSafeAreaInsets();
   return (
     <Accent.Provider value={theme.teal}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        style={{ flex: 1, backgroundColor: theme.canvas }}
-      >
+      <View style={{ flex: 1, backgroundColor: theme.canvas }}>
         <View
           style={{ flex: 1, width: "100%", maxWidth: 430, alignSelf: "center" }}
         >
-          <ScrollView
-            keyboardShouldPersistTaps="handled"
-            contentContainerStyle={{
-              paddingHorizontal: 20,
-              paddingTop: Math.max(inset.top, 24) + 28,
-              paddingBottom: 24,
-              gap: 20,
-              flexGrow: 1,
-            }}
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
+            style={{ flex: 1 }}
           >
-            {brand && (
-              <View
-                style={{
-                  height: 88,
-                  alignItems: "center",
-                  gap: 12,
-                  marginBottom: 16,
-                }}
-              >
-                <Icon name="authLucky" size={44} />
-                <Label
+            <ScrollView
+              keyboardDismissMode="interactive"
+              keyboardShouldPersistTaps="handled"
+              contentContainerStyle={{
+                paddingHorizontal: 20,
+                paddingTop: Math.max(inset.top, 24) + 28,
+                paddingBottom: 24,
+                gap: 20,
+                flexGrow: 1,
+              }}
+            >
+              {brand && (
+                <View
                   style={{
-                    fontFamily: "Inter_700Bold",
-                    fontSize: 22,
-                    lineHeight: 28,
-                    color: theme.teal,
+                    height: 88,
+                    alignItems: "center",
+                    gap: 12,
+                    marginBottom: 16,
                   }}
                 >
-                  Potluck
-                </Label>
-              </View>
-            )}
-            {children}
-          </ScrollView>
+                  <Icon name="authLucky" size={44} />
+                  <Label
+                    style={{
+                      fontFamily: "Inter_700Bold",
+                      fontSize: 22,
+                      lineHeight: 28,
+                      color: theme.teal,
+                    }}
+                  >
+                    Potluck
+                  </Label>
+                </View>
+              )}
+              {children}
+            </ScrollView>
+          </KeyboardAvoidingView>
           <View
             style={{
               paddingHorizontal: 20,
@@ -657,7 +660,7 @@ export function EntryShell({
             {footer}
           </View>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     </Accent.Provider>
   );
 }

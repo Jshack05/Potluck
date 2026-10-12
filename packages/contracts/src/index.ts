@@ -62,9 +62,14 @@ export const cardInput = z.strictObject({
       "clay_twotone",
       "indigo_twotone",
       "slate_twotone",
+      "navy_solid",
+      "plum_solid",
+      "sage_solid",
+      "sand_solid",
     ])
     .default("teal"),
   circleId: id.nullable().default(null),
+  betaAccountId: id.optional(),
 });
 export const billInput = z
   .strictObject({

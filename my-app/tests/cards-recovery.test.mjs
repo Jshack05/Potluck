@@ -41,11 +41,24 @@ function form({
   fresh = false,
   name = "My card",
   design = "aurora",
+  beta = false,
+  betaAccountId,
+  accounts = [],
+  bankError = "",
+  capabilitiesError = "",
+  capabilitiesLoading = false,
+  connectError = false,
 } = {}) {
   const visits = [],
     sends = [];
   const draft = {
-    fields: { name, design, circleId, step },
+    fields: {
+      name,
+      design,
+      circleId,
+      step,
+      ...(betaAccountId ? { betaAccountId } : {}),
+    },
     ready: true,
     locked,
     resuming,
@@ -125,9 +138,41 @@ function form({
       useClient: () => ({
         user: { id: "host", name: "Alexandra María van der Linden" },
       }),
-      useCommand: () => async () => ({ id: "saved-card" }),
+      useCommand: () => async (path) => {
+        if (path === "/beta/bank-accounts/connect") {
+          if (connectError) throw new Error("Connect failed");
+          accounts = [
+            {
+              id: "sample",
+              name: "Personal checking",
+              last4: "4821",
+              state: "simulated",
+            },
+          ];
+          return { items: accounts };
+        }
+        return { id: "saved-card" };
+      },
       useAction: () => ({ run: async (fn) => fn(), busy: false }),
-      useResource: () => ({ data: { items: circles }, loading: false }),
+      useResource: (path) =>
+        path === "/capabilities"
+          ? {
+              data:
+                capabilitiesError || capabilitiesLoading
+                  ? null
+                  : { betaBankLinking: beta },
+              loading: capabilitiesLoading,
+              error: capabilitiesError,
+              reload: async () => {},
+            }
+          : path === "/beta/bank-accounts"
+            ? {
+                data: bankError ? null : { items: accounts },
+                loading: false,
+                error: bankError,
+                reload: async () => {},
+              }
+            : { data: { items: circles }, loading: false },
     },
     "@/features/potluck/card-preview": {
       CardPreview: element("Preview"),
@@ -162,6 +207,10 @@ function form({
   );
   imports["./card-preview"] = imports["@/features/potluck/card-preview"];
   imports["./card-ui"] = imports["@/features/potluck/card-ui"];
+  imports["@/features/potluck/card-bank-step"] = load(
+    "../src/features/potluck/card-bank-step.tsx",
+    imports,
+  );
   imports["@/features/potluck/card-creation-steps"] = load(
     "../src/features/potluck/card-creation-steps.tsx",
     imports,
@@ -196,6 +245,131 @@ function form({
       tree().find((n) => n.props?.title === label || n.props?.label === label),
   };
 }
+
+test("beta Card flow connects, selects, reviews and saves an account while Back preserves the whole draft", async () => {
+  const f = form({ beta: true });
+  const footer = () => f.tree().find((n) => n.type === "Action");
+  const back = () =>
+    f
+      .tree()
+      .find((n) => n.type === "Shell")
+      .props.onBack();
+  f.find("No Circle — just for me").props.onPress();
+  assert.equal(f.draft.fields.step, 4);
+  assert.equal(footer().props.label, "Connect bank account");
+  await footer().props.onPress();
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(f.draft.fields.betaAccountId, "sample");
+  assert.equal(footer().props.label, "Continue");
+  assert.equal(footer().props.disabled, false);
+  footer().props.onPress();
+  assert.ok(f.find("Just for you"));
+  back();
+  assert.equal(f.draft.fields.step, 4);
+  assert.equal(
+    f.tree().find((n) => n.props?.accessibilityRole === "radio").props
+      .accessibilityState.checked,
+    true,
+  );
+  back();
+  assert.equal(f.draft.fields.step, 2);
+  f.find("No Circle — just for me").props.onPress();
+  footer().props.onPress();
+  footer().props.onPress();
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.deepEqual(f.sends, [
+    {
+      name: "My card",
+      design: "aurora",
+      circleId: null,
+      betaAccountId: "sample",
+    },
+  ]);
+});
+
+test("beta existing accounts require a current choice and stale review drafts return to bank selection", () => {
+  const accounts = [
+    { id: "one", name: "Personal checking", last4: "4821", state: "simulated" },
+    {
+      id: "two",
+      name: "Household checking",
+      last4: "7390",
+      state: "simulated",
+    },
+  ];
+  const f = form({ beta: true, step: 3, accounts, betaAccountId: "removed" });
+  const footer = () => f.tree().find((n) => n.type === "Action");
+  assert.equal(
+    f.tree().find((n) => n.type === "Shell").props.title,
+    "Bank account",
+  );
+  assert.equal(footer().props.disabled, true);
+  f.tree()
+    .find((n) => n.props?.accessibilityLabel?.includes("Household checking,"))
+    .props.onPress();
+  assert.equal(f.draft.fields.betaAccountId, "two");
+  assert.equal(
+    f.tree().find((n) => n.type === "Shell").props.title,
+    "Bank account",
+  );
+  assert.equal(footer().props.disabled, false);
+  footer().props.onPress();
+  assert.ok(f.find("Just for you"));
+});
+
+test("unknown capability and failed account loads cannot skip the beta step", () => {
+  for (const options of [
+    { capabilitiesError: "Offline" },
+    { capabilitiesLoading: true },
+    { beta: true, step: 4, bankError: "Offline" },
+  ]) {
+    const f = form(options);
+    assert.equal(
+      f.tree().find((n) => n.type === "Action").props.disabled,
+      true,
+    );
+  }
+  const resume = form({ beta: true, step: 3, resuming: true, locked: true });
+  assert.equal(
+    resume.tree().find((n) => n.type === "Shell").props.title,
+    "Review card",
+  );
+  assert.equal(
+    resume.tree().find((n) => n.type === "Action").props.disabled,
+    false,
+  );
+});
+
+test("pending beta submissions retain their disclosure when account or capability reads fail", () => {
+  for (const failure of [
+    { bankError: "Offline" },
+    { capabilitiesError: "Offline" },
+    { capabilitiesLoading: true },
+  ]) {
+    const f = form({
+      beta: true,
+      step: 3,
+      resuming: true,
+      locked: true,
+      betaAccountId: "persisted-sample",
+      ...failure,
+    });
+    const hints = f
+      .tree()
+      .filter((n) => n.type === "CardHint")
+      .map((n) => n.props.children);
+    assert.ok(
+      hints.includes(
+        "Beta · Simulated accounts only. No bank login or money movement.",
+      ),
+    );
+    assert.ok(hints.includes("Saved sample account · details unavailable"));
+    assert.equal(
+      f.tree().find((n) => n.type === "Action").props.disabled,
+      false,
+    );
+  }
+});
 
 test("No Circle goes directly to its standalone review and Back retains the card draft", () => {
   const f = form({ circleId: "old" });
@@ -248,8 +422,8 @@ test("every appearance choice survives Circle review, Back, a name edit and subm
     champagne: "Champagne",
     satin_teal: "Satin Teal",
     aurora: "Northern lights",
-    ocean_artwork: "Ocean artwork",
-    sunset_artwork: "Sunset artwork",
+    ocean_artwork: "Ocean",
+    sunset_artwork: "Sunset",
     botanical: "Botanical",
     midnight: "Midnight",
     terracotta: "Terracotta",
@@ -271,6 +445,10 @@ test("every appearance choice survives Circle review, Back, a name edit and subm
     clay_twotone: "Clay",
     indigo_twotone: "Indigo",
     slate_twotone: "Slate",
+    navy_solid: "Navy",
+    plum_solid: "Plum",
+    sage_solid: "Sage",
+    sand_solid: "Sand",
   };
   for (const [design, label] of Object.entries(options)) {
     const f = form({
@@ -303,13 +481,19 @@ test("every appearance choice survives Circle review, Back, a name edit and subm
             n.props?.accessibilityLabel === label &&
             n.props?.children?.[0]?.props?.design === design,
         );
-    for (const category of ["Finishes", "Artwork", "Gradients", "Two tone"])
+    for (const category of [
+      "Finishes",
+      "Artwork",
+      "Gradients",
+      "Two tone",
+      "Solid colors",
+    ])
       f.tree()
         .find((n) => n.props?.accessibilityLabel === "See all " + category)
         .props.onPress();
     assert.equal(
       f.tree().filter((n) => n.props?.accessibilityRole === "radio").length,
-      29,
+      33,
     );
     choice().props.onPress();
     assert.equal(choice().props.accessibilityState.checked, true);
@@ -353,11 +537,30 @@ test("creation and review get the signed-in full name and host role without stor
   }
 });
 
-test("all category expansion links use the approved dark green and preserve selection", () => {
+test("the category order matches Figma and expansion links use dark green without changing selection", () => {
   const f = form({ step: 0 });
+  assert.deepEqual(
+    f
+      .tree()
+      .filter((n) => n.props?.accessibilityLabel?.startsWith("See all "))
+      .map((n) => n.props.accessibilityLabel),
+    [
+      "See all Finishes",
+      "See all Artwork",
+      "See all Gradients",
+      "See all Two tone",
+      "See all Solid colors",
+    ],
+  );
   const button = (label) =>
     f.tree().find((n) => n.props?.accessibilityLabel === label);
-  for (const category of ["Finishes", "Gradients", "Two tone", "Artwork"]) {
+  for (const category of [
+    "Finishes",
+    "Gradients",
+    "Two tone",
+    "Artwork",
+    "Solid colors",
+  ]) {
     const expand = button("See all " + category);
     assert.ok(expand, category);
     assert.equal(expand.props.children.props.style.color, "#006D67");

@@ -3,10 +3,10 @@ import type { Card } from "./types";
 
 export const cardAppearanceCategories = [
   { id: "finishes", label: "Finishes" },
-  { id: "solid", label: "Solid colors" },
+  { id: "artwork", label: "Artwork" },
   { id: "gradients", label: "Gradients" },
   { id: "panels", label: "Two tone" },
-  { id: "artwork", label: "Artwork" },
+  { id: "solid", label: "Solid colors" },
 ] as const;
 export type CardAppearanceCategory =
   (typeof cardAppearanceCategories)[number]["id"];
@@ -94,6 +94,38 @@ export const cardAppearances: Record<Card["design"], CardAppearance> = {
     category: "solid",
     sourceNode: "916:4051",
     background: "#F36F55",
+    foreground: "#273432",
+  },
+  navy_solid: {
+    id: "navy_solid",
+    label: "Navy",
+    category: "solid",
+    sourceNode: "2323:47176",
+    background: "#20385B",
+    foreground: "#FFFFFF",
+  },
+  plum_solid: {
+    id: "plum_solid",
+    label: "Plum",
+    category: "solid",
+    sourceNode: "2323:47194",
+    background: "#623D60",
+    foreground: "#FFFFFF",
+  },
+  sage_solid: {
+    id: "sage_solid",
+    label: "Sage",
+    category: "solid",
+    sourceNode: "2323:47212",
+    background: "#BFCFBE",
+    foreground: "#273432",
+  },
+  sand_solid: {
+    id: "sand_solid",
+    label: "Sand",
+    category: "solid",
+    sourceNode: "2323:47230",
+    background: "#E5D8BE",
     foreground: "#273432",
   },
   aurora_gradient: {
@@ -215,7 +247,7 @@ export const cardAppearances: Record<Card["design"], CardAppearance> = {
   },
   ocean_artwork: {
     id: "ocean_artwork",
-    label: "Ocean artwork",
+    label: "Ocean",
     category: "artwork",
     sourceNode: "1583:19250",
     background: "#053838",
@@ -224,7 +256,7 @@ export const cardAppearances: Record<Card["design"], CardAppearance> = {
   },
   sunset_artwork: {
     id: "sunset_artwork",
-    label: "Sunset artwork",
+    label: "Sunset",
     category: "artwork",
     sourceNode: "1583:19268",
     background: "#053838",

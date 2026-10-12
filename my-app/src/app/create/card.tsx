@@ -21,6 +21,11 @@ import {
 import type { CardAppearanceCategory } from "@/features/potluck/card-appearance-catalog";
 import { CardHeading, CardHint } from "@/features/potluck/card-ui";
 import {
+  CardBankStep,
+  betaBankNotice,
+  type BetaBankAccount,
+} from "@/features/potluck/card-bank-step";
+import {
   CardAppearancePicker,
   CardCirclePicker,
   CardCreationReview,
@@ -43,6 +48,7 @@ function CardForm() {
       design: Card["design"];
       circleId: string | null;
       step: number;
+      betaAccountId?: string;
     },
     Card
   >(user ? "potluck.draft.card." + user.id + "." + (circleId ?? "new") : null, {
@@ -52,6 +58,20 @@ function CardForm() {
     step: 0,
   });
   const circles = useResource<Collection<Circle>>(user ? "/circles" : null);
+  const capabilities = useResource<{ betaBankLinking: boolean }>(
+    user ? "/capabilities" : null,
+  );
+  const betaBankLinking = capabilities.data?.betaBankLinking === true;
+  const accounts = useResource<Collection<BetaBankAccount>>(
+    user && betaBankLinking ? "/beta/bank-accounts" : null,
+  );
+  const selectedAccount = accounts.data?.items.find(
+    (account) => account.id === draft.fields.betaAccountId,
+  );
+  const bankReady = !!accounts.data && !accounts.loading && !accounts.error;
+  const capabilityReady =
+    !!capabilities.data && !capabilities.loading && !capabilities.error;
+  const needsConnection = bankReady && accounts.data!.items.length === 0;
   const { name, design } = draft.fields;
   // A new Card is owned by its creator. Display identity comes from the session,
   // never from a persisted draft or a user-selectable permission field.
@@ -65,7 +85,17 @@ function CardForm() {
   );
   // Keep persisted Circle/review step numbers and old appearance drafts compatible.
   const storedStep = draft.fields.step ?? 0;
-  const step = draft.resuming ? 3 : storedStep === 1 ? 0 : storedStep;
+  // Step 4 is additive: older saved step 3 and pending submissions retain meaning.
+  const step = draft.resuming
+    ? 3
+    : storedStep === 1
+      ? 0
+      : storedStep === 3 && betaBankLinking && !selectedAccount
+        ? 4
+        : storedStep === 4 && capabilityReady && !betaBankLinking
+          ? 3
+          : storedStep;
+  const afterCircle = betaBankLinking ? 4 : 3;
   const [expandedCategories, setExpandedCategories] = useState<
     CardAppearanceCategory[]
   >([]);
@@ -79,17 +109,42 @@ function CardForm() {
   async function save() {
     await action.run(async () => {
       await draft.submit(
-        { name, design, circleId: selectedCircleId },
+        {
+          name,
+          design,
+          circleId: selectedCircleId,
+          ...(betaBankLinking && selectedAccount
+            ? { betaAccountId: selectedAccount.id }
+            : {}),
+        },
         (body, identity) => command<Card>("/cards", body, identity),
       );
       router.replace("/cards");
       await draft.clear();
     });
   }
+  async function connect() {
+    await action.run(async () => {
+      const result = await command<Collection<BetaBankAccount>>(
+        "/beta/bank-accounts/connect",
+        {},
+      );
+      // Remain on the selection step so the user can review or change the default.
+      draft.update("betaAccountId", result.items[0]?.id);
+      setStep(4);
+      await accounts.reload();
+    });
+  }
   return (
     <Shell
       title={
-        ["Create card", "Create card", "Attach a Circle", "Review card"][step]
+        [
+          "Create card",
+          "Create card",
+          "Attach a Circle",
+          "Review card",
+          "Bank account",
+        ][step]
       }
       back
       headerTitleSize={28}
@@ -97,7 +152,13 @@ function CardForm() {
       active="Cards"
       avoidKeyboard={step !== 0}
       onBack={() =>
-        step === 3 ? setStep(2) : step === 2 ? setStep(0) : router.back()
+        step === 3
+          ? setStep(betaBankLinking ? 4 : 2)
+          : step === 4
+            ? setStep(2)
+            : step === 2
+              ? setStep(0)
+              : router.back()
       }
       footer={
         user && (
@@ -114,12 +175,21 @@ function CardForm() {
                     ? draft.resuming
                       ? "Finish Card setup"
                       : "Create card"
-                    : "Continue"
+                    : step === 4 && needsConnection
+                      ? "Connect bank account"
+                      : "Continue"
               }
               disabled={
                 action.busy ||
                 !draft.ready ||
                 !name.trim() ||
+                (!draft.resuming &&
+                  step >= 2 &&
+                  (!capabilityReady ||
+                    (betaBankLinking &&
+                      step !== 2 &&
+                      (!bankReady ||
+                        (!needsConnection && !selectedAccount))))) ||
                 (!draft.resuming &&
                   step >= 2 &&
                   !!selectedCircleId &&
@@ -128,7 +198,8 @@ function CardForm() {
               onPress={() => {
                 Keyboard.dismiss();
                 if (step === 3) void save();
-                else setStep(step === 0 ? 2 : 3);
+                else if (step === 4 && needsConnection) void connect();
+                else setStep(step === 0 ? 2 : step === 2 ? afterCircle : 3);
               }}
             />
           </>
@@ -136,6 +207,15 @@ function CardForm() {
       }
     >
       <AuthGate returnTo="/create/card">
+        {step >= 2 && !draft.resuming && (
+          <ResourceState
+            loading={capabilities.loading}
+            data={capabilities.data}
+            loadingKey={capabilities.loadingKey}
+            error={capabilities.error}
+            retry={capabilities.reload}
+          />
+        )}
         {step === 0 && (
           <>
             <CardHint>
@@ -192,24 +272,58 @@ function CardForm() {
             <CardCirclePicker
               circles={editableCircles}
               selectedId={selectedCircleId}
-              disabled={draft.locked}
+              disabled={draft.locked || !capabilityReady || action.busy}
               onSelect={(id) => {
                 draft.update("circleId", id);
-                if (id === null) setStep(3);
+                if (id === null) setStep(afterCircle);
               }}
               onCreate={() => go("/create/circle")}
             />
           </>
         )}
+        {step === 4 && (
+          <>
+            <ResourceState
+              loading={accounts.loading}
+              data={accounts.data}
+              loadingKey={accounts.loadingKey}
+              error={accounts.error}
+              retry={accounts.reload}
+            />
+            {bankReady && (
+              <CardBankStep
+                accounts={accounts.data!.items}
+                selectedId={draft.fields.betaAccountId}
+                disabled={draft.locked || action.busy}
+                onSelect={(id) => {
+                  draft.update("betaAccountId", id);
+                  setStep(4);
+                }}
+              />
+            )}
+          </>
+        )}
         {step === 3 && (
-          <CardCreationReview
-            name={name}
-            identity={identity}
-            design={design}
-            circleId={selectedCircleId}
-            circleName={selectedCircle?.name}
-            onChangeCircle={draft.locked ? undefined : () => setStep(2)}
-          />
+          <>
+            <CardCreationReview
+              name={name}
+              identity={identity}
+              design={design}
+              circleId={selectedCircleId}
+              circleName={selectedCircle?.name}
+              onChangeCircle={draft.locked ? undefined : () => setStep(2)}
+            />
+            {draft.fields.betaAccountId && (
+              <View style={{ marginTop: 20, gap: 12 }}>
+                <CardHint>
+                  {selectedAccount
+                    ? `${selectedAccount.name} ··${selectedAccount.last4}`
+                    : "Saved sample account · details unavailable"}
+                </CardHint>
+                <CardHint>{betaBankNotice}</CardHint>
+              </View>
+            )}
+          </>
         )}
       </AuthGate>
     </Shell>

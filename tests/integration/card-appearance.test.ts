@@ -51,6 +51,10 @@ test("all approved appearances persist without issuance, duplicate Cards or wide
       "clay_twotone",
       "indigo_twotone",
       "slate_twotone",
+      "navy_solid",
+      "plum_solid",
+      "sage_solid",
+      "sand_solid",
     ];
     for (const design of designs) {
       const request = {
@@ -93,7 +97,7 @@ test("all approved appearances persist without issuance, duplicate Cards or wide
     }
     assert.equal(
       (await app.inject({ url: "/v1/cards", headers })).json().items.length,
-      29,
+      33,
     );
     const invalid = await app.inject({
       method: "POST",

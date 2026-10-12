@@ -2,6 +2,7 @@
  * Route templates (not user URLs) are matched so new money-moving endpoints
  * cannot accidentally inherit permission from a broad /cards or /bills prefix. */
 const planningReads = new Set([
+  "/v1/beta/bank-accounts",
   "/v1/cards",
   "/v1/cards/:id",
   "/v1/bills",
@@ -15,6 +16,7 @@ const planningReads = new Set([
   "/v1/settings",
 ]);
 const planningWrites = new Set([
+  "/v1/beta/bank-accounts/connect",
   "/v1/cards",
   "/v1/cards/:id/connection",
   "/v1/cards/:id/close",

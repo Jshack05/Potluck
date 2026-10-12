@@ -177,6 +177,16 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
           : "";
   return {
     render,
+    renderEntry: () =>
+      render(
+        React.createElement(
+          common["@/design/system"].EntryShell,
+          {
+            footer: React.createElement("AccountActions"),
+          },
+          React.createElement("PasswordField"),
+        ),
+      ),
     renderShell: (props) =>
       render(
         React.createElement(common["@/design/system"].Shell, {
@@ -231,6 +241,22 @@ test("combined Card form disables keyboard-driven footer movement without changi
     s.renderShell({}).find((n) => n.type === "KeyboardAvoidingView").props
       .enabled,
     true,
+  );
+});
+
+test("account-entry fields can avoid the keyboard without moving footer actions over them", () => {
+  const nodes = screen("fund").renderEntry();
+  const input = nodes.find((n) => n.type === "PasswordField");
+  const footer = nodes.find((n) => n.type === "AccountActions");
+  assert.ok(input.ancestors.some((n) => n.type === "ScrollView"));
+  assert.ok(input.ancestors.some((n) => n.type === "KeyboardAvoidingView"));
+  assert.equal(
+    footer.ancestors.some((n) => n.type === "KeyboardAvoidingView"),
+    false,
+  );
+  assert.equal(
+    footer.ancestors.some((n) => n.type === "ScrollView"),
+    false,
   );
 });
 

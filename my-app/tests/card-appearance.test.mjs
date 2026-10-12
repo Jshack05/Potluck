@@ -78,6 +78,34 @@ function preview(design, props = {}) {
   return { images, labels, frames, html };
 }
 
+test("new solid looks use their Figma fill and readable identity text without artwork overlays", () => {
+  const luminance = (hex) => {
+    const rgb = hex
+      .slice(1)
+      .match(/../g)
+      .map((v) => parseInt(v, 16) / 255)
+      .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+    return rgb[0] * 0.2126 + rgb[1] * 0.7152 + rgb[2] * 0.0722;
+  };
+  for (const [id, bg, fg] of [
+    ["navy_solid", "#20385B", "#FFFFFF"],
+    ["plum_solid", "#623D60", "#FFFFFF"],
+    ["sage_solid", "#BFCFBE", "#273432"],
+    ["sand_solid", "#E5D8BE", "#273432"],
+  ]) {
+    const p = preview(id, {
+      creationIdentity: { fullName: "Alexandra Maria", role: "host" },
+    });
+    assert.equal(p.images.length, 0);
+    assert.ok(p.frames.some((f) => JSON.stringify(f.style).includes(bg)));
+    for (const label of p.labels)
+      assert.ok(JSON.stringify(label.style).includes(fg));
+    const a = luminance(bg),
+      b = luminance(fg);
+    assert.ok((Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05) >= 4.5, id);
+  }
+});
+
 test("all artwork fills the card bounds and light finishes use readable source lettering", () => {
   const art = [
     "aurora",

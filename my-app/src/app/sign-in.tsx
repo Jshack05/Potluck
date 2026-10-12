@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View } from "react-native";
+import { Keyboard, View } from "react-native";
 import { Redirect, useLocalSearchParams, type Href } from "expo-router";
 import {
   EntryShell,
@@ -145,6 +145,8 @@ export default function SignIn() {
           secureTextEntry
           autoCapitalize="none"
           autoComplete={register ? "new-password" : "current-password"}
+          returnKeyType="done"
+          onSubmitEditing={Keyboard.dismiss}
         />
         <Muted>
           Use at least 12 characters for this local development account.

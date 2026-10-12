@@ -1,5 +1,15 @@
 # Potluck Product Context
 
+## October 12, 2026 — Card account selection and entry keyboard behavior
+
+Card creation in the local beta is **name/appearance → Circle (or just for me) → bank account → review → Cards**. The new bank step uses the existing account-row components: connect to obtain clearly labeled sample accounts, or choose an account already connected in the beta. Selection persists with Card setup. This is an explicit founder-authorized exception to earlier no-simulation wording, limited to local beta account selection. Synthetic accounts are private, auditable records, separate from real funding sources and provider-confirmed onboarding. They do not activate a Card, grant spending rights, authorize a debit, or unlock financial actions. Production rejects beta account mutations and associations; actual provider integration remains required. Interrupted submissions retain their original payload and retry identity.
+
+The catalog now contains 33 looks, including the new Navy, Plum, Sage and Sand solids authored in Figma. The order is **Finishes, Artwork, Gradients, Two tone, Solid colors**; solids remain last because the requested sequence omitted them. Artwork labels are **Ocean** and **Sunset**, without changing saved IDs. Graphite remains the fresh-draft default. Creation/review identity and dark-green category actions remain as approved October 11.
+
+Sign in, Create account and comparable entry screens keep footer actions and account-switch links at their normal bottom position under the keyboard. Only input content may adjust/scroll to keep fields accessible. Bottom navigation remains stationary.
+
+Target: Hosts setting up recognizable Cards with an intended account. Free/core promise: choose a look and account without losing progress. Invitations remain acquisition; recurring arrangements support retention; paid conversion stays deferred. Measure creation completion and account-step abandonment. See the [plan and execution record](ui-concepts/2026-10-12-card-bank-step.md) for Figma sources, migration and verification.
+
 ## October 11, 2026 — Card appearance category refinement
 
 The approved category name is **Two tone**, replacing Potluck panels (and superseding the intermediate Duotone suggestion). Gradients use continuous, stronger color blends without a contrasting panel; Two tone uses distinct areas of color. Both categories have six approved choices, taking the catalog to 29. The app now uses these Figma sources and the existing deep-teal action token for Create card's See all / See less controls. Saved design IDs and Graphite's fresh-draft default are preserved. See the [source and verification record](ui-concepts/2026-10-11-card-palette-refresh.md).

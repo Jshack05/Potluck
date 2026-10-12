@@ -82,6 +82,7 @@ export function financialArea(path: string): "Cards" | "Bills" | null {
 /** Organization never waits for banking. Provider-only and unknown reads stay gated. */
 export function canLoadResource(access: EntryAccess, path: string): boolean {
   if (access === "signed_out") return false;
+  if (path === "/capabilities" || path === "/beta/bank-accounts") return true;
   if (
     /^\/(circles|circle-transfers|invitations|brands|listings|my-listings|profiles|requests|conversations|saved|notifications)(\/|\?|$)/.test(
       path,

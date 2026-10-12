@@ -17,6 +17,7 @@ export type Circle = Item & {
   cards: Card[];
 };
 export type Card = Item & {
+  betaAccountId?: string | null;
   hostId: string;
   circleId: string | null;
   description: string;
@@ -49,7 +50,11 @@ export type Card = Item & {
     | "evergreen_twotone"
     | "clay_twotone"
     | "indigo_twotone"
-    | "slate_twotone";
+    | "slate_twotone"
+    | "navy_solid"
+    | "plum_solid"
+    | "sage_solid"
+    | "sand_solid";
   bills: Bill[];
   availableMinor: number | null;
 };
