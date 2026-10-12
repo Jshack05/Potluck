@@ -2,7 +2,7 @@
 
 > **For agentic workers:** Use superpowers:executing-plans to implement this plan task-by-task after Joseph authorizes implementation. Steps use checkbox syntax for tracking.
 
-**Status:** Diagnosis and planning only. No app or Figma implementation changed.
+**Status:** Implemented under the approved [consolidated plan](2026-10-12-cards-controls-and-stability.md). See the [execution record](../../ui-concepts/2026-10-12-merchant-controls-app.md); physical-device confirmation remains outstanding.
 
 **Goal:** Restore the original Cards stack when the user taps outside a selection, remove the native rendering error on Manage arrangement, and repair the reported Add people animation errors.
 

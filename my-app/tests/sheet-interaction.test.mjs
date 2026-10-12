@@ -9,7 +9,7 @@ import { sheetGeometry, sheetRelease } from "../src/design/sheet-geometry.ts";
 const require = createRequire(import.meta.url);
 
 // Exercise the real component's responder and lifecycle, with synchronous animation boundaries.
-function sheet(platform = "ios") {
+function sheet(platform = "ios", draggable = true) {
   const hooks = [],
     effects = [],
     keyboardEvents = {};
@@ -142,13 +142,15 @@ function sheet(platform = "ios") {
         visible = false;
         expanded = false;
       },
-      drag: {
-        expanded,
-        onExpandedChange(value) {
-          expanded = value;
-        },
-        scrollOffset,
-      },
+      drag: draggable
+        ? {
+            expanded,
+            onExpandedChange(value) {
+              expanded = value;
+            },
+            scrollOffset,
+          }
+        : undefined,
       children: "people",
     });
     effects.splice(0).forEach((fn) => fn());
@@ -233,6 +235,27 @@ test("native translation never shares an animated style node with JS layout", ()
   assert.deepEqual(s.driverViolations(), []);
   s.drag(500);
   s.open();
+  assert.deepEqual(s.driverViolations(), []);
+});
+
+test("non-draggable sheets keep their percentage height relative to the keyboard viewport", () => {
+  const s = sheet("ios", false);
+  const ancestors = [];
+  function visit(node, parents = []) {
+    if (!node?.props) return;
+    if (node.props.accessibilityViewIsModal) ancestors.push(...parents);
+    [node.props.children]
+      .flat(Infinity)
+      .forEach((child) => visit(child, [...parents, node]));
+  }
+  visit(s.render());
+  assert.equal(
+    ancestors.some((n) => n.type === "AnimatedView"),
+    false,
+    "an auto-height transform wrapper changes percentage sizing and lets the footer overflow",
+  );
+  assert.equal(s.surface().props.style.maxHeight, "85%");
+  assert.ok(s.surface().props.style.transform);
   assert.deepEqual(s.driverViolations(), []);
 });
 

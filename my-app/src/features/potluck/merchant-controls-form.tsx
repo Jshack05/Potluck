@@ -255,7 +255,7 @@ export function MerchantControlsForm({
           USD per purchase
         </Label>
         <Label style={[styles.caption, { color: theme.muted }]}>
-          Saved settings are not enforced until your Card controls are active.
+          Saved controls are not active.
         </Label>
       </View>
       <View style={{ gap: 4 }}>

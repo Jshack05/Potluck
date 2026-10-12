@@ -1,4 +1,5 @@
 import {
+  Fragment,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -240,6 +241,8 @@ export function SheetSurface({
       animation.stop();
     };
   }, [visible, reduced, viewport, offset]);
+  // Non-draggable surfaces retain their viewport-relative percentage sizing.
+  const MotionBoundary = drag ? Animated.View : Fragment;
   return (
     <Modal
       visible={visible || present}
@@ -268,20 +271,35 @@ export function SheetSurface({
             paddingBottom: drag ? 0 : 32,
           }}
         >
-          <Animated.View
-            pointerEvents="box-none"
-            style={{
-              width: "100%",
-              maxWidth: 430,
-              alignSelf: "center",
-              transform: [{ translateY: offset }, { translateY: dragOffset }],
-            }}
+          <MotionBoundary
+            {...(drag
+              ? {
+                  pointerEvents: "box-none" as const,
+                  style: {
+                    width: "100%",
+                    maxWidth: 430,
+                    alignSelf: "center",
+                    transform: [
+                      { translateY: offset },
+                      { translateY: dragOffset },
+                    ],
+                  },
+                }
+              : {})}
           >
             {/* Keep JS layout on a different animated style node from native transforms. */}
             <Animated.View
               accessibilityViewIsModal
               {...(drag ? pan.panHandlers : {})}
               style={{
+                ...(!drag
+                  ? {
+                      transform: [
+                        { translateY: offset },
+                        { translateY: dragOffset },
+                      ],
+                    }
+                  : {}),
                 backgroundColor: "white",
                 borderRadius: 32,
                 width: "100%",
@@ -319,7 +337,7 @@ export function SheetSurface({
               )}
               {children}
             </Animated.View>
-          </Animated.View>
+          </MotionBoundary>
         </KeyboardAvoidingView>
       </View>
     </Modal>

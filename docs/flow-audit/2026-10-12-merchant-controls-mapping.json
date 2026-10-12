@@ -1,12 +1,21 @@
 {
   "date": "2026-10-12",
   "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
-  "scope": "Figma design and prototype only",
+  "scope": "Figma source and focused app implementation; no live issuer enforcement",
   "status": {
     "design": "CREATED_AND_VISUALLY_REVIEWED",
     "wiring": "REACTIONS_VERIFIED",
-    "app": "NOT_IMPLEMENTED",
+    "app": "IMPLEMENTED_AUTOMATED_AND_BROWSER_VERIFIED_NATIVE_QA_PENDING",
     "browserPlayback": "NOT_TESTED"
+  },
+  "appImplementation": {
+    "route": "/card/[id]/merchant-controls",
+    "entry": "/card/[id]/setup",
+    "state": "Maximum and Range share an editor; industry picker edits an isolated draft on the same route",
+    "persistence": "GET/POST /v1/cards/:id/merchant-controls; Host-only, versioned and idempotent; enforcement remains not_active",
+    "record": "../ui-concepts/2026-10-12-merchant-controls-app.md",
+    "nativeDevice": "NOT_VERIFIED",
+    "figmaChangedDuringAppImplementation": false
   },
   "screens": {
     "Maximum": {

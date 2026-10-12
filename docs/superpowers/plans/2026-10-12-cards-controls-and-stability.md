@@ -2,7 +2,7 @@
 
 > **For agentic workers:** Use superpowers:executing-plans to implement this plan after Joseph approves it. Check current repository instructions and source state before starting. Do not treat this planning document as implementation authorization.
 
-**Status:** Awaiting approval. This document consolidates unfinished work; no application or Figma changes were made while preparing it.
+**Status:** Approved by Joseph and implemented on `codex/merchant-controls-and-card-stability`; not merged. See the [execution and validation record](../../ui-concepts/2026-10-12-merchant-controls-app.md). The original task checklist below is retained as the approved specification; physical-device gesture/keyboard acceptance and the existing dependency findings remain open.
 
 **Goal:** Bring the approved Merchant controls screens into the app, make their editing and saving flow work, and complete the three pending Card/management/sheet repairs without regressing the existing Card creation flow.
 

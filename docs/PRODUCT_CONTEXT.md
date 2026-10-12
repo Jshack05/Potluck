@@ -1,8 +1,10 @@
 # Potluck Product Context
 
-## October 12, 2026 — Merchant controls design
+## October 12, 2026 — Saved Merchant controls
 
-The approved Figma flow lets a Card Host choose a maximum amount or inclusive range **per purchase**, combined with an allowlist of industries based on merchant category codes. This is separate from monthly spending limits and individual Trusted Spender permissions. The editor preserves Card identity, supports canceling draft edits, and returns to the originating Card settings after Save. The current task creates Figma screens and prototype interactions only; exact processor MCC groupings, supported amount rules, server enforcement, authorization precedence and audit behavior still require implementation verification. No provider state or program approval is established by this design. It is core/free usability; paid entitlements remain deferred. See the [source, marketability and verification record](ui-concepts/2026-10-12-merchant-controls-figma.md).
+The approved Figma flow lets a Card Host save a maximum amount or inclusive range **per purchase**, combined with an intended industry allowlist. This is separate from monthly spending limits and individual Trusted Spender permissions. Only the Card's Host can read or edit its configuration; eligible setup Cards can be edited before bank connection, while closed setups retain read-only history. An unconfigured Card has no fictional limits. An explicitly empty industry selection stays empty and must never become allow-all.
+
+The app preserves Card identity and unsaved values, supports canceling picker edits, and returns to the originating Card settings after Save. Server saves use exact integer minor units, version checks, idempotency and atomic audit records. Configuration is explicitly **not active**: it does not issue a Card, authorize or decline purchases, or change financial readiness. Exact processor MCC mappings, provider-supported rules and live authorization enforcement remain separate integration work. This is Free/core usability without paid entitlements. See the [design source](ui-concepts/2026-10-12-merchant-controls-figma.md) and [implementation, validation and rollback record](ui-concepts/2026-10-12-merchant-controls-app.md).
 
 ## October 12, 2026 — Review adjustments and Card interactions
 
