@@ -1,5 +1,13 @@
 # Merchant controls and Cards stability — October 12, 2026
 
+## October 13 follow-up — one Spending controls entry
+
+Removed the inactive Spending limit row from Card settings and renamed/reordered the existing Merchant controls entry to **Spending controls**. The existing editor title and subtitle now describe both purchase amounts and allowed industries; Trusted spenders remains separate. The saved-settings API, database, authorization, monetary semantics and audit records are unchanged. Existing historical URLs retain their names. Monthly aggregate limits and live issuer enforcement remain unimplemented.
+
+Figma's current Family and Apartment settings reuse consolidated component `2393:48056`, derived from the existing Controls card with its tokens and chevrons. The original source remains on archived reference screens. Current instances retain saved-summary variable bindings, Trusted spender interactions, and the full-row controls actions; those hit targets moved to the first row. Maximum and Range editor headings were updated in place. The provider-dependent underfunding design remains outside this app change.
+
+Validation: the updated navigation regression failed on the old inactive row, then passed after consolidation. All 55 backend/domain and 122 mobile tests, formatting, lint, type checks and three platform exports passed. The full release gate still fails solely on the unchanged mobile dependency audit (23 findings); backend audit reports zero. Browser checks at 375 × 812 verified the single entry, persisted $10.01–$150.29 Range and three industries, Save returning to settings, and readable narrow layout. Native-phone QA remains outstanding. Rollback this follow-up by reverting its presentation/documentation commit; no migration or stored-setting rollback is required. Restore the two Figma instances to source `1077:5680`, their original 246 height and hit-target y=714, and the Merchant controls headings if reverting the design.
+
 Joseph approved the [full plan](../superpowers/plans/2026-10-12-cards-controls-and-stability.md), including database saving and a PR without automatic merge. Implementation branch: `codex/merchant-controls-and-card-stability`. Backup commit `888163e` was pushed to `codex/backup-before-merchant-controls-2026-10-12` before app changes. No user screenshots, local databases, credentials or secrets are part of the commits.
 
 ## What changed

@@ -56,18 +56,8 @@ function Settings({ card }: { card: CardDetail }) {
           <CardHeading>Controls</CardHeading>
           <CardSettingsGroup>
             <CardSetting
-              title="Spending limit"
-              description="Maximum spend before review"
-            />
-            <CardSetting
-              title="Trusted spenders"
-              description="People allowed to use this card"
-              value={`${card.spenders.length} ${card.spenders.length === 1 ? "person" : "people"}`}
-              onPress={() => go("/card/" + card.id + "/people")}
-            />
-            <CardSetting
-              title="Merchant controls"
-              description="Saved settings · not active"
+              title="Spending controls"
+              description="Amounts & industries · not active"
               value={
                 controls.data
                   ? merchantControlsSummary(controls.data.settings)
@@ -78,6 +68,12 @@ function Settings({ card }: { card: CardDetail }) {
                   ? () => go(`/card/${card.id}/merchant-controls`)
                   : undefined
               }
+            />
+            <CardSetting
+              title="Trusted spenders"
+              description="People allowed to use this card"
+              value={`${card.spenders.length} ${card.spenders.length === 1 ? "person" : "people"}`}
+              onPress={() => go("/card/" + card.id + "/people")}
               last
             />
           </CardSettingsGroup>

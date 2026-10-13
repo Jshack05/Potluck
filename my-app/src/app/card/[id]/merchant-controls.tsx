@@ -21,7 +21,7 @@ export default function MerchantControls() {
     );
   return (
     <Shell
-      title="Merchant controls"
+      title="Spending controls"
       headerTitleSize={28}
       back
       active="Cards"

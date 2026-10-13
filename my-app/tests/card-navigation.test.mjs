@@ -357,16 +357,25 @@ test("content-only keyboard adjustment leaves Merchant controls actions and navi
   }
 });
 
-test("Card settings opens Merchant controls for its own Card with the saved summary", () => {
+test("Card settings combines amount and industry controls into one working entry", () => {
   const s = screen("setup");
-  const row = s
-    .render()
-    .find(
-      (n) => n.type === "CardSetting" && n.props.title === "Merchant controls",
-    );
+  const rows = s.render().filter((n) => n.type === "CardSetting");
+  assert.equal(
+    rows.some((n) => n.props.title === "Spending limit"),
+    false,
+  );
+  assert.equal(
+    rows.some((n) => n.props.title === "Merchant controls"),
+    false,
+  );
+  const entries = rows.filter((n) => n.props.title === "Spending controls");
+  assert.equal(entries.length, 1);
+  const row = entries[0];
   assert.equal(row.props.value, "1 industry");
   row.props.onPress();
   assert.deepEqual(s.visits, ["/card/card-1/merchant-controls"]);
+  rows.find((n) => n.props.title === "Trusted spenders").props.onPress();
+  assert.equal(s.visits.at(-1), "/card/card-1/people");
 });
 
 test("direct-entry Card secondary Back returns to the affected Card", () => {

@@ -72,11 +72,11 @@ export function MerchantControlsEditor({
   };
   return (
     <Shell
-      title={picking ? "Choose industries" : "Merchant controls"}
+      title={picking ? "Choose industries" : "Spending controls"}
       subtitle={
         picking
           ? "Only checked industries will be allowed."
-          : "Choose where this card can be used."
+          : "Set purchase amounts and allowed industries."
       }
       headerTitleSize={28}
       back

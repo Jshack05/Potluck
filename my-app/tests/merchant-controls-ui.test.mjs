@@ -321,6 +321,7 @@ function editor({ failSave = false } = {}) {
 }
 test("controls editor validates, cancels picker edits, preserves a failed save and retries the same versioned payload", async () => {
   const s = editor({ failSave: true });
+  assert.equal(s.get("Shell").props.title, "Spending controls");
   await s.get("Action").props.onPress();
   assert.ok(s.get("Form").props.errors.maximum);
   assert.equal(s.calls.length, 0);

@@ -1,6 +1,16 @@
 {
   "date": "2026-10-12",
   "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+  "consolidation20261013": {
+    "label": "Spending controls",
+    "componentId": "2393:48056",
+    "settingsInstances": ["1077:6321", "1077:6377"],
+    "settingsScreens": ["622:2591", "622:2752"],
+    "editorScreens": ["2353:45867", "2353:46316"],
+    "interactionNodes": ["2356:46444", "2356:46446"],
+    "changes": "One existing editor for purchase amounts and industries; inactive standalone Spending limit row removed. Current instances preserve their bound saved summaries and prototype reactions. Historical reference instances retain component 1077:5680. App route, API, database and save semantics unchanged.",
+    "verification": "Shared source and current screen render reviewed; app entry, saved Range values and Save return verified at 375x812. No native-device or Figma prototype playback claim."
+  },
   "scope": "Figma source and focused app implementation; no live issuer enforcement",
   "status": {
     "design": "CREATED_AND_VISUALLY_REVIEWED",
