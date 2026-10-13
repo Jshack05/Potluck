@@ -11,15 +11,17 @@ export function CardContext({
 }: {
   card: Pick<Card, "name" | "design">;
   fullName: string;
-  roleLabel: string;
+  roleLabel?: string;
 }) {
   return (
     <View style={styles.context}>
       <CardThumbnail design={card.design} fullName={fullName} />
       <Label style={styles.name}>{card.name}</Label>
-      <View style={styles.badge}>
-        <Label style={styles.role}>{roleLabel}</Label>
-      </View>
+      {roleLabel && (
+        <View style={styles.badge}>
+          <Label style={styles.role}>{roleLabel}</Label>
+        </View>
+      )}
     </View>
   );
 }

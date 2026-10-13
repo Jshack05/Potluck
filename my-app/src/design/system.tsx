@@ -39,12 +39,14 @@ export function Action({
   secondary = false,
   disabled = false,
   danger = false,
+  outline = false,
 }: {
   label: string;
   onPress: () => void;
   secondary?: boolean;
   disabled?: boolean;
   danger?: boolean;
+  outline?: boolean;
 }) {
   const accent = useContext(Accent);
   return (
@@ -56,7 +58,10 @@ export function Action({
       style={({ pressed }) => [
         styles.action,
         {
-          backgroundColor: secondary ? "white" : danger ? theme.danger : accent,
+          backgroundColor:
+            secondary || outline ? "white" : danger ? theme.danger : accent,
+          borderWidth: outline ? 1 : 0,
+          borderColor: danger ? theme.danger : accent,
           opacity: disabled ? 0.45 : pressed ? 0.8 : 1,
         },
       ]}
@@ -65,7 +70,13 @@ export function Action({
         style={{
           fontFamily: "Inter_600SemiBold",
           textAlign: "center",
-          color: secondary ? accent : "white",
+          color: outline
+            ? danger
+              ? theme.danger
+              : accent
+            : secondary
+              ? accent
+              : "white",
         }}
       >
         {label}
@@ -301,7 +312,7 @@ export function Empty({
     </View>
   );
 }
-export function go(path: Href) {
+export function go(path: string | Href) {
   router.push(path as Href);
 }
 export function money(minor: number) {
