@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Image } from "expo-image";
 import { Pressable, StyleSheet, View } from "react-native";
-import { Icon, Label, theme } from "@/design/system";
+import { Icon, Label, theme, icons } from "@/design/system";
 import { CircleAvatar, CircleGlyph } from "./circle-ui";
 
 // Sources: 1077:5751, 859:3437, 854:3515, 756:3028, 793:3176.
@@ -37,12 +37,13 @@ export function CardSelection({
     </View>
   );
 }
-export function CardChevron() {
+export function CardChevron({ danger = false }: { danger?: boolean }) {
   return (
     <Image
       source={require("../../../assets/potluck/card-flow/chevron.svg")}
       style={{ width: 20, height: 20 }}
       contentFit="contain"
+      tintColor={danger ? theme.danger : undefined}
     />
   );
 }
@@ -52,12 +53,16 @@ export function CardCircleChoice({
   selected,
   disabled,
   onPress,
+  personal = false,
+  variant = "creation",
 }: {
   title: string;
   subtitle?: string;
   selected: boolean;
   disabled?: boolean;
   onPress: () => void;
+  personal?: boolean;
+  variant?: "creation" | "management";
 }) {
   return (
     <Pressable
@@ -70,10 +75,14 @@ export function CardCircleChoice({
       style={[
         styles.choice,
         !subtitle && styles.compactChoice,
-        selected && styles.selected,
+        selected && variant === "creation" && styles.selected,
       ]}
     >
-      {subtitle && <CircleAvatar name={title} size={28} />}
+      {personal ? (
+        <CircleGlyph name="person" />
+      ) : (
+        subtitle && <CircleAvatar name={title} size={28} />
+      )}
       <View style={{ flex: 1, gap: 2 }}>
         <Label style={styles.rowTitle}>{title}</Label>
         {subtitle && (
@@ -88,6 +97,80 @@ export function CardCircleChoice({
     </Pressable>
   );
 }
+// Figma 2411:48076. Shared management action, never a financial permission check.
+export function CardActionRow({
+  title,
+  subtitle,
+  icon,
+  danger = false,
+  onPress,
+}: {
+  title: string;
+  subtitle?: string;
+  icon: "circles" | "person" | "cards";
+  danger?: boolean;
+  onPress?: () => void;
+}) {
+  const content = (
+    <>
+      <View
+        style={{
+          width: 48,
+          height: 48,
+          borderRadius: 16,
+          backgroundColor: danger ? "#FDEBED" : theme.mint,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {icon === "person" ? (
+          <CircleGlyph name="person" />
+        ) : (
+          <Image
+            source={icons[icon]}
+            style={{ width: 28, height: 28 }}
+            contentFit="contain"
+            tintColor={danger ? theme.danger : theme.teal}
+          />
+        )}
+      </View>
+      <View style={{ flex: 1, gap: 4 }}>
+        <Label style={[styles.rowTitle, danger && { color: theme.danger }]}>
+          {title}
+        </Label>
+        {!!subtitle && (
+          <Label style={{ fontSize: 14, lineHeight: 20, color: theme.muted }}>
+            {subtitle}
+          </Label>
+        )}
+      </View>
+      {onPress && <CardChevron danger={danger} />}
+    </>
+  );
+  const style = {
+    minHeight: 80,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    borderRadius: 30,
+    backgroundColor: "white",
+    flexDirection: "row" as const,
+    alignItems: "center" as const,
+    gap: 16,
+  };
+  return onPress ? (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={title}
+      onPress={onPress}
+      style={style}
+    >
+      {content}
+    </Pressable>
+  ) : (
+    <View style={style}>{content}</View>
+  );
+}
+
 export function CardCreateCircle({
   disabled,
   onPress,

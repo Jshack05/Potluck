@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { View } from "react-native";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+import { usePreventRemove } from "expo-router/react-navigation";
+import { cardPeopleRoute, returnToRoute } from "@/services/route-return";
 import {
   Shell,
   Title,
@@ -9,51 +12,86 @@ import {
   Label,
   Field,
   ResourceState,
-  Avatar,
   ErrorText,
   money,
-  go,
   theme,
 } from "@/design/system";
-import { CardLine, useCard } from "@/features/potluck/card-scene";
+import { useCard } from "@/features/potluck/card-scene";
+import { CardContext } from "@/features/potluck/card-context";
+import {
+  CardPeopleInfo,
+  CardPersonHeading,
+  CardPersonRow,
+  CardPermissionRow,
+} from "@/features/potluck/card-people";
 import { useResource } from "@/services/client";
 import type { Circle, Person } from "@/features/potluck/types";
 import { moneyInput } from "@/features/potluck/calendar-model";
+
 export default function InviteSpender() {
-  const card = useCard(),
-    circle = useResource<Circle>(
-      card.data?.circleId ? "/circles/" + card.data.circleId : null,
-    );
-  const [person, setPerson] = useState<Person | null>(null),
-    [amount, setAmount] = useState(""),
-    [review, setReview] = useState(false),
-    [error, setError] = useState("");
+  const card = useCard();
+  return (
+    <CardInvitationDraft
+      key={`${card.user?.id ?? "anonymous"}:${card.id}`}
+      card={card}
+    />
+  );
+}
+
+function CardInvitationDraft({ card }: { card: ReturnType<typeof useCard> }) {
+  const circle = useResource<Circle>(
+    card.data?.circleId ? "/circles/" + card.data.circleId : null,
+  );
+  const [person, setPerson] = useState<Person | null>(null);
+  const [amount, setAmount] = useState("");
+  const [step, setStep] = useState<"pick" | "permissions" | "review">("pick");
+  const [error, setError] = useState("");
   const allowed = card.data?.role === "host" && card.data.status !== "closed";
+  const { source } = useLocalSearchParams<{ source?: string }>();
+  const navigation = useNavigation();
+  const cancel = () => {
+    setPerson(null);
+    setAmount("");
+    setStep("pick");
+    setError("");
+    returnToRoute(cardPeopleRoute(card.id, source));
+  };
+  const back = () => {
+    setError("");
+    if (step === "review") setStep("permissions");
+    else if (step === "permissions") setStep("pick");
+    else cancel();
+  };
+  usePreventRemove(true, ({ data }) => {
+    if (data.action.type === "GO_BACK" || data.action.type === "POP") back();
+    else navigation.dispatch(data.action);
+  });
+  const pick = (next: Person) => {
+    if (person?.id !== next.id) setAmount("");
+    setPerson(next);
+    setError("");
+    setStep("permissions");
+  };
   return (
     <Shell
       title={
-        review
+        step === "review"
           ? "Review spending access"
-          : person
+          : step === "permissions"
             ? "Spending permissions"
             : "Invite trusted spender"
       }
       back
       hideNavigation
-      headerVariant="centered"
+      headerTitleSize={26}
       active="Cards"
-      onBack={() =>
-        review
-          ? setReview(false)
-          : person
-            ? setPerson(null)
-            : go("/card/" + card.id + "/people")
-      }
+      onBack={back}
+      keyboardContentOnly
       footer={
         allowed && (
           <>
             <ErrorText text={error} />
-            {person && !review && (
+            {person && step === "permissions" && (
               <Action
                 label="Review spending access"
                 onPress={() => {
@@ -61,23 +99,27 @@ export default function InviteSpender() {
                     if (moneyInput(amount) <= 0)
                       throw new Error("Enter a positive monthly limit.");
                     setError("");
-                    setReview(true);
+                    setStep("review");
                   } catch (e) {
                     setError((e as Error).message);
                   }
                 }}
               />
             )}
-            {review && (
+            {step === "review" && (
               <Action
                 label="Invitation unavailable"
                 disabled
                 onPress={() => {}}
               />
             )}
-            <Link onPress={() => go("/card/" + card.id + "/people")}>
-              {review ? "Back to people" : "Cancel"}
-            </Link>
+            {step === "pick" ? (
+              <Action label="Cancel" onPress={cancel} />
+            ) : (
+              <Link onPress={cancel}>
+                {step === "review" ? "Back to people" : "Cancel"}
+              </Link>
+            )}
           </>
         )
       }
@@ -92,10 +134,14 @@ export default function InviteSpender() {
       {card.data &&
         (allowed ? (
           <>
-            {!person ? (
+            <CardContext
+              card={card.data}
+              fullName={card.user?.name ?? ""}
+              roleLabel="HOST"
+            />
+            {step === "pick" ? (
               <>
                 <Title>Who would you like to invite?</Title>
-                <Muted>{card.data.name}</Muted>
                 <ResourceState
                   loading={circle.loading}
                   data={circle.data}
@@ -106,116 +152,116 @@ export default function InviteSpender() {
                 {circle.data?.people
                   .filter((p) => p.id !== card.user?.id)
                   .map((p) => (
-                    <View
+                    <CardPersonRow
                       key={p.id}
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: 14,
-                      }}
-                    >
-                      <Avatar name={p.name} />
-                      <View style={{ flex: 1 }}>
-                        <CardLine
-                          title={p.name}
-                          detail="Circle member · No card access"
-                          onPress={() => setPerson(p)}
-                        />
-                      </View>
-                    </View>
+                      name={p.name}
+                      detail="Circle member · No card access"
+                      onPress={() => pick(p)}
+                    />
                   ))}
-                {(!circle.data ||
-                  circle.data.people.every((p) => p.id === card.user?.id)) && (
-                  <Muted>
-                    There are no other accepted Circle members to choose. Add
-                    people to a Circle separately before planning spending
-                    access.
-                  </Muted>
-                )}
-                <Muted>
+                {/* Existing unavailable/empty copy is preserved pending a Figma counterpart. */}
+                {!circle.loading &&
+                  !circle.error &&
+                  (!circle.data ||
+                    circle.data.people.every(
+                      (p) => p.id === card.user?.id,
+                    )) && (
+                    <Muted>
+                      There are no other accepted Circle members to choose. Add
+                      people to a Circle separately before planning spending
+                      access.
+                    </Muted>
+                  )}
+                <CardPeopleInfo>
                   Being in your Circle does not automatically give someone a
                   card.
-                </Muted>
+                </CardPeopleInfo>
               </>
             ) : (
-              <>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    gap: 16,
-                    alignItems: "center",
-                  }}
-                >
-                  <Avatar name={person.name} />
-                  <View style={{ flex: 1 }}>
-                    <Title>
-                      {review
-                        ? "Invite " + person.name
-                        : person.name + "’s monthly limit"}
-                    </Title>
-                    <Muted>{card.data.name} · Trusted Spender</Muted>
-                  </View>
-                </View>
-                {review ? (
-                  <>
-                    <Muted>Proposed monthly limit</Muted>
-                    <Label
-                      style={{
-                        fontSize: 40,
-                        lineHeight: 48,
-                        fontFamily: "Inter_700Bold",
-                        color: theme.teal,
-                      }}
-                    >
-                      {money(moneyInput(amount))}
-                    </Label>
-                    <CardLine
-                      icon="cards"
-                      title="Permitted purchases"
-                      detail="To be configured with the issuing program."
-                    />
-                    <CardLine
-                      icon="circles"
-                      title="Activation"
-                      detail={
-                        person.name +
-                        " must accept and complete required issuer approval."
-                      }
-                    />
-                    <Muted>
-                      No invitation has been sent. Potluck’s issuing program is
-                      not connected, so spending access cannot be granted.
-                    </Muted>
-                    <Muted>
-                      This invitation would not request contributions or share
-                      your credential.
-                    </Muted>
-                  </>
-                ) : (
-                  <>
-                    <Field
-                      label="Monthly spending limit"
-                      keyboardType="decimal-pad"
-                      placeholder="0.00"
-                      value={amount}
-                      onChangeText={setAmount}
-                    />
-                    {[150, 200, 250].map((limit) => (
-                      <CardLine
-                        key={limit}
-                        icon="cards"
-                        title={money(limit * 100) + " per month"}
-                        detail="Choose this limit"
-                        onPress={() => setAmount(String(limit))}
+              person && (
+                <>
+                  <CardPersonHeading name={person.name}>
+                    {step === "review"
+                      ? "Invite " + person.name
+                      : person.name + "’s monthly limit"}
+                  </CardPersonHeading>
+                  {step === "review" ? (
+                    <>
+                      <View
+                        style={{
+                          backgroundColor: "white",
+                          borderRadius: 22,
+                          padding: 20,
+                          gap: 8,
+                        }}
+                      >
+                        <Muted>Proposed monthly limit</Muted>
+                        <Label
+                          style={{
+                            fontSize: 40,
+                            lineHeight: 48,
+                            fontFamily: "Inter_700Bold",
+                            color: theme.teal,
+                          }}
+                        >
+                          {money(moneyInput(amount))}
+                        </Label>
+                      </View>
+                      <CardPermissionRow
+                        icon="shield"
+                        title="Permitted purchases"
+                        detail="To be configured with the issuing program."
                       />
-                    ))}
-                    <Muted>
-                      Changing a spending limit does not authorize a bank
-                      transfer or change a Bill contribution.
-                    </Muted>
-                  </>
-                )}
-              </>
+                      <CardPermissionRow
+                        icon="circles"
+                        title="Activation"
+                        detail={
+                          person.name +
+                          " must accept and complete required issuer approval."
+                        }
+                      />
+                      <Muted>
+                        No invitation has been sent. Potluck’s issuing program
+                        is not connected, so spending access cannot be granted.
+                      </Muted>
+                      <CardPeopleInfo>
+                        This invitation would not request contributions or share
+                        your credential.
+                      </CardPeopleInfo>
+                    </>
+                  ) : (
+                    <>
+                      {/* Preserve the existing custom amount input; Figma only specifies preset edits. */}
+                      <Field
+                        label="Monthly spending limit"
+                        keyboardType="decimal-pad"
+                        placeholder="0.00"
+                        value={amount}
+                        onChangeText={(value) => {
+                          setAmount(value);
+                          setError("");
+                        }}
+                      />
+                      {[150, 200, 250].map((limit) => (
+                        <CardPermissionRow
+                          key={limit}
+                          icon="cards"
+                          title={money(limit * 100) + " per month"}
+                          detail="Choose this limit"
+                          onPress={() => {
+                            setAmount(String(limit));
+                            setError("");
+                          }}
+                        />
+                      ))}
+                      <CardPeopleInfo>
+                        Changing a spending limit does not authorize a bank
+                        transfer or change a Bill contribution.
+                      </CardPeopleInfo>
+                    </>
+                  )}
+                </>
+              )
             )}
           </>
         ) : (

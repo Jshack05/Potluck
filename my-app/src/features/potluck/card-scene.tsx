@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Pressable, View } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, type Href } from "expo-router";
 import {
   AuthGate,
   Label,
@@ -32,25 +32,32 @@ export function CardScene({
   children,
   footer,
   onBack,
+  backTo,
   hideNavigation = false,
   headerVariant = "standard",
+  headerTitleSize,
 }: {
   title: string;
   children: (card: CardDetail) => ReactNode;
   footer?: (card: CardDetail) => ReactNode;
   onBack?: () => void;
+  backTo?: Href;
   hideNavigation?: boolean;
   headerVariant?: "standard" | "centered";
+  headerTitleSize?: number;
 }) {
   const card = useCard();
   return (
     <Shell
       title={title}
-      headerTitleSize={headerVariant === "standard" ? 28 : undefined}
+      headerTitleSize={
+        headerTitleSize ?? (headerVariant === "standard" ? 28 : undefined)
+      }
       headerVariant={headerVariant}
       back
       returnTo={"/card/" + card.id}
       onBack={onBack}
+      backTo={backTo}
       hideNavigation={hideNavigation}
       active="Cards"
       footer={card.data && footer?.(card.data)}

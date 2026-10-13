@@ -26,6 +26,7 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useClient } from "@/services/client";
 import { entryDestination } from "@/services/navigation";
+import { returnToRoute } from "@/services/route-return";
 import { CreationMenu } from "@/features/potluck/creation-menu";
 import { theme, icons, Label, Title, Muted, Icon } from "./primitives";
 import { BottomNavigation, HeaderActions, mainTab } from "./chrome";
@@ -38,12 +39,14 @@ export function Action({
   secondary = false,
   disabled = false,
   danger = false,
+  outline = false,
 }: {
   label: string;
   onPress: () => void;
   secondary?: boolean;
   disabled?: boolean;
   danger?: boolean;
+  outline?: boolean;
 }) {
   const accent = useContext(Accent);
   return (
@@ -55,7 +58,10 @@ export function Action({
       style={({ pressed }) => [
         styles.action,
         {
-          backgroundColor: secondary ? "white" : danger ? theme.danger : accent,
+          backgroundColor:
+            secondary || outline ? "white" : danger ? theme.danger : accent,
+          borderWidth: outline ? 1 : 0,
+          borderColor: danger ? theme.danger : accent,
           opacity: disabled ? 0.45 : pressed ? 0.8 : 1,
         },
       ]}
@@ -64,7 +70,13 @@ export function Action({
         style={{
           fontFamily: "Inter_600SemiBold",
           textAlign: "center",
-          color: secondary ? accent : "white",
+          color: outline
+            ? danger
+              ? theme.danger
+              : accent
+            : secondary
+              ? accent
+              : "white",
         }}
       >
         {label}
@@ -300,7 +312,7 @@ export function Empty({
     </View>
   );
 }
-export function go(path: string) {
+export function go(path: string | Href) {
   router.push(path as Href);
 }
 export function money(minor: number) {
@@ -326,6 +338,7 @@ export function Shell({
   blue = false,
   active,
   returnTo,
+  backTo,
   onBack,
   hideNavigation = false,
   createMenu,
@@ -347,6 +360,7 @@ export function Shell({
   blue?: boolean;
   active?: "Circles" | "Cards" | "Bills" | "Splitfinder";
   returnTo?: string;
+  backTo?: Href;
   emptyState?: boolean;
   onBack?: () => void;
   hideNavigation?: boolean;
@@ -378,6 +392,13 @@ export function Shell({
     client.access,
     pathname + (query.size ? "?" + query.toString() : ""),
   );
+  const handleBack =
+    onBack ??
+    (() => {
+      if (backTo) return returnToRoute(backTo);
+      if (router.canGoBack()) router.back();
+      else router.replace((returnTo ?? "/circles") as Href);
+    });
   if (!client.ready) return <EntryLoading />;
   if (destination) return <Redirect href={destination as Href} />;
   const selected =
@@ -428,13 +449,7 @@ export function Shell({
                 <Pressable
                   accessibilityRole="button"
                   accessibilityLabel="Go back"
-                  onPress={
-                    onBack ??
-                    (() =>
-                      router.canGoBack()
-                        ? router.back()
-                        : router.replace((returnTo ?? "/circles") as Href))
-                  }
+                  onPress={handleBack}
                   style={styles.back}
                 >
                   <Image
@@ -516,13 +531,7 @@ export function Shell({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Go back"
-                onPress={
-                  onBack ??
-                  (() =>
-                    router.canGoBack()
-                      ? router.back()
-                      : router.replace((returnTo ?? "/circles") as Href))
-                }
+                onPress={handleBack}
                 style={[styles.back, { marginLeft: 20, marginBottom: 20 }]}
               >
                 <Label

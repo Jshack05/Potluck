@@ -11,8 +11,14 @@ const require = createRequire(import.meta.url);
 
 // Native views, router history and API reads are boundaries. Route handlers,
 // CardScene, Shell and Action are executed, including the funding step state.
-function screen(route, { history = false, bottomInset = 34 } = {}) {
+function screen(
+  route,
+  { history = false, bottomInset = 34, source, stack = [], circle = null } = {},
+) {
   let cursor = 0;
+  let removal;
+  let mountedKey;
+  const user = { id: "host" };
   const state = [],
     visits = [];
   const native = (name) =>
@@ -23,7 +29,7 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
     id: "card-1",
     name: "Apartment card",
     hostId: "host",
-    circleId: null,
+    circleId: circle?.id ?? null,
     role: "host",
     status: "setup_required",
     version: 1,
@@ -40,6 +46,7 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
   const common = {
     react: {
       ...React,
+      useRef: (v) => ({ current: v }),
       useContext: () => theme.teal,
       useId: () => "field",
       useState: (initial) => {
@@ -72,11 +79,26 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
         canGoBack: () => history,
         back: () => visits.push("back"),
         replace: (p) => visits.push(p),
-        push: (p) => visits.push(p),
+        push: (p) => {
+          visits.push(p);
+          stack.push(p);
+        },
+        dismissTo: (p) => {
+          visits.push(p);
+          const index = stack.lastIndexOf(p);
+          if (index >= 0) stack.splice(index + 1);
+          else stack.splice(Math.max(0, stack.length - 1), 1, p);
+        },
       },
-      useLocalSearchParams: () => ({ id: card.id }),
+      useNavigation: () => ({ dispatch() {} }),
+      useLocalSearchParams: () => ({ id: card.id, source }),
       usePathname: () => "/card/" + card.id + "/" + route,
       Redirect: native("Redirect"),
+    },
+    "expo-router/react-navigation": {
+      usePreventRemove: (enabled, callback) => {
+        removal = enabled ? callback : null;
+      },
     },
     "react-native-safe-area-context": {
       useSafeAreaInsets: () => ({
@@ -88,7 +110,7 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
     },
     "@/services/client": {
       useClient: () => ({
-        user: { id: "host" },
+        user,
         ready: true,
         access: "bank_required",
       }),
@@ -97,7 +119,9 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
           ? { settings: { industries: ["groceries"] } }
           : path?.startsWith("/cards/")
             ? card
-            : null,
+            : path?.startsWith("/circles/")
+              ? circle
+              : null,
         error: "",
         loading: false,
       }),
@@ -147,6 +171,7 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
     );
     return module.exports;
   }
+  common["@/services/route-return"] = load("../src/services/route-return.ts");
   common["@/design/system"] = load("../src/design/system.tsx");
   common["@/features/potluck/card-scene"] = load(
     "../src/features/potluck/card-scene.tsx",
@@ -157,6 +182,20 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
   common["@/features/potluck/calendar-model"] = {
     moneyInput: (s) => Number(s) * 100,
   };
+  common["@/features/potluck/card-context"] = {
+    CardContext: native("CardContext"),
+  };
+  common["@/features/potluck/card-people"] = {
+    CardPersonRow: (props) =>
+      React.createElement(
+        "Pressable",
+        { ...props, accessibilityLabel: props.name },
+        props.name,
+      ),
+    CardPermissionRow: native("PermissionRow"),
+    CardPersonHeading: native("Title"),
+    CardPeopleInfo: native("Text"),
+  };
   const Page = load("../src/app/card/[id]/" + route + ".tsx").default;
   function render(root = React.createElement(Page)) {
     cursor = 0;
@@ -165,6 +204,14 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
       if (Array.isArray(node))
         return node.forEach((child) => visit(child, ancestors));
       if (!node?.props) return;
+      if (
+        node.type?.name === "CardInvitationDraft" &&
+        node.key !== mountedKey
+      ) {
+        mountedKey = node.key;
+        state.length = 0;
+        cursor = 0;
+      }
       if (typeof node.type === "function")
         return visit(node.type(node.props), ancestors);
       all.push({ ...node, ancestors });
@@ -182,6 +229,12 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
           ? text(node.props.children)
           : "";
   return {
+    card,
+    user,
+    osBack: () => {
+      render();
+      removal?.({ data: { action: { type: "GO_BACK" } } });
+    },
     render,
     renderEntry: () =>
       render(
@@ -375,7 +428,7 @@ test("Card settings combines amount and industry controls into one working entry
   row.props.onPress();
   assert.deepEqual(s.visits, ["/card/card-1/merchant-controls"]);
   rows.find((n) => n.props.title === "Trusted spenders").props.onPress();
-  assert.equal(s.visits.at(-1), "/card/card-1/people");
+  assert.equal(s.visits.at(-1), "/card/card-1/people?source=settings");
 });
 
 test("direct-entry Card secondary Back returns to the affected Card", () => {
@@ -417,8 +470,8 @@ test("without a tab dock, funding footer clears the iPhone bottom safe area", ()
   assert.ok(button.ancestors.some((n) => n.props.style?.paddingBottom >= 34));
 });
 
-test("role and activity headers use the centered Figma treatment; funding stays standard", () => {
-  for (const route of ["people", "invite", "activity"]) {
+test("activity keeps its header and role screens use the updated Figma heading", () => {
+  for (const route of ["activity"]) {
     const title = screen(route)
       .render()
       .find((n) => n.props.accessibilityRole === "header");
@@ -426,10 +479,130 @@ test("role and activity headers use the centered Figma treatment; funding stays 
     assert.equal(title.props.style.fontSize, 16, route);
     assert.equal(title.props.style.fontFamily, "Inter_600SemiBold", route);
   }
+  for (const route of ["people", "invite"]) {
+    const title = screen(route)
+      .render()
+      .find((n) => n.props.accessibilityRole === "header");
+    assert.equal(title.props.style.textAlign, "left");
+    assert.equal(title.props.style.fontSize, 26);
+  }
   assert.equal(
     screen("fund")
       .render()
       .find((n) => n.props.accessibilityRole === "header").props.style.fontSize,
     28,
   );
+});
+
+test("People/Invite cancellation unwinds repeated visits to each valid parent", () => {
+  for (const [source, parent] of [
+    ["card", "/card/card-1"],
+    ["settings", "/card/card-1/setup"],
+    ["manage", "/manage/cards/card-1"],
+  ]) {
+    const people = "/card/card-1/people?source=" + source;
+    const stack = [parent, people];
+    for (let cycle = 0; cycle < 3; cycle++) {
+      screen("people", { source, stack })
+        .button("Invite trusted spender")
+        .props.onPress();
+      assert.equal(stack.at(-1), "/card/card-1/invite?source=" + source);
+      screen("invite", { source, stack }).back();
+      assert.deepEqual(stack, [parent, people]);
+      screen("people", { source, stack }).back();
+      assert.deepEqual(stack, [parent]);
+      stack.push(people);
+    }
+  }
+});
+
+test("explicit parent wins over unrelated history; local Back still wins", () => {
+  const stack = ["/circles", "/card/card-1/people"];
+  const s = screen("people", {
+    source: "https://bad.example",
+    stack,
+    history: true,
+  });
+  s.back();
+  assert.deepEqual(stack, ["/circles", "/card/card-1"]);
+  s.back();
+  assert.deepEqual(stack, ["/circles", "/card/card-1"]);
+  let local = 0;
+  s.renderShell({ back: true, backTo: "/cards", onBack: () => local++ })
+    .find((n) => n.props.accessibilityLabel === "Go back")
+    .props.onPress();
+  assert.equal(local, 1);
+  assert.deepEqual(stack, ["/circles", "/card/card-1"]);
+});
+
+test("invite drafts preserve person and amount on Back, discard on Cancel, and cannot send", () => {
+  const s = screen("invite", {
+    source: "manage",
+    circle: { id: "circle", people: [{ id: "p", name: "Quinn Avery" }] },
+  });
+  const pick = () =>
+    s.render().find((n) => n.props.accessibilityLabel === "Quinn Avery");
+  assert.ok(pick());
+  pick().props.onPress();
+  s.input().props.onChangeText("75.25");
+  s.button("Review spending access").props.onPress();
+  assert.equal(s.button("Invitation unavailable").props.disabled, true);
+  s.back();
+  assert.equal(s.input().props.value, "75.25");
+  s.back();
+  pick().props.onPress();
+  assert.equal(s.input().props.value, "75.25");
+  s.button("Cancel").props.onPress();
+  assert.equal(s.visits.at(-1), "/card/card-1/people?source=manage");
+  pick().props.onPress();
+  assert.equal(s.input().props.value, "");
+  s.card.role = "trusted_spender";
+  assert.equal(s.button("Review spending access"), undefined);
+  assert.equal(s.button("Invitation unavailable"), undefined);
+});
+
+test("native Back from People respects management origin even with unrelated history", () => {
+  const stack = ["/circles", "/card/card-1/people?source=manage"];
+  const s = screen("people", { source: "manage", stack, history: true });
+  s.osBack();
+  assert.deepEqual(stack, ["/circles", "/manage/cards/card-1"]);
+});
+
+test("People identity belongs to scroll content, not the invitation footer", () => {
+  const context = screen("people")
+    .render()
+    .find((n) => n.type === "CardContext");
+  assert.ok(context.ancestors.some((n) => n.type === "ScrollView"));
+});
+
+test("native Back at the invitation picker returns to People, even on direct entry", () => {
+  const stack = ["/circles", "/card/card-1/invite?source=manage"];
+  const s = screen("invite", { source: "manage", stack });
+  s.osBack();
+  assert.deepEqual(stack, ["/circles", "/card/card-1/people?source=manage"]);
+});
+
+test("changing Card or signed-in user discards the prior invitation draft", () => {
+  for (const change of [
+    (s) => {
+      s.card.id = "card-2";
+    },
+    (s) => {
+      s.user.id = "other-user";
+    },
+  ]) {
+    const s = screen("invite", {
+      circle: { id: "c", people: [{ id: "p", name: "Quinn Avery" }] },
+    });
+    s.render()
+      .find((n) => n.props.accessibilityLabel === "Quinn Avery")
+      .props.onPress();
+    s.input().props.onChangeText("75.25");
+    change(s);
+    assert.equal(s.input(), undefined);
+    s.render()
+      .find((n) => n.props.accessibilityLabel === "Quinn Avery")
+      .props.onPress();
+    assert.equal(s.input().props.value, "");
+  }
 });

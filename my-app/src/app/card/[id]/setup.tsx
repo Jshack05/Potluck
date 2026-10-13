@@ -11,6 +11,7 @@ import {
 } from "@/features/potluck/card-ui";
 import type { Circle } from "@/features/potluck/types";
 import { merchantControlsSummary } from "@/features/potluck/merchant-controls-model";
+import { cardPeopleRoute } from "@/services/route-return";
 
 export default function CardSetup() {
   return (
@@ -73,18 +74,15 @@ function Settings({ card }: { card: CardDetail }) {
               title="Trusted spenders"
               description="People allowed to use this card"
               value={`${card.spenders.length} ${card.spenders.length === 1 ? "person" : "people"}`}
-              onPress={() => go("/card/" + card.id + "/people")}
+              onPress={() => go(cardPeopleRoute(card.id, "settings"))}
               last
             />
           </CardSettingsGroup>
         </View>
       )}
-      {/* Keep existing close/connection access until its Figma counterpart is
-        resolved. Never replace it with a new destructive-action design. */}
       {card.role === "host" && card.status !== "closed" && (
         <Row
           title="Manage arrangement"
-          subtitle="Attach a Circle or close this setup."
           onPress={() => go("/manage/cards/" + card.id)}
         />
       )}

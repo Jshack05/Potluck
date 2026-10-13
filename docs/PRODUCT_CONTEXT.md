@@ -1,5 +1,9 @@
 # Potluck Product Context
 
+## October 13, 2026 — Profile History requirement, deferred
+
+Joseph requested a History section reached through the profile/You entry, showing the user's past Circles, Cards, and the associated Card transactions. This is a recorded future requirement only: do not add the section, navigation, Figma screens, or application behavior in the current Card-management design task. Its eventual design must preserve resource-level access and retained records; former membership must not expose another person's private transactions. Retention, pagination, and accessible historical detail need a separate approved design.
+
 ## October 13, 2026 — Unified Spending controls entry
 
 Card settings has one **Spending controls** entry under Controls, combining the existing per-purchase Maximum/Range editor and industry selection. The inactive standalone Spending limit row is removed. Trusted spenders remains a separate permission workflow. This presentation change does not introduce a monthly aggregate limit or activate issuer enforcement. Existing saved configuration, API names, ownership, versioning, idempotency and audit behavior remain unchanged.

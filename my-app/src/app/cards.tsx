@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useLocalSearchParams } from "expo-router";
+import { CardClosureNotice } from "@/features/potluck/card-closure-notice";
 import { View } from "react-native";
 import {
   Shell,
@@ -14,6 +16,7 @@ import { CardStack } from "@/features/potluck/card-stack";
 import type { Card, Collection } from "@/features/potluck/types";
 import { HomeEmptyState } from "@/features/potluck/home-empty-state";
 export default function Cards() {
+  const { closed } = useLocalSearchParams<{ closed?: string }>();
   const { user } = useClient(),
     resource = useResource<Collection<Card>>(user ? "/cards" : null);
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -31,6 +34,7 @@ export default function Cards() {
       backgroundAccessibilityLabel="Reset card arrangement"
     >
       <AuthGate returnTo="/cards">
+        <CardClosureNotice id={closed} />
         {!!resource.data?.items.length && (
           <>
             <Title>Your cards</Title>

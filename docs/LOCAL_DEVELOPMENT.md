@@ -104,3 +104,11 @@ Hosted email/Apple authentication and recovery, private media storage, external 
 `npm run validate` is the single full gate: formatting, strict types, mobile lint, domain/integration/mobile tests, iOS/Android/web export, and dependency audits. It runs every check and exits unsuccessfully if any fail. `npm run validate:local` runs the functional checks and exports only; it does not establish release security. Dependency audit findings are recorded as release blockers, never suppressed by skipping tests or forcing an incompatible SDK downgrade.
 
 The backend executes TypeScript directly on Node 24; the mobile export is a JavaScript/assets production bundle, not a signed iPhone/Android binary. PostgreSQL deployment, Supabase account flows, native devices and financial providers need their own validation.
+
+### October 13: Card management and predictable returns
+
+`codex/card-management-flow` adds source-backed Manage arrangement, persisted Circle editing and server-confirmed closure of eligible unissued Cards. Shared Card context and People/Invite presentation reuse the same routes from management and settings. Internal Back preserves invitation input; Cancel clears it; closure clears the completed Card stack. Existing API authorization, idempotency, versions and retained history remain unchanged.
+
+Validation: 56 backend/domain and 138 mobile tests passed, along with formatting, lint, types and all-platform exports. The full gate fails only the pre-existing 23 mobile dependency findings (3 moderate, 19 high, 1 critical); backend audit is clean. Production-web local-API journeys passed at 430×932 and 320×600. Physical-device and large-text checks remain outstanding. See [execution evidence, design gaps and rollback](ui-concepts/2026-10-13-card-management-figma.md#app-execution-evidence).
+
+Trusted Spender sending and saved individual access controls are still unavailable pending a real server contract. Profile History was not added. This change needs no schema migration, provider configuration or new native dependency.

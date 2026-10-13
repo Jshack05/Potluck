@@ -20,10 +20,14 @@ function screen(type, owned, resource = {}) {
     connectionVersion: 2,
     circleId: "circle",
     cardId: "card",
+    status: "setup_required",
+    design: "graphite",
   };
   const imports = {
     react: {
       ...React,
+      useRef: (v) => ({ current: v }),
+      useEffect: (fn) => fn(),
       useState(initial) {
         const i = cursor++;
         if (!(i in state)) state[i] = initial;
@@ -36,11 +40,27 @@ function screen(type, owned, resource = {}) {
       },
     },
     "expo-router": {
+      useNavigation: () => ({
+        dispatch() {},
+        reset: (s) => visits.push("/cards?closed=" + s.routes[0].params.closed),
+      }),
       useLocalSearchParams: () => ({ type, id: "item" }),
       router: {
         back: () => visits.push("back"),
         replace: (path) => visits.push(path),
       },
+    },
+    "expo-router/react-navigation": { usePreventRemove() {} },
+    "react-native": { View: "View" },
+    "@/services/route-return": {
+      returnToRoute: (path) => visits.push(path),
+      cardPeopleRoute: (id) => `/card/${id}/people`,
+    },
+    "./card-context": { CardContext: "CardContext" },
+    "./card-ui": {
+      CardHeading: "Text",
+      CardActionRow: "CardActionRow",
+      CardCircleChoice: "CardCircleChoice",
     },
     "@/design/system": Object.fromEntries([
       ...["Shell", "Row", "Action", "ResourceState", "ErrorText"].map(
@@ -56,34 +76,43 @@ function screen(type, owned, resource = {}) {
         path === `/${type}/item`
           ? { data: item, reload() {}, ...resource }
           : { data: { items: [] } },
-      useAction: () => ({ busy: false, error: "", run: (fn) => fn() }),
+      useAction: () => ({
+        busy: false,
+        error: "",
+        setError() {},
+        run: (fn) => fn(),
+      }),
       useCommand:
         () =>
         async (...args) =>
           commands.push(args),
     },
   };
-  const js = ts.transpileModule(
-    readFileSync(
-      new URL("../src/app/manage/[type]/[id].tsx", import.meta.url),
-      "utf8",
-    ),
-    {
-      compilerOptions: {
-        module: ts.ModuleKind.CommonJS,
-        jsx: ts.JsxEmit.ReactJSX,
+  function load(file) {
+    const js = ts.transpileModule(
+      readFileSync(new URL(file, import.meta.url), "utf8"),
+      {
+        compilerOptions: {
+          module: ts.ModuleKind.CommonJS,
+          jsx: ts.JsxEmit.ReactJSX,
+        },
       },
-    },
-  ).outputText;
-  const module = { exports: {} };
-  compileFunction(js, ["require", "module", "exports"])(
-    (id) => imports[id] ?? require(id),
-    module,
-    module.exports,
+    ).outputText;
+    const module = { exports: {} };
+    compileFunction(js, ["require", "module", "exports"])(
+      (id) => imports[id] ?? require(id),
+      module,
+      module.exports,
+    );
+    return module.exports;
+  }
+  imports["@/features/potluck/card-management"] = load(
+    "../src/features/potluck/card-management.tsx",
   );
+  const module = load("../src/app/manage/[type]/[id].tsx");
   function render() {
     cursor = 0;
-    const root = module.exports.default(),
+    const root = module.default(),
       nodes = [],
       violations = [];
     function visit(node, inText = false) {
@@ -94,6 +123,8 @@ function screen(type, owned, resource = {}) {
         if (!inText) violations.push(node);
         return;
       }
+      if (typeof node.type === "function")
+        return visit(node.type(node.props), inText);
       nodes.push(node);
       const text =
         node.type === "Text" || (node.type === React.Fragment && inText);
@@ -155,13 +186,17 @@ test("Manage connection retains the original versioned payload and cancel behavi
 
 test("Manage end/leave confirmation preserves consent payload and destination", async () => {
   for (const [type, owned, label, endpoint] of [
-    ["cards", true, "Close this Card setup", "close"],
+    ["cards", true, "Close card", "close"],
     ["bills", true, "End this Bill", "end"],
     ["circles", false, "Leave this Circle", "leave"],
   ]) {
     const s = screen(type, owned);
     s.render()
-      .nodes.find((n) => n.type === "Text" && n.props.children === label)
+      .nodes.find(
+        (n) =>
+          (n.type === "Text" && n.props.children === label) ||
+          (n.type === "CardActionRow" && n.props.title === label),
+      )
       .props.onPress();
     assert.deepEqual(s.render().violations, []);
     await s
@@ -171,6 +206,9 @@ test("Manage end/leave confirmation preserves consent payload and destination", 
     assert.deepEqual(s.commands, [
       [`/${type}/item/${endpoint}`, { expectedVersion: 3, acknowledged: true }],
     ]);
-    assert.deepEqual(s.visits, [`/${type}`]);
+    s.render();
+    assert.deepEqual(s.visits, [
+      type === "cards" ? "/cards?closed=item" : `/${type}`,
+    ]);
   }
 });

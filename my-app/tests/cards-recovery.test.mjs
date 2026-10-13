@@ -54,6 +54,10 @@ test("Card route resets controlled selection through its background action and k
       ],
     },
     "react-native": { View: "View" },
+    "expo-router": { useLocalSearchParams: () => ({}) },
+    "@/features/potluck/card-closure-notice": {
+      CardClosureNotice: "ClosureNotice",
+    },
     "@/design/system": {
       ...Object.fromEntries(
         ["Shell", "AuthGate", "Title", "Muted", "Row", "ResourceState"].map(

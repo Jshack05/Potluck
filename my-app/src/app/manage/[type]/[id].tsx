@@ -20,7 +20,17 @@ import {
   useCommand,
 } from "@/services/client";
 import type { Bill, Card, Circle, Collection } from "@/features/potluck/types";
+import { CardManagement } from "@/features/potluck/card-management";
 export default function Manage() {
+  const { type, id } = useLocalSearchParams<{ type: string; id: string }>();
+  const { user } = useClient();
+  return type === "cards" ? (
+    <CardManagement key={`${user?.id}:${id}`} id={id} />
+  ) : (
+    <LegacyManagement />
+  );
+}
+function LegacyManagement() {
   const { type, id } = useLocalSearchParams<{ type: string; id: string }>(),
     { user } = useClient(),
     valid = type === "bills" || type === "cards" || type === "circles",
