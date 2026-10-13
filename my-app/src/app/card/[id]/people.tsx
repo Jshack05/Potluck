@@ -1,10 +1,17 @@
-import { Title, Muted, Action, Link, go, Avatar } from "@/design/system";
+import { Title, Muted, Action, go, Avatar } from "@/design/system";
+import { useLocalSearchParams } from "expo-router";
+import { cardPeopleParent, cardPeopleRoute } from "@/services/route-return";
 import { View } from "react-native";
 import { CardScene, CardLine } from "@/features/potluck/card-scene";
 export default function CardPeople() {
+  const { id, source } = useLocalSearchParams<{
+    id: string;
+    source?: string;
+  }>();
   return (
     <CardScene
       title="Trusted Spenders"
+      backTo={cardPeopleParent(id, source)}
       hideNavigation
       headerVariant="centered"
       footer={(card) => (
@@ -12,10 +19,9 @@ export default function CardPeople() {
           {card.role === "host" && card.status !== "closed" && (
             <Action
               label="Invite trusted spender"
-              onPress={() => go("/card/" + card.id + "/invite")}
+              onPress={() => go(cardPeopleRoute(card.id, source, "invite"))}
             />
           )}
-          <Link onPress={() => go("/card/" + card.id)}>Back to card</Link>
         </>
       )}
     >

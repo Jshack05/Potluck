@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { View } from "react-native";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+import { usePreventRemove } from "expo-router/react-navigation";
+import { cardPeopleRoute, returnToRoute } from "@/services/route-return";
 import {
   Shell,
   Title,
@@ -12,7 +15,6 @@ import {
   Avatar,
   ErrorText,
   money,
-  go,
   theme,
 } from "@/design/system";
 import { CardLine, useCard } from "@/features/potluck/card-scene";
@@ -29,6 +31,25 @@ export default function InviteSpender() {
     [review, setReview] = useState(false),
     [error, setError] = useState("");
   const allowed = card.data?.role === "host" && card.data.status !== "closed";
+  const { source } = useLocalSearchParams<{ source?: string }>();
+  const navigation = useNavigation();
+  const cancel = () => {
+    setPerson(null);
+    setAmount("");
+    setReview(false);
+    setError("");
+    returnToRoute(cardPeopleRoute(card.id, source));
+  };
+  const back = () => {
+    setError("");
+    if (review) setReview(false);
+    else if (person) setPerson(null);
+    else cancel();
+  };
+  usePreventRemove(!!person, ({ data }) => {
+    if (data.action.type === "GO_BACK" || data.action.type === "POP") back();
+    else navigation.dispatch(data.action);
+  });
   return (
     <Shell
       title={
@@ -42,13 +63,7 @@ export default function InviteSpender() {
       hideNavigation
       headerVariant="centered"
       active="Cards"
-      onBack={() =>
-        review
-          ? setReview(false)
-          : person
-            ? setPerson(null)
-            : go("/card/" + card.id + "/people")
-      }
+      onBack={back}
       footer={
         allowed && (
           <>
@@ -75,9 +90,7 @@ export default function InviteSpender() {
                 onPress={() => {}}
               />
             )}
-            <Link onPress={() => go("/card/" + card.id + "/people")}>
-              {review ? "Back to people" : "Cancel"}
-            </Link>
+            <Link onPress={cancel}>{review ? "Back to people" : "Cancel"}</Link>
           </>
         )
       }

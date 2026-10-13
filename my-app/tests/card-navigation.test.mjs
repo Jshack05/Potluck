@@ -11,7 +11,10 @@ const require = createRequire(import.meta.url);
 
 // Native views, router history and API reads are boundaries. Route handlers,
 // CardScene, Shell and Action are executed, including the funding step state.
-function screen(route, { history = false, bottomInset = 34 } = {}) {
+function screen(
+  route,
+  { history = false, bottomInset = 34, source, stack = [] } = {},
+) {
   let cursor = 0;
   const state = [],
     visits = [];
@@ -40,6 +43,7 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
   const common = {
     react: {
       ...React,
+      useRef: (v) => ({ current: v }),
       useContext: () => theme.teal,
       useId: () => "field",
       useState: (initial) => {
@@ -72,12 +76,23 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
         canGoBack: () => history,
         back: () => visits.push("back"),
         replace: (p) => visits.push(p),
-        push: (p) => visits.push(p),
+        push: (p) => {
+          visits.push(p);
+          stack.push(p);
+        },
+        dismissTo: (p) => {
+          visits.push(p);
+          const index = stack.lastIndexOf(p);
+          if (index >= 0) stack.splice(index + 1);
+          else stack.splice(Math.max(0, stack.length - 1), 1, p);
+        },
       },
-      useLocalSearchParams: () => ({ id: card.id }),
+      useNavigation: () => ({ dispatch() {} }),
+      useLocalSearchParams: () => ({ id: card.id, source }),
       usePathname: () => "/card/" + card.id + "/" + route,
       Redirect: native("Redirect"),
     },
+    "expo-router/react-navigation": { usePreventRemove: () => {} },
     "react-native-safe-area-context": {
       useSafeAreaInsets: () => ({
         top: 47,
@@ -147,6 +162,7 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
     );
     return module.exports;
   }
+  common["@/services/route-return"] = load("../src/services/route-return.ts");
   common["@/design/system"] = load("../src/design/system.tsx");
   common["@/features/potluck/card-scene"] = load(
     "../src/features/potluck/card-scene.tsx",
@@ -375,7 +391,7 @@ test("Card settings combines amount and industry controls into one working entry
   row.props.onPress();
   assert.deepEqual(s.visits, ["/card/card-1/merchant-controls"]);
   rows.find((n) => n.props.title === "Trusted spenders").props.onPress();
-  assert.equal(s.visits.at(-1), "/card/card-1/people");
+  assert.equal(s.visits.at(-1), "/card/card-1/people?source=settings");
 });
 
 test("direct-entry Card secondary Back returns to the affected Card", () => {
@@ -432,4 +448,45 @@ test("role and activity headers use the centered Figma treatment; funding stays 
       .find((n) => n.props.accessibilityRole === "header").props.style.fontSize,
     28,
   );
+});
+
+test("People/Invite cancellation unwinds repeated visits to each valid parent", () => {
+  for (const [source, parent] of [
+    ["card", "/card/card-1"],
+    ["settings", "/card/card-1/setup"],
+    ["manage", "/manage/cards/card-1"],
+  ]) {
+    const people = "/card/card-1/people?source=" + source;
+    const stack = [parent, people];
+    for (let cycle = 0; cycle < 3; cycle++) {
+      screen("people", { source, stack })
+        .button("Invite trusted spender")
+        .props.onPress();
+      assert.equal(stack.at(-1), "/card/card-1/invite?source=" + source);
+      screen("invite", { source, stack }).back();
+      assert.deepEqual(stack, [parent, people]);
+      screen("people", { source, stack }).back();
+      assert.deepEqual(stack, [parent]);
+      stack.push(people);
+    }
+  }
+});
+
+test("explicit parent wins over unrelated history; local Back still wins", () => {
+  const stack = ["/circles", "/card/card-1/people"];
+  const s = screen("people", {
+    source: "https://bad.example",
+    stack,
+    history: true,
+  });
+  s.back();
+  assert.deepEqual(stack, ["/circles", "/card/card-1"]);
+  s.back();
+  assert.deepEqual(stack, ["/circles", "/card/card-1"]);
+  let local = 0;
+  s.renderShell({ back: true, backTo: "/cards", onBack: () => local++ })
+    .find((n) => n.props.accessibilityLabel === "Go back")
+    .props.onPress();
+  assert.equal(local, 1);
+  assert.deepEqual(stack, ["/circles", "/card/card-1"]);
 });
