@@ -1,5 +1,17 @@
 # Potluck Product Context
 
+## October 13, 2026 — Unified Spending controls entry
+
+Card settings has one **Spending controls** entry under Controls, combining the existing per-purchase Maximum/Range editor and industry selection. The inactive standalone Spending limit row is removed. Trusted spenders remains a separate permission workflow. This presentation change does not introduce a monthly aggregate limit or activate issuer enforcement. Existing saved configuration, API names, ownership, versioning, idempotency and audit behavior remain unchanged.
+
+This is Free/core clarity for Card Hosts: configure purchase amounts and permitted industries in one place. Existing invitations support acquisition and recurring arrangements support retention; paid conversion is deferred. Measure settings completion and abandonment. The consolidated Figma component is `2393:48056`; current Family and Apartment settings use it while archived reference screens retain the original component.
+
+## October 12, 2026 — Saved Merchant controls
+
+The approved Figma flow lets a Card Host save a maximum amount or inclusive range **per purchase**, combined with an intended industry allowlist. This is separate from monthly spending limits and individual Trusted Spender permissions. Only the Card's Host can read or edit its configuration; eligible setup Cards can be edited before bank connection, while closed setups retain read-only history. An unconfigured Card has no fictional limits. An explicitly empty industry selection stays empty and must never become allow-all.
+
+The app preserves Card identity and unsaved values, supports canceling picker edits, and returns to the originating Card settings after Save. Server saves use exact integer minor units, version checks, idempotency and atomic audit records. Configuration is explicitly **not active**: it does not issue a Card, authorize or decline purchases, or change financial readiness. Exact processor MCC mappings, provider-supported rules and live authorization enforcement remain separate integration work. This is Free/core usability without paid entitlements. See the [design source](ui-concepts/2026-10-12-merchant-controls-figma.md) and [implementation, validation and rollback record](ui-concepts/2026-10-12-merchant-controls-app.md).
+
 ## October 12, 2026 — Review adjustments and Card interactions
 
 Before submitting Card creation, the whole appearance preview, sharing summary and bank-account summary reopen their existing step. Continue returns directly to review; Back cancels that edit and restores the prior choices. The bank summary has its own row with the approved bank icon; Just for you uses the existing single-person icon. Submitted commands remain locked with their original retry identity. This changes presentation and draft editing only, not account ownership, consent, financial readiness or provider state.

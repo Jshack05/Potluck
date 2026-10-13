@@ -1,0 +1,363 @@
+{
+  "date": "2026-10-12",
+  "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+  "consolidation20261013": {
+    "label": "Spending controls",
+    "componentId": "2393:48056",
+    "settingsInstances": ["1077:6321", "1077:6377"],
+    "settingsScreens": ["622:2591", "622:2752"],
+    "editorScreens": ["2353:45867", "2353:46316"],
+    "interactionNodes": ["2356:46444", "2356:46446"],
+    "changes": "One existing editor for purchase amounts and industries; inactive standalone Spending limit row removed. Current instances preserve their bound saved summaries and prototype reactions. Historical reference instances retain component 1077:5680. App route, API, database and save semantics unchanged.",
+    "verification": "Shared source and current screen render reviewed; app entry, saved Range values and Save return verified at 375x812. No native-device or Figma prototype playback claim."
+  },
+  "scope": "Figma source and focused app implementation; no live issuer enforcement",
+  "status": {
+    "design": "CREATED_AND_VISUALLY_REVIEWED",
+    "wiring": "REACTIONS_VERIFIED",
+    "app": "IMPLEMENTED_AUTOMATED_AND_BROWSER_VERIFIED_NATIVE_QA_PENDING",
+    "browserPlayback": "NOT_TESTED"
+  },
+  "appImplementation": {
+    "route": "/card/[id]/merchant-controls",
+    "entry": "/card/[id]/setup",
+    "state": "Maximum and Range share an editor; industry picker edits an isolated draft on the same route",
+    "persistence": "GET/POST /v1/cards/:id/merchant-controls; Host-only, versioned and idempotent; enforcement remains not_active",
+    "record": "../ui-concepts/2026-10-12-merchant-controls-app.md",
+    "nativeDevice": "NOT_VERIFIED",
+    "figmaChangedDuringAppImplementation": false
+  },
+  "screens": {
+    "Maximum": {
+      "nodeId": "2353:45867",
+      "url": "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD/Potluck?node-id=2353-45867"
+    },
+    "Industries": {
+      "nodeId": "2353:46051",
+      "url": "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD/Potluck?node-id=2353-46051"
+    },
+    "Range": {
+      "nodeId": "2353:46316",
+      "url": "https://www.figma.com/design/1hAy3kcZAEvqq8ZNjKU7CD/Potluck?node-id=2353-46316"
+    }
+  },
+  "entryPoints": [
+    {
+      "group": "Family",
+      "screen": "622:2591",
+      "target": "2356:46444",
+      "settingsValue": "I1077:6321;1077:5698"
+    },
+    {
+      "group": "Apartment",
+      "screen": "622:2752",
+      "target": "2356:46446",
+      "settingsValue": "I1077:6377;1077:5698"
+    }
+  ],
+  "existingSources": {
+    "header": "1078:6039",
+    "back": "280:414",
+    "primaryButton": "333:474",
+    "navigation": "1207:6363",
+    "checked": "1917:29478",
+    "unchecked": "1917:29476",
+    "searchIcon": "477:958",
+    "infoIcon": "1367:12242",
+    "cardsIcon": "189:199"
+  },
+  "newSources": {
+    "icons": {
+      "Dining": "2351:47461",
+      "Fuel": "2351:47464",
+      "Travel": "2351:47468",
+      "Shopping": "2351:47472",
+      "Entertainment": "2351:47476"
+    },
+    "row": {
+      "id": "2351:47480",
+      "iconProp": "Icon#2351:0",
+      "labelProp": "Label#2351:1",
+      "checkedProp": "Checked#2351:2"
+    },
+    "field": {
+      "id": "2351:47494",
+      "labelProp": "Label#2351:3",
+      "valueProp": "Value#2351:4",
+      "currencyProp": "Currency#2351:5"
+    },
+    "context": {
+      "id": "2351:47499",
+      "nameProp": "Card name#2351:6"
+    },
+    "search": {
+      "id": "2351:47506",
+      "placeholderProp": "Placeholder#2351:7"
+    },
+    "summary": {
+      "id": "2351:47511",
+      "textProp": "Summary#2351:8"
+    },
+    "panels": {
+      "Maximum": "2351:47513",
+      "Range": "2351:47530"
+    },
+    "panelSet": "2351:47552",
+    "roots": [
+      {
+        "id": "2351:47461",
+        "name": "Merchant controls / Icon / Dining"
+      },
+      {
+        "id": "2351:47464",
+        "name": "Merchant controls / Icon / Fuel"
+      },
+      {
+        "id": "2351:47468",
+        "name": "Merchant controls / Icon / Travel"
+      },
+      {
+        "id": "2351:47472",
+        "name": "Merchant controls / Icon / Shopping"
+      },
+      {
+        "id": "2351:47476",
+        "name": "Merchant controls / Icon / Entertainment"
+      },
+      {
+        "id": "2351:47480",
+        "name": "Merchant controls / Industry row"
+      },
+      {
+        "id": "2351:47494",
+        "name": "Merchant controls / Amount field"
+      },
+      {
+        "id": "2351:47499",
+        "name": "Merchant controls / Card context"
+      },
+      {
+        "id": "2351:47506",
+        "name": "Merchant controls / Industry search"
+      },
+      {
+        "id": "2351:47511",
+        "name": "Merchant controls / Summary"
+      },
+      {
+        "id": "2351:47552",
+        "name": "Merchant controls / Purchase amount"
+      }
+    ],
+    "allowedIndustries": {
+      "id": "2352:47546",
+      "edit": "2352:47549",
+      "rows": [
+        "2352:47553",
+        "2352:47571",
+        "2352:47587",
+        "2352:47605",
+        "2352:47621",
+        "2352:47638",
+        "2352:47658",
+        "2352:47675",
+        "2352:47692",
+        "2352:47710"
+      ]
+    },
+    "picker": {
+      "id": "2352:47735",
+      "rows": [
+        "2352:47736",
+        "2352:47754",
+        "2352:47770",
+        "2352:47788",
+        "2352:47804",
+        "2352:47821",
+        "2352:47841",
+        "2352:47858",
+        "2352:47875",
+        "2352:47893"
+      ]
+    },
+    "explicitBack": {
+      "id": "2364:48011",
+      "iconSource": "329:440",
+      "instances": ["2363:46408", "2363:46411", "2363:46414"]
+    }
+  },
+  "prototypeCollection": "VariableCollectionId:2352:47489",
+  "appMapping": {
+    "entry": "my-app/src/app/card/[id]/setup.tsx",
+    "observation": "Merchant controls row currently has no onPress; new editor screens have no app route in this change.",
+    "existingControls": "my-app/src/app/card/[id]/controls.tsx",
+    "existingControlsStatus": "Provider-readiness presentation, not an implementation of the new Figma design."
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "Family opens its saved three industries",
+        "passed": true
+      },
+      {
+        "name": "Maximum to Range preserves selection",
+        "passed": true
+      },
+      {
+        "name": "Edit remembers range and selection",
+        "passed": true
+      },
+      {
+        "name": "Dining checkbox updates count and summary",
+        "passed": true
+      },
+      {
+        "name": "Picker Back cancels only picker edits",
+        "passed": true
+      },
+      {
+        "name": "Use selections returns to Range",
+        "passed": true
+      },
+      {
+        "name": "Save commits Family and returns to Family settings",
+        "passed": true
+      },
+      {
+        "name": "Apartment retains independent Utilities-only policy",
+        "passed": true
+      },
+      {
+        "name": "Editor Back discards unsaved mode change",
+        "passed": true
+      },
+      {
+        "name": "No selection is explicit and deny-by-default",
+        "passed": true
+      },
+      {
+        "name": "All ten rows toggle on with matching count",
+        "passed": true
+      },
+      {
+        "name": "All ten rows toggle off without negative count",
+        "passed": true
+      },
+      {
+        "name": "Cancel restores prior Apartment selection",
+        "passed": true
+      },
+      {
+        "name": "Family saved policy survives editing another Card",
+        "passed": true
+      },
+      {
+        "name": "All navigation destinations exist",
+        "passed": true
+      },
+      {
+        "name": "All screens reuse identical fixed Cards navigation",
+        "passed": true
+      }
+    ],
+    "screenLayout": [
+      {
+        "id": "2353:45867",
+        "size": [430, 932],
+        "contentHeight": 622,
+        "viewportHeight": 608,
+        "viewportBottom": 744,
+        "navSource": "1207:6363",
+        "navSize": [390, 72],
+        "navY": 832,
+        "back": "2363:46408"
+      },
+      {
+        "id": "2353:46051",
+        "size": [430, 932],
+        "contentHeight": 604,
+        "viewportHeight": 616,
+        "viewportBottom": 752,
+        "navSource": "1207:6363",
+        "navSize": [390, 72],
+        "navY": 832,
+        "back": "2363:46411"
+      },
+      {
+        "id": "2353:46316",
+        "size": [430, 932],
+        "contentHeight": 622,
+        "viewportHeight": 608,
+        "viewportBottom": 744,
+        "navSource": "1207:6363",
+        "navSize": [390, 72],
+        "navY": 832,
+        "back": "2363:46414"
+      }
+    ],
+    "method": "Read-only evaluation of live Figma reaction definitions; no prototype variables were changed and no browser playback is claimed."
+  },
+  "visualRefinement": {
+    "date": "2026-10-12",
+    "miniatureSet": "2370:48104",
+    "contextSource": "2351:47499",
+    "miniatureInstance": "2370:48105",
+    "identityVariable": "VariableID:2352:47491",
+    "contextHeight": 88,
+    "contextHorizontalPadding": 20,
+    "miniatureSize": [104, 55.4667],
+    "miniatureNameProperty": "User name#2378:4",
+    "miniatureNameTextNodes": ["2378:48103", "2378:48104"],
+    "miniatureNameInset": 8,
+    "miniatureNameTypography": {
+      "style": "Card / Miniature / User name",
+      "font": "Inter Bold",
+      "size": 10,
+      "lineHeight": 12,
+      "longNames": "Wrap within the existing 88px name area",
+      "fullNameFitChecksPassed": 4
+    },
+    "miniatureVisibleContent": "Card artwork and user name only",
+    "prototypeUserName": "Joseph",
+    "prototypeUserNameSource": "1075:5374",
+    "removedDraftSummaryInstances": ["2353:46020", "2353:46427"],
+    "miniatures": [
+      {
+        "card": "Apartment card",
+        "variant": "2370:48070",
+        "scaledInstance": "2370:48071",
+        "originalCardSource": "1592:19292"
+      },
+      {
+        "card": "Family card",
+        "variant": "2370:48087",
+        "scaledInstance": "2370:48088",
+        "originalCardSource": "1592:19308"
+      }
+    ],
+    "removedGenericIconInstance": "2351:47500",
+    "amountFieldSource": "2351:47494",
+    "input": {
+      "node": "2351:47496",
+      "surfaceToken": "theme/light/surface",
+      "borderToken": "theme/light/border-subtle",
+      "borderWidth": 1,
+      "radiusToken": "radius/9",
+      "amountFontSize": 22
+    },
+    "selectorRadiusToken": "radius/full",
+    "currencyCaptions": ["2370:48122", "2370:48123"],
+    "validation": {
+      "reactionChecksPassed": 16,
+      "focusedVisualStructureChecksPassed": 8,
+      "maximumAndRangeScreensVisuallyReviewed": true,
+      "bothThumbnailVariantsVisuallyReviewed": true,
+      "browserPlayback": "NOT_TESTED"
+    }
+  },
+  "limitations": [
+    "Amount fields and search are visual specifications; arbitrary typing and filtering are not simulated.",
+    "Saved state persists within the Figma prototype session only.",
+    "Exact MCC group membership and provider capabilities require implementation verification."
+  ]
+}

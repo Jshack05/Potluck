@@ -33,6 +33,62 @@ function load(file, imports) {
 }
 const node = ({ children }) => React.createElement("div", null, children);
 
+test("Card route resets controlled selection through its background action and keeps opening cards", () => {
+  let selection = null;
+  const visits = [],
+    resource = {
+      data: {
+        items: [
+          { id: "one", name: "One" },
+          { id: "two", name: "Two" },
+        ],
+      },
+    };
+  const { default: Cards } = load("../src/app/cards.tsx", {
+    react: {
+      useState: () => [
+        selection,
+        (value) => {
+          selection = value;
+        },
+      ],
+    },
+    "react-native": { View: "View" },
+    "@/design/system": {
+      ...Object.fromEntries(
+        ["Shell", "AuthGate", "Title", "Muted", "Row", "ResourceState"].map(
+          (x) => [x, x],
+        ),
+      ),
+      go: (path) => visits.push(path),
+    },
+    "@/services/client": {
+      useClient: () => ({ user: { id: "host" } }),
+      useResource: () => resource,
+    },
+    "@/features/potluck/card-stack": { CardStack: "CardStack" },
+    "@/features/potluck/home-empty-state": { HomeEmptyState: "Empty" },
+  });
+  const stack = (n) => {
+    if (!n?.props) return;
+    if (n?.type === "CardStack") return n;
+    return [n?.props?.children].flat(Infinity).map(stack).find(Boolean);
+  };
+  const initial = Cards();
+  assert.equal(initial.props.onBackgroundPress, undefined);
+  stack(initial).props.onSelect("one");
+  assert.equal(stack(Cards()).props.selectedId, "one");
+  assert.equal(typeof Cards().props.onBackgroundPress, "function");
+  Cards().props.onBackgroundPress();
+  assert.equal(stack(Cards()).props.selectedId, null);
+  stack(Cards()).props.onSelect("two");
+  stack(Cards()).props.onOpen("two");
+  assert.deepEqual(visits, ["/card/two"]);
+  resource.data.items = [];
+  Cards();
+  assert.equal(selection, null, "a removed Card must not remain selected");
+});
+
 test("people search and results share the constrained scroll body and selection still works", () => {
   let selected;
   const { AddCirclePeople } = load("../src/features/potluck/circle-ui.tsx", {
@@ -825,7 +881,16 @@ test("whitespace names block Continue and long names retain their exact draft va
 });
 
 test("confirmed zero is money, an unavailable balance is not, and the label precedes the amount", () => {
+  const catalog = load(
+    "../src/features/potluck/card-appearance-catalog.ts",
+    {},
+  );
   const { CardPreview } = load("../src/features/potluck/card-preview.tsx", {
+    "./card-artwork": load("../src/features/potluck/card-artwork.tsx", {
+      "./card-appearance-catalog": catalog,
+      "react-native": { View: node, StyleSheet: { absoluteFill: {} } },
+      "expo-image": { Image: () => null },
+    }),
     "./card-appearance-catalog": load(
       "../src/features/potluck/card-appearance-catalog.ts",
       {},

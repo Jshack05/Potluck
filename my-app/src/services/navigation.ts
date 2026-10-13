@@ -83,6 +83,7 @@ export function financialArea(path: string): "Cards" | "Bills" | null {
 export function canLoadResource(access: EntryAccess, path: string): boolean {
   if (access === "signed_out") return false;
   if (path === "/capabilities" || path === "/beta/bank-accounts") return true;
+  if (/^\/cards\/[^/?]+\/merchant-controls(\?|$)/.test(path)) return true;
   if (
     /^\/(circles|circle-transfers|invitations|brands|listings|my-listings|profiles|requests|conversations|saved|notifications)(\/|\?|$)/.test(
       path,

@@ -1,0 +1,53 @@
+# Merchant controls and Cards stability — October 12, 2026
+
+## October 13 follow-up — one Spending controls entry
+
+Removed the inactive Spending limit row from Card settings and renamed/reordered the existing Merchant controls entry to **Spending controls**. The existing editor title and subtitle now describe both purchase amounts and allowed industries; Trusted spenders remains separate. The saved-settings API, database, authorization, monetary semantics and audit records are unchanged. Existing historical URLs retain their names. Monthly aggregate limits and live issuer enforcement remain unimplemented.
+
+Figma's current Family and Apartment settings reuse consolidated component `2393:48056`, derived from the existing Controls card with its tokens and chevrons. The original source remains on archived reference screens. Current instances retain saved-summary variable bindings, Trusted spender interactions, and the full-row controls actions; those hit targets moved to the first row. Maximum and Range editor headings were updated in place. The provider-dependent underfunding design remains outside this app change.
+
+Validation: the updated navigation regression failed on the old inactive row, then passed after consolidation. All 55 backend/domain and 122 mobile tests, formatting, lint, type checks and three platform exports passed. The full release gate still fails solely on the unchanged mobile dependency audit (23 findings); backend audit reports zero. Browser checks at 375 × 812 verified the single entry, persisted $10.01–$150.29 Range and three industries, Save returning to settings, and readable narrow layout. Native-phone QA remains outstanding. Rollback this follow-up by reverting its presentation/documentation commit; no migration or stored-setting rollback is required. Restore the two Figma instances to source `1077:5680`, their original 246 height and hit-target y=714, and the Merchant controls headings if reverting the design.
+
+Joseph approved the [full plan](../superpowers/plans/2026-10-12-cards-controls-and-stability.md), including database saving and a PR without automatic merge. Implementation branch: `codex/merchant-controls-and-card-stability`. Backup commit `888163e` was pushed to `codex/backup-before-merchant-controls-2026-10-12` before app changes. No user screenshots, local databases, credentials or secrets are part of the commits.
+
+## What changed
+
+- The latest Figma Maximum (`2353:45867`), Range (`2353:46316`) and Choose industries (`2353:46051`) were retrieved with screenshots before implementation. Card settings opens the editor for the actual Card. No Figma screens or prototype connections were changed.
+- Shared artwork rendering serves full Cards and the 104 × 55.47 miniature. The 88-point identity row uses the actual Card name/design and an external Host badge; only the signed-in Host's full name appears in the miniature, bold 10/12 with an 8-point inset. Existing 33 appearances retain their colors, images and contrast.
+- One model manages Maximum/Range values, exact amount validation and temporary industry selection. Search retains selections outside its results. Picker Back cancels picker edits; Use industries updates only the draft. Main Back discards the draft. Save returns to the originating settings screen and refreshes its summary. Failed requests retain the draft and use the existing durable retry identity.
+- Existing Figma buttons, input treatment, industry icons and shared navigation are reused. The deleted green summary strip stays removed. The existing helper-text slot says **Saved controls are not active.** This is the smallest copy qualification needed to avoid representing intended configuration as live issuer enforcement.
+- Shell has opt-in subtitle and content-only keyboard adjustment; existing callers retain their behavior. Editor actions and bottom navigation are not lifted over fields.
+- Manage arrangement no longer inserts two raw whitespace strings between native Views. Existing action payloads, permissions and destinations remain unchanged.
+- Cards opt into a background dismissal action behind scroll content. Blank space and stack gaps restore the existing 58-point collapsed arrangement; individual Card actions remain independent. Removed Cards cannot leave stale selection.
+- Draggable sheets separate native translation from JavaScript height/bottom layout. Non-draggable sheets keep their original viewport-relative sizing. An independent review caught the intermediate wrapper regression in the Circle icon picker; a failing regression, corrected layout and short-screen browser check verified its repair.
+- Browser QA also found a pre-existing nested button on Card detail. Balance and Edit now have sibling hit targets on the same preview, preserving visuals and destinations. Merchant selection controls expose checked state on web as well as native.
+
+## Persistence contract and ownership
+
+`GET /v1/cards/:id/merchant-controls` returns `{cardId, version, settings, enforcement:"not_active"}`. A new Card has version 0 and null settings. Only its Host may read this endpoint; closed setups retain readable configuration.
+
+`POST` requires authentication, the existing idempotency header, `expectedVersion`, and strict settings: mode `maximum` or `range`, USD, nullable `minimumMinor`, positive `maximumMinor`, and unique allowlisted industry IDs. Amounts are integer cents bounded to 100,000,000. Range minimum is required, nonnegative and no greater than maximum; Maximum requires null minimum. Empty industries are stored as an explicit empty allowlist, never allow-all. Industry labels are product categories, not an invented processor MCC mapping.
+
+The application locks the owned Card row and requires `setup_required` before editing. The guard runs before idempotent replay, so a previously successful request cannot bypass later closure/ownership checks. Saves compare versions and atomically persist configuration, safe prior/resulting audit metadata (`card.merchant_controls_saved`) and the normal idempotency record. Stale edits return `VERSION_CONFLICT` with instructions to reopen the latest settings; no silent overwrite occurs. Other actors receive resource-not-found. Existing rate limits, transaction boundaries and financial gating remain in force.
+
+Forward migration `0014_card_merchant_controls.sql` adds one table with Card foreign key, monetary/mode/currency/industry/version constraints and timestamps. No backfill, user data rewrite, new dependency, provider credential or money movement is introduced. Existing bank simulation remains confined to the separately approved beta account-selection flow.
+
+## Validation and evidence
+
+- Baseline original backend/domain and mobile tests passed. New failing reproduction tests were added while the baseline process was progressing; its later mobile phase reported precisely those seven expected RED failures. These were new tests, not a pre-existing app test failure. Logs distinguish the sequence.
+- Full repository gate: **55 backend/domain tests passed**, formatting, mobile lint, strict types and iOS/Android/web exports passed. Its mobile suite had 121 passing tests before the final shared-sheet regression was added. Final affected mobile validation adds that regression for **122 passing mobile tests**.
+- Merchant API tests cover persistence after database reopen, Card/account isolation, closed and unauthorized requests, duplicate-key replay/mismatch, invalid input and DB constraints, concurrent/stale versions, rollback and audit atomicity. Existing financial onboarding/gating regressions also pass.
+- UI/model tests cover cancel/apply boundaries, preserved failed saves, exact cents, all appearances, native-safe Manage rendering, independent Card controls, resource states, route identity and stationary navigation. Driver-aware sheet regressions check that native transforms do not share animated style nodes with JS layout values.
+- Live browser: Maximum and Range save/reopen; $150.29 maximum and $10.01 minimum persist; invalid minimum is highlighted; search preserves selections; checkmarks/counts are accessible; direct unauthenticated entry returns after sign-in; both Card actions navigate independently; outside-card dismissal works. Reviewed at 430 × 932 and 375 × 812. At 375 × 667, the Circle icon picker contains its action, and Add people opens and expands within the viewport.
+- Independent review ran 74 focused mobile and four API tests, then eight sheet/geometry checks after its finding was repaired. No remaining evidence-based findings were reported.
+- Security audits: backend **0**; mobile **23 pre-existing findings** (3 moderate, 19 high, 1 critical). No dependencies changed. The full release gate remains failed on that mobile audit, not reported as release-ready.
+
+Ignored local evidence: `.local/merchant-controls-baseline.log`, `merchant-final-validation.log`, `merchant-final-mobile-tests.log`, `merchant-final-mobile-export.log`, focused RED/GREEN logs and screenshots. The stopped local database was copied before startup migration to `.local/backups/pre-merchant-controls-20261012/potluck-db`. API runs on the previously authorized LAN address/port; Expo uses 8083 with file watching enabled. Synthetic QA records are clearly named and remain local.
+
+## Rollback and remaining limits
+
+1. Stop/restart the affected development processes as needed; keep a complete stopped-database backup. Do not overwrite a running database.
+2. Restore the code/bundle from backup branch `codex/backup-before-merchant-controls-2026-10-12` (commit `888163e`) or revert the focused implementation commits through review. Restart API and Expo from that revision. No automatic merge or signed mobile build is part of this task.
+3. **Keep migration 0014, its table, saved configurations and audit/idempotency records.** Old code ignores the additive table. Do not drop records to roll back presentation. Future schema corrections must use a new forward migration.
+4. Physical iPhone keyboard, drag/scroll/cancel/reopen and accessibility verification remains outstanding. Browser and driver-aware tests cannot certify native animation graphs or device keyboard behavior. Exceptionally long full names beyond the approved miniature treatment still need physical text-size acceptance.
+5. The pre-existing `system → creation-menu → system` require cycle, web pointerEvents deprecation and duplicate route-parameter warning are documented, not suppressed. They are separate from the repaired native errors. Broad dependency upgrades, monthly Spending limit, full Figma audit and live issuer authorization remain outside this change.

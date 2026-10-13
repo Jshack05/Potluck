@@ -4,6 +4,7 @@ import { Pressable, StyleSheet, View } from "react-native";
 import { Label, money } from "@/design/system";
 import type { Card } from "./types";
 import { cardAppearances } from "./card-appearance-catalog";
+import { CardArtwork } from "./card-artwork";
 export type CardCreationIdentity = {
   fullName: string;
   role: "host" | "contributor";
@@ -21,6 +22,7 @@ export function CardPreview({
   variant = "preview",
   creationIdentity,
   onEdit,
+  onOpenBalance,
 }: {
   name: string;
   closed?: boolean;
@@ -31,6 +33,7 @@ export function CardPreview({
   variant?: "preview" | "detail";
   creationIdentity?: CardCreationIdentity;
   onEdit?: () => void;
+  onOpenBalance?: () => void;
 }) {
   const targetWidth = compact ? 176 : variant === "detail" ? 369.6 : 330;
   const [width, setWidth] = useState(targetWidth);
@@ -58,26 +61,7 @@ export function CardPreview({
         overflow: "hidden",
       }}
     >
-      {look?.image && (
-        <Image
-          source={look.image}
-          contentFit="cover"
-          style={StyleSheet.absoluteFill}
-        />
-      )}
-      {look?.panel && (
-        <View
-          style={{
-            position: "absolute",
-            top: 0,
-            bottom: 0,
-            left: "50%",
-            right: 0,
-            borderRadius: 22 * scale,
-            backgroundColor: look.panel,
-          }}
-        />
-      )}
+      <CardArtwork design={design} radius={22 * scale} />
       {/* Keep the artwork in the unpadded outer bounds on iOS and Android.
           Text uses the source card's 330 × 176 coordinate system. */}
       <View
@@ -194,6 +178,14 @@ export function CardPreview({
             </Label>
           )}
         </View>
+      )}
+      {!creationIdentity && onOpenBalance && (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Balance details"
+          onPress={onOpenBalance}
+          style={StyleSheet.absoluteFill}
+        />
       )}
       {!creationIdentity && onEdit && (
         <Pressable

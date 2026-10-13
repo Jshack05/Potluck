@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import type { MerchantControlsState } from "@potluck/contracts";
 import { Row, go, dateLabel } from "@/design/system";
 import { useResource } from "@/services/client";
 import { CardScene, type CardDetail } from "@/features/potluck/card-scene";
@@ -9,6 +10,7 @@ import {
   CardSetting,
 } from "@/features/potluck/card-ui";
 import type { Circle } from "@/features/potluck/types";
+import { merchantControlsSummary } from "@/features/potluck/merchant-controls-model";
 
 export default function CardSetup() {
   return (
@@ -18,6 +20,9 @@ export default function CardSetup() {
   );
 }
 function Settings({ card }: { card: CardDetail }) {
+  const controls = useResource<MerchantControlsState>(
+    card.role === "host" ? `/cards/${card.id}/merchant-controls` : null,
+  );
   const circle = useResource<Circle>(
     card.circleId ? "/circles/" + card.circleId : null,
   );
@@ -51,18 +56,24 @@ function Settings({ card }: { card: CardDetail }) {
           <CardHeading>Controls</CardHeading>
           <CardSettingsGroup>
             <CardSetting
-              title="Spending limit"
-              description="Maximum spend before review"
+              title="Spending controls"
+              description="Amounts & industries · not active"
+              value={
+                controls.data
+                  ? merchantControlsSummary(controls.data.settings)
+                  : "—"
+              }
+              onPress={
+                card.status !== "closed"
+                  ? () => go(`/card/${card.id}/merchant-controls`)
+                  : undefined
+              }
             />
             <CardSetting
               title="Trusted spenders"
               description="People allowed to use this card"
               value={`${card.spenders.length} ${card.spenders.length === 1 ? "person" : "people"}`}
               onPress={() => go("/card/" + card.id + "/people")}
-            />
-            <CardSetting
-              title="Merchant controls"
-              description="Where this card is allowed"
               last
             />
           </CardSettingsGroup>

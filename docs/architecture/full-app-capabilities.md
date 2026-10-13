@@ -1,5 +1,9 @@
 # Full-app capability register
 
+## October 12 Merchant controls and stability
+
+Maximum/Range per-purchase settings and an industry allowlist can be saved by an eligible Card's Host, with persistence, resource authorization, version conflicts, idempotency and atomic audit records. They remain **not active** and do not change provider readiness or execute authorization decisions. The Figma-backed editor, picker and shared miniature are implemented. Manage native text, Card dismissal and shared-sheet animation boundaries are repaired in code; browser and automated checks pass, while physical-device gestures/keyboard remain unverified. See the [implementation record](../ui-concepts/2026-10-12-merchant-controls-app.md). Monthly Spending limit and live provider controls remain unfinished.
+
 ## October 7 restoration checkpoint
 
 Current entry policy: authentication is required; banking is optional for organization. Owned Card setups, personal manual Bill drafts, separately accepted Bill terms, Goal planning and Circle coordination are available before bank connection. Explicit provider routes remain gated and financial execution remains unavailable. The October 5 blanket Cards/Bills gate below is historical.

@@ -53,26 +53,20 @@ export default function CardDetail() {
         />
         {card && (
           <>
-            <Pressable
-              accessibilityRole={host ? "button" : undefined}
-              accessibilityLabel={host ? "Balance details" : undefined}
-              disabled={!host}
-              onPress={
+            <CardPreview
+              name={card.name}
+              design={card.design}
+              role={card.role}
+              availableMinor={card.availableMinor}
+              closed={card.status === "closed"}
+              variant="detail"
+              onOpenBalance={
                 host ? () => go("/card/" + card.id + "/balance") : undefined
               }
-            >
-              <CardPreview
-                name={card.name}
-                design={card.design}
-                role={card.role}
-                availableMinor={card.availableMinor}
-                closed={card.status === "closed"}
-                variant="detail"
-                onEdit={
-                  host ? () => go("/card/" + card.id + "/setup") : undefined
-                }
-              />
-            </Pressable>
+              onEdit={
+                host ? () => go("/card/" + card.id + "/setup") : undefined
+              }
+            />
             <View
               style={{
                 flexDirection: "row",

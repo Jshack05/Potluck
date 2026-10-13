@@ -17,12 +17,18 @@ export default function Cards() {
   const { user } = useClient(),
     resource = useResource<Collection<Card>>(user ? "/cards" : null);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const selected = resource.data?.items.some((card) => card.id === expanded)
+    ? expanded
+    : null;
+  if (expanded && resource.data && !selected) setExpanded(null);
   return (
     <Shell
       title="Cards"
       active="Cards"
       emptyState={!!resource.data && !resource.data.items.length}
       createMenu
+      onBackgroundPress={selected ? () => setExpanded(null) : undefined}
+      backgroundAccessibilityLabel="Reset card arrangement"
     >
       <AuthGate returnTo="/cards">
         {!!resource.data?.items.length && (
@@ -42,7 +48,7 @@ export default function Cards() {
           <CardStack
             cards={resource.data.items}
             hostId={user?.id}
-            selectedId={expanded}
+            selectedId={selected}
             onSelect={setExpanded}
             onOpen={(id) => go("/card/" + id)}
           />

@@ -1,4 +1,5 @@
 import {
+  Fragment,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -240,6 +241,8 @@ export function SheetSurface({
       animation.stop();
     };
   }, [visible, reduced, viewport, offset]);
+  // Non-draggable surfaces retain their viewport-relative percentage sizing.
+  const MotionBoundary = drag ? Animated.View : Fragment;
   return (
     <Modal
       visible={visible || present}
@@ -268,48 +271,73 @@ export function SheetSurface({
             paddingBottom: drag ? 0 : 32,
           }}
         >
-          <Animated.View
-            accessibilityViewIsModal
-            {...(drag ? pan.panHandlers : {})}
-            style={{
-              backgroundColor: "white",
-              borderRadius: 32,
-              width: "100%",
-              maxWidth: 430,
-              alignSelf: "center",
-              maxHeight: drag ? undefined : "85%",
-              height: drag ? sheetHeight : height,
-              marginBottom: drag ? sheetBottom : 0,
-              overflow: drag ? "hidden" : undefined,
-              padding: 20,
-              gap: 12,
-              transform: [{ translateY: offset }, { translateY: dragOffset }],
-            }}
+          <MotionBoundary
+            {...(drag
+              ? {
+                  pointerEvents: "box-none" as const,
+                  style: {
+                    width: "100%",
+                    maxWidth: 430,
+                    alignSelf: "center",
+                    transform: [
+                      { translateY: offset },
+                      { translateY: dragOffset },
+                    ],
+                  },
+                }
+              : {})}
           >
-            {/* Pointer gestures belong to the sheet; the child also supports keyboard/accessibility activation. */}
-            {drag && (
-              <View
-                pointerEvents="box-only"
-                style={{ alignItems: "center", paddingVertical: 2 }}
-              >
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel={
-                    drag.expanded ? "Collapse people" : "Expand people"
-                  }
-                  onPress={() => drag.onExpandedChange(!drag.expanded)}
-                  hitSlop={12}
-                  style={{
-                    width: 58,
-                    height: 5,
-                    borderRadius: 3,
-                    backgroundColor: "#D8E2DE",
-                  }}
-                />
-              </View>
-            )}
-            {children}
-          </Animated.View>
+            {/* Keep JS layout on a different animated style node from native transforms. */}
+            <Animated.View
+              accessibilityViewIsModal
+              {...(drag ? pan.panHandlers : {})}
+              style={{
+                ...(!drag
+                  ? {
+                      transform: [
+                        { translateY: offset },
+                        { translateY: dragOffset },
+                      ],
+                    }
+                  : {}),
+                backgroundColor: "white",
+                borderRadius: 32,
+                width: "100%",
+                maxWidth: 430,
+                alignSelf: "center",
+                maxHeight: drag ? undefined : "85%",
+                height: drag ? sheetHeight : height,
+                marginBottom: drag ? sheetBottom : 0,
+                overflow: drag ? "hidden" : undefined,
+                padding: 20,
+                gap: 12,
+              }}
+            >
+              {/* Pointer gestures belong to the sheet; the child also supports keyboard/accessibility activation. */}
+              {drag && (
+                <View
+                  pointerEvents="box-only"
+                  style={{ alignItems: "center", paddingVertical: 2 }}
+                >
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel={
+                      drag.expanded ? "Collapse people" : "Expand people"
+                    }
+                    onPress={() => drag.onExpandedChange(!drag.expanded)}
+                    hitSlop={12}
+                    style={{
+                      width: 58,
+                      height: 5,
+                      borderRadius: 3,
+                      backgroundColor: "#D8E2DE",
+                    }}
+                  />
+                </View>
+              )}
+              {children}
+            </Animated.View>
+          </MotionBoundary>
         </KeyboardAvoidingView>
       </View>
     </Modal>

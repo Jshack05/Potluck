@@ -5,6 +5,7 @@ import { createRequire } from "node:module";
 import { compileFunction } from "node:vm";
 import React from "react";
 import ts from "typescript";
+import { merchantControlsSummary } from "../src/features/potluck/merchant-controls-model.ts";
 
 const require = createRequire(import.meta.url);
 
@@ -92,7 +93,11 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
         access: "bank_required",
       }),
       useResource: (path) => ({
-        data: path?.startsWith("/cards/") ? card : null,
+        data: path?.endsWith("/merchant-controls")
+          ? { settings: { industries: ["groceries"] } }
+          : path?.startsWith("/cards/")
+            ? card
+            : null,
         error: "",
         loading: false,
       }),
@@ -116,6 +121,7 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
     },
     "./loading": { LoadingFeedback: () => null },
     "@/features/potluck/card-preview": { CardPreview: () => null },
+    "@/features/potluck/merchant-controls-model": { merchantControlsSummary },
     "@/features/potluck/card-ui": Object.fromEntries(
       ["CardHeading", "CardSettingsGroup", "CardSetting"].map((n) => [
         n,
@@ -211,6 +217,43 @@ function screen(route, { history = false, bottomInset = 34 } = {}) {
   };
 }
 
+test("background dismissal is opt-in and sits behind scroll content, without owning child presses", () => {
+  const s = screen("fund");
+  let dismissed = 0,
+    childPresses = 0;
+  const props = {
+    onBackgroundPress: () => dismissed++,
+    backgroundAccessibilityLabel: "Reset card arrangement",
+    children: React.createElement("Pressable", {
+      onPress: () => childPresses++,
+      testID: "child-control",
+    }),
+  };
+  assert.equal(
+    s
+      .renderShell({})
+      .some((n) => n.props.testID === "screen-background-action"),
+    false,
+  );
+  const nodes = s.renderShell(props);
+  const background = nodes.find(
+    (n) => n.props.testID === "screen-background-action",
+  );
+  assert.ok(background);
+  assert.ok(background.ancestors.some((n) => n.type === "ScrollView"));
+  assert.equal(background.props.style.position, "absolute");
+  const child = nodes.find((n) => n.props.testID === "child-control");
+  assert.ok(nodes.indexOf(background) < nodes.indexOf(child));
+  assert.ok(
+    child.ancestors.every((n) => n.props.testID !== "screen-background-action"),
+  );
+  child.props.onPress();
+  assert.equal(dismissed, 0);
+  background.props.onPress();
+  assert.equal(dismissed, 1);
+  assert.equal(childPresses, 1);
+});
+
 test("transfer-review header Back restores amount selection without leaving funding", () => {
   const s = screen("fund", { history: true });
   s.input().props.onChangeText("50.25");
@@ -279,6 +322,60 @@ test("account-entry fields can avoid the keyboard without moving footer actions 
     footer.ancestors.some((n) => n.type === "ScrollView"),
     false,
   );
+});
+
+test("content-only keyboard adjustment leaves Merchant controls actions and navigation stationary", () => {
+  const nodes = screen("fund").renderShell({
+    keyboardContentOnly: true,
+    subtitle: "Choose where this card can be used.",
+  });
+  assert.equal(
+    nodes.find((n) => n.type === "KeyboardAvoidingView").props.enabled,
+    false,
+  );
+  assert.equal(
+    nodes.find((n) => n.type === "ScrollView").props
+      .automaticallyAdjustKeyboardInsets,
+    true,
+  );
+  const subtitle = nodes.find(
+    (n) =>
+      n.type === "Text" &&
+      n.props.children === "Choose where this card can be used.",
+  );
+  assert.ok(subtitle);
+  assert.equal(
+    subtitle.ancestors.some((n) => n.type === "ScrollView"),
+    false,
+  );
+  for (const type of ["Continue", "Navigation"]) {
+    assert.ok(
+      nodes
+        .find((n) => n.type === type)
+        .ancestors.every((n) => n.type !== "ScrollView"),
+    );
+  }
+});
+
+test("Card settings combines amount and industry controls into one working entry", () => {
+  const s = screen("setup");
+  const rows = s.render().filter((n) => n.type === "CardSetting");
+  assert.equal(
+    rows.some((n) => n.props.title === "Spending limit"),
+    false,
+  );
+  assert.equal(
+    rows.some((n) => n.props.title === "Merchant controls"),
+    false,
+  );
+  const entries = rows.filter((n) => n.props.title === "Spending controls");
+  assert.equal(entries.length, 1);
+  const row = entries[0];
+  assert.equal(row.props.value, "1 industry");
+  row.props.onPress();
+  assert.deepEqual(s.visits, ["/card/card-1/merchant-controls"]);
+  rows.find((n) => n.props.title === "Trusted spenders").props.onPress();
+  assert.equal(s.visits.at(-1), "/card/card-1/people");
 });
 
 test("direct-entry Card secondary Back returns to the affected Card", () => {

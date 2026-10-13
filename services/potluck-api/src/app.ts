@@ -14,6 +14,7 @@ import { registerLifecycle } from "./modules/lifecycle.ts";
 import { registerGoals } from "./modules/goals.ts";
 import { registerPeople } from "./modules/people.ts";
 import { registerBetaBankAccounts } from "./modules/beta-bank-accounts.ts";
+import { registerCardMerchantControls } from "./modules/card-merchant-controls.ts";
 import { requireBetaBankMode } from "./application/beta-bank-accounts.ts";
 import { updateProfile } from "./application/account-profile.ts";
 import { registerOnboarding, type BankOnboardingReader } from "./onboarding.ts";
@@ -142,6 +143,7 @@ export async function createApp(options: Options) {
     reply: FastifyReply,
     status: number,
     fn: (tx: Queryable, actor: string) => Promise<Row>,
+    authorize?: (tx: Queryable, actor: string) => Promise<void>,
   ) {
     const user = actor(req);
     const key = z
@@ -156,6 +158,7 @@ export async function createApp(options: Options) {
       await tx.query("SELECT pg_advisory_xact_lock(hashtext($1))", [
         user + "|" + key,
       ]);
+      await authorize?.(tx, user);
       const prior = (
         await tx.query(
           "SELECT * FROM idempotency WHERE actor_id=$1 AND key=$2",
@@ -328,6 +331,7 @@ export async function createApp(options: Options) {
   registerCircleAdministration({ app, db, actor, param, mutation });
   registerGoals({ app, db, actor, param, mutation });
   registerPeople({ app, db, actor, param, mutation });
+  registerCardMerchantControls({ app, db, actor, param, mutation });
   registerBetaBankAccounts(
     { app, db, actor, param, mutation },
     options.mode === "local",

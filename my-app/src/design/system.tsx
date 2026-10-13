@@ -319,6 +319,7 @@ export function dateLabel(date: string) {
 }
 export function Shell({
   title,
+  subtitle,
   children,
   back = false,
   footer,
@@ -334,8 +335,12 @@ export function Shell({
   headerVariant = "standard",
   titlePlacement = "header",
   avoidKeyboard = true,
+  keyboardContentOnly = false,
+  onBackgroundPress,
+  backgroundAccessibilityLabel,
 }: {
   title: string;
+  subtitle?: string;
   children: ReactNode;
   back?: boolean;
   footer?: ReactNode;
@@ -352,6 +357,9 @@ export function Shell({
   headerVariant?: "standard" | "centered";
   titlePlacement?: "header" | "content";
   avoidKeyboard?: boolean;
+  keyboardContentOnly?: boolean;
+  onBackgroundPress?: () => void;
+  backgroundAccessibilityLabel?: string;
 }) {
   const inset = useSafeAreaInsets(),
     pathname = usePathname();
@@ -399,7 +407,9 @@ export function Shell({
           }}
         >
           <KeyboardAvoidingView
-            enabled={avoidKeyboard && !mainTab(pathname)}
+            enabled={
+              avoidKeyboard && !keyboardContentOnly && !mainTab(pathname)
+            }
             behavior={Platform.OS === "ios" ? "padding" : undefined}
             style={{ flex: 1 }}
           >
@@ -409,7 +419,7 @@ export function Shell({
                 {
                   paddingHorizontal: 20,
                   paddingTop: Math.max(inset.top + 12, 45),
-                  paddingBottom: mainTab(pathname) ? 11 : 20,
+                  paddingBottom: subtitle ? 8 : mainTab(pathname) ? 11 : 20,
                   gap: headerVariant === "centered" ? 2 : 12,
                 },
               ]}
@@ -489,6 +499,19 @@ export function Shell({
                 </>
               )}
             </View>
+            {subtitle && (
+              <Label
+                style={{
+                  paddingHorizontal: 20,
+                  paddingBottom: 8,
+                  color: theme.muted,
+                  fontSize: 14,
+                  lineHeight: 20,
+                }}
+              >
+                {subtitle}
+              </Label>
+            )}
             {back && continuation && (
               <Pressable
                 accessibilityRole="button"
@@ -511,6 +534,7 @@ export function Shell({
             )}
             <ScrollView
               keyboardShouldPersistTaps="handled"
+              automaticallyAdjustKeyboardInsets={keyboardContentOnly}
               contentContainerStyle={{
                 paddingHorizontal: 20,
                 paddingBottom: 24 + (floatingActions ? actionHeight : 0),
@@ -518,6 +542,21 @@ export function Shell({
                 flexGrow: 1,
               }}
             >
+              {onBackgroundPress && (
+                <Pressable
+                  testID="screen-background-action"
+                  accessibilityRole="button"
+                  accessibilityLabel={backgroundAccessibilityLabel}
+                  onPress={onBackgroundPress}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                  }}
+                />
+              )}
               {titlePlacement === "content" && (
                 <Label
                   accessibilityRole="header"

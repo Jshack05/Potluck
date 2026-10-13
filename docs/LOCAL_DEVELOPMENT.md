@@ -1,5 +1,11 @@
 # Full Potluck: local development
 
+## October 12 Merchant controls and Cards stability
+
+Card settings now opens the approved Maximum/Range and industry picker screens. Host-owned configurations persist through the versioned, idempotent API; saved controls remain explicitly not active. Forward migration `0014_card_merchant_controls.sql` adds configuration storage without backfilling limits. Keep its records and audit history when rolling code back. The shared Card artwork/miniature, outside-card reset, Manage text repair and sheet animation boundaries are covered by automated and browser checks. See the [implementation and rollback record](ui-concepts/2026-10-12-merchant-controls-app.md).
+
+Validation: 55 backend/domain tests and 122 mobile tests pass, alongside formatting, lint, strict types and platform exports. Backend audit is zero; the full release gate still fails the pre-existing 23 mobile dependency findings. Physical-device keyboard/gesture verification remains open. No signed mobile build, OTA publication or automatic merge is claimed.
+
 ## October 12 Card setup and entry keyboard follow-up
 
 Card creation now offers 33 Figma-backed looks, with Finishes → Artwork → Gradients → Two tone → Solid colors and simple Ocean/Sunset artwork labels. The local beta adds a bank step after Circle selection. Connect yields three explicitly simulated, user-scoped account choices; selection persists with Card setup. It never changes provider onboarding or unlocks issuance/funding/spending. Production rejects beta account commands and associations. Forward migrations 0012–0013 must precede the client update; keep their records and constraints on rollback. The complete stopped local database was backed up before migration. See the [source, verification and rollback record](ui-concepts/2026-10-12-card-bank-step.md) and [flow mapping](flow-audit/2026-10-12-card-bank-step-mapping.json).
