@@ -228,7 +228,7 @@ Reuse Task 0's `CardContext`. Use actual Card/Circle names and the single-person
 - [ ] Exercise actual navigation repeatedly: Card -> settings -> People -> Invite -> Cancel/Back -> People -> settings -> Card; direct-entry variants; local invitation steps; management edit/cancel/save; unsuccessful closure; tab changes. Confirm behavior with browser history, Android Back, and iPhone swipe/header where devices are available. Report missing device verification explicitly.
 - [ ] Compare management renders against exact Figma nodes, including small screens, long names, larger text, empty/loaded/error states, and stationary bottom navigation. Inspect console logs after interactions.
 - [x] Review the final diff for behavior changes to invitations, permissions, merchant controls, creation drafts, Bills, and Circle administration. Update `docs/UI_FLOW.md`, source mapping, and `docs/LOCAL_DEVELOPMENT.md` with verified behavior/results. Update Product context only if an approved durable rule changes.
-- [ ] Commit/push focused work and update/open the appropriate draft PR with validation and rollback instructions. Do not merge. With no migration or API contract change planned, rollback is reverting these focused UI/navigation commits; it must not undo saved user connections or delete audit records.
+- [x] Commit/push focused work and update/open the appropriate draft PR with validation and rollback instructions. Delivered as [draft PR #7](https://github.com/Jshack05/Potluck/pull/7); not merged. With no migration or API contract change, rollback is reverting the focused UI/navigation commits; it must not undo saved user connections or delete audit records.
 
 ## Safety, product purpose, and limits
 

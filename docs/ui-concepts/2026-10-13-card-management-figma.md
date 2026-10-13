@@ -79,7 +79,7 @@ A read-only search of the current Screens page and inspected role frames found n
 
 ### Delivery and rollback
 
-Pre-implementation design/docs checkpoint: `85eb5ed`, pushed as `codex/backup-before-card-management-2026-10-13`. Implementation branch `codex/card-management-flow` is pushed, based on `codex/merchant-controls-and-card-stability` (`1ee82a5`, PR #6). The intended draft PR targets that unmerged branch. Creation is blocked: GitHub's connector returned 403 “Resource not accessible by integration”, and the browser is signed out. No PR was created or merged. The prepared description and screenshots are preserved locally in `.local/card-management-review/` for continuation after sign-in.
+Pre-implementation design/docs checkpoint: `85eb5ed`, pushed as `codex/backup-before-card-management-2026-10-13`. Implementation branch `codex/card-management-flow` is pushed, based on `codex/merchant-controls-and-card-stability` (`1ee82a5`, PR #6). [Draft PR #7](https://github.com/Jshack05/Potluck/pull/7) targets that unmerged branch and includes validation, limits and rollback instructions. The connector's 403 and signed-out browser were resolved using the repository's existing Git authentication for the same GitHub repository; no account permissions changed or credentials were logged. No merge was performed. Screenshots and local validation evidence are preserved in `.local/card-management-review/`.
 
 Rollback by reverting this branch's focused implementation commits, or run the preserved backup branch. Keep existing database records and migrations: rolling back the UI must not reopen a closed Card, undo a saved Circle connection, erase merchant controls, or delete audit records. No migration/backfill or provider setup was added.
 
