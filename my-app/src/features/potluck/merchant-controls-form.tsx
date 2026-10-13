@@ -3,7 +3,7 @@ import { Image } from "expo-image";
 import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import type { MerchantIndustry } from "@potluck/contracts";
 import { Field, ErrorText, Label, theme } from "@/design/system";
-import { CardThumbnail } from "./card-thumbnail";
+import { CardContext } from "./card-context";
 import type { Card } from "./types";
 import {
   filterMerchantIndustries,
@@ -180,13 +180,7 @@ export function MerchantControlsForm({
 }) {
   return (
     <View style={{ gap: 8 }}>
-      <View style={styles.cardContext}>
-        <CardThumbnail design={card.design} fullName={fullName} />
-        <Label style={[styles.label, { flex: 1 }]}>{card.name}</Label>
-        <View style={styles.badge}>
-          <Label style={[styles.caption, { color: theme.teal }]}>HOST</Label>
-        </View>
-      </View>
+      <CardContext card={card} fullName={fullName} roleLabel="HOST" />
       <Label accessibilityRole="header" style={styles.heading}>
         Purchase amount
       </Label>
@@ -375,17 +369,6 @@ const styles = StyleSheet.create({
   label: { fontFamily: "Inter_600SemiBold", fontSize: 16, lineHeight: 23 },
   caption: { fontSize: 14, lineHeight: 20 },
   heading: { fontFamily: "Inter_600SemiBold", fontSize: 20, lineHeight: 28 },
-  cardContext: {
-    minHeight: 88,
-    paddingHorizontal: 20,
-    paddingVertical: 8,
-    borderRadius: 16,
-    backgroundColor: "white",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-  },
-  badge: { backgroundColor: theme.mint, padding: 4, borderRadius: 12 },
   purchase: {
     borderRadius: 20,
     backgroundColor: "white",
