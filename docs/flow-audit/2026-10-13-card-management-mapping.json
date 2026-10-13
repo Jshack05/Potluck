@@ -1,0 +1,517 @@
+{
+  "date": "2026-10-13",
+  "status": "figma_authored_review_ready",
+  "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+  "scope": "Card management and existing host Trusted Spenders flow; no application implementation",
+  "flowStartingPoint": {
+    "nodeId": "2412:46435",
+    "name": "Card management and Trusted Spenders"
+  },
+  "discovery": {
+    "codeConnect": "No matching local files; current Figma screen components inspected",
+    "tokens": "Existing semantic color, spacing and radius variables",
+    "fonts": "Inter from current Card screens",
+    "librarySearch": "Existing compatible local sources found"
+  },
+  "newScreens": [
+    {
+      "id": "2412:46435",
+      "name": "Manage arrangement",
+      "appRoute": "/manage/cards/[id]",
+      "state": "menu"
+    },
+    {
+      "id": "2412:46539",
+      "name": "Change Circle",
+      "appRoute": "/manage/cards/[id]",
+      "state": "connection editor"
+    },
+    {
+      "id": "2412:46632",
+      "name": "Close card",
+      "appRoute": "/manage/cards/[id]",
+      "state": "confirmation"
+    },
+    {
+      "id": "2417:47063",
+      "name": "Cards / Closed / Last card",
+      "appRoute": "/cards",
+      "state": "illustrative successful last-card closure"
+    }
+  ],
+  "existingScreensRefined": [
+    {
+      "id": "1606:19916",
+      "name": "Role / hostPeople / Trusted Spenders",
+      "width": 430,
+      "height": 932,
+      "instances": 13
+    },
+    {
+      "id": "1606:19992",
+      "name": "Role / hostPerson / Spender permissions",
+      "width": 430,
+      "height": 932,
+      "instances": 18
+    },
+    {
+      "id": "1606:20070",
+      "name": "Role / hostPending / Spender permissions",
+      "width": 430,
+      "height": 932,
+      "instances": 16
+    },
+    {
+      "id": "1606:20151",
+      "name": "Role / pick / Invite trusted spender",
+      "width": 430,
+      "height": 932,
+      "instances": 13
+    },
+    {
+      "id": "1606:20227",
+      "name": "Role / grant / Review spending access",
+      "width": 430,
+      "height": 932,
+      "instances": 15
+    },
+    {
+      "id": "1606:20308",
+      "name": "Role / grantJordan / Review spending access",
+      "width": 430,
+      "height": 932,
+      "instances": 15
+    },
+    {
+      "id": "1606:20389",
+      "name": "Role / invited / Invitation sent",
+      "width": 430,
+      "height": 932,
+      "instances": 12
+    },
+    {
+      "id": "1606:20452",
+      "name": "Role / invitedJordan / Invitation sent",
+      "width": 430,
+      "height": 932,
+      "instances": 12
+    },
+    {
+      "id": "1606:20515",
+      "name": "Role / editGrant / Spending permissions",
+      "width": 430,
+      "height": 932,
+      "instances": 16
+    },
+    {
+      "id": "1609:21358",
+      "name": "Role / Family / hostPeople",
+      "width": 430,
+      "height": 932,
+      "instances": 13
+    },
+    {
+      "id": "1609:21389",
+      "name": "Role / Family / hostPerson",
+      "width": 430,
+      "height": 932,
+      "instances": 18
+    },
+    {
+      "id": "1609:21422",
+      "name": "Role / Family / hostPending",
+      "width": 430,
+      "height": 932,
+      "instances": 16
+    },
+    {
+      "id": "1609:21456",
+      "name": "Role / Family / pick",
+      "width": 430,
+      "height": 932,
+      "instances": 13
+    },
+    {
+      "id": "1609:21487",
+      "name": "Role / Family / grant",
+      "width": 430,
+      "height": 932,
+      "instances": 15
+    },
+    {
+      "id": "1609:21521",
+      "name": "Role / Family / grantJordan",
+      "width": 430,
+      "height": 932,
+      "instances": 15
+    },
+    {
+      "id": "1609:21555",
+      "name": "Role / Family / invited",
+      "width": 430,
+      "height": 932,
+      "instances": 12
+    },
+    {
+      "id": "1609:21579",
+      "name": "Role / Family / invitedJordan",
+      "width": 430,
+      "height": 932,
+      "instances": 12
+    },
+    {
+      "id": "1609:21603",
+      "name": "Role / Family / editGrant",
+      "width": 430,
+      "height": 932,
+      "instances": 16
+    },
+    {
+      "id": "1606:20596",
+      "name": "Role / grant150 / Review permissions",
+      "width": 430,
+      "height": 932,
+      "instances": 15
+    },
+    {
+      "id": "1606:20677",
+      "name": "Role / grant250 / Review permissions",
+      "width": 430,
+      "height": 932,
+      "instances": 15
+    },
+    {
+      "id": "1606:20758",
+      "name": "Role / saved150 / Permissions updated",
+      "width": 430,
+      "height": 932,
+      "instances": 11
+    },
+    {
+      "id": "1606:20821",
+      "name": "Role / saved250 / Permissions updated",
+      "width": 430,
+      "height": 932,
+      "instances": 11
+    },
+    {
+      "id": "1606:20884",
+      "name": "Role / pauseReview / Pause card access",
+      "width": 430,
+      "height": 932,
+      "instances": 14
+    },
+    {
+      "id": "1606:20960",
+      "name": "Role / pauseDone / Card access paused",
+      "width": 430,
+      "height": 932,
+      "instances": 14
+    },
+    {
+      "id": "1606:21028",
+      "name": "Role / restoreReview / Restore card access",
+      "width": 430,
+      "height": 932,
+      "instances": 13
+    },
+    {
+      "id": "1606:21104",
+      "name": "Role / removeReview / Remove card access",
+      "width": 430,
+      "height": 932,
+      "instances": 14
+    },
+    {
+      "id": "1606:21180",
+      "name": "Role / removeDone / Card access removed",
+      "width": 430,
+      "height": 932,
+      "instances": 14
+    },
+    {
+      "id": "1609:21637",
+      "name": "Role / Family / grant150",
+      "width": 430,
+      "height": 932,
+      "instances": 15
+    },
+    {
+      "id": "1609:21671",
+      "name": "Role / Family / grant250",
+      "width": 430,
+      "height": 932,
+      "instances": 15
+    },
+    {
+      "id": "1609:21705",
+      "name": "Role / Family / saved150",
+      "width": 430,
+      "height": 932,
+      "instances": 11
+    },
+    {
+      "id": "1609:21729",
+      "name": "Role / Family / saved250",
+      "width": 430,
+      "height": 932,
+      "instances": 11
+    },
+    {
+      "id": "1609:21753",
+      "name": "Role / Family / pauseReview",
+      "width": 430,
+      "height": 932,
+      "instances": 14
+    },
+    {
+      "id": "1609:21784",
+      "name": "Role / Family / pauseDone",
+      "width": 430,
+      "height": 932,
+      "instances": 14
+    },
+    {
+      "id": "1609:21811",
+      "name": "Role / Family / restoreReview",
+      "width": 430,
+      "height": 932,
+      "instances": 13
+    },
+    {
+      "id": "1609:21842",
+      "name": "Role / Family / removeReview",
+      "width": 430,
+      "height": 932,
+      "instances": 14
+    },
+    {
+      "id": "1609:21873",
+      "name": "Role / Family / removeDone",
+      "width": 430,
+      "height": 932,
+      "instances": 14
+    },
+    {
+      "id": "1958:30703",
+      "name": "Role / Family / grant200",
+      "width": 430,
+      "height": 932,
+      "instances": 15
+    },
+    {
+      "id": "1958:30783",
+      "name": "Role / Family / saved200",
+      "width": 430,
+      "height": 932,
+      "instances": 11
+    }
+  ],
+  "settingsEntries": [
+    {
+      "settings": "622:2752",
+      "entry": "2417:46754",
+      "people": "1606:19916"
+    },
+    {
+      "settings": "622:2591",
+      "entry": "2417:46774",
+      "people": "1609:21358"
+    }
+  ],
+  "primaryFlows": {
+    "apartment": {
+      "people": "1606:19916",
+      "permissions": "1606:19992",
+      "pending": "1606:20070",
+      "invite": "1606:20151",
+      "reviewMaya": "1606:20227",
+      "reviewJordan": "1606:20308",
+      "sentMaya": "1606:20389",
+      "sentJordan": "1606:20452",
+      "editPermissions": "1606:20515"
+    },
+    "family": {
+      "people": "1609:21358",
+      "permissions": "1609:21389",
+      "pending": "1609:21422",
+      "invite": "1609:21456",
+      "reviewMaya": "1609:21487",
+      "reviewJordan": "1609:21521",
+      "sentMaya": "1609:21555",
+      "sentJordan": "1609:21579",
+      "editPermissions": "1609:21603"
+    }
+  },
+  "sharedSources": {
+    "managementActionRow": "2411:48076",
+    "cardContext": "2351:47499",
+    "apartmentMiniature": "2370:48070",
+    "familyMiniature": "2370:48087",
+    "header": "1078:6039",
+    "back": "2364:48011",
+    "primaryAction": "333:474",
+    "cardsNavigation": "1207:6363",
+    "circleRow": "1077:5751",
+    "roleDetailRow": "1604:19306",
+    "peopleIcon": "1524:18497",
+    "personIcon": "2009:33272",
+    "cardIcon": "189:199",
+    "chevron": "329:440",
+    "emptyCards": "766:3012"
+  },
+  "prototypeState": {
+    "collectionId": "VariableCollectionId:2411:48088",
+    "originVariable": "VariableID:2411:48089",
+    "originValues": ["card", "settings", "manage"],
+    "independentCardSelections": true,
+    "selectionRows": [
+      ["2412:46591", "Apartment crew"],
+      ["2417:46709", "Family circle"],
+      ["2417:46722", "Study group"],
+      ["2417:46734", "Just for you"]
+    ],
+    "save": "2412:46628",
+    "cancel": "2412:46631",
+    "closeConfirm": "2412:46697",
+    "keepCard": "2412:46693"
+  },
+  "validation": {
+    "kind": "Read-only structural and action-state evaluation; not a live presentation click-through",
+    "checks": [
+      {
+        "label": "Apartment settings enters management",
+        "passed": true
+      },
+      {
+        "label": "Management enters same Card people false",
+        "passed": true
+      },
+      {
+        "label": "People returns to management false",
+        "passed": true
+      },
+      {
+        "label": "Family settings enters management",
+        "passed": true
+      },
+      {
+        "label": "Management enters same Card people true",
+        "passed": true
+      },
+      {
+        "label": "People returns to management true",
+        "passed": true
+      },
+      {
+        "label": "Cancel restores saved Circle",
+        "passed": true
+      },
+      {
+        "label": "Personal association saves without a Circle",
+        "passed": true
+      },
+      {
+        "label": "Family selection remains independent",
+        "passed": true
+      },
+      {
+        "label": "Apartment saved association survives re-entry",
+        "passed": true
+      },
+      {
+        "label": "People Back respects manage 1606:19917",
+        "passed": true
+      },
+      {
+        "label": "People Back respects settings 1606:19917",
+        "passed": true
+      },
+      {
+        "label": "People Back respects card 1606:19917",
+        "passed": true
+      },
+      {
+        "label": "People Back respects manage 1609:21359",
+        "passed": true
+      },
+      {
+        "label": "People Back respects settings 1609:21359",
+        "passed": true
+      },
+      {
+        "label": "People Back respects card 1609:21359",
+        "passed": true
+      },
+      {
+        "label": "Invitation Back 1606:20151",
+        "passed": true
+      },
+      {
+        "label": "Invitation Back 1606:20227",
+        "passed": true
+      },
+      {
+        "label": "Invitation Back 1606:20389",
+        "passed": true
+      },
+      {
+        "label": "Invitation Back 1609:21456",
+        "passed": true
+      },
+      {
+        "label": "Invitation Back 1609:21487",
+        "passed": true
+      },
+      {
+        "label": "Invitation Back 1609:21555",
+        "passed": true
+      },
+      {
+        "label": "Keep card returns to management",
+        "passed": true
+      },
+      {
+        "label": "Confirmed closure reaches Cards outcome",
+        "passed": true
+      }
+    ],
+    "missingDestinations": [],
+    "textOverflows": [],
+    "prototypeDestinationCount": 52,
+    "visualReviews": [
+      "management",
+      "Circle editor",
+      "closure confirmation",
+      "closure outcome",
+      "people",
+      "person permissions",
+      "pending access",
+      "person picker",
+      "invitation review",
+      "invitation sent",
+      "permission editor",
+      "permission review",
+      "pause confirmation",
+      "remove confirmation",
+      "Apartment settings",
+      "Family people"
+    ],
+    "livePresentationClickThrough": "not performed",
+    "applicationTests": "not run; no application code changed"
+  },
+  "historyRequirement": {
+    "status": "noted_only",
+    "source": "docs/PRODUCT_CONTEXT.md",
+    "entry": "profile / You",
+    "contents": ["past Circles", "past Cards", "associated Card transactions"],
+    "figmaScreensCreated": false,
+    "applicationImplemented": false
+  },
+  "limitations": [
+    "Figma prototype state is illustrative and is not provider or server state.",
+    "No invitation or closure capability has been enabled in the app.",
+    "Existing Circle creation remains separate; no duplicate creation screen or unverified return wiring was added.",
+    "Long names, accessibility scaling, empty Circle choices and live presentation click-through remain app/design acceptance work."
+  ]
+}

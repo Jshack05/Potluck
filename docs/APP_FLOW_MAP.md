@@ -1,5 +1,7 @@
 # Potluck app flow map
 
+> **October 13 Card management design:** Manage arrangement, Change Circle, Close card and a closure outcome now exist in Figma, connected to the existing Trusted Spenders flow. Read the [source register](flow-audit/2026-10-13-card-management-mapping.json) and [design handoff](ui-concepts/2026-10-13-card-management-figma.md). This is Figma work, not an implemented app navigation repair. Profile History is recorded only; no History screens were added.
+
 > **October 12 Merchant controls:** The [Figma mapping overlay](flow-audit/2026-10-12-merchant-controls-mapping.json) now maps Maximum, Range and Choose industries to `/card/[id]/merchant-controls`. Card settings opens the selected Card; the temporary industry picker shares the editor route. Host-owned settings persist through an authorized, versioned API without activating issuer controls. The [app execution record](ui-concepts/2026-10-12-merchant-controls-app.md) distinguishes automated/browser verification from outstanding native-device QA. This does not complete the broad audit.
 
 > **October 12 Cards interactions:** The [focused mapping overlay](flow-audit/2026-10-12-card-interactions-mapping.json) and [execution record](ui-concepts/2026-10-12-card-interactions.md) document updated review summaries, edit returns, stack motion, draggable Add people and shared floating-action clearance. This does not resume or declare completion of the broad audit.
