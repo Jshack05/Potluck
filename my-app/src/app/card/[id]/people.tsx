@@ -1,19 +1,33 @@
-import { Title, Muted, Action, go, Avatar } from "@/design/system";
-import { useLocalSearchParams } from "expo-router";
-import { cardPeopleParent, cardPeopleRoute } from "@/services/route-return";
-import { View } from "react-native";
+import { Title, Action, go } from "@/design/system";
+import { useClient } from "@/services/client";
+import { CardContext } from "@/features/potluck/card-context";
+import { CardPersonRow, CardPeopleInfo } from "@/features/potluck/card-people";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+import { usePreventRemove } from "expo-router/react-navigation";
+import {
+  cardPeopleParent,
+  cardPeopleRoute,
+  returnToRoute,
+} from "@/services/route-return";
 import { CardScene, CardLine } from "@/features/potluck/card-scene";
 export default function CardPeople() {
+  const { user } = useClient();
   const { id, source } = useLocalSearchParams<{
     id: string;
     source?: string;
   }>();
+  const navigation = useNavigation();
+  usePreventRemove(true, ({ data }) => {
+    if (data.action.type === "GO_BACK" || data.action.type === "POP")
+      returnToRoute(cardPeopleParent(id, source));
+    else navigation.dispatch(data.action);
+  });
   return (
     <CardScene
       title="Trusted Spenders"
       backTo={cardPeopleParent(id, source)}
       hideNavigation
-      headerVariant="centered"
+      headerTitleSize={26}
       footer={(card) => (
         <>
           {card.role === "host" && card.status !== "closed" && (
@@ -27,25 +41,22 @@ export default function CardPeople() {
     >
       {(card) => (
         <>
+          <CardContext
+            card={card}
+            fullName={user?.name ?? ""}
+            roleLabel={card.role === "host" ? "HOST" : "TRUSTED SPENDER"}
+          />
           <Title>
             {card.role === "host"
               ? "People and permissions"
               : "Your spending permissions"}
           </Title>
-          <Muted>
-            {card.name} ·{" "}
-            {card.role === "host" ? "You’re the host" : "Your assigned card"}
-          </Muted>
           {card.spenders.map((person) => (
-            <View
+            <CardPersonRow
               key={person.id}
-              style={{ flexDirection: "row", alignItems: "center", gap: 12 }}
-            >
-              <Avatar name={person.name} />
-              <View style={{ flex: 1 }}>
-                <CardLine title={person.name} detail={person.status} />
-              </View>
-            </View>
+              name={person.name}
+              detail={person.status}
+            />
           ))}
           {!card.spenders.length && (
             <CardLine
@@ -54,9 +65,9 @@ export default function CardPeople() {
               detail="Spending invitations require an approved issuing program. No one has been given card access."
             />
           )}
-          <Muted>
+          <CardPeopleInfo>
             Card access and Bill contributions are managed separately.
-          </Muted>
+          </CardPeopleInfo>
         </>
       )}
     </CardScene>

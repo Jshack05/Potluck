@@ -35,6 +35,7 @@ export function CardScene({
   backTo,
   hideNavigation = false,
   headerVariant = "standard",
+  headerTitleSize,
 }: {
   title: string;
   children: (card: CardDetail) => ReactNode;
@@ -43,12 +44,15 @@ export function CardScene({
   backTo?: Href;
   hideNavigation?: boolean;
   headerVariant?: "standard" | "centered";
+  headerTitleSize?: number;
 }) {
   const card = useCard();
   return (
     <Shell
       title={title}
-      headerTitleSize={headerVariant === "standard" ? 28 : undefined}
+      headerTitleSize={
+        headerTitleSize ?? (headerVariant === "standard" ? 28 : undefined)
+      }
       headerVariant={headerVariant}
       back
       returnTo={"/card/" + card.id}

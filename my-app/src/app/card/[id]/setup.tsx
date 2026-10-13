@@ -80,12 +80,9 @@ function Settings({ card }: { card: CardDetail }) {
           </CardSettingsGroup>
         </View>
       )}
-      {/* Keep existing close/connection access until its Figma counterpart is
-        resolved. Never replace it with a new destructive-action design. */}
       {card.role === "host" && card.status !== "closed" && (
         <Row
           title="Manage arrangement"
-          subtitle="Attach a Circle or close this setup."
           onPress={() => go("/manage/cards/" + card.id)}
         />
       )}
