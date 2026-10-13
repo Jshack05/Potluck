@@ -31,7 +31,7 @@ Shared sources include the existing 88 px Card context, 104 px miniature variant
 
 **Close card** is the approved wording. Confirmation provides Keep card and Close card. The new outcome illustrates an eligible last-card closure with the existing No cards yet state. It is not a simulation of settlement, refunds or provider closure. Actual closure must remain server-confirmed and preserve eligibility, active-Bill restrictions, authorization, audit records and history.
 
-## Verification and limits
+## Design-authoring verification (before implementation)
 
 - Composition screenshots reviewed for management, Circle selection, closure, key invitation/permission states, pause/removal, settings and Family identity.
 - Read-only structural evaluation covered 42 screens and 52 referenced destinations, with no missing destinations.
@@ -79,7 +79,7 @@ A read-only search of the current Screens page and inspected role frames found n
 
 ### Delivery and rollback
 
-Pre-implementation design/docs checkpoint: `85eb5ed`, pushed as `codex/backup-before-card-management-2026-10-13`. Implementation branch: `codex/card-management-flow`, based on `codex/merchant-controls-and-card-stability` (`1ee82a5`, PR #6). The new PR is stacked on that unmerged branch and must not be merged automatically.
+Pre-implementation design/docs checkpoint: `85eb5ed`, pushed as `codex/backup-before-card-management-2026-10-13`. Implementation branch `codex/card-management-flow` is pushed, based on `codex/merchant-controls-and-card-stability` (`1ee82a5`, PR #6). The intended draft PR targets that unmerged branch. Creation is blocked: GitHub's connector returned 403 “Resource not accessible by integration”, and the browser is signed out. No PR was created or merged. The prepared description and screenshots are preserved locally in `.local/card-management-review/` for continuation after sign-in.
 
 Rollback by reverting this branch's focused implementation commits, or run the preserved backup branch. Keep existing database records and migrations: rolling back the UI must not reopen a closed Card, undo a saved Circle connection, erase merchant controls, or delete audit records. No migration/backfill or provider setup was added.
 
