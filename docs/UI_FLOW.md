@@ -1,6 +1,6 @@
 # Potluck UI Flow
 
-> **October 13 Figma management flow:** Settings → Manage arrangement → Trusted Spenders reuses the existing invitation and permission screens. Back records the entry origin; Circle Cancel restores the saved selection. New management/closure compositions and exact node links are in the [design handoff](ui-concepts/2026-10-13-card-management-figma.md). App implementation remains pending. Profile History is a deferred requirement only.
+> **October 13 implemented management flow:** Settings → Manage arrangement → Trusted Spenders reuses the existing People/Invite routes and shared Card context. People Back uses its validated entry origin; local invitation Back preserves inputs, while Cancel clears the draft. Circle Cancel restores the saved association; Save uses the existing versioned API. Eligible closure is server-confirmed, resets the completed stack to Cards and retains history. See [sources and verification](ui-concepts/2026-10-13-card-management-figma.md). Invitation sending, spender mutations and Profile History remain outside this implementation.
 
 > **October 13 consolidation:** Card settings → Controls now has one **Spending controls** entry for per-purchase amounts and industries. It reuses the existing editor and saved configuration at `/card/[id]/merchant-controls`; the inactive Spending limit row is removed. Trusted spenders remains separate. Current Figma settings use shared component `2393:48056`; archived references are preserved. This supersedes the earlier entry labels, not their saving or consent behavior.
 

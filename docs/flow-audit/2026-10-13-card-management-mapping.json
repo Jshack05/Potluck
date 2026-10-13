@@ -1,8 +1,8 @@
 {
   "date": "2026-10-13",
-  "status": "figma_authored_review_ready",
+  "status": "supported_app_scope_implemented_device_acceptance_pending",
   "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
-  "scope": "Card management and existing host Trusted Spenders flow; no application implementation",
+  "scope": "Source-backed Card management, supported lifecycle commands and shared People/Invite presentation; unsupported spender operations deferred",
   "flowStartingPoint": {
     "nodeId": "2412:46435",
     "name": "Card management and Trusted Spenders"
@@ -498,7 +498,7 @@
       "Family people"
     ],
     "livePresentationClickThrough": "not performed",
-    "applicationTests": "not run; no application code changed"
+    "applicationTests": "Design-authoring evidence above predates implementation; see application.validation for current app results"
   },
   "historyRequirement": {
     "status": "noted_only",
@@ -509,9 +509,51 @@
     "applicationImplemented": false
   },
   "limitations": [
-    "Figma prototype state is illustrative and is not provider or server state.",
-    "No invitation or closure capability has been enabled in the app.",
-    "Existing Circle creation remains separate; no duplicate creation screen or unverified return wiring was added.",
-    "Long names, accessibility scaling, empty Circle choices and live presentation click-through remain app/design acceptance work."
-  ]
+    "Figma prototype state is illustrative, not provider or server state.",
+    "Only existing server-authorized Circle editing and eligible unissued Card closure are operational; spender mutations remain unavailable.",
+    "Circle creation remains separate; no duplicate creation screen was added.",
+    "Physical-device gestures, keyboard, text scaling and live Figma presentation click-through remain acceptance work."
+  ],
+  "application": {
+    "branch": "codex/card-management-flow",
+    "managementComponent": "my-app/src/features/potluck/card-management.tsx",
+    "sharedComponents": ["card-context.tsx", "card-people.tsx", "card-ui.tsx"],
+    "returnAdapter": "my-app/src/services/route-return.ts",
+    "closureNavigation": "Completion-only root reset to Cards after server success",
+    "implementedSources": [
+      "2412:46435",
+      "2412:46539",
+      "2412:46632",
+      "2417:47063",
+      "1606:19916",
+      "1606:20151",
+      "1606:20515",
+      "1606:20227"
+    ],
+    "validation": {
+      "backendTests": 56,
+      "mobileTests": 138,
+      "lint": "pass",
+      "types": "pass",
+      "exports": ["ios", "android", "web"],
+      "backendAudit": 0,
+      "mobileAudit": {
+        "moderate": 3,
+        "high": 19,
+        "critical": 1,
+        "preExisting": true
+      },
+      "fullGate": "failed_mobile_dependency_audit_only",
+      "browser": "local API journeys passed at 430x932 and 320x600; no page exceptions",
+      "physicalDevice": "not performed",
+      "largeText": "not performed"
+    },
+    "deferred": [
+      "Spender invitation sending, saved monthly limits, detail/outcome/pause/restore/remove states need server contracts",
+      "No verified Figma empty/unavailable spender or custom amount-input counterpart; existing UI retained",
+      "Physical-device gestures, keyboard and large text",
+      "Profile History"
+    ],
+    "record": "docs/ui-concepts/2026-10-13-card-management-figma.md#app-execution-evidence"
+  }
 }
