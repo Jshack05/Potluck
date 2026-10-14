@@ -14,7 +14,7 @@ import { creationPath } from "@/services/navigation";
 const options = [
   {
     title: "New Circle",
-    detail: "Start a shared group of people.",
+    detail: "Create a group to share cards and bills.",
     path: "/create/circle",
     color: "#F1FAF6",
     asset: require("../../../assets/potluck/create-circle.svg"),
@@ -23,7 +23,7 @@ const options = [
   },
   {
     title: "New Card",
-    detail: "Set up a card for shared expenses.",
+    detail: "Create a card for your expenses.",
     path: "/create/card",
     color: "#FAF5FC",
     asset: require("../../../assets/potluck/create-card.svg"),
@@ -32,7 +32,7 @@ const options = [
   },
   {
     title: "New Bill",
-    detail: "Set up a shared bill and review splits.",
+    detail: "Organize a bill and split the cost.",
     path: "/create/bill",
     color: "#FFF8E7",
     asset: require("../../../assets/potluck/create-bill.svg"),
@@ -41,7 +41,7 @@ const options = [
   },
   {
     title: "New Goal",
-    detail: "Save toward a target or time-based goal.",
+    detail: "Set a goal and plan contributions.",
     path: "/create/goal",
     color: "#F0FAFA",
     asset: require("../../../assets/potluck/target.svg"),

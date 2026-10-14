@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Image } from "expo-image";
-import { View, Pressable, Switch } from "react-native";
+import { View, Pressable } from "react-native";
+import { Toggle } from "@/design/form-controls";
 import { useLocalSearchParams } from "expo-router";
 import {
   Shell,
@@ -172,7 +173,7 @@ export default function ListingDetail() {
                   Read the Sharing Rules
                 </Link>
                 <View style={styles.row}>
-                  <Switch
+                  <Toggle
                     accessibilityLabel="I agree to the Sharing Rules"
                     value={agree}
                     onValueChange={setAgree}

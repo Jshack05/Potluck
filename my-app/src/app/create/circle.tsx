@@ -7,7 +7,6 @@ import {
   Shell,
   AuthGate,
   Field,
-  Section,
   Label,
   Muted,
   Action,
@@ -21,6 +20,7 @@ import {
   CircleArtwork,
   CircleAvatar,
   CircleSetting,
+  CircleSection,
   CircleSheet,
   circleColors,
 } from "@/features/potluck/circle-ui";
@@ -82,6 +82,9 @@ function CircleForm() {
   return (
     <Shell
       title="Create Circle"
+      headerTitleSize={28}
+      hideNavigation
+      keyboardContentOnly
       back
       active="Circles"
       footer={
@@ -138,9 +141,8 @@ function CircleForm() {
         <View
           style={{
             alignItems: "center",
-            paddingTop: 8,
-            paddingBottom: 10,
-            gap: 8,
+            paddingTop: 18,
+            gap: 0,
           }}
         >
           <CircleArtwork color={color} />
@@ -164,13 +166,14 @@ function CircleForm() {
         </View>
         <Field
           label="Circle name"
+          hideLabel
           placeholder="Name your circle"
           value={name}
           editable={!draft.locked}
           onChangeText={(value) => draft.update("name", value)}
           maxLength={80}
         />
-        <Section title="People" />
+        <CircleSection title="People" />
         <View
           style={{
             borderRadius: 24,
@@ -243,7 +246,9 @@ function CircleForm() {
             </Pressable>
           </ScrollView>
         </View>
-        <Section title="Settings" />
+        <View style={{ marginTop: 20 }}>
+          <CircleSection title="Settings" />
+        </View>
         <View
           style={{
             borderRadius: 24,

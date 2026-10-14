@@ -64,7 +64,9 @@ export default function CardDetail() {
                 host ? () => go("/card/" + card.id + "/balance") : undefined
               }
               onEdit={
-                host ? () => go("/card/" + card.id + "/setup") : undefined
+                host && card.status !== "closed"
+                  ? () => go("/card/" + card.id + "/edit")
+                  : undefined
               }
             />
             <View

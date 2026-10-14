@@ -20,6 +20,7 @@ const planningWrites = new Set([
   "/v1/beta/bank-accounts/connect",
   "/v1/cards",
   "/v1/cards/:id/connection",
+  "/v1/cards/:id/appearance",
   "/v1/cards/:id/close",
   "/v1/cards/:id/merchant-controls",
   "/v1/bills",

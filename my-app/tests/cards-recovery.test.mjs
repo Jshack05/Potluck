@@ -96,6 +96,7 @@ test("Card route resets controlled selection through its background action and k
 test("people search and results share the constrained scroll body and selection still works", () => {
   let selected;
   const { AddCirclePeople } = load("../src/features/potluck/circle-ui.tsx", {
+    "@/design/form-controls": { Toggle: "Switch" },
     react: {
       ...React,
       useState: (value) => [value, () => {}],

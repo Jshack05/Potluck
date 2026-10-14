@@ -5,7 +5,6 @@ import {
   Muted,
   Label,
   Action,
-  Field,
   ErrorText,
   money,
   go,
@@ -14,6 +13,7 @@ import {
 import { CardScene } from "@/features/potluck/card-scene";
 import { PlanningPanel } from "@/features/potluck/planning-controls";
 import { moneyInput } from "@/features/potluck/calendar-model";
+import { AmountField } from "@/design/form-controls";
 export default function FundCard() {
   const [amount, setAmount] = useState(""),
     [review, setReview] = useState(false),
@@ -60,20 +60,12 @@ export default function FundCard() {
             {!review ? (
               <>
                 <Title small>{card.name}</Title>
-                <Field
+                <AmountField
                   label="Amount to add"
                   placeholder="0.00"
                   keyboardType="decimal-pad"
                   value={amount}
                   onChangeText={setAmount}
-                  style={{
-                    backgroundColor: "transparent",
-                    borderWidth: 0,
-                    fontSize: 40,
-                    fontFamily: "Inter_700Bold",
-                    color: theme.teal,
-                    paddingLeft: 0,
-                  }}
                 />
                 <View style={{ flexDirection: "row", gap: 10 }}>
                   {[25, 50, 100, 250].map((value) => (

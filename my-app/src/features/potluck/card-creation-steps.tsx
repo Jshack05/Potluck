@@ -31,6 +31,7 @@ export function CardAppearancePicker({
   onSelect,
   expandedCategories,
   onToggleCategory,
+  presentation = "creation",
 }: {
   name: string;
   identity: CardCreationIdentity;
@@ -39,10 +40,16 @@ export function CardAppearancePicker({
   onSelect: (design: Card["design"]) => void;
   expandedCategories: readonly CardAppearanceCategory[];
   onToggleCategory: (category: CardAppearanceCategory) => void;
+  presentation?: "creation" | "edit";
 }) {
   return (
     <>
-      <CardPreview name={name} design={design} creationIdentity={identity} />
+      <CardPreview
+        name={name}
+        design={design}
+        creationIdentity={identity}
+        identityStyle={presentation}
+      />
       <Label
         style={{
           textAlign: "center",
@@ -131,9 +138,10 @@ export function CardAppearancePicker({
                     style={{ flex: 1, maxWidth: 176, gap: 6 }}
                   >
                     <CardPreview
-                      name={name}
+                      name={presentation === "edit" ? identity.fullName : name}
                       design={look.id}
                       creationIdentity={identity}
+                      identityStyle={presentation}
                       compact
                     />
                     <View style={{ position: "absolute", top: 8, right: 8 }}>
