@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import type { MerchantControlsState } from "@potluck/contracts";
-import { Row, go, dateLabel } from "@/design/system";
+import { Action, go, dateLabel } from "@/design/system";
 import { useResource } from "@/services/client";
 import { CardScene, type CardDetail } from "@/features/potluck/card-scene";
 import { CardPreview } from "@/features/potluck/card-preview";
@@ -81,8 +81,8 @@ function Settings({ card }: { card: CardDetail }) {
         </View>
       )}
       {card.role === "host" && card.status !== "closed" && (
-        <Row
-          title="Manage arrangement"
+        <Action
+          label="Manage arrangement"
           onPress={() => go("/manage/cards/" + card.id)}
         />
       )}
