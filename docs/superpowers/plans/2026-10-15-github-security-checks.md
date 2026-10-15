@@ -18,10 +18,10 @@ This protects all users through developer security checks; it adds no product fe
 
 - [x] Inspect repository settings, branch state and current official GitHub documentation.
 - [x] Enable and read back supported GitHub protections; leave auto-merge disabled.
-- [ ] Add `.github/dependabot.yml` for root workspaces, mobile, website and Actions.
-- [ ] Add read-only, SHA-pinned dependency review and audit workflows. Do not run untrusted PR code with write permissions or secrets.
-- [ ] Validate YAML and exact Actions refs; exercise the checks on the draft PR.
-- [ ] Record enabled versus pending protections, scan scope, known advisories and rollback guidance in `docs/security/github-checks.md`.
+- [x] Add `.github/dependabot.yml` for root workspaces, mobile, website and Actions.
+- [x] Add read-only, SHA-pinned dependency review and audit workflows. Do not run untrusted PR code with write permissions or secrets.
+- [x] Validate YAML and exact Actions refs; exercise the checks on draft PR #10. Dependency review/API audit passed; mobile/website audit failures match known advisories.
+- [x] Record enabled versus pending protections, scan scope, known advisories and rollback guidance in `docs/security/github-checks.md`.
 
 ## Review focus
 

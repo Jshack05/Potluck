@@ -39,7 +39,7 @@ These are separate from any first-party findings in the Codex Security report. D
 
 ## Validation and rollback
 
-YAML parsed successfully; action pins were verified against upstream refs/releases. Fresh lockfile audits pass for API/domain and fail for the documented mobile/website advisories. No runtime application, schema, consent or money-movement code changes. Remote workflow results are recorded in the PR. The existing full application validation remains blocked by the known mobile audit, as documented in PR #9.
+YAML parsed successfully; action pins were verified against upstream refs/releases. Fresh lockfile audits pass for API/domain and fail for the documented mobile/website advisories. Remote [dependency review](https://github.com/Jshack05/Potluck/actions/runs/38799496779) passed. The [audit workflow](https://github.com/Jshack05/Potluck/actions/runs/38799496920) passed API/domain and failed mobile/website; job logs confirm the exact advisories listed above, with no setup failure. An independent configuration review found no remaining actionable issue after explicitly selecting runtime, development and unknown dependency scopes. No runtime application, schema, consent or money-movement code changes. The existing full application validation remains blocked by the known mobile audit, as documented in PR #9.
 
 Rollback the versioned configuration through a reviewed revert. Repository toggles are separate from Git commits and should be changed explicitly in GitHub settings if ever required. Removing a workflow does not dismiss its alerts, erase audit history or revoke existing tokens.
 
