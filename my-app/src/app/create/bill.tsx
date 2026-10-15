@@ -30,7 +30,8 @@ import { creationPath } from "@/services/navigation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Crypto from "expo-crypto";
 import { proposalShares } from "@potluck/domain/money";
-import { View, Pressable, Switch } from "react-native";
+import { View, Pressable } from "react-native";
+import { Toggle } from "@/design/form-controls";
 import { router, useLocalSearchParams, type Href } from "expo-router";
 import {
   Shell,
@@ -943,11 +944,10 @@ function BillForm({
                 ]}
               >
                 <Title small>Split equally</Title>
-                <Switch
+                <Toggle
                   accessibilityLabel="Split equally"
                   value={equal}
                   onValueChange={setEqual}
-                  trackColor={{ true: theme.teal }}
                 />
               </View>
               {!equal && (

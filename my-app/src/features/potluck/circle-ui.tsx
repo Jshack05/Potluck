@@ -5,11 +5,11 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Switch,
   TextInput,
   View,
 } from "react-native";
 import { Label, Muted, ResourceState, theme } from "@/design/system";
+import { Toggle } from "@/design/form-controls";
 import { useClient, useResource } from "@/services/client";
 import type { Collection, Person } from "./types";
 import {
@@ -134,6 +134,101 @@ export function CircleHeading({ children }: { children: ReactNode }) {
     <Label accessibilityRole="header" style={circleStyles.heading}>
       {children}
     </Label>
+  );
+}
+/** Current Circle creation/overview section typography and round add action. */
+export function CircleSection({
+  title,
+  action,
+  onAction,
+}: {
+  title: string;
+  action?: string;
+  onAction?: () => void;
+}) {
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      <Label
+        accessibilityRole="header"
+        style={{ fontSize: 24, lineHeight: 29, fontFamily: "Inter_700Bold" }}
+      >
+        {title}
+      </Label>
+      {action && onAction && (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={action}
+          onPress={onAction}
+          style={{
+            minWidth: 44,
+            minHeight: 44,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {action.startsWith("Add ") ? (
+            <View
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: 16,
+                backgroundColor: "white",
+                borderWidth: 1,
+                borderColor: theme.line,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Label style={{ color: theme.teal, fontSize: 22 }}>+</Label>
+            </View>
+          ) : (
+            <Label
+              style={{ color: theme.teal, fontFamily: "Inter_600SemiBold" }}
+            >
+              {action}
+            </Label>
+          )}
+        </Pressable>
+      )}
+    </View>
+  );
+}
+export function CircleEmpty({ kind }: { kind: "bills" | "cards" }) {
+  return (
+    <View style={{ alignItems: "center", gap: 4, paddingVertical: 12 }}>
+      <Image
+        source={
+          kind === "bills"
+            ? require("../../../assets/potluck/circle-flow/empty-bills.svg")
+            : require("../../../assets/potluck/circle-flow/empty-cards.svg")
+        }
+        contentFit="contain"
+        style={{ width: 128, height: 75, marginBottom: 4 }}
+      />
+      <Label
+        style={{ fontFamily: "Inter_700Bold", fontSize: 18, lineHeight: 22 }}
+      >
+        {kind === "bills" ? "No Bills yet" : "No Cards yet"}
+      </Label>
+      <Label
+        style={{
+          fontSize: 13,
+          lineHeight: 18,
+          color: theme.muted,
+          textAlign: "center",
+        }}
+      >
+        {kind === "bills"
+          ? "No one has passed the plate around."
+          : "The card drawer is taking a little nap."}
+      </Label>
+    </View>
   );
 }
 export function CircleHero({
@@ -283,19 +378,20 @@ export function CircleSetting({
       }}
     >
       <View style={{ flex: 1, gap: 4 }}>
-        <Label style={{ fontSize: 14, fontFamily: "Inter_700Bold" }}>
+        <Label
+          style={{ fontSize: 14, lineHeight: 18, fontFamily: "Inter_700Bold" }}
+        >
           {title}
         </Label>
         <Label style={{ fontSize: 11, lineHeight: 15, color: theme.muted }}>
           {detail}
         </Label>
       </View>
-      <Switch
+      <Toggle
         accessibilityLabel={title}
         value={value}
         disabled={disabled}
         onValueChange={onChange}
-        trackColor={{ true: theme.teal, false: "#D2DCDA" }}
       />
     </View>
   );

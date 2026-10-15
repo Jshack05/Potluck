@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { View, Pressable, Switch } from "react-native";
+import { View, Pressable } from "react-native";
+import { AmountField, Toggle } from "@/design/form-controls";
 import { router, useLocalSearchParams, type Href } from "expo-router";
 import {
   Shell,
@@ -334,11 +335,10 @@ function GoalForm() {
                   </Label>
                   <Muted>Preference only · subject to program approval.</Muted>
                 </View>
-                <Switch
+                <Toggle
                   accessibilityLabel="Request funds release at Goal end"
                   value={f.lockFundsRequested}
                   onValueChange={(v) => draft.update("lockFundsRequested", v)}
-                  trackColor={{ true: theme.teal, false: "#D3DDDA" }}
                 />
               </View>
               <View
@@ -350,12 +350,11 @@ function GoalForm() {
                   </Label>
                   <Muted>Choose a non-anonymous Circle first.</Muted>
                 </View>
-                <Switch
+                <Toggle
                   accessibilityLabel="Show contributions"
                   disabled={circle.data?.privacy !== "normal"}
                   value={f.showContributions}
                   onValueChange={(v) => draft.update("showContributions", v)}
-                  trackColor={{ true: theme.teal, false: "#D3DDDA" }}
                 />
               </View>
             </PlanningPanel>
@@ -367,7 +366,7 @@ function GoalForm() {
             {f.kind === "target" ? (
               <>
                 <PlanningPanel>
-                  <Field
+                  <AmountField
                     label="Total settled contributions"
                     keyboardType="decimal-pad"
                     placeholder="0.00"
@@ -376,10 +375,10 @@ function GoalForm() {
                     style={{
                       borderWidth: 0,
                       textAlign: "center",
-                      fontSize: 36,
                       fontFamily: "Inter_700Bold",
                       color: theme.teal,
                     }}
+                    fontSize={36}
                   />
                 </PlanningPanel>
                 <Title small>Choose an amount</Title>

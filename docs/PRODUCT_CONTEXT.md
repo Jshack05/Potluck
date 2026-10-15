@@ -1,5 +1,11 @@
 # Potluck Product Context
 
+## October 14, 2026 — Edit Card name and appearance
+
+The Card's pencil opens a prefilled name/design editor; the menu continues to open settings. Only the Card Host may save appearance changes, currently limited to the supported unissued setup state. Save updates the same Card with an expected-version check and an idempotent, audited transaction. Circle/account connections, controls, obligations, history and provider state are preserved. Cancel and Back discard the local draft and return to that Card; failed saves retain entered values.
+
+This is a Free/core maintenance capability: Hosts can recognize and organize existing Cards without recreating them. It adds no invitation mechanism or paid entitlement. Measure successful edits and failures; reduced repeat setup is the retention hypothesis. The approved creation-menu Circle description is “Create a group to share cards and bills.” Circle membership still grants no spending right or financial obligation. See the [source and verification record](ui-concepts/2026-10-14-card-editor-and-ui-fixes.md).
+
 ## October 13, 2026 — Profile History requirement, deferred
 
 Joseph requested a History section reached through the profile/You entry, showing the user's past Circles, Cards, and the associated Card transactions. This is a recorded future requirement only: do not add the section, navigation, Figma screens, or application behavior in the current Card-management design task. Its eventual design must preserve resource-level access and retained records; former membership must not expose another person's private transactions. Retention, pagination, and accessible historical detail need a separate approved design.

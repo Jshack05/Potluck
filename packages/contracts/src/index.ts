@@ -119,6 +119,12 @@ export const cardInput = z.strictObject({
   circleId: id.nullable().default(null),
   betaAccountId: id.optional(),
 });
+// Metadata only. Reuse the approved catalog without the creation-time default.
+export const cardAppearanceInput = z.strictObject({
+  name,
+  design: cardInput.shape.design.removeDefault(),
+  expectedVersion: z.number().int().positive().max(2147483646),
+});
 export const billInput = z
   .strictObject({
     name,

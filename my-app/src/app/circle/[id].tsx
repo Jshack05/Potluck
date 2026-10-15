@@ -3,7 +3,6 @@ import { useLocalSearchParams } from "expo-router";
 import {
   Shell,
   AuthGate,
-  Section,
   Label,
   Muted,
   Row,
@@ -14,7 +13,11 @@ import {
 } from "@/design/system";
 import { useClient, useResource } from "@/services/client";
 import type { CircleArrangements } from "@/features/potluck/types";
-import { CircleAvatar } from "@/features/potluck/circle-ui";
+import {
+  CircleAvatar,
+  CircleSection,
+  CircleEmpty,
+} from "@/features/potluck/circle-ui";
 import { CardPreview } from "@/features/potluck/card-preview";
 import {
   canInviteToCircle,
@@ -32,7 +35,12 @@ export default function CircleDetail() {
   const attach =
     circle && (circle.role === "host" || circle.privacy === "normal");
   return (
-    <Shell title={circle?.name ?? "Circle"} back active="Circles">
+    <Shell
+      title={circle?.name ?? "Circle"}
+      headerTitleSize={28}
+      back
+      active="Circles"
+    >
       <AuthGate returnTo={"/circle/" + id}>
         <ResourceState {...resource} retry={resource.reload} />
         {circle && (
@@ -55,7 +63,7 @@ export default function CircleDetail() {
                 onPress={() => go("/circle/" + id + "/members")}
               />
             )}
-            <Section
+            <CircleSection
               title="People"
               action="Manage"
               onAction={() => go("/circle/" + id + "/members")}
@@ -68,7 +76,7 @@ export default function CircleDetail() {
                 flexDirection: "row",
                 flexWrap: "wrap",
                 gap: 16,
-                justifyContent: "space-between",
+                justifyContent: "flex-start",
               }}
             >
               {circle.people.slice(0, 4).map((person, index) => (
@@ -128,9 +136,9 @@ export default function CircleDetail() {
               </Muted>
             )}
             <ResourceState {...arrangements} retry={arrangements.reload} />
-            <Section
+            <CircleSection
               title="Bills"
-              action={attach ? "+ Bill" : undefined}
+              action={attach ? "Add Bill" : undefined}
               onAction={() => go("/create/bill?circleId=" + id)}
             />
             {arrangements.data?.bills.map((bill) => (
@@ -156,13 +164,11 @@ export default function CircleDetail() {
               />
             ))}
             {arrangements.data?.bills.length === 0 && (
-              <Muted>
-                Bring a shared expense into this Circle when you’re ready.
-              </Muted>
+              <CircleEmpty kind="bills" />
             )}
-            <Section
+            <CircleSection
               title="Cards"
-              action={attach ? "+ Card" : undefined}
+              action={attach ? "Add Card" : undefined}
               onAction={() => go("/create/card?circleId=" + id)}
             />
             {arrangements.data?.cards.map((card) => (
@@ -181,7 +187,7 @@ export default function CircleDetail() {
               </Pressable>
             ))}
             {arrangements.data?.cards.length === 0 && (
-              <Muted>Cards you’re permitted to access will appear here.</Muted>
+              <CircleEmpty kind="cards" />
             )}
             <Row
               title="Manage Circle"

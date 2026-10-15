@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-14",
+  "fileKey": "1hAy3kcZAEvqq8ZNjKU7CD",
+  "status": "implemented_functional_checks_passed_mobile_audit_and_device_acceptance_open",
+  "scope": "Edit Card plus approved creation copy, Circle presentation, switches, pencil and amount clipping",
+  "screens": [
+    { "id": "2448:47287", "name": "Edit card", "appRoute": "/card/[id]/edit" },
+    { "id": "335:506", "name": "Create Circle", "appRoute": "/create/circle" },
+    {
+      "id": "542:1632",
+      "name": "Create Circle selected people",
+      "appRoute": "/create/circle"
+    },
+    { "id": "218:314", "name": "Circle overview", "appRoute": "/circle/[id]" },
+    { "id": "1151:5189", "name": "Fund card", "appRoute": "/card/[id]/fund" }
+  ],
+  "edges": [
+    {
+      "from": "/card/[id]",
+      "action": "pencil",
+      "to": "/card/[id]/edit",
+      "permission": "Host, supported unissued setup state"
+    },
+    {
+      "from": "/card/[id]/edit",
+      "action": "Save",
+      "to": "/card/[id]",
+      "persistence": "authorized versioned idempotent name/design mutation"
+    },
+    {
+      "from": "/card/[id]/edit",
+      "action": "Cancel or Back",
+      "to": "/card/[id]",
+      "persistence": "discard local edits"
+    },
+    { "from": "/card/[id]", "action": "menu", "to": "/card/[id]/setup" }
+  ],
+  "elements": [
+    {
+      "id": "619:2448",
+      "name": "Core Icon Pencil",
+      "usage": "white stroke Card edit action"
+    },
+    { "id": "424:650", "name": "Toggle Switch", "usage": "shared Toggle" },
+    {
+      "id": "343:568",
+      "name": "Off toggle",
+      "usage": "off track and iOS background"
+    },
+    {
+      "id": "450:785",
+      "name": "Empty Bills",
+      "usage": "Circle overview illustration and copy"
+    },
+    {
+      "id": "463:847",
+      "name": "Empty Cards",
+      "usage": "Circle overview illustration and copy"
+    },
+    {
+      "id": "488:1134",
+      "name": "Add people",
+      "usage": "existing draggable sheet"
+    },
+    {
+      "id": "199:317",
+      "name": "Create something new",
+      "usage": "existing menu with approved literal descriptions"
+    }
+  ],
+  "unresolved": [
+    "Existing Circle icon-color picker counterpart unverified; retained unchanged",
+    "Native-device acceptance pending",
+    "Existing mobile dependency audit has 23 findings"
+  ],
+  "broaderAuditComplete": false
+}

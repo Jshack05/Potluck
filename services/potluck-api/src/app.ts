@@ -15,6 +15,7 @@ import { registerGoals } from "./modules/goals.ts";
 import { registerPeople } from "./modules/people.ts";
 import { registerBetaBankAccounts } from "./modules/beta-bank-accounts.ts";
 import { registerCardMerchantControls } from "./modules/card-merchant-controls.ts";
+import { registerCardAppearance } from "./modules/card-appearance.ts";
 import { requireBetaBankMode } from "./application/beta-bank-accounts.ts";
 import { updateProfile } from "./application/account-profile.ts";
 import { registerOnboarding, type BankOnboardingReader } from "./onboarding.ts";
@@ -332,6 +333,7 @@ export async function createApp(options: Options) {
   registerGoals({ app, db, actor, param, mutation });
   registerPeople({ app, db, actor, param, mutation });
   registerCardMerchantControls({ app, db, actor, param, mutation });
+  registerCardAppearance({ app, db, actor, param, mutation });
   registerBetaBankAccounts(
     { app, db, actor, param, mutation },
     options.mode === "local",

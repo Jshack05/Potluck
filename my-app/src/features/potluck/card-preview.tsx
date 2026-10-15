@@ -21,6 +21,7 @@ export function CardPreview({
   compact = false,
   variant = "preview",
   creationIdentity,
+  identityStyle = "creation",
   onEdit,
   onOpenBalance,
 }: {
@@ -32,6 +33,7 @@ export function CardPreview({
   compact?: boolean;
   variant?: "preview" | "detail";
   creationIdentity?: CardCreationIdentity;
+  identityStyle?: "creation" | "edit";
   onEdit?: () => void;
   onOpenBalance?: () => void;
 }) {
@@ -67,7 +69,7 @@ export function CardPreview({
       <View
         style={{
           position: "absolute",
-          top: 28 * scale,
+          top: (identityStyle === "edit" ? 20 : 28) * scale,
           left: 22 * scale,
           right: 22 * scale,
         }}
@@ -77,7 +79,7 @@ export function CardPreview({
           style={{
             color: foreground,
             fontFamily: "Inter_700Bold",
-            fontSize: 20 * scale,
+            fontSize: (identityStyle === "edit" ? 18 : 20) * scale,
             lineHeight: 26 * scale,
             maxWidth: displayedRole && !compact ? "72%" : "100%",
           }}
@@ -93,14 +95,15 @@ export function CardPreview({
             right: 22 * scale,
             borderWidth: 1,
             borderColor: foreground + "4D",
-            backgroundColor: foreground + "24",
+            backgroundColor:
+              identityStyle === "edit" ? "white" : foreground + "24",
             borderRadius: 9 * scale,
             paddingHorizontal: 8 * scale,
           }}
         >
           <Label
             style={{
-              color: foreground,
+              color: identityStyle === "edit" ? "#273432" : foreground,
               fontSize: 9 * scale,
               lineHeight: 16 * scale,
             }}
@@ -110,27 +113,31 @@ export function CardPreview({
         </View>
       )}
       {creationIdentity ? (
-        <View
-          style={{
-            position: "absolute",
-            bottom: 22 * scale,
-            left: 22 * scale,
-            right: 22 * scale,
-          }}
-        >
-          <Label
-            numberOfLines={3}
-            adjustsFontSizeToFit
-            minimumFontScale={0.8}
+        (!compact || identityStyle !== "edit") && (
+          <View
             style={{
-              color: foreground,
-              fontSize: 14 * scale,
-              lineHeight: 18 * scale,
+              position: "absolute",
+              bottom: (identityStyle === "edit" ? 58 : 22) * scale,
+              left: 22 * scale,
+              right: 22 * scale,
             }}
           >
-            {creationIdentity.fullName}
-          </Label>
-        </View>
+            <Label
+              numberOfLines={3}
+              adjustsFontSizeToFit
+              minimumFontScale={0.8}
+              style={{
+                color: foreground,
+                fontSize: 14 * scale,
+                fontFamily:
+                  identityStyle === "edit" ? "Inter_700Bold" : undefined,
+                lineHeight: 18 * scale,
+              }}
+            >
+              {creationIdentity.fullName}
+            </Label>
+          </View>
+        )
       ) : (
         <View
           style={{

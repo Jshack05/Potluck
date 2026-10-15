@@ -71,6 +71,7 @@ function screen(
         ].map((n) => [n, native(n)]),
       ),
       Platform: { OS: "ios" },
+      useWindowDimensions: () => ({ width: 430, height: 932, fontScale: 1 }),
       StyleSheet: { create: (s) => s },
     },
     "expo-image": { Image: native("Image") },
@@ -173,6 +174,8 @@ function screen(
   }
   common["@/services/route-return"] = load("../src/services/route-return.ts");
   common["@/design/system"] = load("../src/design/system.tsx");
+  common["./system"] = common["@/design/system"];
+  common["@/design/form-controls"] = load("../src/design/form-controls.tsx");
   common["@/features/potluck/card-scene"] = load(
     "../src/features/potluck/card-scene.tsx",
   );
